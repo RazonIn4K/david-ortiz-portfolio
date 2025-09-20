@@ -108,6 +108,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
+  position: relative;
   transition: background-color var(--transition-base), color var(--transition-base);
   /* 2025 subtle tech texture - represents structured data systems */
   background-image:
@@ -297,6 +298,8 @@ a:focus {
 /* ===== MAIN CONTENT ===== */
 .main {
   padding-top: 70px;
+  position: relative;
+  z-index: 1;
 }
 
 /* ===== HERO SECTION - 2025 Storytelling Approach ===== */

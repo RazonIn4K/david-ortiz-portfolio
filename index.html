@@ -540,12 +540,12 @@
 
     <!-- Scripts -->
     <script type="module">
-        // Vercel Speed Insights - using correct import
-        import { inject } from 'https://unpkg.com/@vercel/speed-insights@1.2.0/dist/index.js';
-
-        // Initialize Vercel Speed Insights
-        if (typeof inject === 'function') {
+        // Vercel Speed Insights - using correct CDN approach
+        try {
+            const { inject } = await import('https://unpkg.com/@vercel/speed-insights@1.2.0/dist/index.js');
             inject();
+        } catch (error) {
+            console.warn('Vercel Speed Insights failed to load:', error.message);
         }
     </script>
     <script src="config.js"></script>

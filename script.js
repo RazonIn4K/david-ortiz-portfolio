@@ -597,6 +597,8 @@ class StarfieldManager {
     this.addTwinklingEffect();
     this.addMouseInteraction();
     this.addScrollBasedAnimation();
+    // Add dynamic color transitions for enhanced visual appeal
+    this.addDynamicColorTransitions();
   }
 
   createStarfield() {
@@ -819,6 +821,77 @@ class StarfieldManager {
     }
   }
 
+  // Enhanced dynamic color transitions
+  addDynamicColorTransitions() {
+    if (!this.starfieldContainer || this.performanceMonitor.isLowPerformance) {
+      return; // Skip on low-performance devices
+    }
+
+    let colorPhase = 0;
+    const colorTransitionSpeed = 0.002;
+    const baseHue = 220; // Blue base color
+    const hueVariation = 40; // Allow variation from blue to purple/cyan
+
+    const updateColors = () => {
+      if (!this.starfieldContainer) return;
+
+      colorPhase += colorTransitionSpeed;
+
+      // Create subtle color waves across the starfield
+      this.iconPool.forEach((icon, index) => {
+        const iconWrapper = icon.parentElement;
+        if (!iconWrapper) return;
+
+        const rect = iconWrapper.getBoundingClientRect();
+        const x = rect.left / window.innerWidth;
+        const y = rect.top / window.innerHeight;
+
+        // Calculate dynamic hue based on position and time
+        const waveX = Math.sin(x * Math.PI * 2 + colorPhase * 3) * 0.5 + 0.5;
+        const waveY = Math.sin(y * Math.PI * 1.5 + colorPhase * 2) * 0.5 + 0.5;
+        const timePulse = Math.sin(colorPhase * 4) * 0.3 + 0.7;
+
+        const dynamicHue = baseHue + (waveX * waveY * hueVariation - hueVariation/2);
+        const saturation = 30 + (waveY * 20); // Subtle saturation variation
+        const brightness = 0.6 + (waveX * timePulse * 0.3);
+
+        // Apply dynamic color filter
+        const currentFilter = icon.style.filter;
+        const grayscaleMatch = currentFilter.match(/grayscale\((\d+)%\)/);
+        const grayscaleValue = grayscaleMatch ? grayscaleMatch[1] : 70;
+
+        icon.style.filter = `
+          grayscale(${grayscaleValue}%)
+          brightness(${brightness})
+          hue-rotate(${dynamicHue - baseHue}deg)
+          saturate(${saturation}%)
+        `.replace(/\s+/g, ' ').trim();
+      });
+
+      // Continue the animation if not destroyed
+      if (this.starfieldContainer) {
+        this.colorAnimationFrame = requestAnimationFrame(updateColors);
+      }
+    };
+
+    // Start the color transition animation
+    this.colorAnimationFrame = requestAnimationFrame(updateColors);
+  }
+
+  // Method to enable/disable dynamic color transitions
+  toggleDynamicColors(enabled = true) {
+    if (enabled && !this.colorAnimationFrame) {
+      this.addDynamicColorTransitions();
+    } else if (!enabled && this.colorAnimationFrame) {
+      cancelAnimationFrame(this.colorAnimationFrame);
+      this.colorAnimationFrame = null;
+      // Reset to default colors
+      this.iconPool.forEach(icon => {
+        icon.style.filter = 'grayscale(70%) brightness(0.8)';
+      });
+    }
+  }
+
   generateSmartOpacity() {
     // Generate opacity with weighted distribution for more natural effect
     const random = Math.random();
@@ -915,6 +988,9 @@ class StarfieldManager {
     if (this.animationFrame) {
       cancelAnimationFrame(this.animationFrame);
     }
+    if (this.colorAnimationFrame) {
+      cancelAnimationFrame(this.colorAnimationFrame);
+    }
     if (this.twinkleInterval) {
       clearTimeout(this.twinkleInterval);
     }
@@ -927,6 +1003,7 @@ class StarfieldManager {
     // Clean up references
     this.iconPool = [];
     this.performanceMonitor = null;
+    this.colorAnimationFrame = null;
   }
 }
 
@@ -1451,6 +1528,279 @@ class MagneticFieldController {
         element.style.boxShadow = '';
       });
     }
+  }
+}
+
+// ===== ENHANCED SCROLL ANIMATIONS =====
+class EnhancedScrollAnimations {
+  constructor() {
+    this.observedElements = new Map();
+    this.scrollPosition = 0;
+    this.isScrolling = false;
+    this.scrollDirection = 'down';
+  }
+
+  init() {
+    this.setupScrollObserver();
+    this.setupSectionAnimations();
+    this.setupParallaxElements();
+    this.setupScrollIndicator();
+  }
+
+  setupScrollObserver() {
+    const observerOptions = {
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+      rootMargin: '20px'
+    };
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const element = entry.target;
+        const ratio = entry.intersectionRatio;
+
+        if (ratio > 0.1) {
+          this.animateElementIn(element, ratio);
+        } else {
+          this.animateElementOut(element);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections and key elements
+    document.querySelectorAll('section, .hero, .skill-item, .project-card').forEach(el => {
+      this.observer.observe(el);
+    });
+  }
+
+  animateElementIn(element, ratio) {
+    if (element.classList.contains('hero')) {
+      element.style.transform = `translateY(${(1 - ratio) * 30}px)`;
+      element.style.opacity = ratio;
+    } else if (element.classList.contains('skill-item')) {
+      element.style.transform = `translateY(${(1 - ratio) * 20}px) scale(${0.9 + ratio * 0.1})`;
+      element.style.opacity = ratio;
+    } else if (element.classList.contains('project-card')) {
+      element.style.transform = `translateY(${(1 - ratio) * 25}px)`;
+      element.style.opacity = ratio;
+      element.style.boxShadow = `0 ${ratio * 20}px ${ratio * 40}px rgba(0,0,0,${ratio * 0.1})`;
+    } else {
+      element.style.transform = `translateY(${(1 - ratio) * 20}px)`;
+      element.style.opacity = Math.max(0.3, ratio);
+    }
+  }
+
+  animateElementOut(element) {
+    element.style.transform = '';
+    element.style.opacity = '';
+    element.style.boxShadow = '';
+  }
+
+  setupSectionAnimations() {
+    let lastScrollY = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      this.scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+      lastScrollY = currentScrollY;
+
+      this.updateParallaxElements(currentScrollY);
+    }, { passive: true });
+  }
+
+  setupParallaxElements() {
+    // Add parallax class to background elements
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      hero.classList.add('parallax-element');
+      hero.dataset.parallaxSpeed = '0.5';
+    }
+  }
+
+  updateParallaxElements(scrollY) {
+    document.querySelectorAll('.parallax-element').forEach(element => {
+      const speed = parseFloat(element.dataset.parallaxSpeed) || 0.5;
+      const yPos = -(scrollY * speed);
+      element.style.transform = `translateY(${yPos}px)`;
+    });
+  }
+
+  setupScrollIndicator() {
+    const indicator = document.createElement('div');
+    indicator.className = 'scroll-progress-indicator';
+    indicator.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-color), var(--accent-bright));
+      z-index: 9999;
+      transition: width 0.1s ease;
+    `;
+    document.body.appendChild(indicator);
+
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      indicator.style.width = scrolled + '%';
+    }, { passive: true });
+  }
+}
+
+// ===== ENHANCED HOVER ANIMATIONS =====
+class EnhancedHoverEffects {
+  constructor() {
+    this.activeElements = new Set();
+  }
+
+  init() {
+    this.setupSkillHovers();
+    this.setupProjectHovers();
+    this.setupButtonHovers();
+    this.setupLinkHovers();
+  }
+
+  setupSkillHovers() {
+    document.querySelectorAll('.skill-item').forEach(item => {
+      item.addEventListener('mouseenter', (e) => {
+        e.target.style.transform = 'translateY(-8px) scale(1.05)';
+        e.target.style.boxShadow = '0 15px 35px rgba(var(--accent-color), 0.2)';
+        e.target.style.zIndex = '10';
+
+        // Add glow effect
+        e.target.style.filter = 'brightness(1.1)';
+      });
+
+      item.addEventListener('mouseleave', (e) => {
+        e.target.style.transform = '';
+        e.target.style.boxShadow = '';
+        e.target.style.zIndex = '';
+        e.target.style.filter = '';
+      });
+    });
+  }
+
+  setupProjectHovers() {
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mouseenter', (e) => {
+        e.target.style.transform = 'translateY(-12px) rotateX(5deg)';
+        e.target.style.boxShadow = '0 25px 50px rgba(0,0,0,0.15)';
+
+        // Animate project metrics
+        const metrics = e.target.querySelectorAll('.project-metric');
+        metrics.forEach((metric, index) => {
+          setTimeout(() => {
+            metric.style.transform = 'scale(1.1)';
+            metric.style.color = 'var(--accent-bright)';
+          }, index * 100);
+        });
+      });
+
+      card.addEventListener('mouseleave', (e) => {
+        e.target.style.transform = '';
+        e.target.style.boxShadow = '';
+
+        const metrics = e.target.querySelectorAll('.project-metric');
+        metrics.forEach(metric => {
+          metric.style.transform = '';
+          metric.style.color = '';
+        });
+      });
+    });
+  }
+
+  setupButtonHovers() {
+    document.querySelectorAll('button, .btn, .hero-cta').forEach(button => {
+      button.addEventListener('mouseenter', (e) => {
+        e.target.style.transform = 'translateY(-3px) scale(1.02)';
+        e.target.style.boxShadow = '0 10px 25px rgba(var(--accent-color), 0.3)';
+      });
+
+      button.addEventListener('mouseleave', (e) => {
+        e.target.style.transform = '';
+        e.target.style.boxShadow = '';
+      });
+    });
+  }
+
+  setupLinkHovers() {
+    document.querySelectorAll('a:not(.hero-cta):not(.btn)').forEach(link => {
+      link.addEventListener('mouseenter', (e) => {
+        e.target.style.textShadow = '0 0 8px var(--accent-color)';
+      });
+
+      link.addEventListener('mouseleave', (e) => {
+        e.target.style.textShadow = '';
+      });
+    });
+  }
+}
+
+// ===== ENHANCED LOADING ANIMATIONS =====
+class LoadingAnimations {
+  constructor() {
+    this.loadedElements = new Set();
+  }
+
+  init() {
+    this.setupElementStaggering();
+    this.setupImageLoadAnimations();
+    this.setupFormAnimations();
+  }
+
+  setupElementStaggering() {
+    // Stagger animations for hero elements
+    const heroElements = document.querySelectorAll('.hero-story-intro, .hero-title, .hero-metrics, .hero-description, .hero-actions');
+    heroElements.forEach((element, index) => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px)';
+
+      setTimeout(() => {
+        element.style.transition = 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }, index * 200);
+    });
+
+    // Stagger skill items
+    const skillItems = document.querySelectorAll('.skill-item');
+    skillItems.forEach((item, index) => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(20px) scale(0.9)';
+
+      setTimeout(() => {
+        item.style.transition = 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0) scale(1)';
+      }, 500 + (index * 100));
+    });
+  }
+
+  setupImageLoadAnimations() {
+    document.querySelectorAll('img').forEach(img => {
+      img.style.opacity = '0';
+      img.style.transform = 'scale(0.9)';
+
+      img.addEventListener('load', () => {
+        img.style.transition = 'all 0.5s ease';
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+      });
+    });
+  }
+
+  setupFormAnimations() {
+    const formInputs = document.querySelectorAll('input, textarea');
+    formInputs.forEach(input => {
+      input.addEventListener('focus', (e) => {
+        e.target.style.transform = 'scale(1.02)';
+        e.target.style.boxShadow = '0 0 20px rgba(var(--accent-color), 0.2)';
+      });
+
+      input.addEventListener('blur', (e) => {
+        e.target.style.transform = '';
+        e.target.style.boxShadow = '';
+      });
+    });
   }
 }
 
@@ -2123,6 +2473,16 @@ document.addEventListener('DOMContentLoaded', () => {
       magneticFieldController.strength = 25; // Reduce strength on mobile/low-end devices
       magneticFieldController.maxDistance = 100;
     }
+
+    // Initialize enhanced animation systems
+    const enhancedScrollAnimations = new EnhancedScrollAnimations();
+    enhancedScrollAnimations.init();
+
+    const enhancedHoverEffects = new EnhancedHoverEffects();
+    enhancedHoverEffects.init();
+
+    const loadingAnimations = new LoadingAnimations();
+    loadingAnimations.init();
 
     // Initialize animation preset manager with null-safe systems
     const animationPresetManager = new AnimationPresetManager();
