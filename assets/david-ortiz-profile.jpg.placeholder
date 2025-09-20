@@ -1,0 +1,23 @@
+# Missing Profile Image
+
+The profile image `david-ortiz-profile.jpg` is missing from this location.
+
+## Required Image Specifications:
+- **Filename**: `david-ortiz-profile.jpg`
+- **Recommended Size**: 400x400px minimum
+- **Format**: JPG or PNG
+- **Content**: Professional headshot of David Ortiz
+- **Optimization**: Compressed for web (under 200KB recommended)
+
+## Temporary Solution:
+The website currently references this image at line 145 in index.html:
+```html
+<img src="assets/david-ortiz-profile.jpg" alt="David Ortiz - Cloud Support Engineer optimizing database performance" class="profile-image">
+```
+
+## To Fix:
+1. Add the actual profile image file to this directory
+2. Ensure it meets the specifications above
+3. Test that it displays correctly on the website
+
+Until the real image is added, users will see a broken image icon.
