@@ -3,7 +3,8 @@
 // For production, use environment variables or a secure key management system
 
 const CONFIG = {
-    GOOGLE_MAPS_API_KEY: '' // Environment variable not available in browser
+    GOOGLE_MAPS_API_KEY: '', // Environment variable not available in browser
+    OPENROUTER_API_KEY: '' // Add your OpenRouter API key here for AI chat functionality
 };
 
 // Initialize Google Maps (only if not already set)

@@ -4,6 +4,7 @@ A professional portfolio website showcasing cloud support engineering and databa
 
 ## 🚀 Features
 
+- **AI Chat Assistant**: OpenRouter-powered chat with strict session limits (3 prompts/user)
 - **Advanced Animation System**: Cross-browser compatible starfield background with 210+ tech icons
 - **Performance Monitoring**: Real-time FPS monitoring with adaptive quality adjustment
 - **WebGL Particle System**: Hardware-accelerated particles with Canvas 2D fallback
@@ -16,13 +17,19 @@ A professional portfolio website showcasing cloud support engineering and databa
 - **Analytics Integration**: Google Analytics 4 with event tracking
 - **Contact Form**: Formspree integration with client-side validation
 - **Project Embeds**: Beautiful.ai presentation embeds with fallback links
+- **Icons8 Integration**: Professional skill icons loaded from CDN
 
 ## 🛠 Tech Stack
 
 - **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
 - **Animation**: WebGL with Canvas 2D fallback, CSS transitions
+- **AI Integration**: OpenRouter API with Llama 3.1 model
+- **Icons**: Icons8.com CDN for professional skill icons
 - **Browser Compatibility**: Feature detection, vendor prefixes, graceful degradation
 - **Performance**: Hardware acceleration, adaptive quality systems
+- **Session Management**: LocalStorage with 24-hour cooldown periods
+- **Rate Limiting**: 30-second intervals between AI queries
+- **Token Management**: 100-token limit per query with automatic termination
 - **Hosting**: GitHub Pages with Vercel deployment support
 - **Analytics**: Google Analytics 4
 - **Forms**: Formspree
@@ -33,19 +40,18 @@ A professional portfolio website showcasing cloud support engineering and databa
 
 ```
 /
-├── index.html          # Main page with all sections and advanced animations
-├── styles.css          # Responsive CSS with custom properties and cross-browser support
-├── script.js           # Advanced animation system, browser compatibility, and interactions
-├── assets/             # Images, icons, and media files
-│   ├── icons/          # Skill icons (SVG/PNG, <50KB each)
-│   ├── favicon.ico     # Site favicon
+├── index.html          # Main page with AI chat and all sections
+├── styles.css          # Responsive CSS with AI chat interface
+├── script.js           # AI chat system, animations, and interactions
+├── config.js          # API keys and configuration (OpenRouter, Google Maps)
+├── assets/             # Images and media files
+│   ├── david-ortiz-avatar.svg  # Profile image
 │   └── og-image.png    # Open Graph social sharing image
 ├── 404.html           # Custom error page for GitHub Pages
 ├── robots.txt         # SEO crawling instructions
 ├── sitemap.xml        # Site structure for search engines
 ├── vercel.json        # Vercel deployment configuration
 ├── manifest.json      # PWA manifest
-├── config.js          # Configuration constants
 ├── ARCHITECTURE.md    # Technical architecture documentation
 ├── DEPLOYMENT.md      # Deployment guide
 └── README.md          # This file
@@ -67,6 +73,14 @@ A professional portfolio website showcasing cloud support engineering and databa
 - **Mobile-First**: Designed for mobile then enhanced for larger screens
 - **Grid Systems**: CSS Grid for skills and projects sections
 - **Sticky Navigation**: Fixed header for easy section navigation
+
+### AI Chat Interface
+- **Session Management**: 3 prompts per user with 24-hour cooldown
+- **Rate Limiting**: 30-second intervals between queries
+- **Token Control**: 100-token limit per query with automatic termination
+- **Content Filtering**: Only responds to creator-related questions
+- **Interaction Logging**: All conversations logged for moderation
+- **Responsive Design**: Adapts to all screen sizes
 
 ## 📱 Responsive Breakpoints
 
@@ -142,7 +156,23 @@ A professional portfolio website showcasing cloud support engineering and databa
 1. Create a Formspree account
 2. Replace `YOUR_FORM_ID` in index.html with your Formspree form ID
 
-### 5. Content Customization
+### 5. AI Chat Setup (Optional)
+1. Sign up for OpenRouter at https://openrouter.ai/
+2. Get your API key from the dashboard
+3. Edit `config.js` and add your key:
+   ```javascript
+   OPENROUTER_API_KEY: 'your-api-key-here'
+   ```
+
+**AI Chat Features:**
+- 3 prompts per session per user
+- 100 tokens max per query (≈75 words)
+- 30-second rate limiting
+- 24-hour cooldown after session exhaustion
+- Only responds to creator-related questions
+- Logs all interactions for moderation
+
+### 6. Content Customization
 
 #### Update Personal Information
 - Replace "David Ortiz" with your name throughout the files
@@ -154,10 +184,11 @@ A professional portfolio website showcasing cloud support engineering and databa
 - Update GitHub repository links
 - Modify project descriptions and metrics
 
-#### Add Skill Icons
-1. Download optimized icons (<50KB each) for your skills
-2. Save them in `assets/icons/` directory
-3. Update the icon paths in index.html
+#### Skill Icons
+- Icons are loaded from Icons8.com CDN
+- Update icon URLs in index.html if changing technologies
+- Use iOS style icons for consistent appearance
+- All icons are optimized and load from reliable CDN
 
 #### Custom Branding
 - Add your favicon.ico to the assets directory

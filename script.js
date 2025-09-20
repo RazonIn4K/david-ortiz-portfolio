@@ -2294,6 +2294,352 @@ class MapManager {
   }
 }
 
+// ===== CREATOR DATABASE =====
+const CREATOR_DATABASE = {
+  background: {
+    role: "Cloud Support Engineer & Database Specialist",
+    location: "Chicago, IL",
+    experience: "5+ years in cloud infrastructure and database optimization",
+    focus: "Performance optimization, cost reduction, and infrastructure automation",
+    availability: "Available for projects starting Q1 2026"
+  },
+  expertise: {
+    cloud: "AWS, GCP, Azure - Infrastructure automation and cost optimization",
+    database: "PostgreSQL, MySQL, SQL - Query optimization, indexing strategies, and performance tuning",
+    devops: "Docker, Kubernetes, Terraform, GitHub - CI/CD pipelines and infrastructure as code",
+    monitoring: "Datadog - Custom dashboards, alerting, and performance monitoring",
+    analysis: "Python - Data analysis scripts and automation tools",
+    presentation: "Beautiful.ai - Executive presentation design and client reporting"
+  },
+  achievements: {
+    performance: "87% query performance improvement (10s → 1.3s)",
+    cost: "$40K annual savings delivered",
+    efficiency: "35% cost reduction across multi-cloud infrastructure",
+    monitoring: "60% reduction in emergency support calls",
+    prediction: "20-minute early warning for performance bottlenecks"
+  },
+  projects: {
+    postgresql: "Transformed analytical queries from 10+ seconds to 1.3 seconds using strategic indexing and query restructuring",
+    cloud_cost: "Implemented automated rightsizing and scheduling system reducing costs by 35% without performance impact",
+    monitoring: "Built custom Datadog integration with 20-minute early warning system for performance issues"
+  }
+};
+
+// ===== AI CHAT SYSTEM =====
+class AIChatManager {
+  constructor() {
+    this.openRouterApiKey = CONFIG?.OPENROUTER_API_KEY || null;
+    this.isActive = false;
+    this.sessionData = this.loadSessionData();
+    this.rateLimitTimer = null;
+    this.lastQueryTime = null;
+
+    this.init();
+  }
+
+  init() {
+    this.bindEvents();
+    this.updateUI();
+  }
+
+  bindEvents() {
+    const startBtn = document.getElementById('start-chat');
+    const sendBtn = document.getElementById('send-message');
+    const input = document.getElementById('chat-input');
+
+    if (startBtn) {
+      startBtn.addEventListener('click', () => this.startChat());
+    }
+
+    if (sendBtn) {
+      sendBtn.addEventListener('click', () => this.sendMessage());
+    }
+
+    if (input) {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !sendBtn.disabled) {
+          this.sendMessage();
+        }
+      });
+    }
+  }
+
+  loadSessionData() {
+    const saved = localStorage.getItem('david-ai-session');
+    if (saved) {
+      const data = JSON.parse(saved);
+      // Check if 24 hours have passed since last session
+      if (Date.now() - data.lastSession > 24 * 60 * 60 * 1000) {
+        return { promptsUsed: 0, lastSession: Date.now() };
+      }
+      return data;
+    }
+    return { promptsUsed: 0, lastSession: Date.now() };
+  }
+
+  saveSessionData() {
+    localStorage.setItem('david-ai-session', JSON.stringify(this.sessionData));
+  }
+
+  updateUI() {
+    const startBtn = document.getElementById('start-chat');
+    const chatInterface = document.getElementById('chat-interface');
+    const chatPreview = document.getElementById('chat-preview');
+    const remainingSpan = document.getElementById('remaining-prompts');
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-message');
+
+    if (this.sessionData.promptsUsed >= 3) {
+      if (startBtn) startBtn.style.display = 'none';
+      if (chatInterface) chatInterface.style.display = 'none';
+      if (chatPreview) chatPreview.style.display = 'none';
+    } else {
+      if (startBtn) startBtn.style.display = 'block';
+      if (chatPreview) chatPreview.style.display = 'block';
+    }
+
+    if (remainingSpan) {
+      remainingSpan.textContent = 3 - this.sessionData.promptsUsed;
+    }
+
+    if (this.isActive) {
+      if (startBtn) startBtn.style.display = 'none';
+      if (chatInterface) chatInterface.style.display = 'block';
+      if (chatPreview) chatInterface.style.display = 'none';
+      if (input) input.disabled = false;
+      if (sendBtn) sendBtn.disabled = false;
+    } else {
+      if (startBtn) startBtn.style.display = 'block';
+      if (chatInterface) chatInterface.style.display = 'none';
+      if (chatPreview) chatInterface.style.display = 'block';
+      if (input) input.disabled = true;
+      if (sendBtn) sendBtn.disabled = true;
+    }
+  }
+
+  startChat() {
+    if (this.sessionData.promptsUsed >= 3) {
+      this.showMessage('system', 'Session limit reached. Please try again in 24 hours.');
+      return;
+    }
+
+    this.isActive = true;
+    this.updateUI();
+    this.showMessage('ai', 'Hello! I\'m David\'s AI assistant. I can answer questions about his expertise in cloud engineering, database optimization, and infrastructure. You have 3 questions to ask. What would you like to know?');
+  }
+
+  async sendMessage() {
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-message');
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    // Rate limiting check
+    if (this.lastQueryTime && Date.now() - this.lastQueryTime < 30000) {
+      this.showMessage('system', 'Please wait 30 seconds between messages.');
+      return;
+    }
+
+    // Token limit check (rough estimate: 100 tokens ≈ 75 words)
+    const wordCount = message.split(/\s+/).length;
+    if (wordCount > 75) {
+      this.showMessage('system', 'Message too long. Please limit to 75 words (100 tokens).');
+      return;
+    }
+
+    if (this.sessionData.promptsUsed >= 3) {
+      this.showMessage('system', 'Session limit reached. Please try again in 24 hours.');
+      return;
+    }
+
+    this.lastQueryTime = Date.now();
+    this.sessionData.promptsUsed++;
+    this.saveSessionData();
+
+    this.showMessage('user', message);
+    input.value = '';
+    input.disabled = true;
+    sendBtn.disabled = true;
+
+    this.showTypingIndicator();
+
+    try {
+      await this.processQuery(message);
+    } catch (error) {
+      this.hideTypingIndicator();
+      this.showMessage('error', 'Sorry, I encountered an error. Please try again.');
+      console.error('AI Chat Error:', error);
+    }
+
+    this.updateUI();
+  }
+
+  async processQuery(query) {
+    // Log the interaction for moderation
+    this.logInteraction(query);
+
+    // Check if query is related to creator
+    const isRelevant = this.isQueryRelevant(query);
+    if (!isRelevant) {
+      this.hideTypingIndicator();
+      this.showMessage('ai', 'I can only answer questions about David\'s professional expertise in cloud engineering, database optimization, and infrastructure. Please ask about his background, projects, or technical skills.');
+      return;
+    }
+
+    // Prepare context from database
+    const context = this.buildContext();
+
+    // Call OpenRouter AI
+    if (!this.openRouterApiKey) {
+      this.hideTypingIndicator();
+      this.showMessage('ai', 'I\'m currently being configured. Please check back soon!');
+      return;
+    }
+
+    const response = await this.callOpenRouter(query, context);
+    this.hideTypingIndicator();
+
+    if (response) {
+      this.showMessage('ai', response);
+    } else {
+      this.showMessage('ai', 'I apologize, but I\'m having trouble connecting right now. Please try again in a moment.');
+    }
+
+    // Rate limiting timer
+    this.rateLimitTimer = setTimeout(() => {
+      const input = document.getElementById('chat-input');
+      const sendBtn = document.getElementById('send-message');
+      if (input) input.disabled = false;
+      if (sendBtn) sendBtn.disabled = false;
+    }, 30000);
+  }
+
+  isQueryRelevant(query) {
+    const relevantKeywords = [
+      'david', 'background', 'experience', 'expertise', 'skills', 'projects',
+      'cloud', 'aws', 'gcp', 'azure', 'database', 'postgresql', 'mysql', 'sql',
+      'docker', 'kubernetes', 'terraform', 'github', 'datadog', 'python',
+      'performance', 'optimization', 'cost', 'infrastructure', 'monitoring',
+      'engineering', 'support', 'consulting', 'chicago', 'remote'
+    ];
+
+    const queryLower = query.toLowerCase();
+    return relevantKeywords.some(keyword => queryLower.includes(keyword));
+  }
+
+  buildContext() {
+    return `You are David Ortiz's AI assistant. Respond concisely and professionally about David's expertise based only on this information:
+
+BACKGROUND:
+${JSON.stringify(CREATOR_DATABASE.background, null, 2)}
+
+EXPERTISE:
+${JSON.stringify(CREATOR_DATABASE.expertise, null, 2)}
+
+ACHIEVEMENTS:
+${JSON.stringify(CREATOR_DATABASE.achievements, null, 2)}
+
+PROJECTS:
+${JSON.stringify(CREATOR_DATABASE.projects, null, 2)}
+
+IMPORTANT: Keep responses under 100 tokens. Focus on factual, professional information. If asked about personal or sensitive topics, redirect to professional expertise.`;
+  }
+
+  async callOpenRouter(query, context) {
+    try {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.openRouterApiKey}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': window.location.origin,
+          'X-Title': 'David Ortiz Portfolio'
+        },
+        body: JSON.stringify({
+          model: 'meta-llama/llama-3.1-8b-instruct:free',
+          messages: [
+            {
+              role: 'system',
+              content: context
+            },
+            {
+              role: 'user',
+              content: query
+            }
+          ],
+          max_tokens: 100,
+          temperature: 0.3
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`OpenRouter API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.choices[0]?.message?.content || null;
+    } catch (error) {
+      console.error('OpenRouter API Error:', error);
+      return null;
+    }
+  }
+
+  showMessage(type, content) {
+    const messagesContainer = document.getElementById('chat-messages');
+    if (!messagesContainer) return;
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${type}`;
+    messageDiv.innerHTML = `<p>${this.escapeHtml(content)}</p>`;
+
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  showTypingIndicator() {
+    const messagesContainer = document.getElementById('chat-messages');
+    if (!messagesContainer) return;
+
+    const indicator = document.createElement('div');
+    indicator.className = 'typing-indicator';
+    indicator.id = 'typing-indicator';
+    indicator.innerHTML = `
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    `;
+
+    messagesContainer.appendChild(indicator);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  hideTypingIndicator() {
+    const indicator = document.getElementById('typing-indicator');
+    if (indicator) {
+      indicator.remove();
+    }
+  }
+
+  logInteraction(query) {
+    // In a real implementation, this would log to a server
+    const logEntry = {
+      timestamp: new Date().toISOString(),
+      query: query,
+      sessionId: this.sessionData.lastSession,
+      userAgent: navigator.userAgent
+    };
+
+    console.log('AI Chat Interaction:', logEntry);
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+}
+
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', () => {
   try {
@@ -2311,6 +2657,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new AccessibilityManager();
     new ErrorHandler();
     new MapManager(); // Initialize Google Maps integration
+    new AIChatManager(); // Initialize AI Chat system
 
     // Initialize browser compatibility detector
     const compatibilityDetector = new BrowserCompatibilityDetector();
