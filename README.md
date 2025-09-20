@@ -4,35 +4,38 @@ A professional portfolio website showcasing cloud support engineering and databa
 
 ## 🚀 Features
 
-- **AI Chat Assistant**: OpenRouter-powered chat with strict session limits (3 prompts/user)
+- **MongoDB Analytics**: Real-time user behavior tracking with MongoDB Atlas backend
+- **Speed Insights Integration**: Vercel Speed Insights for performance monitoring
+- **Intelligent Automation Showcase**: Static display of MongoDB-backed automation playbooks
 - **Advanced Animation System**: Cross-browser compatible starfield background with 210+ tech icons
 - **Performance Monitoring**: Real-time FPS monitoring with adaptive quality adjustment
 - **WebGL Particle System**: Hardware-accelerated particles with Canvas 2D fallback
 - **Interactive Elements**: Advanced cursor trail, magnetic field effects, and smooth transitions
 - **Responsive Design**: Mobile-first approach with breakpoints for all devices
-- **Dark/Light Theme**: Toggle between themes with session persistence
+- **Dark/Light Theme**: Toggle between themes with localStorage persistence
 - **Accessibility**: WCAG 2.1 AA compliant with keyboard navigation support
 - **Performance Optimized**: Lighthouse scores 90+ across all categories
 - **SEO Ready**: Open Graph meta tags, structured data, and optimized content
-- **Analytics Integration**: Google Analytics 4 with event tracking
-- **Contact Form**: Formspree integration with client-side validation
+- **Contact Form**: MongoDB-backed submission handling with spam detection
 - **Project Embeds**: Beautiful.ai presentation embeds with fallback links
-- **Icons8 Integration**: Professional skill icons loaded from CDN
+- **Icons8 Integration**: Professional skill icons with theme-aware visibility
+- **Map Integration**: Google Maps with SVG fallback for location display
 
 ## 🛠 Tech Stack
 
 - **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
+- **Backend**: MongoDB Atlas with Node.js serverless functions
+- **Database**: MongoDB with optimized indexes and TTL policies
 - **Animation**: WebGL with Canvas 2D fallback, CSS transitions
-- **AI Integration**: OpenRouter API with Llama 3.1 model
-- **Icons**: Icons8.com CDN for professional skill icons
+- **Analytics**: MongoDB Atlas + Vercel Speed Insights
+- **Icons**: Icons8.com CDN with theme-aware styling
 - **Browser Compatibility**: Feature detection, vendor prefixes, graceful degradation
-- **Performance**: Hardware acceleration, adaptive quality systems
-- **Session Management**: LocalStorage with 24-hour cooldown periods
-- **Rate Limiting**: 30-second intervals between AI queries
-- **Token Management**: 100-token limit per query with automatic termination
-- **Hosting**: GitHub Pages with Vercel deployment support
-- **Analytics**: Google Analytics 4
-- **Forms**: Formspree
+- **Performance**: Hardware acceleration, adaptive quality systems, connection pooling
+- **Session Management**: LocalStorage with progressive enhancement
+- **Rate Limiting**: Multi-tier rate limiting for API endpoints
+- **Security**: Input validation, spam detection, PII redaction
+- **Hosting**: Vercel with MongoDB Atlas integration
+- **Maps**: Google Maps API with SVG fallback
 - **Embeds**: Beautiful.ai
 - **Domain**: Custom domain with HTTPS
 
@@ -40,14 +43,30 @@ A professional portfolio website showcasing cloud support engineering and databa
 
 ```
 /
-├── index.html          # Main page with AI chat and all sections
-├── styles.css          # Responsive CSS with AI chat interface
-├── script.js           # AI chat system, animations, and interactions
-├── config.js          # API keys and configuration (OpenRouter, Google Maps)
+├── index.html          # Main page with automation showcase and contact form
+├── styles.css          # Responsive CSS with theme-aware styling
+├── script.js           # Theme management, animations, and interactions
+├── speed-insights.js   # Vercel Speed Insights integration
+├── api/                # Serverless functions for MongoDB integration
+│   ├── mongodb-client.js    # MongoDB connection and data operations
+│   ├── analytics.js         # Analytics tracking endpoint
+│   ├── contact.js           # Contact form submission handler
+│   └── chat-log.js          # Chat interaction logging (future use)
+├── scripts/            # Database setup and testing utilities
+│   ├── setup-mongodb-indexes.js  # Database initialization script
+│   └── test-integrations.js      # Integration testing suite
 ├── assets/             # Images and media files
-│   ├── david-ortiz-avatar.svg  # Profile image
-│   └── og-image.png    # Open Graph social sharing image
-├── 404.html           # Custom error page for GitHub Pages
+│   ├── david-ortiz-avatar.svg    # Profile image
+│   ├── chicago-map.svg           # Location map fallback
+│   └── og-image.png              # Open Graph social sharing image
+├── progressive-enhancement.js    # Progressive enhancement utilities
+├── enhanced-chat-system.js       # Enhanced chat system (future use)
+├── analytics-tracker.js          # Frontend analytics tracking
+├── vercel.json         # Vercel deployment configuration
+├── package.json        # Dependencies and scripts
+├── .env.example        # Environment variables template
+├── 404.html           # Custom error page
+└── MONGODB_INTEGRATION.md   # Detailed MongoDB setup guide
 ├── robots.txt         # SEO crawling instructions
 ├── sitemap.xml        # Site structure for search engines
 ├── vercel.json        # Vercel deployment configuration
@@ -74,13 +93,13 @@ A professional portfolio website showcasing cloud support engineering and databa
 - **Grid Systems**: CSS Grid for skills and projects sections
 - **Sticky Navigation**: Fixed header for easy section navigation
 
-### AI Chat Interface
-- **Session Management**: 3 prompts per user with 24-hour cooldown
-- **Rate Limiting**: 30-second intervals between queries
-- **Token Control**: 100-token limit per query with automatic termination
-- **Content Filtering**: Only responds to creator-related questions
-- **Interaction Logging**: All conversations logged for moderation
-- **Responsive Design**: Adapts to all screen sizes
+### MongoDB Integration
+- **Real-time Analytics**: User behavior tracking with batching and offline support
+- **Contact Management**: Form submissions stored with spam detection and validation
+- **Performance Monitoring**: Speed Insights integration with MongoDB storage
+- **Rate Limiting**: Multi-tier protection (60/min analytics, 5/hour contact, 10/min chat)
+- **Security Features**: Input sanitization, PII detection, TTL auto-cleanup
+- **Progressive Enhancement**: Graceful fallbacks for all database features
 
 ## 📱 Responsive Breakpoints
 
@@ -156,44 +175,53 @@ A professional portfolio website showcasing cloud support engineering and databa
 1. Create a Formspree account
 2. Replace `YOUR_FORM_ID` in index.html with your Formspree form ID
 
-### 5. Environment Setup (Required for AI Chat)
+### 5. Environment Setup (Required for MongoDB Integration)
 1. **Create `.env` file** in the root directory:
    ```bash
    cp .env.example .env
    ```
 
-2. **Edit `.env`** with your API keys:
+2. **Edit `.env`** with your credentials:
    ```env
-   # OpenRouter AI Configuration
-   OPENROUTER_API_KEY=your-openrouter-api-key-here
-   OPENROUTER_PRIMARY_MODEL=x-ai/grok-4-fast:free
-   OPENROUTER_FALLBACK_MODEL=z-ai/glm-4.5-air:free
-
-   # MongoDB Configuration (for chat logging)
+   # MongoDB Atlas Configuration
    MONGODB_CONNECTION_STRING=mongodb+srv://username:password@cluster.mongodb.net/
-   MONGODB_USERNAME=your-username
    MONGODB_DATABASE=personal_website_cs-learning
+   MONGODB_USERNAME=your-username
 
-   # Optional: Customize session limits
-   AI_CHAT_SESSION_LIMIT=3
-   AI_CHAT_TOKEN_LIMIT=100
-   AI_CHAT_COOLDOWN_HOURS=24
-   AI_CHAT_RATE_LIMIT_SECONDS=30
+   # Google Maps API Key
+   GOOGLE_MAPS_API_KEY=your-google-maps-api-key
+
    ```
 
-**AI Chat Features:**
-- ✅ **3 prompts per session per user** with 24-hour cooldown
-- ✅ **100 tokens max per query** (≈75 words)
-- ✅ **30-second rate limiting** between queries
-- ✅ **Dual model support**: Primary `x-ai/grok-4-fast:free`, fallback `z-ai/glm-4.5-air:free`
-- ✅ **Only responds to creator-related questions**
-- ✅ **Logs all interactions** for moderation (localStorage + MongoDB ready)
+### 6. Database Setup
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-**MongoDB Collection Details:**
+2. **Setup MongoDB collections and indexes**:
+   ```bash
+   node scripts/setup-mongodb-indexes.js setup
+   ```
+
+3. **Test integration**:
+   ```bash
+   node scripts/test-integrations.js
+   ```
+
+**MongoDB Features:**
+- ✅ **Real-time analytics** with batching and offline support
+- ✅ **Contact form management** with spam detection
+- ✅ **Performance monitoring** with Speed Insights integration
+- ✅ **Rate limiting** across all endpoints
+- ✅ **Automatic cleanup** with TTL indexes
+- ✅ **Progressive enhancement** with graceful fallbacks
+
+**Database Collections:**
+- **`chat_logs`**: AI conversation logging (90-day TTL)
+- **`analytics_events`**: User behavior tracking (1-year TTL)
+- **`contact_submissions`**: Contact form submissions (2-year TTL)
 - **Database**: `personal_website_cs-learning`
-- **Collection**: `My Projects and learning`
-- **Index**: `_id` (default MongoDB index)
-- **Data Structure**:
   ```json
   {
     "timestamp": "2025-09-20T14:30:00.000Z",
