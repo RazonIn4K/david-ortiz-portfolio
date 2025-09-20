@@ -1182,7 +1182,32 @@ class WebGLParticleSystem {
   }
 }
 
-// ===== ADVANCED CURSOR TRAIL SYSTEM =====
+// ===== CONFIGURATION =====
+const CONFIG = {
+  // AI Chat Configuration
+  OPENROUTER_API_KEY: null, // Set via environment variable or build process
+  OPENROUTER_PRIMARY_MODEL: 'x-ai/grok-4-fast:free',
+  AI_CHAT_TOKEN_LIMIT: 100,
+  MONGODB_CONNECTION_STRING: null, // Set via environment variable
+  MONGODB_DATABASE: 'personal_website_cs-learning',
+
+  // Performance Settings
+  MAX_TILT_ANGLE: 15,
+  TILT_UPDATE_INTERVAL: 16,
+  STARFIELD_ICON_COUNT: 120,
+  ENABLE_STARFIELD: true,
+  ENABLE_TILT_EFFECTS: true,
+
+  // Analytics
+  ENABLE_ANALYTICS: true,
+  ANALYTICS_ID: null, // Set via environment variable
+
+  // Feature Flags
+  ENABLE_AI_CHAT: true,
+  ENABLE_MONGO_LOGGING: false, // Disabled by default for privacy
+  DEBUG_MODE: false
+};
+
 class AdvancedCursorTrail {
   constructor() {
     this.trail = [];
