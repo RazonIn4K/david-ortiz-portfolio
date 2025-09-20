@@ -2336,6 +2336,7 @@ class AIChatManager {
 
     // ===== MONGODB INTEGRATION =====
     this.mongodbConnected = false;
+    this.mongodbCollection = 'My Projects and learning';
     this.initMongoDB();
 
     this.init();
@@ -2368,10 +2369,13 @@ class AIChatManager {
         model: model,
         responseStatus: responseStatus,
         userAgent: navigator.userAgent,
-        ip: 'unknown' // IP would need backend collection
+        ip: 'unknown', // IP would need backend collection
+        collection: this.mongodbCollection,
+        database: CONFIG?.MONGODB_DATABASE || 'personal_website_cs-learning'
       };
 
       // For now, we'll use localStorage for logging since we don't have a backend
+      // In production, this would send to MongoDB collection: "My Projects and learning"
       const logs = JSON.parse(localStorage.getItem('ai_chat_logs') || '[]');
       logs.push(logData);
 
@@ -2381,7 +2385,7 @@ class AIChatManager {
       }
 
       localStorage.setItem('ai_chat_logs', JSON.stringify(logs));
-      console.log('Chat interaction logged:', logData);
+      console.log('Chat interaction logged to "My Projects and learning" collection:', logData);
 
     } catch (error) {
       console.error('Failed to log chat interaction:', error);

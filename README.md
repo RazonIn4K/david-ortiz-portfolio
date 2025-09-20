@@ -172,7 +172,7 @@ A professional portfolio website showcasing cloud support engineering and databa
    # MongoDB Configuration (for chat logging)
    MONGODB_CONNECTION_STRING=mongodb+srv://username:password@cluster.mongodb.net/
    MONGODB_USERNAME=your-username
-   MONGODB_DATABASE=personal_website
+   MONGODB_DATABASE=personal_website_cs-learning
 
    # Optional: Customize session limits
    AI_CHAT_SESSION_LIMIT=3
@@ -188,6 +188,25 @@ A professional portfolio website showcasing cloud support engineering and databa
 - ✅ **Dual model support**: Primary `x-ai/grok-4-fast:free`, fallback `z-ai/glm-4.5-air:free`
 - ✅ **Only responds to creator-related questions**
 - ✅ **Logs all interactions** for moderation (localStorage + MongoDB ready)
+
+**MongoDB Collection Details:**
+- **Database**: `personal_website_cs-learning`
+- **Collection**: `My Projects and learning`
+- **Index**: `_id` (default MongoDB index)
+- **Data Structure**:
+  ```json
+  {
+    "timestamp": "2025-01-20T14:30:00.000Z",
+    "sessionId": "unique-session-identifier",
+    "query": "User's question about the creator",
+    "model": "x-ai/grok-4-fast:free",
+    "responseStatus": 200,
+    "userAgent": "Mozilla/5.0...",
+    "ip": "unknown",
+    "collection": "My Projects and learning",
+    "database": "personal_website_cs-learning"
+  }
+  ```
 - ✅ **Session management** with localStorage persistence
 - ✅ **Content filtering** with keyword validation
 - ✅ **Automatic termination** on limit violations

@@ -28,8 +28,8 @@ const CONFIG = {
         ? process.env.MONGODB_USERNAME || 'your-username'
         : 'your-username',
     MONGODB_DATABASE: (typeof process !== 'undefined' && process.env)
-        ? process.env.MONGODB_DATABASE || 'personal_website'
-        : 'personal_website',
+        ? process.env.MONGODB_DATABASE || 'personal_website_cs-learning'
+        : 'personal_website_cs-learning',
 
     // AI Chat Session Limits
     AI_CHAT_SESSION_LIMIT: (typeof process !== 'undefined' && process.env)
