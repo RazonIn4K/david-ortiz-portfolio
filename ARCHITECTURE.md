@@ -4,15 +4,17 @@
 1. [Project Overview](#project-overview)
 2. [File Structure](#file-structure)
 3. [Technology Stack](#technology-stack)
-4. [Frontend Architecture](#frontend-architecture)
-5. [CSS Architecture](#css-architecture)
-6. [JavaScript Architecture](#javascript-architecture)
-7. [Performance & Analytics](#performance--analytics)
-8. [Security Implementation](#security-implementation)
-9. [Responsive Design System](#responsive-design-system)
-10. [Third-Party Integrations](#third-party-integrations)
-11. [SEO & Accessibility](#seo--accessibility)
-12. [Deployment Architecture](#deployment-architecture)
+4. [Animation System Architecture](#animation-system-architecture)
+5. [Browser Compatibility System](#browser-compatibility-system)
+6. [Frontend Architecture](#frontend-architecture)
+7. [CSS Architecture](#css-architecture)
+8. [JavaScript Architecture](#javascript-architecture)
+9. [Performance & Analytics](#performance--analytics)
+10. [Security Implementation](#security-implementation)
+11. [Responsive Design System](#responsive-design-system)
+12. [Third-Party Integrations](#third-party-integrations)
+13. [SEO & Accessibility](#seo--accessibility)
+14. [Deployment Architecture](#deployment-architecture)
 
 ---
 
@@ -20,9 +22,10 @@
 
 **Portfolio Website for Cloud Support Engineer & Database Specialist**
 - **Purpose**: Professional portfolio showcasing technical expertise and project results
-- **Architecture**: Static website with modern web technologies
-- **Hosting**: GitHub Pages with custom domain support
-- **Performance**: Optimized for Core Web Vitals and accessibility
+- **Architecture**: Static website with advanced animation system and cross-browser compatibility
+- **Hosting**: GitHub Pages with Vercel deployment support and custom domain
+- **Performance**: Hardware-accelerated animations with real-time monitoring and adaptive quality
+- **Compatibility**: Universal browser support with intelligent feature detection and graceful degradation
 
 ---
 
@@ -30,12 +33,14 @@
 
 ```
 Personal-Website/
-├── 📄 index.html              # Main HTML file (Single Page Application)
-├── 🎨 styles.css              # Complete CSS styling system
-├── ⚡ script.js               # JavaScript functionality and interactions
+├── 📄 index.html              # Main HTML file with advanced animations
+├── 🎨 styles.css              # Cross-browser CSS with vendor prefixes
+├── ⚡ script.js               # Advanced animation system and browser compatibility
+├── 🔧 config.js               # Configuration constants
+├── 📱 manifest.json           # PWA manifest
+├── 🚀 vercel.json             # Vercel deployment configuration
 ├── 📦 package.json            # Node.js dependencies and scripts
 ├── 🔒 .gitignore             # Git ignore rules
-├── 🌐 CNAME                  # Custom domain configuration
 ├── 🤖 robots.txt             # Search engine crawler instructions
 ├── 🗺️ sitemap.xml            # Website structure for SEO
 ├── 🚫 404.html               # Custom error page
@@ -44,14 +49,6 @@ Personal-Website/
 ├── 🏗️ ARCHITECTURE.md        # This file - architecture documentation
 ├── 📂 assets/                # Static assets directory
 │   └── 📂 icons/             # Skill and contact icons
-├── 📂 .kiro/                 # Project specifications
-│   └── 📂 specs/
-│       └── 📂 portfolio-website/
-│           ├── design.md      # Design specifications
-│           ├── requirements.md # Technical requirements
-│           └── tasks.md       # Implementation tasks
-├── 📂 .playwright-mcp/       # Development screenshots
-└── 📂 node_modules/          # NPM dependencies (gitignored)
 ```
 
 ---
@@ -59,9 +56,11 @@ Personal-Website/
 ## 🛠️ Technology Stack
 
 ### **Frontend Core**
-- **HTML5**: Semantic markup with accessibility features
-- **CSS3**: Modern styling with Grid, Flexbox, and Custom Properties
-- **Vanilla JavaScript (ES6+)**: No framework dependencies for optimal performance
+- **HTML5**: Semantic markup with accessibility features and ARIA support
+- **CSS3**: Cross-browser styling with vendor prefixes, Grid, Flexbox, and Custom Properties
+- **Vanilla JavaScript (ES6+)**: Advanced animation system with WebGL and Canvas 2D fallback
+- **WebGL**: Hardware-accelerated graphics with graceful degradation
+- **Browser Compatibility**: Universal support with feature detection and polyfills
 
 ### **Build & Dependencies**
 - **Node.js**: Package management and development scripts
@@ -77,6 +76,111 @@ Personal-Website/
 - **Formspree**: Contact form backend service
 - **Beautiful.ai**: Project presentation embeds
 - **Google Maps Static API**: Location visualization
+
+---
+
+## 🎮 Animation System Architecture
+
+### **Core Animation Components**
+
+1. **StarfieldManager**
+   - Generates 210+ tech icons with random opacity for twinkling effect
+   - Responsive grid layout adapts to screen size
+   - Rainbow mode toggle for color animations
+   - Performance-optimized static positioning
+
+2. **WebGLParticleSystem**
+   - Hardware-accelerated particle rendering
+   - Automatic fallback to Canvas 2D for older browsers
+   - Dynamic quality adjustment based on performance
+   - Try-catch error handling for graceful degradation
+
+3. **AdvancedCursorTrail**
+   - Mouse tracking with smooth interpolation
+   - Desktop-only activation (disabled on touch devices)
+   - Configurable trail length and opacity
+   - Performance monitoring integration
+
+4. **MagneticFieldController**
+   - Interactive element attraction to cursor
+   - Reduced intensity on mobile devices
+   - Configurable strength and distance parameters
+   - CSS transform-based animations
+
+### **Performance Monitoring System**
+
+```javascript
+class PerformanceMonitor {
+  - Real-time FPS calculation
+  - Quality adjustment thresholds (30 FPS minimum)
+  - Memory usage tracking
+  - Adaptive animation complexity
+}
+```
+
+### **Animation Preset Manager**
+- **Minimal**: Basic transitions, reduced effects
+- **Balanced**: Standard animations with fallbacks
+- **Enhanced**: Full WebGL effects with monitoring
+- **Ultimate**: Maximum visual fidelity
+
+---
+
+## 🌐 Browser Compatibility System
+
+### **BrowserCompatibilityDetector**
+
+**Feature Detection Matrix:**
+```javascript
+{
+  webgl: WebGL context creation test,
+  webgl2: WebGL 2.0 context test,
+  requestAnimationFrame: Animation API support,
+  intersectionObserver: Scroll animation support,
+  visibilityAPI: Page visibility detection,
+  classList: DOM manipulation support,
+  localStorage: Persistent storage capability,
+  touchEvents: Mobile device detection,
+  cssTransforms: Hardware acceleration support,
+  cssFilters: Advanced visual effects,
+  cssBlendModes: Color blending support,
+  cssGridSupport: Modern layout support,
+  es6Support: Modern JavaScript features
+}
+```
+
+### **Progressive Enhancement Strategy**
+
+1. **Base Layer**: Semantic HTML with accessibility
+2. **Enhancement Layer**: CSS transitions and basic interactions
+3. **Advanced Layer**: WebGL particles and complex animations
+4. **Fallback Layer**: Canvas 2D and simplified effects
+
+### **Cross-Browser CSS Architecture**
+
+```css
+/* Vendor Prefixes for Legacy Support */
+.cross-browser-transform {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Internet Explorer Specific Fallbacks */
+@media screen and (-ms-high-contrast: active) {
+  .starfield-icon { filter: none !important; }
+  .cursor-trail-point { display: none; }
+}
+```
+
+### **Graceful Degradation Flow**
+
+**High-End Browsers** → WebGL + Advanced Effects
+**Standard Browsers** → Canvas 2D + Standard Effects
+**Legacy Browsers** → CSS Transitions Only
+**IE 11** → Minimal Effects + Accessibility Focus
 
 ---
 

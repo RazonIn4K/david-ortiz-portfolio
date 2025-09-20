@@ -198,6 +198,8 @@ Value: RazonIn4K.github.io
    - Run Lighthouse audit (aim for 90+ scores)
    - Test on multiple devices and browsers
    - Verify Core Web Vitals metrics
+   - Test animation performance and WebGL fallback systems
+   - Check cross-browser compatibility (Chrome, Firefox, Safari, Edge, IE11)
 
 3. **Accessibility Test**
    - Test keyboard navigation
@@ -243,6 +245,9 @@ The website tracks these form events:
 - Monitor Core Web Vitals in Search Console
 - Check for broken links and embeds
 - Update dependencies and security headers
+- Test animation performance across different devices
+- Monitor WebGL fallback behavior on older browsers
+- Verify cross-browser compatibility quarterly
 
 ### SEO Optimization
 - Submit sitemap to Google Search Console
