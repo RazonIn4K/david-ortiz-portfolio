@@ -3,7 +3,7 @@
 // For production, use environment variables or a secure key management system
 
 const CONFIG = {
-    GOOGLE_MAPS_API_KEY: 'AIzaSyCrdRj7eIsTgstMpDMQ_KkxS9-n47JEtVk' // Move to secure storage in production
+    GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY || '' // Use environment variable
 };
 
 // Initialize Google Maps (only if not already set)
