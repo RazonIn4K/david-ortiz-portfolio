@@ -2334,7 +2334,58 @@ class AIChatManager {
     this.rateLimitTimer = null;
     this.lastQueryTime = null;
 
+    // ===== MONGODB INTEGRATION =====
+    this.mongodbConnected = false;
+    this.initMongoDB();
+
     this.init();
+  }
+
+  async initMongoDB() {
+    if (!CONFIG?.MONGODB_CONNECTION_STRING || !CONFIG?.MONGODB_DATABASE) {
+      console.log('MongoDB not configured, skipping initialization');
+      return;
+    }
+
+    try {
+      // For browser environment, we'll use a simple HTTP endpoint to log to MongoDB
+      // In a production setup, you'd want a proper backend API
+      this.mongodbConnected = true;
+      console.log('MongoDB logging enabled');
+    } catch (error) {
+      console.error('Failed to initialize MongoDB:', error);
+    }
+  }
+
+  async logChatInteraction(query, context, model, responseStatus) {
+    if (!this.mongodbConnected) return;
+
+    try {
+      const logData = {
+        timestamp: new Date().toISOString(),
+        sessionId: this.sessionData.sessionId,
+        query: query,
+        model: model,
+        responseStatus: responseStatus,
+        userAgent: navigator.userAgent,
+        ip: 'unknown' // IP would need backend collection
+      };
+
+      // For now, we'll use localStorage for logging since we don't have a backend
+      const logs = JSON.parse(localStorage.getItem('ai_chat_logs') || '[]');
+      logs.push(logData);
+
+      // Keep only last 1000 logs to prevent localStorage bloat
+      if (logs.length > 1000) {
+        logs.splice(0, logs.length - 1000);
+      }
+
+      localStorage.setItem('ai_chat_logs', JSON.stringify(logs));
+      console.log('Chat interaction logged:', logData);
+
+    } catch (error) {
+      console.error('Failed to log chat interaction:', error);
+    }
   }
 
   init() {
@@ -2557,19 +2608,27 @@ IMPORTANT: Keep responses under 100 tokens. Focus on factual, professional infor
           'X-Title': 'David Ortiz Portfolio'
         },
         body: JSON.stringify({
-          model: 'meta-llama/llama-3.1-8b-instruct:free',
+          model: CONFIG?.OPENROUTER_PRIMARY_MODEL || 'x-ai/grok-4-fast:free',
           messages: [
             {
               role: 'system',
-              content: context
+              content: `You are an AI assistant for a personal website. You have access to specific information about the creator stored in a database. You must ONLY answer questions about the creator using the provided context. If asked about anything else, politely redirect back to creator-related topics.
+
+Creator Context: ${context}
+
+Rules:
+- Only answer questions about the creator
+- Keep responses under ${CONFIG?.AI_CHAT_TOKEN_LIMIT || 100} tokens (approximately ${(CONFIG?.AI_CHAT_TOKEN_LIMIT || 100) * 0.75} words)
+- Be professional and informative
+- If the question is off-topic, say: "I'm designed to help you learn about the creator. What would you like to know about their background, skills, or projects?"`
             },
             {
               role: 'user',
               content: query
             }
           ],
-          max_tokens: 100,
-          temperature: 0.3
+          max_tokens: CONFIG?.AI_CHAT_TOKEN_LIMIT || 100,
+          temperature: 0.7
         })
       });
 

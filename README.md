@@ -156,21 +156,41 @@ A professional portfolio website showcasing cloud support engineering and databa
 1. Create a Formspree account
 2. Replace `YOUR_FORM_ID` in index.html with your Formspree form ID
 
-### 5. AI Chat Setup (Optional)
-1. Sign up for OpenRouter at https://openrouter.ai/
-2. Get your API key from the dashboard
-3. Edit `config.js` and add your key:
-   ```javascript
-   OPENROUTER_API_KEY: 'your-api-key-here'
+### 5. Environment Setup (Required for AI Chat)
+1. **Create `.env` file** in the root directory:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Edit `.env`** with your API keys:
+   ```env
+   # OpenRouter AI Configuration
+   OPENROUTER_API_KEY=your-openrouter-api-key-here
+   OPENROUTER_PRIMARY_MODEL=x-ai/grok-4-fast:free
+   OPENROUTER_FALLBACK_MODEL=z-ai/glm-4.5-air:free
+
+   # MongoDB Configuration (for chat logging)
+   MONGODB_CONNECTION_STRING=mongodb+srv://username:password@cluster.mongodb.net/
+   MONGODB_USERNAME=your-username
+   MONGODB_DATABASE=personal_website
+
+   # Optional: Customize session limits
+   AI_CHAT_SESSION_LIMIT=3
+   AI_CHAT_TOKEN_LIMIT=100
+   AI_CHAT_COOLDOWN_HOURS=24
+   AI_CHAT_RATE_LIMIT_SECONDS=30
    ```
 
 **AI Chat Features:**
-- 3 prompts per session per user
-- 100 tokens max per query (≈75 words)
-- 30-second rate limiting
-- 24-hour cooldown after session exhaustion
-- Only responds to creator-related questions
-- Logs all interactions for moderation
+- ✅ **3 prompts per session per user** with 24-hour cooldown
+- ✅ **100 tokens max per query** (≈75 words)
+- ✅ **30-second rate limiting** between queries
+- ✅ **Dual model support**: Primary `x-ai/grok-4-fast:free`, fallback `z-ai/glm-4.5-air:free`
+- ✅ **Only responds to creator-related questions**
+- ✅ **Logs all interactions** for moderation (localStorage + MongoDB ready)
+- ✅ **Session management** with localStorage persistence
+- ✅ **Content filtering** with keyword validation
+- ✅ **Automatic termination** on limit violations
 
 ### 6. Content Customization
 
