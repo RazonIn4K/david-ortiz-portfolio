@@ -1,14 +1,24 @@
 /**
  * Official Vercel Analytics Integration
- * Replaces custom Speed Insights with official @vercel/analytics package
+ * Uses the official Vercel Analytics script for web analytics
  */
 
-import { inject } from '@vercel/analytics';
+// Load Vercel Analytics script dynamically
+(function() {
+  const script = document.createElement('script');
+  script.src = 'https://va.vercel-scripts.com/v1/script.js';
+  script.defer = true;
+  script.dataset.website = window.location.hostname;
 
-// Initialize Vercel Analytics
-inject();
+  script.onload = function() {
+    console.log('✅ Vercel Analytics loaded successfully');
+  };
 
-console.log('✅ Vercel Analytics initialized');
+  script.onerror = function() {
+    console.warn('⚠️ Vercel Analytics failed to load');
+  };
 
-// Export for potential future use
-export { inject };
+  document.head.appendChild(script);
+})();
+
+console.log('🚀 Vercel Analytics initialization started');
