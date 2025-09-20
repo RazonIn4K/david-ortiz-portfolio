@@ -306,17 +306,13 @@
                             <span class="metric-item">$40K annual savings</span>
                         </div>
                         <div class="project-embed">
-                            <iframe
-                                src="https://www.beautiful.ai/player/-DECK-ID-DATABASE-OPT"
-                                frameborder="0"
-                                allowfullscreen
-                                loading="lazy"
-                                title="Database Optimization Project Presentation"
-                                aria-label="Database Optimization presentation embedded from Beautiful.ai">
-                            </iframe>
-                            <a href="https://www.beautiful.ai/view/-DECK-ID-DATABASE-OPT" target="_blank" rel="noopener" class="embed-fallback">
-                                View Case Study
-                            </a>
+                            <!-- Presentation placeholder - replace with actual deck URL when available -->
+                            <div class="presentation-placeholder" style="background: var(--card-bg); border: 2px dashed var(--border-color); border-radius: var(--border-radius); padding: 3rem; text-align: center;">
+                                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 1.5rem;">📊</p>
+                                <p style="color: var(--text-primary); font-weight: 600;">Case Study Presentation</p>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 1rem 0;">Detailed technical walkthrough available</p>
+                                <a href="#contact" class="project-link" style="color: var(--primary-color);">Request Access →</a>
+                            </div>
                         </div>
                         <div class="project-tech">
                             <span class="tech-tag">PostgreSQL</span>
@@ -544,10 +540,13 @@
 
     <!-- Scripts -->
     <script type="module">
-        import { injectSpeedInsights } from 'https://unpkg.com/@vercel/speed-insights@1.2.0/dist/index.js';
+        // Vercel Speed Insights - using correct import
+        import { inject } from 'https://unpkg.com/@vercel/speed-insights@1.2.0/dist/index.js';
 
         // Initialize Vercel Speed Insights
-        injectSpeedInsights();
+        if (typeof inject === 'function') {
+            inject();
+        }
     </script>
     <script src="config.js"></script>
     <script src="script.js"></script>
