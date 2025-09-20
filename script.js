@@ -559,22 +559,11 @@ class AdvancedPerformanceMonitor {
 class StarfieldManager {
   constructor() {
     this.icons = [
-      'https://img.icons8.com/fluency/64/react-native.png',
-      'https://img.icons8.com/fluency/64/javascript.png',
-      'https://img.icons8.com/fluency/64/python.png',
-      'https://img.icons8.com/fluency/64/nodejs.png',
-      'https://img.icons8.com/fluency/64/docker.png',
-      'https://img.icons8.com/fluency/64/amazon-web-services.png',
-      'https://img.icons8.com/fluency/64/google-cloud.png',
-      'https://img.icons8.com/fluency/64/azure-1.png',
-      'https://img.icons8.com/fluency/64/typescript.png',
-      'https://img.icons8.com/fluency/64/vue-js.png',
-      'https://img.icons8.com/fluency/64/graphql.png',
-      'https://img.icons8.com/fluency/64/mongodb.png',
-      'https://img.icons8.com/fluency/64/postgresql.png'
+      '⚛️', '💻', '🐍', '🚀', '☁️', '⚙️', '🔧', '📊', '🗄️', '🔍',
+      '⚡', '🔒', '🎯', '📈', '🔬', '🎨', '📱', '💾', '🔗', '📋'
     ];
     this.starfieldContainer = null;
-    this.totalIcons = 210; // Match target website exactly
+    this.totalIcons = 120; // Reduced from 210 for better performance
     this.isEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Advanced animation properties
@@ -639,23 +628,21 @@ class StarfieldManager {
       align-items: center;
       justify-content: center;
       transition: var(--transition-base);
+      font-size: 24px;
+      opacity: ${Math.random() * 0.6 + 0.2};
     `;
 
-    const icon = document.createElement('img');
+    const icon = document.createElement('span');
     const randomIcon = this.icons[Math.floor(Math.random() * this.icons.length)];
 
-    icon.src = randomIcon;
-    icon.alt = 'tech icon';
+    icon.textContent = randomIcon;
     icon.className = 'starfield-icon';
     icon.style.cssText = `
-      width: 40px;
-      height: 40px;
-      opacity: ${Math.random()}; /* Random opacity between 0-1 */
+      transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
       filter: grayscale(70%) brightness(0.8);
-      transition: var(--transition-base);
     `;
 
-    // Add subtle hover effect that doesn't interfere with the random opacity
+    // Add subtle hover effect
     iconWrapper.addEventListener('mouseenter', () => {
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         icon.style.transform = 'scale(1.1)';
@@ -689,208 +676,32 @@ class StarfieldManager {
 
   addTwinklingEffect() {
     const icons = this.starfieldContainer.querySelectorAll('.starfield-icon');
-    this.iconPool = Array.from(icons); // Create icon pool for better performance
+    this.iconPool = Array.from(icons);
 
-    // Advanced twinkling with performance monitoring and color effects
+    // Simplified twinkling with performance monitoring
     const performanceTwinkle = () => {
       if (!this.isEnabled) return;
 
       this.performanceMonitor.update();
 
-      // Adaptive quality based on performance
-      const iconUpdatePercent = this.performanceMonitor.getAdaptiveIconCount();
-      const iconsToUpdate = Math.floor(icons.length * iconUpdatePercent);
+      // Reduce update frequency based on performance
+      const updateInterval = this.performanceMonitor.shouldReduceQuality() ? 5000 : 3000;
+      const iconsToUpdate = Math.floor(icons.length * (this.performanceMonitor.shouldReduceQuality() ? 0.02 : 0.05));
 
-      // Use requestAnimationFrame for smooth updates
-      this.animationFrame = requestAnimationFrame(() => {
-        for (let i = 0; i < iconsToUpdate; i++) {
-          const randomIcon = this.iconPool[Math.floor(Math.random() * this.iconPool.length)];
-          const newOpacity = this.generateSmartOpacity();
+      // Simple opacity changes only
+      for (let i = 0; i < iconsToUpdate; i++) {
+        const randomIcon = this.iconPool[Math.floor(Math.random() * this.iconPool.length)];
+        const newOpacity = this.generateSmartOpacity();
+        randomIcon.style.opacity = newOpacity;
+      }
 
-          // Use CSS transform for GPU acceleration
-          randomIcon.style.transition = 'opacity 2s cubic-bezier(0.4, 0, 0.2, 1), filter 3s ease-in-out';
-          randomIcon.style.opacity = newOpacity;
-
-          // Add dynamic color-changing effects
-          if (!this.performanceMonitor.shouldReduceQuality()) {
-            this.addColorChangeEffect(randomIcon);
-          }
-
-          // Add subtle scale animation for enhanced effect
-          if (!this.performanceMonitor.shouldReduceQuality() && Math.random() < 0.1) {
-            randomIcon.style.transform = `scale(${0.95 + Math.random() * 0.1})`;
-          }
-        }
-      });
-
-      // Adaptive interval timing
-      const delay = this.performanceMonitor.getAdaptiveDelay();
-      this.twinkleInterval = setTimeout(performanceTwinkle, delay);
+      this.twinkleInterval = setTimeout(performanceTwinkle, updateInterval);
     };
 
-    // Start the enhanced twinkling effect
+    // Start the simplified twinkling effect
     performanceTwinkle();
   }
 
-  addColorChangeEffect(icon) {
-    // Generate dynamic color variations
-    const time = Date.now() * 0.001;
-    const iconIndex = Array.from(this.iconPool).indexOf(icon);
-
-    // Create unique color signature for each icon
-    const hueBase = (iconIndex * 137.5) % 360; // Golden angle distribution
-    const hueShift = Math.sin(time * 0.5 + iconIndex * 0.1) * 30;
-    const finalHue = (hueBase + hueShift) % 360;
-
-    // Dynamic saturation and brightness
-    const saturation = 30 + Math.sin(time * 0.3 + iconIndex * 0.05) * 20;
-    const brightness = 0.8 + Math.sin(time * 0.2 + iconIndex * 0.03) * 0.3;
-
-    // Apply color filter with smooth transitions
-    const grayscale = 50 + Math.sin(time * 0.4 + iconIndex * 0.02) * 30;
-    const colorFilter = `hue-rotate(${finalHue}deg) saturate(${saturation}%) brightness(${brightness}) grayscale(${grayscale}%)`;
-
-    // Apply the color transformation
-    icon.style.filter = colorFilter;
-
-    // Add occasional burst effects
-    if (Math.random() < 0.02) {
-      this.createColorBurst(icon);
-    }
-  }
-
-  createColorBurst(icon) {
-    // Create temporary color burst effect
-    const originalFilter = icon.style.filter;
-    const burstHue = Math.random() * 360;
-
-    // Burst phase
-    icon.style.filter = `hue-rotate(${burstHue}deg) saturate(150%) brightness(1.5) grayscale(0%)`;
-    icon.style.transform = 'scale(1.3)';
-
-    // Reset after burst
-    setTimeout(() => {
-      icon.style.filter = originalFilter;
-      icon.style.transform = '';
-    }, 300);
-  }
-
-  // Add advanced rainbow wave effect
-  addRainbowWaveEffect() {
-    if (!this.iconPool.length) return;
-
-    const waveEffect = () => {
-      if (!this.isEnabled) return;
-
-      const time = Date.now() * 0.002;
-
-      this.iconPool.forEach((icon, index) => {
-        const wavePosition = (index / this.iconPool.length) * Math.PI * 2;
-        const hue = (time * 50 + wavePosition * 180 / Math.PI) % 360;
-
-        // Create wave-like color propagation
-        const intensity = (Math.sin(time * 2 + wavePosition) + 1) * 0.5;
-        const saturation = intensity * 100;
-        const brightness = 0.7 + intensity * 0.4;
-
-        if (Math.random() < 0.1) { // Only update some icons per frame for performance
-          icon.style.filter = `hue-rotate(${hue}deg) saturate(${saturation}%) brightness(${brightness}) grayscale(20%)`;
-        }
-      });
-
-      requestAnimationFrame(waveEffect);
-    };
-
-    // Start rainbow wave (can be toggled)
-    if (this.enableRainbowMode) {
-      waveEffect();
-    }
-  }
-
-  // Add method to toggle rainbow mode
-  toggleRainbowMode(enabled = !this.enableRainbowMode) {
-    this.enableRainbowMode = enabled;
-
-    if (enabled) {
-      this.addRainbowWaveEffect();
-    } else {
-      // Reset to default colors
-      this.iconPool.forEach(icon => {
-        icon.style.filter = 'grayscale(70%) brightness(0.8)';
-      });
-    }
-  }
-
-  // Enhanced dynamic color transitions
-  addDynamicColorTransitions() {
-    if (!this.starfieldContainer || this.performanceMonitor.isLowPerformance) {
-      return; // Skip on low-performance devices
-    }
-
-    let colorPhase = 0;
-    const colorTransitionSpeed = 0.002;
-    const baseHue = 220; // Blue base color
-    const hueVariation = 40; // Allow variation from blue to purple/cyan
-
-    const updateColors = () => {
-      if (!this.starfieldContainer) return;
-
-      colorPhase += colorTransitionSpeed;
-
-      // Create subtle color waves across the starfield
-      this.iconPool.forEach((icon, index) => {
-        const iconWrapper = icon.parentElement;
-        if (!iconWrapper) return;
-
-        const rect = iconWrapper.getBoundingClientRect();
-        const x = rect.left / window.innerWidth;
-        const y = rect.top / window.innerHeight;
-
-        // Calculate dynamic hue based on position and time
-        const waveX = Math.sin(x * Math.PI * 2 + colorPhase * 3) * 0.5 + 0.5;
-        const waveY = Math.sin(y * Math.PI * 1.5 + colorPhase * 2) * 0.5 + 0.5;
-        const timePulse = Math.sin(colorPhase * 4) * 0.3 + 0.7;
-
-        const dynamicHue = baseHue + (waveX * waveY * hueVariation - hueVariation/2);
-        const saturation = 30 + (waveY * 20); // Subtle saturation variation
-        const brightness = 0.6 + (waveX * timePulse * 0.3);
-
-        // Apply dynamic color filter
-        const currentFilter = icon.style.filter;
-        const grayscaleMatch = currentFilter.match(/grayscale\((\d+)%\)/);
-        const grayscaleValue = grayscaleMatch ? grayscaleMatch[1] : 70;
-
-        icon.style.filter = `
-          grayscale(${grayscaleValue}%)
-          brightness(${brightness})
-          hue-rotate(${dynamicHue - baseHue}deg)
-          saturate(${saturation}%)
-        `.replace(/\s+/g, ' ').trim();
-      });
-
-      // Continue the animation if not destroyed
-      if (this.starfieldContainer) {
-        this.colorAnimationFrame = requestAnimationFrame(updateColors);
-      }
-    };
-
-    // Start the color transition animation
-    this.colorAnimationFrame = requestAnimationFrame(updateColors);
-  }
-
-  // Method to enable/disable dynamic color transitions
-  toggleDynamicColors(enabled = true) {
-    if (enabled && !this.colorAnimationFrame) {
-      this.addDynamicColorTransitions();
-    } else if (!enabled && this.colorAnimationFrame) {
-      cancelAnimationFrame(this.colorAnimationFrame);
-      this.colorAnimationFrame = null;
-      // Reset to default colors
-      this.iconPool.forEach(icon => {
-        icon.style.filter = 'grayscale(70%) brightness(0.8)';
-      });
-    }
-  }
 
   generateSmartOpacity() {
     // Generate opacity with weighted distribution for more natural effect
@@ -912,11 +723,11 @@ class StarfieldManager {
       mouseY = e.clientY;
       const now = performance.now();
 
-      // Throttle mouse interactions for performance
-      if (now - lastInteractionTime < 100) return;
+      // Throttle mouse interactions heavily for performance
+      if (now - lastInteractionTime < 200) return;
       lastInteractionTime = now;
 
-      // Find nearby icons and enhance their brightness
+      // Only update nearby icons (reduced radius)
       const icons = this.starfieldContainer.querySelectorAll('.starfield-icon-wrapper');
       icons.forEach(iconWrapper => {
         const rect = iconWrapper.getBoundingClientRect();
@@ -924,42 +735,29 @@ class StarfieldManager {
         const centerY = rect.top + rect.height / 2;
         const distance = Math.sqrt(Math.pow(mouseX - centerX, 2) + Math.pow(mouseY - centerY, 2));
 
-        if (distance < 150) { // 150px radius
+        if (distance < 100) { // Reduced radius from 150px
           const icon = iconWrapper.querySelector('.starfield-icon');
-          const proximityFactor = 1 - (distance / 150);
-          const brightness = 0.8 + (proximityFactor * 0.4);
-          icon.style.filter = `grayscale(${70 - proximityFactor * 40}%) brightness(${brightness})`;
+          const proximityFactor = 1 - (distance / 100);
+          const brightness = 0.8 + (proximityFactor * 0.2);
+          icon.style.filter = `grayscale(${70 - proximityFactor * 20}%) brightness(${brightness})`;
         }
       });
     });
   }
 
   addScrollBasedAnimation() {
+    // Simplified scroll animation - just basic parallax
     let lastScrollY = window.scrollY;
-    let scrollVelocity = 0;
-    let scrollDirection = 0;
 
     const scrollHandler = () => {
       const currentScrollY = window.scrollY;
-      scrollVelocity = Math.abs(currentScrollY - lastScrollY);
-      scrollDirection = currentScrollY > lastScrollY ? 1 : -1;
-      lastScrollY = currentScrollY;
 
-      // Parallax effect based on scroll
-      if (this.starfieldContainer && scrollVelocity > 2) {
-        const parallaxOffset = scrollVelocity * scrollDirection * 0.1;
+      if (this.starfieldContainer && Math.abs(currentScrollY - lastScrollY) > 5) {
+        // Simple parallax effect
+        const parallaxOffset = (currentScrollY - lastScrollY) * 0.05;
         this.starfieldContainer.style.transform = `translateY(${parallaxOffset}px)`;
 
-        // Add temporary brightness boost during scroll
-        this.starfieldContainer.style.filter = `brightness(${1 + Math.min(scrollVelocity * 0.01, 0.3)})`;
-
-        // Reset after a short delay
-        setTimeout(() => {
-          if (this.starfieldContainer) {
-            this.starfieldContainer.style.transform = 'translateY(0)';
-            this.starfieldContainer.style.filter = 'brightness(1)';
-          }
-        }, 300);
+        lastScrollY = currentScrollY;
       }
     };
 
@@ -970,7 +768,7 @@ class StarfieldManager {
       scrollTimeout = setTimeout(() => {
         scrollHandler();
         scrollTimeout = null;
-      }, 16); // ~60fps
+      }, 32); // ~30fps
     }, { passive: true });
   }
 
@@ -2087,8 +1885,9 @@ class CursorTrailManager {
         pointer-events: none;
         z-index: 9999;
         opacity: ${(this.maxTrailLength - i) / this.maxTrailLength * 0.6};
-        transition: transform 0.1s ease-out;
-        transform: translate(-50%, -50%);
+        will-change: transform;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
       `;
 
       document.body.appendChild(trailElement);
@@ -2103,31 +1902,82 @@ class CursorTrailManager {
   bindEvents() {
     let mouseX = 0;
     let mouseY = 0;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let lastUpdateTime = 0;
+    let isMouseMoving = false;
+    let mouseStopTimeout;
+    let animationId;
 
-    document.addEventListener('mousemove', (e) => {
+    // Throttled mouse move handler for better performance
+    const handleMouseMove = (e) => {
+      const now = performance.now();
+
+      // Throttle mouse events to ~120fps max
+      if (now - lastUpdateTime < 8) return;
+
+      lastUpdateTime = now;
       mouseX = e.clientX;
       mouseY = e.clientY;
-    });
 
-    // Use requestAnimationFrame for smooth animation
+      // Calculate mouse velocity for adaptive interpolation
+      const deltaX = mouseX - lastMouseX;
+      const deltaY = mouseY - lastMouseY;
+      const velocity = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      // Store velocity for use in animation
+      this.mouseVelocity = Math.min(velocity, 50); // Cap at 50px per frame
+
+      lastMouseX = mouseX;
+      lastMouseY = mouseY;
+
+      // Start animation if not already running
+      if (!isMouseMoving) {
+        isMouseMoving = true;
+        updateTrail();
+      }
+
+      // Reset mouse stop timer
+      clearTimeout(mouseStopTimeout);
+      mouseStopTimeout = setTimeout(() => {
+        isMouseMoving = false;
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+      }, 100); // Stop animation 100ms after mouse stops
+    };
+
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    // Optimized animation loop that only runs when needed
     const updateTrail = () => {
+      if (!isMouseMoving) return;
+
       for (let i = 0; i < this.trail.length; i++) {
         const trail = this.trail[i];
         const targetX = i === 0 ? mouseX : this.trail[i - 1].x;
         const targetY = i === 0 ? mouseY : this.trail[i - 1].y;
 
-        // Smooth interpolation for organic movement
-        trail.x += (targetX - trail.x) * 0.3;
-        trail.y += (targetY - trail.y) * 0.3;
+        // Adaptive interpolation based on mouse velocity
+        // Faster movement = more responsive trail
+        const baseInterpolation = 0.2;
+        const velocityFactor = Math.min(this.mouseVelocity / 20, 1);
+        const interpolation = baseInterpolation + (velocityFactor * 0.3);
 
-        trail.element.style.left = `${trail.x}px`;
-        trail.element.style.top = `${trail.y}px`;
+        // Smooth interpolation for organic movement
+        trail.x += (targetX - trail.x) * interpolation;
+        trail.y += (targetY - trail.y) * interpolation;
+
+        // Use transform for better performance than left/top
+        trail.element.style.transform = `translate(${trail.x - 6}px, ${trail.y - 6}px)`;
       }
 
-      requestAnimationFrame(updateTrail);
+      animationId = requestAnimationFrame(updateTrail);
     };
 
-    updateTrail();
+    // Initialize velocity
+    this.mouseVelocity = 0;
   }
 }
 
@@ -2335,10 +2185,14 @@ class MobileMenuManager {
 class MapManager {
   constructor() {
     this.mapElement = document.querySelector('.location-map');
-    this.apiKey = 'AIzaSyCrdRj7eIsTgstMpDMQ_KkxS9-n47JEtVk';
+    // Use API key from CONFIG or disable maps if not available
+    this.apiKey = (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_MAPS_API_KEY) ? CONFIG.GOOGLE_MAPS_API_KEY : null;
 
     if (this.mapElement && this.apiKey) {
       this.init();
+    } else if (this.mapElement && !this.apiKey) {
+      // Hide map or show placeholder when API key is not available
+      this.showPlaceholder();
     }
   }
 
@@ -2401,6 +2255,40 @@ class MapManager {
       gtag('event', 'map_error', {
         'event_category': 'error',
         'event_label': 'google_maps_static'
+      });
+    }
+  }
+
+  showPlaceholder() {
+    // Show placeholder when no API key is available (same as handleMapError)
+    const mapContainer = this.mapElement.closest('.map-container');
+    if (mapContainer) {
+      // Replace with a fallback solution when no API key
+      mapContainer.innerHTML = `
+        <div class="map-fallback">
+          <div class="fallback-content">
+            <span class="location-icon">📍</span>
+            <div class="fallback-text">
+              <strong>Chicago, Illinois</strong>
+              <p>Central Standard Time (CST)</p>
+              <a href="https://www.google.com/maps/place/Chicago,+IL"
+                 target="_blank"
+                 rel="noopener"
+                 class="map-link"
+                 aria-label="View Chicago location on Google Maps">
+                📍 View on Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Track API key unavailable for analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'map_api_key_missing', {
+        'event_category': 'info',
+        'event_label': 'google_maps_no_key'
       });
     }
   }
@@ -2609,7 +2497,6 @@ function isInViewport(element) {
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
-
 // Enhanced scroll behavior for better UX with scroll-based header state
 window.addEventListener('scroll', throttle(() => {
   const header = document.querySelector('.header');
@@ -2645,6 +2532,7 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       display: none !important;
     }
   `;
+
   document.head.appendChild(style);
 }
 

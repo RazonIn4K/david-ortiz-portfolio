@@ -26,6 +26,8 @@
   --success-color: #10B981;
   --error-color: #EF4444;
   --warning-color: #F59E0B;
+  --header-bg-transparent: rgba(15, 23, 42, 0.95);
+  --header-bg-solid: var(--neutral-ink);
 
   /* Typography */
   --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -85,6 +87,8 @@
   --success-color: var(--accent-teal-muted);
   --error-color: #DC2626;
   --warning-color: #D97706;
+  --header-bg-transparent: rgba(255, 255, 255, 0.95);
+  --header-bg-solid: #FFFFFF;
 }
 
 /* ===== RESET & BASE STYLES ===== */
@@ -212,7 +216,7 @@ a:focus {
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(10, 25, 47, 0.95);
+  background: var(--header-bg-transparent);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--border-color);
   z-index: 100;
@@ -222,14 +226,6 @@ a:focus {
 .header.scrolled {
   background: var(--bg-color);
   backdrop-filter: none;
-}
-
-[data-theme="light"] .header {
-  background: rgba(255, 255, 255, 0.95);
-}
-
-[data-theme="light"] .header.scrolled {
-  background: var(--bg-color);
 }
 
 .nav-container {
@@ -258,6 +254,7 @@ a:focus {
   display: flex;
   list-style: none;
   gap: var(--space-8);
+  flex-shrink: 0;
 }
 
 .nav-link {
@@ -317,6 +314,7 @@ a:focus {
 .hero-container {
   max-width: 1200px;
   width: 100%;
+  margin: 0 auto;
 }
 
 .hero-content {
@@ -324,6 +322,9 @@ a:focus {
   grid-template-columns: 1.2fr 0.8fr;
   gap: var(--space-16);
   align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .hero-text {
@@ -359,14 +360,19 @@ a:focus {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .hero-metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-6);
-  margin-bottom: var(--space-8);
+  margin: var(--space-8) auto;
   padding: var(--space-6);
+  width: 100%;
+  max-width: 800px;
   background: var(--card-bg);
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--border-color);
@@ -449,6 +455,7 @@ a:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .hero-photo {
@@ -488,6 +495,8 @@ a:focus {
   flex-direction: column;
   gap: var(--space-3);
   align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 
 .availability-badge,
@@ -532,12 +541,19 @@ a:focus {
   }
 
   .hero-title {
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-2xl);
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .hero-metrics {
     grid-template-columns: 1fr;
     gap: var(--space-4);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto var(--space-8) auto;
+    padding: var(--space-4);
   }
 }
 
@@ -565,7 +581,7 @@ a:focus {
 }
 
 .about-content {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -631,11 +647,10 @@ a:focus {
   gap: var(--space-4);
   align-items: stretch;
   margin-bottom: var(--space-10);
-  /* Bento grid organic spacing */
-  grid-template-areas:
-    "skill1 skill2 skill3"
-    "skill4 skill5 skill6"
-    "skill7 skill8 skill9";
+  max-width: 1200px;
+  margin: 0 auto var(--space-10) auto;
+  /* Ensure proper alignment */
+  width: 100%;
 }
 
 .skill-card {
@@ -643,6 +658,7 @@ a:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: var(--space-6);
   background: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -656,6 +672,9 @@ a:focus {
   background-size: 20px 20px;
   /* Cloud & Database Specialist storytelling */
   overflow: hidden;
+  /* Ensure minimum height for consistency */
+  min-height: 120px;
+  width: 100%;
 }
 
 /* Asymmetric card variations */
@@ -704,6 +723,12 @@ a:focus {
   font-weight: 600;
   color: var(--text-color);
   font-size: var(--font-size-sm);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  text-align: center;
+  line-height: 1.3;
 }
 
 /* Tooltip functionality */
@@ -754,6 +779,10 @@ a:focus {
   margin-top: var(--space-12);
   /* 2025 bento grid with organic spacing */
   grid-auto-rows: minmax(200px, auto);
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (max-width: 1024px) {
@@ -793,6 +822,10 @@ a:focus {
     linear-gradient(-45deg, rgba(52, 211, 153, 0.05) 25%, transparent 25%);
   background-size: 30px 30px;
   background-position: 0 0, 15px 15px;
+  /* Ensure consistent height */
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Asymmetric layout for non-featured projects */
@@ -1109,6 +1142,7 @@ a:focus {
   gap: var(--space-12);
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .contact-options {
@@ -1122,6 +1156,7 @@ a:focus {
   padding: var(--space-8);
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--border-color);
+  width: 100%;
 }
 
 .form-group {
@@ -1602,7 +1637,9 @@ a:focus {
     grid-template-columns: 1fr;
     gap: var(--space-3);
     padding: var(--space-4);
-    margin-bottom: var(--space-6);
+    margin: 0 auto var(--space-6) auto;
+    width: 100%;
+    max-width: 1200px;
   }
 
   .metric-highlight {
@@ -1620,6 +1657,12 @@ a:focus {
   .profile-image {
     width: 180px;
     max-width: 90%;
+  }
+
+  /* Disable cursor trail on very small screens to prevent overflow */
+  .cursor-trail,
+  .cursor-trail-point {
+    display: none !important;
   }
 }
 
@@ -1640,6 +1683,9 @@ a:focus {
     grid-template-columns: 1fr;
     gap: var(--space-4);
     padding: var(--space-5);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto var(--space-8) auto;
   }
 
   .metric-highlight {
@@ -1668,6 +1714,9 @@ a:focus {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-4);
     padding: var(--space-5);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto var(--space-8) auto;
   }
 
   .metric-highlight {
@@ -1687,11 +1736,12 @@ a:focus {
     position: relative;
   }
 
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
 
   .nav-menu {
     position: fixed;
@@ -1758,6 +1808,8 @@ a:focus {
     padding: 0 var(--space-3);
     max-width: 100%;
     overflow-x: hidden;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .about-metrics {
@@ -1802,6 +1854,9 @@ a:focus {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-5);
     padding: var(--space-6);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto var(--space-8) auto;
   }
 
   .metric-highlight {
@@ -2080,6 +2135,10 @@ canvas[style*="z-index: -2"] {
 .cursor-trail-point {
   will-change: transform, opacity;
 
+  /* Constrain to viewport */
+  max-width: 100vw;
+  max-height: 100vh;
+
   /* Cross-browser mix-blend-mode */
   mix-blend-mode: difference;
   -webkit-mix-blend-mode: difference;
@@ -2353,9 +2412,9 @@ canvas[style*="z-index: -2"] {
 /* Starfield responsive adjustments */
 @media (max-width: 768px) {
   .starfield-background {
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 10px;
+    padding: 10px;
   }
 
   .starfield-icon {
@@ -2367,14 +2426,14 @@ canvas[style*="z-index: -2"] {
 @media (max-width: 480px) {
   .starfield-background {
     opacity: 0.15;
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-    gap: 10px;
-    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    gap: 8px;
+    padding: 8px;
   }
 
   .starfield-icon {
-    width: 24px !important;
-    height: 24px !important;
+    width: 25px !important;
+    height: 25px !important;
   }
 }
 
@@ -2578,30 +2637,30 @@ canvas[style*="z-index: -2"] {
   transform: translate3d(0, 0, 0);
 }
 
-/* Responsive starfield layout matching target website's grid */
+/* Enhanced responsive starfield layout */
 @media (max-width: 768px) {
   .starfield-background {
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-    gap: 10px;
-    padding: 10px;
-  }
-
-  .starfield-icon {
-    width: 30px !important;
-    height: 30px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .starfield-background {
-    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
     gap: 8px;
     padding: 8px;
   }
 
   .starfield-icon {
-    width: 25px !important;
-    height: 25px !important;
+    width: 28px !important;
+    height: 28px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .starfield-background {
+    grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .starfield-icon {
+    width: 22px !important;
+    height: 22px !important;
   }
 }
 
