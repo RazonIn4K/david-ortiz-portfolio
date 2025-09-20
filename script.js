@@ -375,6 +375,7 @@ class AccessibilityManager {
     this.setupKeyboardNavigation();
     this.setupFocusManagement();
     this.setupScreenReaderSupport();
+    this.setupAccessibleTooltips();
   }
 
   setupKeyboardNavigation() {
@@ -433,6 +434,31 @@ class AccessibilityManager {
     setTimeout(() => {
       document.body.removeChild(announcement);
     }, 1000);
+  }
+
+  setupAccessibleTooltips() {
+    // Enhance skill cards with screen reader accessible tooltips
+    const skillCards = document.querySelectorAll('.skill-card[data-tooltip]');
+
+    skillCards.forEach((card, index) => {
+      const tooltipId = `tooltip-${index}`;
+      const tooltip = card.getAttribute('data-tooltip');
+
+      // Add aria-describedby to the card
+      card.setAttribute('aria-describedby', tooltipId);
+
+      // Create hidden tooltip text for screen readers
+      const hiddenTooltip = document.createElement('span');
+      hiddenTooltip.id = tooltipId;
+      hiddenTooltip.classList.add('sr-only');
+      hiddenTooltip.textContent = tooltip;
+      card.appendChild(hiddenTooltip);
+
+      // Announce tooltip content on focus for screen readers
+      card.addEventListener('focus', () => {
+        this.announceToScreenReader(`${card.querySelector('.skill-name').textContent}: ${tooltip}`);
+      });
+    });
   }
 }
 
@@ -606,7 +632,9 @@ class MobileMenuManager {
     this.mobileToggle = document.querySelector('.mobile-menu-toggle');
     this.navMenu = document.querySelector('.nav-menu');
     this.navLinks = document.querySelectorAll('.nav-link');
+    this.themeToggle = document.querySelector('.theme-toggle');
     this.isOpen = false;
+    this.lastFocusedElement = null;
 
     if (this.mobileToggle && this.navMenu) {
       this.init();
@@ -628,10 +656,20 @@ class MobileMenuManager {
       }
     });
 
-    // Close menu on escape key
+    // Enhanced keyboard navigation and focus trapping
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.isOpen) {
+      if (!this.isOpen) return;
+
+      // Close menu on escape key
+      if (e.key === 'Escape') {
         this.closeMenu();
+        this.mobileToggle.focus();
+        return;
+      }
+
+      // Implement focus trapping
+      if (e.key === 'Tab') {
+        this.handleTabKey(e);
       }
     });
 
@@ -652,6 +690,9 @@ class MobileMenuManager {
   }
 
   openMenu() {
+    // Store current focused element
+    this.lastFocusedElement = document.activeElement;
+
     this.navMenu.classList.add('open');
     this.mobileToggle.setAttribute('aria-expanded', 'true');
     this.mobileToggle.querySelector('.menu-icon').textContent = '✕';
@@ -659,6 +700,14 @@ class MobileMenuManager {
 
     // Prevent body scroll when menu is open
     document.body.style.overflow = 'hidden';
+
+    // Focus first navigation link for keyboard users
+    setTimeout(() => {
+      const firstNavLink = this.navMenu.querySelector('.nav-link');
+      if (firstNavLink) {
+        firstNavLink.focus();
+      }
+    }, 100); // Small delay to ensure menu is visible
 
     // Track menu open for analytics
     if (typeof gtag !== 'undefined') {
@@ -677,12 +726,134 @@ class MobileMenuManager {
 
     // Restore body scroll
     document.body.style.overflow = '';
+
+    // Restore focus to last focused element
+    if (this.lastFocusedElement) {
+      this.lastFocusedElement.focus();
+      this.lastFocusedElement = null;
+    }
+  }
+
+  handleTabKey(e) {
+    const focusableElements = this.getFocusableElements();
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (e.shiftKey) {
+      // Shift + Tab (backward)
+      if (document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement.focus();
+      }
+    } else {
+      // Tab (forward)
+      if (document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement.focus();
+      }
+    }
+  }
+
+  getFocusableElements() {
+    const focusableSelectors = [
+      '.mobile-menu-toggle',
+      '.theme-toggle',
+      '.nav-link'
+    ];
+
+    return focusableSelectors
+      .map(selector => [...document.querySelectorAll(selector)])
+      .flat()
+      .filter(element => {
+        return element.offsetParent !== null && // Element is visible
+               !element.disabled &&
+               element.tabIndex !== -1;
+      });
+  }
+}
+
+// ===== GOOGLE MAPS INTEGRATION =====
+class MapManager {
+  constructor() {
+    this.mapElement = document.querySelector('.location-map');
+    this.apiKey = 'AIzaSyCrdRj7eIsTgstMpDMQ_KkxS9-n47JEtVk';
+
+    if (this.mapElement && this.apiKey) {
+      this.init();
+    }
+  }
+
+  init() {
+    this.loadStaticMap();
+  }
+
+  loadStaticMap() {
+    const mapParams = {
+      center: 'Chicago,IL',
+      zoom: 11,
+      size: '300x200',
+      maptype: 'roadmap',
+      markers: 'color:green|label:D|Chicago,IL',
+      key: this.apiKey
+    };
+
+    const mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?' +
+      Object.entries(mapParams)
+        .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+        .join('&');
+
+    this.mapElement.src = mapUrl;
+
+    // Handle map load errors gracefully
+    this.mapElement.addEventListener('error', () => {
+      this.handleMapError();
+    });
+
+    this.mapElement.addEventListener('load', () => {
+      console.log('Google Maps static image loaded successfully');
+    });
+  }
+
+  handleMapError() {
+    const mapContainer = this.mapElement.closest('.map-container');
+    if (mapContainer) {
+      // Replace with a fallback solution
+      mapContainer.innerHTML = `
+        <div class="map-fallback">
+          <div class="fallback-content">
+            <span class="location-icon">📍</span>
+            <div class="fallback-text">
+              <strong>Chicago, Illinois</strong>
+              <p>Central Standard Time (CST)</p>
+              <a href="https://www.google.com/maps/place/Chicago,+IL"
+                 target="_blank"
+                 rel="noopener"
+                 class="map-link"
+                 aria-label="View Chicago location on Google Maps">
+                📍 View on Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Track map loading errors for analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'map_error', {
+        'event_category': 'error',
+        'event_label': 'google_maps_static'
+      });
+    }
   }
 }
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', () => {
   try {
+    // Progressive enhancement: Remove no-js class when JavaScript loads
+    document.body.classList.remove('no-js');
+
     // Initialize all components
     new ThemeManager();
     new MobileMenuManager();
@@ -693,6 +864,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new PerformanceMonitor();
     new AccessibilityManager();
     new ErrorHandler();
+    new MapManager(); // Initialize Google Maps integration
 
     // Initialize 2025 advanced micro-interactions
     new CursorTrailManager();
