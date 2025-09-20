@@ -5,7 +5,7 @@ A professional portfolio website showcasing cloud support engineering and databa
 ## 🚀 Features
 
 - **MongoDB Analytics**: Real-time user behavior tracking with MongoDB Atlas backend
-- **Speed Insights Integration**: Vercel Speed Insights for performance monitoring
+- **Vercel Analytics**: Official Vercel Analytics for web analytics and performance monitoring
 - **Intelligent Automation Showcase**: Static display of MongoDB-backed automation playbooks
 - **Advanced Animation System**: Cross-browser compatible starfield background with 210+ tech icons
 - **Performance Monitoring**: Real-time FPS monitoring with adaptive quality adjustment
@@ -27,7 +27,7 @@ A professional portfolio website showcasing cloud support engineering and databa
 - **Backend**: MongoDB Atlas with Node.js serverless functions
 - **Database**: MongoDB with optimized indexes and TTL policies
 - **Animation**: WebGL with Canvas 2D fallback, CSS transitions
-- **Analytics**: MongoDB Atlas + Vercel Speed Insights
+- **Analytics**: MongoDB Atlas + Official Vercel Analytics
 - **Icons**: Icons8.com CDN with theme-aware styling
 - **Browser Compatibility**: Feature detection, vendor prefixes, graceful degradation
 - **Performance**: Hardware acceleration, adaptive quality systems, connection pooling
@@ -46,7 +46,7 @@ A professional portfolio website showcasing cloud support engineering and databa
 ├── index.html          # Main page with automation showcase and contact form
 ├── styles.css          # Responsive CSS with theme-aware styling
 ├── script.js           # Theme management, animations, and interactions
-├── speed-insights.js   # Vercel Speed Insights integration
+├── analytics.js        # Official Vercel Analytics integration
 ├── api/                # Serverless functions for MongoDB integration
 │   ├── mongodb-client.js    # MongoDB connection and data operations
 │   ├── analytics.js         # Analytics tracking endpoint
