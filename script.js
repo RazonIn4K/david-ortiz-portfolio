@@ -3,48 +3,85 @@ class ThemeManager {
   constructor() {
     this.themeToggle = document.querySelector('.theme-toggle');
     this.themeIcon = document.querySelector('.theme-icon');
-    this.currentTheme = this.getStoredTheme() || 'dark'; // Default to dark theme
+    this.storageKey = 'david-theme-preference';
+    this.mediaQuery = typeof window !== 'undefined' && window.matchMedia
+      ? window.matchMedia('(prefers-color-scheme: light)')
+      : null;
+    this.currentTheme = this.resolveInitialTheme();
 
-    this.init();
+    this.applyTheme(this.currentTheme);
+    this.bindEvents();
   }
 
-  init() {
-    this.setTheme(this.currentTheme);
-    this.themeToggle.addEventListener('click', () => this.toggleTheme());
+  resolveInitialTheme() {
+    const stored = this.getStoredTheme();
+    if (stored === 'light' || stored === 'dark') {
+      return stored;
+    }
+    return this.mediaQuery && this.mediaQuery.matches ? 'light' : 'dark';
+  }
+
+  bindEvents() {
+    if (this.themeToggle && this.themeIcon) {
+      this.themeToggle.addEventListener('click', () => this.toggleTheme());
+    }
+
+    if (this.mediaQuery) {
+      const handler = (event) => {
+        if (!this.getStoredTheme()) {
+          this.applyTheme(event.matches ? 'light' : 'dark');
+        }
+      };
+
+      if (typeof this.mediaQuery.addEventListener === 'function') {
+        this.mediaQuery.addEventListener('change', handler);
+      } else if (typeof this.mediaQuery.addListener === 'function') {
+        this.mediaQuery.addListener(handler);
+      }
+    }
   }
 
   getStoredTheme() {
-    return sessionStorage.getItem('theme');
+    try {
+      return localStorage.getItem(this.storageKey);
+    } catch (error) {
+      return null;
+    }
   }
 
   setStoredTheme(theme) {
-    sessionStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem(this.storageKey, theme);
+    } catch (error) {
+      // localStorage can fail in private mode; ignore gracefully
+    }
   }
 
-  setTheme(theme) {
+  applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     this.currentTheme = theme;
-    this.updateThemeIcon(theme);
+
+    if (this.themeIcon) {
+      this.themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    if (this.themeToggle) {
+      this.themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+    }
+
     this.setStoredTheme(theme);
   }
 
   toggleTheme() {
     const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
-    this.setTheme(newTheme);
+    this.applyTheme(newTheme);
 
-    // Track theme toggle for analytics
     if (typeof gtag !== 'undefined') {
       gtag('event', 'theme_toggle', {
-        'event_category': 'engagement',
-        'event_label': newTheme
+        event_category: 'engagement',
+        event_label: newTheme
       });
     }
-  }
-
-  updateThemeIcon(theme) {
-    this.themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    this.themeToggle.setAttribute('aria-label',
-      `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
   }
 }
 
@@ -2210,19 +2247,22 @@ class MobileMenuManager {
 class MapManager {
   constructor() {
     this.mapElement = document.querySelector('.location-map');
-    // Use API key from CONFIG or disable maps if not available
+    if (!this.mapElement) return;
+
+    this.placeholderSrc = this.mapElement.getAttribute('data-placeholder-src') || 'assets/chicago-map.svg';
     this.apiKey = (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_MAPS_API_KEY) ? CONFIG.GOOGLE_MAPS_API_KEY : null;
 
-    if (this.mapElement && this.apiKey) {
-      this.init();
-    } else if (this.mapElement && !this.apiKey) {
-      // Hide map or show placeholder when API key is not available
-      this.showPlaceholder();
+    if (this.apiKey) {
+      this.attachErrorHandler();
+      this.loadStaticMap();
+    } else {
+      this.showPlaceholder('missing_api_key');
     }
   }
 
-  init() {
-    this.loadStaticMap();
+  attachErrorHandler() {
+    this.boundErrorHandler = this.handleMapError.bind(this);
+    this.mapElement.addEventListener('error', this.boundErrorHandler, { once: true });
   }
 
   loadStaticMap() {
@@ -2240,80 +2280,31 @@ class MapManager {
         .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
         .join('&');
 
+    this.mapElement.classList.remove('map-placeholder');
+    this.mapElement.alt = 'Google Maps static map of Chicago, Illinois';
     this.mapElement.src = mapUrl;
-
-    // Handle map load errors gracefully
-    this.mapElement.addEventListener('error', () => {
-      this.handleMapError();
-    });
-
-    this.mapElement.addEventListener('load', () => {
-    });
   }
 
   handleMapError() {
-    const mapContainer = this.mapElement.closest('.map-container');
-    if (mapContainer) {
-      // Replace with a fallback solution
-      mapContainer.innerHTML = `
-        <div class="map-fallback">
-          <div class="fallback-content">
-            <span class="location-icon">📍</span>
-            <div class="fallback-text">
-              <strong>Chicago, Illinois</strong>
-              <p>Central Standard Time (CST)</p>
-              <a href="https://www.google.com/maps/place/Chicago,+IL"
-                 target="_blank"
-                 rel="noopener"
-                 class="map-link"
-                 aria-label="View Chicago location on Google Maps">
-                📍 View on Google Maps
-              </a>
-            </div>
-          </div>
-        </div>
-      `;
-    }
+    this.showPlaceholder('load_error');
 
-    // Track map loading errors for analytics
     if (typeof gtag !== 'undefined') {
       gtag('event', 'map_error', {
-        'event_category': 'error',
-        'event_label': 'google_maps_static'
+        event_category: 'error',
+        event_label: 'google_maps_static'
       });
     }
   }
 
-  showPlaceholder() {
-    // Show placeholder when no API key is available (same as handleMapError)
-    const mapContainer = this.mapElement.closest('.map-container');
-    if (mapContainer) {
-      // Replace with a fallback solution when no API key
-      mapContainer.innerHTML = `
-        <div class="map-fallback">
-          <div class="fallback-content">
-            <span class="location-icon">📍</span>
-            <div class="fallback-text">
-              <strong>Chicago, Illinois</strong>
-              <p>Central Standard Time (CST)</p>
-              <a href="https://www.google.com/maps/place/Chicago,+IL"
-                 target="_blank"
-                 rel="noopener"
-                 class="map-link"
-                 aria-label="View Chicago location on Google Maps">
-                📍 View on Google Maps
-              </a>
-            </div>
-          </div>
-        </div>
-      `;
-    }
+  showPlaceholder(reason = 'missing_api_key') {
+    this.mapElement.classList.add('map-placeholder');
+    this.mapElement.alt = 'Stylized map illustration of Chicago, Illinois';
+    this.mapElement.src = this.placeholderSrc;
 
-    // Track API key unavailable for analytics
-    if (typeof gtag !== 'undefined') {
+    if (reason === 'missing_api_key' && typeof gtag !== 'undefined') {
       gtag('event', 'map_api_key_missing', {
-        'event_category': 'info',
-        'event_label': 'google_maps_no_key'
+        event_category: 'info',
+        event_label: 'google_maps_no_key'
       });
     }
   }
@@ -2745,7 +2736,10 @@ document.addEventListener('DOMContentLoaded', () => {
     new AccessibilityManager();
     new ErrorHandler();
     new MapManager(); // Initialize Google Maps integration
-    new AIChatManager(); // Initialize AI Chat system
+
+    if (document.querySelector('.ai-chat-container')) {
+      new AIChatManager(); // Initialize AI Chat system when UI is present
+    }
 
     // Initialize browser compatibility detector
     const compatibilityDetector = new BrowserCompatibilityDetector();

@@ -478,6 +478,7 @@
                                 <a href="https://www.google.com/maps/place/Chicago,+IL" target="_blank" rel="noopener" class="map-link" aria-label="View Chicago location on Google Maps">
                                     <img id="location-map" src="" alt="Chicago, Illinois location map"
                                          class="location-map"
+                                         data-placeholder-src="assets/chicago-map.svg"
                                          loading="lazy">
                                     <div class="map-overlay">
                                         <span class="map-text">📍 Click to view on Google Maps</span>
@@ -501,43 +502,27 @@
                         </div>
 
                         <div class="future-ai-preview">
-                            <h3 class="ai-preview-title">AI Assistant</h3>
-                            <div class="ai-chat-container">
-                                <div class="ai-chat-header">
-                                    <span class="ai-indicator">🤖</span>
-                                    <span class="ai-title">David Ortiz AI Assistant</span>
-                                    <div class="session-info">
-                                        <span class="session-count">3 prompts remaining</span>
-                                        <button class="start-chat-btn" id="start-chat">Start Chat</button>
-                                    </div>
+                            <h3 class="ai-preview-title">Intelligent Automation Playbooks</h3>
+                            <p class="ai-preview-description">
+                                I'm rethinking how AI shows up on this site. While the live chat is paused, here are the automation patterns I'm shipping for clients right now.
+                            </p>
+                            <div class="ai-insight-grid">
+                                <div class="ai-insight-card">
+                                    <h4 class="ai-insight-heading">Guided Diagnostics</h4>
+                                    <p class="ai-insight-copy">MongoDB-backed decision trees capture every incident, surface the next best action, and feed future runbooks.</p>
                                 </div>
-                                <div class="ai-chat-interface" id="chat-interface" style="display: none;">
-                                    <div class="chat-messages" id="chat-messages"></div>
-                                    <div class="chat-input-area">
-                                        <div class="prompt-counter">
-                                            <span id="remaining-prompts">3</span> prompts remaining
-                                        </div>
-                                        <div class="chat-input-container">
-                                            <input type="text" id="chat-input" class="chat-input" placeholder="Ask me about David's expertise..." maxlength="200" disabled>
-                                            <button id="send-message" class="chat-send-btn" disabled>Send</button>
-                                        </div>
-                                        <div class="rate-limit-info">
-                                            <small>Rate limit: 1 message per 30 seconds • Max 100 tokens per message</small>
-                                        </div>
-                                    </div>
+                                <div class="ai-insight-card">
+                                    <h4 class="ai-insight-heading">Resilient Playbooks</h4>
+                                    <p class="ai-insight-copy">Rate-limited workflows pair serverless endpoints with offline fallbacks, so sensitive automations never become brittle bots.</p>
                                 </div>
-                                <div class="ai-chat-preview" id="chat-preview">
-                                    <div class="chat-bubble sample">
-                                        <p>"How did you optimize that PostgreSQL query from 10s to 1.3s?"</p>
-                                    </div>
-                                    <div class="chat-bubble ai-response sample">
-                                        <p>I analyzed the execution plan, identified missing indexes on the join columns, and restructured the subqueries...</p>
-                                    </div>
+                                <div class="ai-insight-card">
+                                    <h4 class="ai-insight-heading">Insight Dashboards</h4>
+                                    <p class="ai-insight-copy">Speed Insights and Atlas metrics roll into one view, highlighting regressions before customers ever feel the slowdown.</p>
                                 </div>
-                                <div class="ai-chat-status">
-                                    <span class="status-text">Ready to answer questions about David's expertise</span>
-                                    <span class="eta-text">Powered by OpenRouter AI</span>
-                                </div>
+                            </div>
+                            <div class="ai-preview-footer">
+                                <p class="ai-preview-note">Want to explore an automation sprint for your stack?</p>
+                                <a href="#contact" class="ai-preview-cta">Book a working session</a>
                             </div>
                         </div>
                     </div>
@@ -558,15 +543,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script type="module">
-        // Vercel Speed Insights - using correct CDN approach
-        try {
-            const { inject } = await import('https://unpkg.com/@vercel/speed-insights@1.2.0/dist/index.js');
-            inject();
-        } catch (error) {
-            console.warn('Vercel Speed Insights failed to load:', error.message);
-        }
-    </script>
+    <script type="module" src="speed-insights.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
 </body>

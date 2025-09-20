@@ -3,6 +3,10 @@
 
 import fetch from 'node-fetch';
 import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 /**
  * Test configuration

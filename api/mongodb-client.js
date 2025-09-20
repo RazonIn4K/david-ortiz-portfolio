@@ -54,10 +54,7 @@ class MongoDBClient {
       const client = new MongoClient(this.connectionString, {
         maxPoolSize: 10, // Limit connections for serverless
         serverSelectionTimeoutMS: 5000, // Quick timeout for serverless
-        socketTimeoutMS: 45000,
-        bufferMaxEntries: 0, // Disable mongoose buffering
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+        socketTimeoutMS: 45000
       });
 
       await client.connect();
@@ -250,9 +247,6 @@ class MongoDBClient {
     }
   }
 }
-
-// Export for serverless functions
-module.exports = MongoDBClient;
 
 // Export for ES modules
 export default MongoDBClient;

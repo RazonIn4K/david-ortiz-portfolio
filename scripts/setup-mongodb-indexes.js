@@ -2,6 +2,10 @@
 // Creates indexes, sets up TTL, and optimizes collections
 
 import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 /**
  * Database setup configuration
