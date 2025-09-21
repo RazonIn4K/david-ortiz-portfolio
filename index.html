@@ -257,7 +257,7 @@
                     <h3 class="category-title">Monitoring & Analysis</h3>
                     <div class="skills-grid" role="list">
                         <div class="skill-card" role="listitem" data-tooltip="Custom dashboards, alerting, and performance monitoring">
-                            <img src="https://img.icons8.com/color/48/datadog.png" alt="Datadog" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/combo-chart--v1.png" alt="Datadog" class="skill-icon" loading="lazy">
                             <span class="skill-name">Datadog</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Data analysis scripts and automation tools">
@@ -501,50 +501,100 @@
                             </div>
                         </div>
 
-                        <div class="ai-chat-container">
-                            <h3 class="ai-preview-title">Ask Me About David's Work</h3>
-                            <p class="ai-preview-description">
-                                Have questions about David's database optimization projects or technical expertise? Chat with an AI assistant that can share insights about his work.
-                            </p>
-
-                            <!-- Chat Preview/Start Interface -->
-                            <div id="chat-preview" class="chat-preview">
-                                <div class="chat-preview-content">
-                                    <div class="sample-questions">
-                                        <p><strong>Try asking:</strong></p>
-                                        <ul>
-                                            <li>"Tell me about David's database optimization work"</li>
-                                            <li>"What cloud platforms does David work with?"</li>
-                                            <li>"How did David achieve 87% performance improvements?"</li>
-                                        </ul>
+                        <div class="ai-chat-widget">
+                            <div class="ai-widget-header">
+                                <div class="ai-widget-header-content">
+                                    <div class="ai-widget-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                            <circle cx="9" cy="9" r="1" fill="currentColor"/>
+                                            <circle cx="15" cy="9" r="1" fill="currentColor"/>
+                                        </svg>
                                     </div>
-                                    <button id="start-chat" class="ai-preview-cta">Start Chat</button>
+                                    <div class="ai-widget-title">
+                                        <h3>AI Technical Assistant</h3>
+                                        <span class="ai-widget-status">
+                                            <span class="status-dot"></span>
+                                            Ask about David's expertise
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Main Chat Interface -->
-                            <div id="chat-interface" class="chat-interface" style="display: none;">
-                                <div id="chat-messages" class="chat-messages">
-                                    <div class="chat-message chat-message-assistant">
-                                        <div class="message-content">Hi! I'm here to help answer questions about David's technical work and experience. What would you like to know?</div>
+                            <div class="ai-widget-body">
+                                <!-- Quick Actions -->
+                                <div class="ai-quick-actions">
+                                    <button class="ai-quick-btn" data-question="Tell me about David's PostgreSQL optimization that saved $40K">
+                                        <div class="quick-btn-icon">💰</div>
+                                        <div class="quick-btn-content">
+                                            <span class="quick-btn-title">Cost Savings</span>
+                                            <span class="quick-btn-desc">$40K optimization story</span>
+                                        </div>
+                                    </button>
+                                    <button class="ai-quick-btn" data-question="What's David's experience with cloud platforms?">
+                                        <div class="quick-btn-icon">☁️</div>
+                                        <div class="quick-btn-content">
+                                            <span class="quick-btn-title">Cloud Expertise</span>
+                                            <span class="quick-btn-desc">AWS, GCP, Azure</span>
+                                        </div>
+                                    </button>
+                                    <button class="ai-quick-btn" data-question="How does David approach database performance issues?">
+                                        <div class="quick-btn-icon">⚡</div>
+                                        <div class="quick-btn-content">
+                                            <span class="quick-btn-title">Performance</span>
+                                            <span class="quick-btn-desc">87% faster queries</span>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <!-- Chat Container -->
+                                <div class="ai-chat-display">
+                                    <div id="chat-messages" class="ai-messages-container">
+                                        <div class="ai-welcome-message">
+                                            <div class="ai-assistant-avatar">
+                                                <div class="avatar-pulse"></div>
+                                                <span>🤖</span>
+                                            </div>
+                                            <div class="welcome-text">
+                                                <p>Hi! I'm David's AI assistant. I can answer questions about:</p>
+                                                <ul class="welcome-topics">
+                                                    <li>Database optimization techniques</li>
+                                                    <li>Cloud infrastructure solutions</li>
+                                                    <li>Project case studies</li>
+                                                    <li>Technical skills & certifications</li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <form id="ai-chat-form" class="chat-input-form">
-                                    <div class="chat-input-container">
-                                        <input
-                                            type="text"
-                                            id="chat-input"
-                                            class="chat-input"
-                                            placeholder="Ask about David's projects, skills, or experience..."
-                                            maxlength="1000"
-                                            autocomplete="off"
-                                        >
-                                        <button type="submit" class="chat-send-btn" aria-label="Send message">
-                                            <span>Send</span>
-                                        </button>
-                                    </div>
-                                </form>
+                                <!-- Input Area -->
+                                <div class="ai-input-area">
+                                    <form id="ai-chat-form" class="ai-chat-form">
+                                        <div class="ai-input-wrapper">
+                                            <input
+                                                type="text"
+                                                id="chat-input"
+                                                class="ai-chat-input"
+                                                placeholder="Ask me anything about David's work..."
+                                                maxlength="1000"
+                                                autocomplete="off"
+                                                disabled
+                                            >
+                                            <button type="button" id="start-chat" class="ai-send-button">
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                    <path d="M2 10L17 2L13 18L9 11L2 10Z" fill="currentColor"/>
+                                                </svg>
+                                                <span>Start Chat</span>
+                                            </button>
+                                        </div>
+                                        <div class="ai-input-footer">
+                                            <span class="ai-powered-by">Powered by OpenRouter AI</span>
+                                            <span class="ai-response-time">~2s response time</span>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
 
