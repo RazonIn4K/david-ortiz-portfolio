@@ -5,14 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';
-                   script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://formspree.io https://unpkg.com https://va.vercel-scripts.com;
-                   connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com;
+                   script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://formspree.io https://unpkg.com https://va.vercel-scripts.com https://vitals.vercel-insights.com;
+                   connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://openrouter.ai;
                    frame-src https://www.beautiful.ai;
-                   img-src 'self' data: https:;
-                   style-src 'self' 'unsafe-inline';">
+                   img-src 'self' data: https: blob:;
+                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://img.icons8.com;
+                   font-src 'self' https://fonts.gstatic.com;
+                   object-src 'none';
+                   base-uri 'self';
+                   form-action 'self' https://formspree.io;
+                   frame-ancestors 'self';
+                   upgrade-insecure-requests;">
 
     <title>David Ortiz - Cloud Support Engineer & Database Specialist</title>
-    <meta name="description" content="Professional portfolio showcasing cloud and database projects with quantifiable results. Cloud Support Engineer & Database Specialist with expertise in AWS, GCP, Azure, and database optimization.">
+    <meta name="description" content="David Ortiz - Cloud Support Engineer & Database Specialist. Professional portfolio showcasing 87% query performance improvements, $40K annual savings, and expertise in AWS, GCP, Azure, PostgreSQL, and database optimization.">
+    <meta name="keywords" content="cloud support engineer, database specialist, AWS, GCP, Azure, PostgreSQL, MySQL, SQL optimization, infrastructure automation, DevOps, Chicago tech">
+    <meta name="author" content="David Ortiz">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="geo.region" content="US-IL">
+    <meta name="geo.placename" content="Chicago">
+    <meta name="geo.position" content="41.8781;-87.6298">
+    <meta name="ICBM" content="41.8781, -87.6298">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="David Ortiz - Cloud Support Portfolio">
@@ -52,6 +66,95 @@
     <meta name="msapplication-TileColor" content="#4F46E5">
     <meta name="msapplication-TileImage" content="https://img.icons8.com/fluency/144/code.png">
 
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "David Ortiz",
+      "jobTitle": "Cloud Support Engineer & Database Specialist",
+      "description": "Cloud Support Engineer & Database Specialist with 5+ years of experience in cloud infrastructure optimization, database performance tuning, and cost reduction strategies. Achieved 87% query performance improvements and $40K annual savings for clients.",
+      "url": "https://cs-learning.com",
+      "image": "https://cs-learning.com/assets/david-ortiz-avatar.svg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Chicago",
+        "addressRegion": "IL",
+        "addressCountry": "US"
+      },
+      "knowsAbout": [
+        "Cloud Computing",
+        "Database Optimization",
+        "AWS",
+        "GCP",
+        "Azure",
+        "PostgreSQL",
+        "MySQL",
+        "SQL",
+        "Docker",
+        "Kubernetes",
+        "Terraform",
+        "DevOps",
+        "Infrastructure as Code",
+        "Performance Tuning",
+        "Cost Optimization"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Cloud Support Engineer",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Chicago"
+        }
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "University of Chicago"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/david-ortiz-210190205/",
+        "https://github.com/RazonIn4K"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "professional",
+        "email": "david@cs-learning.com",
+        "availableLanguage": "English"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "David Ortiz Portfolio",
+      "description": "Professional portfolio of David Ortiz, Cloud Support Engineer & Database Specialist showcasing technical expertise and project results.",
+      "url": "https://cs-learning.com",
+      "author": {
+        "@type": "Person",
+        "name": "David Ortiz"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "David Ortiz"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "dateCreated": "2025-01-01",
+      "dateModified": "2025-09-20",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "David Ortiz"
+      }
+    }
+    </script>
+
     <!-- Preload Critical Resources -->
     <link rel="preload" href="src/css/styles.css" as="style">
     <link rel="preload" href="src/js/script.js" as="script">
@@ -73,8 +176,8 @@
     <a href="#main" class="skip-link">Skip to main content</a>
 
     <!-- Header Navigation -->
-    <header class="header" role="banner">
-        <nav class="nav" role="navigation" aria-label="Main navigation">
+    <header class="header">
+        <nav class="nav" aria-label="Main navigation">
             <div class="nav-container">
                 <a href="#home" class="nav-logo" aria-label="Home">David Ortiz</a>
 
@@ -87,10 +190,10 @@
                 </ul>
 
                 <div class="nav-actions">
-                    <button class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+                    <button type="button" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
                         <span class="theme-icon" aria-hidden="true">🌙</span>
                     </button>
-                    <button class="mobile-menu-toggle"
+                    <button type="button" class="mobile-menu-toggle"
                             aria-controls="primary-navigation"
                             aria-expanded="false"
                             aria-label="Toggle navigation"
@@ -104,7 +207,7 @@
     </header>
 
     <!-- Main Content -->
-    <main id="main" class="main" role="main">
+    <main id="main" class="main">
         <!-- Hero Section -->
         <section id="home" class="hero" aria-label="Introduction">
             <div class="hero-container">
@@ -195,15 +298,15 @@
                 <div class="skill-category">
                     <h3 class="category-title">Cloud Platforms</h3>
                     <div class="skills-grid" role="list">
-                        <div class="skill-card" role="listitem" data-tooltip="Infrastructure automation & cost optimization">
+                        <div class="skill-card" role="listitem" data-tooltip="Infrastructure automation &amp; cost optimization">
                             <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="Amazon Web Services" class="skill-icon" loading="lazy">
                             <span class="skill-name">AWS</span>
                         </div>
-                        <div class="skill-card" role="listitem" data-tooltip="BigQuery performance tuning & data pipelines">
+                        <div class="skill-card" role="listitem" data-tooltip="BigQuery performance tuning &amp; data pipelines">
                             <img src="https://img.icons8.com/color/48/google-cloud-platform.png" alt="Google Cloud Platform" class="skill-icon" loading="lazy">
                             <span class="skill-name">GCP</span>
                         </div>
-                        <div class="skill-card" role="listitem" data-tooltip="SQL Database optimization & Azure DevOps">
+                        <div class="skill-card" role="listitem" data-tooltip="SQL Database optimization &amp; Azure DevOps">
                             <img src="https://img.icons8.com/fluency/48/azure-1.png" alt="Microsoft Azure" class="skill-icon" loading="lazy">
                             <span class="skill-name">Azure</span>
                         </div>
@@ -525,21 +628,21 @@
                             <div class="ai-widget-body">
                                 <!-- Quick Actions -->
                                 <div class="ai-quick-actions">
-                                    <button class="ai-quick-btn" data-question="Tell me about David's PostgreSQL optimization that saved $40K">
+                                    <button type="button" class="ai-quick-btn" data-question="Tell me about David's PostgreSQL optimization that saved $40K">
                                         <div class="quick-btn-icon">💰</div>
                                         <div class="quick-btn-content">
                                             <span class="quick-btn-title">Cost Savings</span>
                                             <span class="quick-btn-desc">$40K optimization story</span>
                                         </div>
                                     </button>
-                                    <button class="ai-quick-btn" data-question="What's David's experience with cloud platforms?">
+                                    <button type="button" class="ai-quick-btn" data-question="What's David's experience with cloud platforms?">
                                         <div class="quick-btn-icon">☁️</div>
                                         <div class="quick-btn-content">
                                             <span class="quick-btn-title">Cloud Expertise</span>
                                             <span class="quick-btn-desc">AWS, GCP, Azure</span>
                                         </div>
                                     </button>
-                                    <button class="ai-quick-btn" data-question="How does David approach database performance issues?">
+                                    <button type="button" class="ai-quick-btn" data-question="How does David approach database performance issues?">
                                         <div class="quick-btn-icon">⚡</div>
                                         <div class="quick-btn-content">
                                             <span class="quick-btn-title">Performance</span>
@@ -629,7 +732,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="footer-container">
             <p class="footer-text">
                 &copy; 2025 David Ortiz. Built with modern web technologies and hosted on
@@ -641,36 +744,11 @@
 
     <!-- Scripts -->
     <script src="src/services/config.js"></script>
-    <script type="module" src="src/js/speed-insights.js"></script>
-    <script src="src/js/analytics.js"></script>
-    <script src="src/js/analytics-tracker.js"></script>
-    <script>
-        // Inline theme toggle fix while cache updates
-        document.addEventListener('DOMContentLoaded', function() {
-            const themeToggle = document.querySelector('.theme-toggle');
-            const themeIcon = document.querySelector('.theme-icon');
-
-            if (themeToggle && themeIcon) {
-                // Set initial theme
-                const savedTheme = localStorage.getItem('david-theme-preference') || 'dark';
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-
-                // Add click handler
-                themeToggle.addEventListener('click', function() {
-                    const currentTheme = document.documentElement.getAttribute('data-theme');
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-                    document.documentElement.setAttribute('data-theme', newTheme);
-                    themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-                    localStorage.setItem('david-theme-preference', newTheme);
-
-                    themeToggle.setAttribute('aria-label', `Switch to ${newTheme === 'dark' ? 'light' : 'dark'} theme`);
-                });
-            }
-        });
-    </script>
-    <script src="src/js/enhanced-chat-system.js"></script>
-    <script src="src/js/script.js"></script>
+    <script src="src/js/lazy-loader.min.js"></script>
+    <script type="module" src="src/js/speed-insights.min.js"></script>
+    <script src="src/js/analytics.min.js"></script>
+    <script type="module" src="src/js/analytics-tracker.min.js"></script>
+    <script type="module" src="src/js/enhanced-chat-system.min.js"></script>
+    <script src="src/js/script.min.js"></script>
 </body>
 </html>
