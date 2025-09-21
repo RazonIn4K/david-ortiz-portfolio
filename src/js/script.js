@@ -624,7 +624,8 @@ class StarfieldManager {
     this.addMouseInteraction();
     this.addScrollBasedAnimation();
     // Add dynamic color transitions for enhanced visual appeal
-    this.addDynamicColorTransitions();
+    // TODO: Temporarily disabled due to cache loading issue
+    // this.addDynamicColorTransitions();
   }
 
   createStarfield() {
@@ -807,6 +808,28 @@ class StarfieldManager {
         scrollTimeout = null;
       }, 32); // ~30fps
     }, { passive: true });
+  }
+
+  addDynamicColorTransitions() {
+    // Add subtle color transitions to tech icons for enhanced visual appeal
+    if (!this.starfieldContainer) return;
+
+    const icons = this.starfieldContainer.querySelectorAll('.tech-icon');
+    icons.forEach(icon => {
+      // Add CSS transition for smooth color changes
+      icon.style.transition = 'filter 0.3s ease, opacity 0.2s ease';
+
+      // Add hover effect for color enhancement
+      icon.addEventListener('mouseenter', () => {
+        if (this.performanceMonitor.fps > 30) { // Only on good performance
+          icon.style.filter = 'brightness(1.2) saturate(1.1)';
+        }
+      });
+
+      icon.addEventListener('mouseleave', () => {
+        icon.style.filter = '';
+      });
+    });
   }
 
   getPerformanceMetrics() {
@@ -1219,29 +1242,20 @@ class WebGLParticleSystem {
   }
 }
 
-// ===== CONFIGURATION =====
-const CONFIG = {
-  // AI Chat Configuration
-  OPENROUTER_API_KEY: null, // Set via environment variable or build process
-  OPENROUTER_PRIMARY_MODEL: 'x-ai/grok-4-fast:free',
-  AI_CHAT_TOKEN_LIMIT: 100,
-  MONGODB_CONNECTION_STRING: null, // Set via environment variable
-  MONGODB_DATABASE: 'personal_website_cs-learning',
-
+// ===== SITE CONFIGURATION =====
+const SITE_CONFIG = {
   // Performance Settings
   MAX_TILT_ANGLE: 15,
   TILT_UPDATE_INTERVAL: 16,
   STARFIELD_ICON_COUNT: 120,
   ENABLE_STARFIELD: true,
   ENABLE_TILT_EFFECTS: true,
-
   // Analytics
   ENABLE_ANALYTICS: true,
-  ANALYTICS_ID: null, // Set via environment variable
-
+  ANALYTICS_ID: null,
   // Feature Flags
   ENABLE_AI_CHAT: true,
-  ENABLE_MONGO_LOGGING: false, // Disabled by default for privacy
+  ENABLE_MONGO_LOGGING: false,
   DEBUG_MODE: false
 };
 
@@ -2250,7 +2264,7 @@ class MapManager {
     if (!this.mapElement) return;
 
     this.placeholderSrc = this.mapElement.getAttribute('data-placeholder-src') || 'assets/chicago-map.svg';
-    this.apiKey = (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_MAPS_API_KEY) ? CONFIG.GOOGLE_MAPS_API_KEY : null;
+    this.apiKey = (typeof window.CONFIG !== 'undefined' && window.CONFIG.GOOGLE_MAPS_API_KEY) ? window.CONFIG.GOOGLE_MAPS_API_KEY : null;
 
     if (this.apiKey) {
       this.attachErrorHandler();
@@ -2344,7 +2358,7 @@ const CREATOR_DATABASE = {
 // ===== AI CHAT SYSTEM =====
 class AIChatManager {
   constructor() {
-    this.openRouterApiKey = CONFIG?.OPENROUTER_API_KEY || null;
+    this.openRouterApiKey = window.CONFIG?.OPENROUTER_API_KEY || null;
     this.isActive = false;
     this.sessionData = this.loadSessionData();
     this.rateLimitTimer = null;
@@ -2359,7 +2373,7 @@ class AIChatManager {
   }
 
   async initMongoDB() {
-    if (!CONFIG?.MONGODB_CONNECTION_STRING || !CONFIG?.MONGODB_DATABASE) {
+    if (!window.CONFIG?.MONGODB_CONNECTION_STRING || !window.CONFIG?.MONGODB_DATABASE) {
       console.log('MongoDB not configured, skipping initialization');
       return;
     }
@@ -2387,7 +2401,7 @@ class AIChatManager {
         userAgent: navigator.userAgent,
         ip: 'unknown', // IP would need backend collection
         collection: this.mongodbCollection,
-        database: CONFIG?.MONGODB_DATABASE || 'personal_website_cs-learning'
+        database: window.CONFIG?.MONGODB_DATABASE || 'personal_website_cs-learning'
       };
 
       // For now, we'll use localStorage for logging since we don't have a backend
@@ -2476,13 +2490,13 @@ class AIChatManager {
     if (this.isActive) {
       if (startBtn) startBtn.style.display = 'none';
       if (chatInterface) chatInterface.style.display = 'block';
-      if (chatPreview) chatInterface.style.display = 'none';
+      if (chatPreview) chatPreview.style.display = 'none';
       if (input) input.disabled = false;
       if (sendBtn) sendBtn.disabled = false;
     } else {
       if (startBtn) startBtn.style.display = 'block';
       if (chatInterface) chatInterface.style.display = 'none';
-      if (chatPreview) chatInterface.style.display = 'block';
+      if (chatPreview) chatPreview.style.display = 'block';
       if (input) input.disabled = true;
       if (sendBtn) sendBtn.disabled = true;
     }
@@ -2628,7 +2642,7 @@ IMPORTANT: Keep responses under 100 tokens. Focus on factual, professional infor
           'X-Title': 'David Ortiz Portfolio'
         },
         body: JSON.stringify({
-          model: CONFIG?.OPENROUTER_PRIMARY_MODEL || 'x-ai/grok-4-fast:free',
+          model: window.CONFIG?.OPENROUTER_PRIMARY_MODEL || 'x-ai/grok-4-fast:free',
           messages: [
             {
               role: 'system',
@@ -2638,7 +2652,7 @@ Creator Context: ${context}
 
 Rules:
 - Only answer questions about the creator
-- Keep responses under ${CONFIG?.AI_CHAT_TOKEN_LIMIT || 100} tokens (approximately ${(CONFIG?.AI_CHAT_TOKEN_LIMIT || 100) * 0.75} words)
+- Keep responses under ${window.CONFIG?.AI_CHAT_TOKEN_LIMIT || 100} tokens (approximately ${(window.CONFIG?.AI_CHAT_TOKEN_LIMIT || 100) * 0.75} words)
 - Be professional and informative
 - If the question is off-topic, say: "I'm designed to help you learn about the creator. What would you like to know about their background, skills, or projects?"`
             },
@@ -2647,7 +2661,7 @@ Rules:
               content: query
             }
           ],
-          max_tokens: CONFIG?.AI_CHAT_TOKEN_LIMIT || 100,
+          max_tokens: window.CONFIG?.AI_CHAT_TOKEN_LIMIT || 100,
           temperature: 0.7
         })
       });

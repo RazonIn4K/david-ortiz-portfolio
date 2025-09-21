@@ -43,7 +43,23 @@ const CONFIG = {
         : 24,
     AI_CHAT_RATE_LIMIT_SECONDS: (typeof process !== 'undefined' && process.env)
         ? parseInt(process.env.AI_CHAT_RATE_LIMIT_SECONDS) || 30
-        : 30
+        : 30,
+
+    // Performance Settings
+    MAX_TILT_ANGLE: 15,
+    TILT_UPDATE_INTERVAL: 16,
+    STARFIELD_ICON_COUNT: 120,
+    ENABLE_STARFIELD: true,
+    ENABLE_TILT_EFFECTS: true,
+
+    // Analytics
+    ENABLE_ANALYTICS: true,
+    ANALYTICS_ID: null, // Set via environment variable
+
+    // Feature Flags
+    ENABLE_AI_CHAT: true,
+    ENABLE_MONGO_LOGGING: false, // Disabled by default for privacy
+    DEBUG_MODE: false
 };
 
 // Make CONFIG available globally

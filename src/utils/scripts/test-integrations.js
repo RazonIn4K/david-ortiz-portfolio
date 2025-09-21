@@ -12,7 +12,7 @@ dotenv.config();
  * Test configuration
  */
 const TEST_CONFIG = {
-  baseUrl: process.env.VERCEL_URL || 'http://localhost:3000',
+  baseUrl: process.env.VERCEL_URL || 'https://www.cs-learning.me',
   mongoConnectionString: process.env.MONGODB_CONNECTION_STRING,
   database: process.env.MONGODB_DATABASE || 'personal_website_cs-learning',
   timeout: 10000 // 10 seconds

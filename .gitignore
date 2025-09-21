@@ -65,6 +65,9 @@ Thumbs.db
 dist/
 build/
 
+# Documentation files (personal/AI reference only)
+*.md
+
 # Temporary files
 tmp/
 temp/

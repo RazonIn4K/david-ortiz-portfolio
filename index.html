@@ -53,11 +53,11 @@
     <meta name="msapplication-TileImage" content="https://img.icons8.com/fluency/144/code.png">
 
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="src/css/styles.css" as="style">
+    <link rel="preload" href="src/js/script.js" as="script">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="src/css/styles.css">
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -196,15 +196,15 @@
                     <h3 class="category-title">Cloud Platforms</h3>
                     <div class="skills-grid" role="list">
                         <div class="skill-card" role="listitem" data-tooltip="Infrastructure automation & cost optimization">
-                            <img src="https://img.icons8.com/ios/50/amazon-web-services.png" alt="Amazon Web Services" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="Amazon Web Services" class="skill-icon" loading="lazy">
                             <span class="skill-name">AWS</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="BigQuery performance tuning & data pipelines">
-                            <img src="https://img.icons8.com/ios/50/google-cloud.png" alt="Google Cloud Platform" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/google-cloud-platform.png" alt="Google Cloud Platform" class="skill-icon" loading="lazy">
                             <span class="skill-name">GCP</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="SQL Database optimization & Azure DevOps">
-                            <img src="https://img.icons8.com/ios/50/azure-1.png" alt="Microsoft Azure" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/fluency/48/azure-1.png" alt="Microsoft Azure" class="skill-icon" loading="lazy">
                             <span class="skill-name">Azure</span>
                         </div>
                     </div>
@@ -215,7 +215,7 @@
                     <h3 class="category-title">Database & Data</h3>
                     <div class="skills-grid" role="list">
                         <div class="skill-card" role="listitem" data-tooltip="Query optimization, indexing strategies, and performance tuning">
-                            <img src="https://img.icons8.com/ios/50/postgreesql.png" alt="PostgreSQL" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/postgreesql.png" alt="PostgreSQL" class="skill-icon" loading="lazy">
                             <span class="skill-name">PostgreSQL</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Complex joins, stored procedures, and database design">
@@ -238,11 +238,11 @@
                             <span class="skill-name">GitHub</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Container orchestration and microservices">
-                            <img src="https://img.icons8.com/ios/50/docker.png" alt="Docker" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/docker.png" alt="Docker" class="skill-icon" loading="lazy">
                             <span class="skill-name">Docker</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Cluster management and auto-scaling">
-                            <img src="https://img.icons8.com/ios/50/kubernetes.png" alt="Kubernetes" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/kubernetes.png" alt="Kubernetes" class="skill-icon" loading="lazy">
                             <span class="skill-name">Kubernetes</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Infrastructure as Code and multi-cloud deployments">
@@ -257,15 +257,15 @@
                     <h3 class="category-title">Monitoring & Analysis</h3>
                     <div class="skills-grid" role="list">
                         <div class="skill-card" role="listitem" data-tooltip="Custom dashboards, alerting, and performance monitoring">
-                            <img src="https://img.icons8.com/ios/50/datadog.png" alt="Datadog" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/datadog.png" alt="Datadog" class="skill-icon" loading="lazy">
                             <span class="skill-name">Datadog</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Data analysis scripts and automation tools">
-                            <img src="https://img.icons8.com/ios/50/python.png" alt="Python" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" class="skill-icon" loading="lazy">
                             <span class="skill-name">Python</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Executive presentation design and client reporting">
-                            <img src="https://img.icons8.com/ios/50/beautiful-ai.png" alt="Beautiful.ai" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/fluency/48/artificial-intelligence.png" alt="Beautiful.ai" class="skill-icon" loading="lazy">
                             <span class="skill-name">Beautiful.ai</span>
                         </div>
                     </div>
@@ -501,10 +501,57 @@
                             </div>
                         </div>
 
+                        <div class="ai-chat-container">
+                            <h3 class="ai-preview-title">Ask Me About David's Work</h3>
+                            <p class="ai-preview-description">
+                                Have questions about David's database optimization projects or technical expertise? Chat with an AI assistant that can share insights about his work.
+                            </p>
+
+                            <!-- Chat Preview/Start Interface -->
+                            <div id="chat-preview" class="chat-preview">
+                                <div class="chat-preview-content">
+                                    <div class="sample-questions">
+                                        <p><strong>Try asking:</strong></p>
+                                        <ul>
+                                            <li>"Tell me about David's database optimization work"</li>
+                                            <li>"What cloud platforms does David work with?"</li>
+                                            <li>"How did David achieve 87% performance improvements?"</li>
+                                        </ul>
+                                    </div>
+                                    <button id="start-chat" class="ai-preview-cta">Start Chat</button>
+                                </div>
+                            </div>
+
+                            <!-- Main Chat Interface -->
+                            <div id="chat-interface" class="chat-interface" style="display: none;">
+                                <div id="chat-messages" class="chat-messages">
+                                    <div class="chat-message chat-message-assistant">
+                                        <div class="message-content">Hi! I'm here to help answer questions about David's technical work and experience. What would you like to know?</div>
+                                    </div>
+                                </div>
+
+                                <form id="ai-chat-form" class="chat-input-form">
+                                    <div class="chat-input-container">
+                                        <input
+                                            type="text"
+                                            id="chat-input"
+                                            class="chat-input"
+                                            placeholder="Ask about David's projects, skills, or experience..."
+                                            maxlength="1000"
+                                            autocomplete="off"
+                                        >
+                                        <button type="submit" class="chat-send-btn" aria-label="Send message">
+                                            <span>Send</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                         <div class="future-ai-preview">
                             <h3 class="ai-preview-title">Intelligent Automation Playbooks</h3>
                             <p class="ai-preview-description">
-                                I'm rethinking how AI shows up on this site. While the live chat is paused, here are the automation patterns I'm shipping for clients right now.
+                                Beyond chat, here are the automation patterns I'm shipping for clients right now.
                             </p>
                             <div class="ai-insight-grid">
                                 <div class="ai-insight-card">
@@ -543,8 +590,37 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="analytics.js"></script>
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <script src="src/services/config.js"></script>
+    <script type="module" src="src/js/speed-insights.js"></script>
+    <script src="src/js/analytics.js"></script>
+    <script src="src/js/analytics-tracker.js"></script>
+    <script>
+        // Inline theme toggle fix while cache updates
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const themeIcon = document.querySelector('.theme-icon');
+
+            if (themeToggle && themeIcon) {
+                // Set initial theme
+                const savedTheme = localStorage.getItem('david-theme-preference') || 'dark';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+                // Add click handler
+                themeToggle.addEventListener('click', function() {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+                    localStorage.setItem('david-theme-preference', newTheme);
+
+                    themeToggle.setAttribute('aria-label', `Switch to ${newTheme === 'dark' ? 'light' : 'dark'} theme`);
+                });
+            }
+        });
+    </script>
+    <script src="src/js/enhanced-chat-system.js"></script>
+    <script src="src/js/script.js"></script>
 </body>
 </html>
