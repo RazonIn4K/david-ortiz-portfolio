@@ -9,7 +9,7 @@
     "dev": "python3 dev-server.py 9000",
     "dev-basic": "python3 -m http.server 8000",
     "serve": "python3 -m http.server 8000",
-    "build": "node build-minify.js",
+    "build": "node scripts/build-minify.js",
     "deploy": "echo \"Deploy to GitHub Pages or Vercel\"",
     "performance-audit": "lighthouse http://localhost:9000 --output json --only-categories=performance",
     "security-scan": "npm audit && echo 'Consider running: npx snyk test'",

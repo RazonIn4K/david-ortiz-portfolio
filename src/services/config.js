@@ -10,7 +10,7 @@ const CONFIG = {
     // OpenRouter AI Configuration
     OPENROUTER_API_KEY: (typeof process !== 'undefined' && process.env)
         ? process.env.OPENROUTER_API_KEY || ''
-        : 'your-openrouter-api-key-here',
+        : '',  // Never hardcode API keys here - use environment variables
 
     // OpenRouter Models
     OPENROUTER_PRIMARY_MODEL: (typeof process !== 'undefined' && process.env)

@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node build-minify.js",
+  "buildCommand": "node scripts/build-minify.js",
   "outputDirectory": ".",
   "framework": null,
   "devCommand": "python3 dev-server.py 9000",

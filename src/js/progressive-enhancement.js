@@ -487,4 +487,3 @@ if (typeof module !== 'undefined' && module.exports) {
   };
 }
 
-export { ProgressiveEnhancement, EnhancedFormValidator };

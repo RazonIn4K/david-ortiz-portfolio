@@ -13,6 +13,22 @@ import random
 from urllib.parse import urlparse, parse_qs
 from datetime import datetime
 import threading
+import sys
+
+# Load environment variables from .env file if it exists
+def load_env():
+    env_path = '.env'
+    if os.path.exists(env_path):
+        with open(env_path, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    key, value = line.split('=', 1)
+                    os.environ[key.strip()] = value.strip()
+        print(f"✓ Loaded environment variables from .env")
+
+# Load environment variables on startup
+load_env()
 
 class EnhancedHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     """Enhanced HTTP handler with API endpoint support"""

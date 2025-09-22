@@ -1,6 +1,5 @@
 # Dependencies
 node_modules/
-package-lock.json
 
 # Environment variables
 .env
@@ -65,8 +64,7 @@ Thumbs.db
 dist/
 build/
 
-# Documentation files (personal/AI reference only)
-*.md
+# Documentation files are now tracked for project reference
 
 # Temporary files
 tmp/
