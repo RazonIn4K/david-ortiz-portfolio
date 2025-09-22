@@ -1,15 +1,31 @@
 {
-  "buildCommand": "echo 'No build required for static site'",
+  "buildCommand": "node build-minify.js",
   "outputDirectory": ".",
   "framework": null,
+  "devCommand": "python3 dev-server.py 9000",
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 10
+    },
+    "api/analytics.js": {
+      "maxDuration": 5
+    },
+    "api/chat-log.js": {
+      "maxDuration": 5
+    }
+  },
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "source": "/api/chat",
+      "destination": "/api/chat.js"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/api/analytics",
+      "destination": "/api/analytics.js"
+    },
+    {
+      "source": "/api/chat-log",
+      "destination": "/api/chat-log.js"
     }
   ],
   "headers": [
@@ -37,16 +53,8 @@
           "value": "camera=(), microphone=(), geolocation=()"
         },
         {
-          "key": "Cross-Origin-Embedder-Policy",
-          "value": "require-corp"
-        },
-        {
-          "key": "Cross-Origin-Opener-Policy",
-          "value": "same-origin"
-        },
-        {
-          "key": "Cross-Origin-Resource-Policy",
-          "value": "cross-origin"
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://va.vercel-scripts.com https://vitals.vercel-insights.com; connect-src 'self' https://openrouter.ai https://va.vercel-scripts.com https://vitals.vercel-insights.com /api/* /_vercel/*; frame-src https://www.beautiful.ai; img-src 'self' data: https://img.icons8.com blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; frame-ancestors 'self'"
         }
       ]
     },

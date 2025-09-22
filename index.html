@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self';
-                   script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://formspree.io https://unpkg.com https://va.vercel-scripts.com https://vitals.vercel-insights.com;
-                   connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://openrouter.ai;
-                   frame-src https://www.beautiful.ai;
-                   img-src 'self' data: https: blob:;
-                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://img.icons8.com;
-                   font-src 'self' https://fonts.gstatic.com;
-                   object-src 'none';
-                   base-uri 'self';
-                   form-action 'self' https://formspree.io;
-                   frame-ancestors 'self';
-                   upgrade-insecure-requests;">
+
+    <!-- Performance Optimization: Preconnect to critical origins -->
+    <link rel="preconnect" href="https://openrouter.ai">
+    <link rel="preconnect" href="https://va.vercel-scripts.com">
+    <link rel="dns-prefetch" href="https://vitals.vercel-insights.com">
+    <link rel="dns-prefetch" href="https://img.icons8.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
     <title>David Ortiz - Cloud Support Engineer & Database Specialist</title>
     <meta name="description" content="David Ortiz - Cloud Support Engineer & Database Specialist. Professional portfolio showcasing 87% query performance improvements, $40K annual savings, and expertise in AWS, GCP, Azure, PostgreSQL, and database optimization.">
@@ -741,6 +736,9 @@
             </p>
         </div>
     </footer>
+
+    <!-- Consent Banner Script -->
+    <script src="consent-banner.js" defer></script>
 
     <!-- Scripts -->
     <script src="src/services/config.js"></script>
