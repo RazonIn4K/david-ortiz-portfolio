@@ -64,7 +64,13 @@ Thumbs.db
 dist/
 build/
 
-# Documentation files are now tracked for project reference
+# Documentation files (exclude from deployment)
+*.md
+!README.md
+docs/*.md
+lighthouse-*.json
+.playwright-mcp/
+test-reports/
 
 # Temporary files
 tmp/
