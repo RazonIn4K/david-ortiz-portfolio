@@ -73,6 +73,11 @@
 
   /* Icon treatment */
   --skill-icon-filter: brightness(0) invert(1);
+
+  /* Advanced Accessibility */
+  --focus-ring: 0 0 0 3px var(--accent-color);
+  --focus-ring-offset: 2px;
+  --high-contrast-border: 2px solid var(--text-color);
 }
 
 /* Light Theme - 2025 Warm Tech-Inspired */
@@ -3653,4 +3658,235 @@ canvas[style*="z-index: -2"] {
 
 .performance-indicator.high-performance {
   background: rgba(0, 128, 0, 0.8);
+}
+
+/* ===== ADVANCED ACCESSIBILITY ENHANCEMENTS ===== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .skill-card,
+  .project-card,
+  .hero-cta,
+  .contact-form input,
+  .contact-form textarea {
+    border: var(--high-contrast-border);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .nav-link,
+  .contact-link-item {
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition-fast);
+  }
+
+  .nav-link:focus,
+  .contact-link-item:focus {
+    border-bottom-color: var(--accent-color);
+  }
+}
+
+/* Enhanced focus indicators for better accessibility */
+*:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Skip to content link improvements */
+.skip-link:focus {
+  transform: translateY(0);
+  outline: var(--focus-ring);
+  outline-offset: 0;
+}
+
+/* Screen reader only content improvements */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.sr-only:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: var(--space-2) var(--space-4) !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+  background: var(--accent-color);
+  color: white;
+  text-decoration: none;
+  border-radius: var(--border-radius);
+}
+
+/* Keyboard navigation improvements */
+.keyboard-navigation *:focus {
+  outline: var(--focus-ring) !important;
+  outline-offset: var(--focus-ring-offset) !important;
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+  .skill-card,
+  .project-card,
+  .hero-cta {
+    min-height: 44px; /* Minimum touch target size */
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+  }
+
+  .nav-link,
+  .contact-link-item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: var(--space-3);
+  }
+}
+
+/* Color blindness support */
+@media (prefers-contrast: more) {
+  .hero-metrics {
+    border: 2px solid var(--text-color);
+    padding: var(--space-4);
+    border-radius: var(--border-radius-lg);
+  }
+
+  .metric-highlight {
+    border-left: 4px solid var(--accent-color);
+    padding-left: var(--space-3);
+  }
+
+  .skill-category {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--space-4);
+  }
+}
+
+/* Print styles for accessibility */
+@media print {
+  .starfield-background,
+  .mobile-menu-toggle,
+  .theme-toggle,
+  .ai-chat-widget,
+  .performance-indicator {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .hero,
+  .about,
+  .skills,
+  .projects,
+  .contact {
+    page-break-inside: avoid;
+  }
+
+  .project-card,
+  .skill-card {
+    border: 1px solid black;
+    margin-bottom: var(--space-4);
+    padding: var(--space-3);
+  }
+
+  .hero-cta,
+  .contact-link-item {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+}
+
+/* Advanced screen reader announcements */
+.announcement {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.announcement[aria-live="assertive"] {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Focus management for dynamic content */
+.focus-trap {
+  position: relative;
+}
+
+.focus-trap::before,
+.focus-trap::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.focus-trap::before {
+  top: -100px;
+}
+
+.focus-trap::after {
+  bottom: -100px;
+}
+
+/* Enhanced error states for better accessibility */
+.form-input:invalid,
+.form-textarea:invalid {
+  border-color: var(--error-color);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.form-input:invalid:focus,
+.form-textarea:invalid:focus {
+  outline: 2px solid var(--error-color);
+  outline-offset: 2px;
+}
+
+/* Improved button states */
+button:disabled,
+.hero-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+button[aria-pressed="true"] {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* Live region for dynamic announcements */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.live-region[aria-live="polite"] {
+  position: static;
+  width: auto;
+  height: auto;
 }

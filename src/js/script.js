@@ -405,6 +405,9 @@ class PerformanceMonitor {
     window.addEventListener('load', () => {
       this.trackLoadTime();
     });
+
+    // Monitor memory usage if available
+    this.monitorMemoryUsage();
   }
 
   trackLoadTime() {
@@ -417,6 +420,30 @@ class PerformanceMonitor {
           'value': Math.round(loadTime)
         });
       }
+    }
+  }
+
+  monitorMemoryUsage() {
+    if ('memory' in performance) {
+      const checkMemory = () => {
+        const memory = performance.memory;
+        const usagePercent = Math.round((memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100);
+
+        // Warn if memory usage is high
+        if (usagePercent > 80) {
+          console.warn('High memory usage detected:', usagePercent + '%');
+
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'high_memory_usage', {
+              'event_category': 'performance',
+              'value': usagePercent
+            });
+          }
+        }
+      };
+
+      // Check every 30 seconds
+      setInterval(checkMemory, 30000);
     }
   }
 }
@@ -527,18 +554,29 @@ class ErrorHandler {
   init() {
     window.addEventListener('error', (e) => this.handleError(e));
     window.addEventListener('unhandledrejection', (e) => this.handlePromiseRejection(e));
+    window.addEventListener('unhandledrejection', (e) => this.handleUnhandledRejection(e));
+
+    // Global error boundary for critical failures
+    this.setupGlobalErrorBoundary();
   }
 
   handleError(e) {
     console.error('JavaScript Error:', e.error);
 
+    // Don't track errors that are already handled
+    if (e.error?.name === 'HandledError') return;
+
     // Track errors for analytics (but don't send sensitive information)
     if (typeof gtag !== 'undefined') {
       gtag('event', 'javascript_error', {
         'event_category': 'error',
-        'event_label': e.error?.name || 'unknown_error'
+        'event_label': e.error?.name || 'unknown_error',
+        'event_action': e.filename + ':' + e.lineno + ':' + e.colno
       });
     }
+
+    // Show user-friendly error message for critical failures
+    this.showErrorNotification(e.error?.message || 'An unexpected error occurred');
   }
 
   handlePromiseRejection(e) {
@@ -550,6 +588,113 @@ class ErrorHandler {
         'event_category': 'error',
         'event_label': 'unhandled_promise_rejection'
       });
+    }
+
+    this.showErrorNotification('A background process failed');
+  }
+
+  handleUnhandledRejection(e) {
+    console.error('Unhandled Rejection:', e.reason);
+
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'unhandled_rejection', {
+        'event_category': 'error',
+        'event_label': 'unhandled_rejection'
+      });
+    }
+  }
+
+  showErrorNotification(message) {
+    // Create a non-intrusive error notification
+    const notification = document.createElement('div');
+    notification.className = 'error-notification';
+    notification.innerHTML = `
+      <div class="error-content">
+        <span class="error-icon">⚠️</span>
+        <span class="error-message">${this.escapeHtml(message)}</span>
+        <button class="error-dismiss" aria-label="Dismiss">×</button>
+      </div>
+    `;
+
+    // Style the notification
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--error-color);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 10000;
+      font-size: 14px;
+      max-width: 300px;
+    `;
+
+    document.body.appendChild(notification);
+
+    // Add dismiss functionality
+    const dismissBtn = notification.querySelector('.error-dismiss');
+    dismissBtn.addEventListener('click', () => {
+      notification.remove();
+    });
+
+    // Auto-dismiss after 10 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.remove();
+      }
+    }, 10000);
+  }
+
+  escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  setupGlobalErrorBoundary() {
+    // Wrap critical functions with error boundaries
+    const originalFetch = window.fetch;
+    window.fetch = function(...args) {
+      return originalFetch.apply(this, args)
+        .catch(error => {
+          console.error('Fetch error:', error);
+          throw new Error('NetworkError');
+        });
+    };
+
+    // Monitor for infinite loops or heavy CPU usage
+    this.monitorPerformance();
+  }
+
+  monitorPerformance() {
+    let lastTime = performance.now();
+    let frameCount = 0;
+    let highCpuUsage = 0;
+
+    const checkPerformance = () => {
+      const now = performance.now();
+      const deltaTime = now - lastTime;
+      lastTime = now;
+      frameCount++;
+
+      // If frame time is consistently high, warn about performance issues
+      if (deltaTime > 50) { // More than 50ms per frame (less than 20fps)
+        highCpuUsage++;
+        if (highCpuUsage > 10) { // 10 consecutive slow frames
+          console.warn('High CPU usage detected - performance may be degraded');
+          highCpuUsage = 0; // Reset counter
+        }
+      } else {
+        highCpuUsage = 0; // Reset if performance is good
+      }
+
+      requestAnimationFrame(checkPerformance);
+    };
+
+    if ('requestAnimationFrame' in window) {
+      requestAnimationFrame(checkPerformance);
     }
   }
 }
@@ -1242,22 +1387,6 @@ class WebGLParticleSystem {
   }
 }
 
-// ===== SITE CONFIGURATION =====
-const SITE_CONFIG = {
-  // Performance Settings
-  MAX_TILT_ANGLE: 15,
-  TILT_UPDATE_INTERVAL: 16,
-  STARFIELD_ICON_COUNT: 120,
-  ENABLE_STARFIELD: true,
-  ENABLE_TILT_EFFECTS: true,
-  // Analytics
-  ENABLE_ANALYTICS: true,
-  ANALYTICS_ID: null,
-  // Feature Flags
-  ENABLE_AI_CHAT: true,
-  ENABLE_MONGO_LOGGING: false,
-  DEBUG_MODE: false
-};
 
 class AdvancedCursorTrail {
   constructor() {
@@ -2111,6 +2240,150 @@ class EnhancedTiltManager {
   }
 }
 
+// ===== MEMORY LEAK PREVENTION UTILITIES =====
+class MemoryLeakPrevention {
+  constructor() {
+    this.timers = new Set();
+    this.eventListeners = new Set();
+    this.animationFrames = new Set();
+    this.observers = new Set();
+
+    // Start cleanup monitoring
+    this.startCleanupMonitoring();
+  }
+
+  // Safe setTimeout with automatic cleanup tracking
+  safeSetTimeout(callback, delay, ...args) {
+    const timer = setTimeout(() => {
+      this.timers.delete(timer);
+      callback.apply(this, args);
+    }, delay);
+    this.timers.add(timer);
+    return timer;
+  }
+
+  // Safe setInterval with automatic cleanup tracking
+  safeSetInterval(callback, delay, ...args) {
+    const timer = setInterval(callback.bind(this, ...args), delay);
+    this.timers.add(timer);
+    return timer;
+  }
+
+  // Safe requestAnimationFrame with cleanup tracking
+  safeRequestAnimationFrame(callback) {
+    const frame = requestAnimationFrame(() => {
+      this.animationFrames.delete(frame);
+      callback();
+    });
+    this.animationFrames.add(frame);
+    return frame;
+  }
+
+  // Safe addEventListener with cleanup tracking
+  safeAddEventListener(element, event, callback, options = {}) {
+    element.addEventListener(event, callback, options);
+    const listener = { element, event, callback, options };
+    this.eventListeners.add(listener);
+    return listener;
+  }
+
+  // Safe observe with cleanup tracking
+  safeObserve(observer, element, options = {}) {
+    observer.observe(element, options);
+    this.observers.add({ observer, element });
+    return { observer, element };
+  }
+
+  // Cleanup all tracked resources
+  cleanup() {
+    // Clear all timers
+    this.timers.forEach(timer => clearTimeout(timer));
+    this.timers.clear();
+
+    // Clear all intervals
+    this.timers.forEach(timer => clearInterval(timer));
+    this.timers.clear();
+
+    // Cancel all animation frames
+    this.animationFrames.forEach(frame => cancelAnimationFrame(frame));
+    this.animationFrames.clear();
+
+    // Remove all event listeners
+    this.eventListeners.forEach(({ element, event, callback, options }) => {
+      element.removeEventListener(event, callback, options);
+    });
+    this.eventListeners.clear();
+
+    // Disconnect all observers
+    this.observers.forEach(({ observer }) => {
+      observer.disconnect();
+    });
+    this.observers.clear();
+
+    console.log('Memory cleanup completed');
+  }
+
+  // Monitor for potential memory leaks
+  startCleanupMonitoring() {
+    // Check memory usage every 5 minutes
+    this.safeSetInterval(() => {
+      this.checkMemoryUsage();
+    }, 300000);
+
+    // Auto-cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      this.cleanup();
+    });
+
+    // Cleanup on page hide (mobile browsers)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        this.cleanup();
+      }
+    });
+  }
+
+  checkMemoryUsage() {
+    if ('memory' in performance) {
+      const memory = performance.memory;
+      const usedMB = Math.round(memory.usedJSHeapSize / 1048576);
+      const totalMB = Math.round(memory.jsHeapSizeLimit / 1048576);
+
+      console.log(`Memory usage: ${usedMB}MB / ${totalMB}MB`);
+
+      // Force garbage collection if available
+      if ('gc' in window) {
+        window.gc();
+      }
+
+      // Check for memory leaks
+      if (usedMB > totalMB * 0.8) {
+        console.warn('High memory usage detected - potential memory leak');
+        this.forceCleanup();
+      }
+    }
+  }
+
+  forceCleanup() {
+    // Force cleanup of DOM elements that might be accumulating
+    const orphanedElements = document.querySelectorAll('[data-temp], .temp-element');
+    orphanedElements.forEach(el => el.remove());
+
+    // Clear any temporary data in localStorage
+    try {
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('temp_') || key.startsWith('debug_')) {
+          localStorage.removeItem(key);
+        }
+      });
+    } catch (e) {
+      // localStorage might not be available
+    }
+
+    console.log('Forced cleanup completed');
+  }
+}
+
 // ===== MOBILE NAVIGATION =====
 class MobileMenuManager {
   constructor() {
@@ -2120,6 +2393,7 @@ class MobileMenuManager {
     this.themeToggle = document.querySelector('.theme-toggle');
     this.isOpen = false;
     this.lastFocusedElement = null;
+    this.memoryCleanup = new MemoryLeakPrevention();
 
     if (this.mobileToggle && this.navMenu) {
       this.init();
@@ -2324,414 +2598,7 @@ class MapManager {
   }
 }
 
-// ===== CREATOR DATABASE =====
-const CREATOR_DATABASE = {
-  background: {
-    role: "Cloud Support Engineer & Database Specialist",
-    location: "Chicago, IL",
-    experience: "5+ years in cloud infrastructure and database optimization",
-    focus: "Performance optimization, cost reduction, and infrastructure automation",
-    availability: "Available for projects starting Q1 2026"
-  },
-  expertise: {
-    cloud: "AWS, GCP, Azure - Infrastructure automation and cost optimization",
-    database: "PostgreSQL, MySQL, SQL - Query optimization, indexing strategies, and performance tuning",
-    devops: "Docker, Kubernetes, Terraform, GitHub - CI/CD pipelines and infrastructure as code",
-    monitoring: "Datadog - Custom dashboards, alerting, and performance monitoring",
-    analysis: "Python - Data analysis scripts and automation tools",
-    presentation: "Beautiful.ai - Executive presentation design and client reporting"
-  },
-  achievements: {
-    performance: "87% query performance improvement (10s → 1.3s)",
-    cost: "$40K annual savings delivered",
-    efficiency: "35% cost reduction across multi-cloud infrastructure",
-    monitoring: "60% reduction in emergency support calls",
-    prediction: "20-minute early warning for performance bottlenecks"
-  },
-  projects: {
-    postgresql: "Transformed analytical queries from 10+ seconds to 1.3 seconds using strategic indexing and query restructuring",
-    cloud_cost: "Implemented automated rightsizing and scheduling system reducing costs by 35% without performance impact",
-    monitoring: "Built custom Datadog integration with 20-minute early warning system for performance issues"
-  }
-};
 
-// ===== AI CHAT SYSTEM =====
-class AIChatManager {
-  constructor() {
-    this.openRouterApiKey = window.CONFIG?.OPENROUTER_API_KEY || null;
-    this.isActive = false;
-    this.sessionData = this.loadSessionData();
-    this.rateLimitTimer = null;
-    this.lastQueryTime = null;
-
-    // ===== MONGODB INTEGRATION =====
-    this.mongodbConnected = false;
-    this.mongodbCollection = 'My Projects and learning';
-    this.initMongoDB();
-
-    this.init();
-  }
-
-  async initMongoDB() {
-    if (!window.CONFIG?.MONGODB_CONNECTION_STRING || !window.CONFIG?.MONGODB_DATABASE) {
-      console.log('MongoDB not configured, skipping initialization');
-      return;
-    }
-
-    try {
-      // For browser environment, we'll use a simple HTTP endpoint to log to MongoDB
-      // In a production setup, you'd want a proper backend API
-      this.mongodbConnected = true;
-      console.log('MongoDB logging enabled');
-    } catch (error) {
-      console.error('Failed to initialize MongoDB:', error);
-    }
-  }
-
-  async logChatInteraction(query, context, model, responseStatus) {
-    if (!this.mongodbConnected) return;
-
-    try {
-      const logData = {
-        timestamp: new Date().toISOString(),
-        sessionId: this.sessionData.sessionId,
-        query: query,
-        model: model,
-        responseStatus: responseStatus,
-        userAgent: navigator.userAgent,
-        ip: 'unknown', // IP would need backend collection
-        collection: this.mongodbCollection,
-        database: window.CONFIG?.MONGODB_DATABASE || 'personal_website_cs-learning'
-      };
-
-      // For now, we'll use localStorage for logging since we don't have a backend
-      // In production, this would send to MongoDB collection: "My Projects and learning"
-      const logs = JSON.parse(localStorage.getItem('ai_chat_logs') || '[]');
-      logs.push(logData);
-
-      // Keep only last 1000 logs to prevent localStorage bloat
-      if (logs.length > 1000) {
-        logs.splice(0, logs.length - 1000);
-      }
-
-      localStorage.setItem('ai_chat_logs', JSON.stringify(logs));
-      console.log('Chat interaction logged to "My Projects and learning" collection:', logData);
-
-    } catch (error) {
-      console.error('Failed to log chat interaction:', error);
-    }
-  }
-
-  init() {
-    this.bindEvents();
-    this.updateUI();
-  }
-
-  bindEvents() {
-    const startBtn = document.getElementById('start-chat');
-    const sendBtn = document.getElementById('send-message');
-    const input = document.getElementById('chat-input');
-
-    if (startBtn) {
-      startBtn.addEventListener('click', () => this.startChat());
-    }
-
-    if (sendBtn) {
-      sendBtn.addEventListener('click', () => this.sendMessage());
-    }
-
-    if (input) {
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !sendBtn.disabled) {
-          this.sendMessage();
-        }
-      });
-    }
-  }
-
-  loadSessionData() {
-    const saved = localStorage.getItem('david-ai-session');
-    if (saved) {
-      const data = JSON.parse(saved);
-      // Check if 24 hours have passed since last session
-      if (Date.now() - data.lastSession > 24 * 60 * 60 * 1000) {
-        return { promptsUsed: 0, lastSession: Date.now() };
-      }
-      return data;
-    }
-    return { promptsUsed: 0, lastSession: Date.now() };
-  }
-
-  saveSessionData() {
-    localStorage.setItem('david-ai-session', JSON.stringify(this.sessionData));
-  }
-
-  updateUI() {
-    const startBtn = document.getElementById('start-chat');
-    const chatInterface = document.getElementById('chat-interface');
-    const chatPreview = document.getElementById('chat-preview');
-    const remainingSpan = document.getElementById('remaining-prompts');
-    const input = document.getElementById('chat-input');
-    const sendBtn = document.getElementById('send-message');
-
-    if (this.sessionData.promptsUsed >= 3) {
-      if (startBtn) startBtn.style.display = 'none';
-      if (chatInterface) chatInterface.style.display = 'none';
-      if (chatPreview) chatPreview.style.display = 'none';
-    } else {
-      if (startBtn) startBtn.style.display = 'block';
-      if (chatPreview) chatPreview.style.display = 'block';
-    }
-
-    if (remainingSpan) {
-      remainingSpan.textContent = 3 - this.sessionData.promptsUsed;
-    }
-
-    if (this.isActive) {
-      if (startBtn) startBtn.style.display = 'none';
-      if (chatInterface) chatInterface.style.display = 'block';
-      if (chatPreview) chatPreview.style.display = 'none';
-      if (input) input.disabled = false;
-      if (sendBtn) sendBtn.disabled = false;
-    } else {
-      if (startBtn) startBtn.style.display = 'block';
-      if (chatInterface) chatInterface.style.display = 'none';
-      if (chatPreview) chatPreview.style.display = 'block';
-      if (input) input.disabled = true;
-      if (sendBtn) sendBtn.disabled = true;
-    }
-  }
-
-  startChat() {
-    if (this.sessionData.promptsUsed >= 3) {
-      this.showMessage('system', 'Session limit reached. Please try again in 24 hours.');
-      return;
-    }
-
-    this.isActive = true;
-    this.updateUI();
-    this.showMessage('ai', 'Hello! I\'m David\'s AI assistant. I can answer questions about his expertise in cloud engineering, database optimization, and infrastructure. You have 3 questions to ask. What would you like to know?');
-  }
-
-  async sendMessage() {
-    const input = document.getElementById('chat-input');
-    const sendBtn = document.getElementById('send-message');
-    const message = input.value.trim();
-
-    if (!message) return;
-
-    // Rate limiting check
-    if (this.lastQueryTime && Date.now() - this.lastQueryTime < 30000) {
-      this.showMessage('system', 'Please wait 30 seconds between messages.');
-      return;
-    }
-
-    // Token limit check (rough estimate: 100 tokens ≈ 75 words)
-    const wordCount = message.split(/\s+/).length;
-    if (wordCount > 75) {
-      this.showMessage('system', 'Message too long. Please limit to 75 words (100 tokens).');
-      return;
-    }
-
-    if (this.sessionData.promptsUsed >= 3) {
-      this.showMessage('system', 'Session limit reached. Please try again in 24 hours.');
-      return;
-    }
-
-    this.lastQueryTime = Date.now();
-    this.sessionData.promptsUsed++;
-    this.saveSessionData();
-
-    this.showMessage('user', message);
-    input.value = '';
-    input.disabled = true;
-    sendBtn.disabled = true;
-
-    this.showTypingIndicator();
-
-    try {
-      await this.processQuery(message);
-    } catch (error) {
-      this.hideTypingIndicator();
-      this.showMessage('error', 'Sorry, I encountered an error. Please try again.');
-      console.error('AI Chat Error:', error);
-    }
-
-    this.updateUI();
-  }
-
-  async processQuery(query) {
-    // Log the interaction for moderation
-    this.logInteraction(query);
-
-    // Check if query is related to creator
-    const isRelevant = this.isQueryRelevant(query);
-    if (!isRelevant) {
-      this.hideTypingIndicator();
-      this.showMessage('ai', 'I can only answer questions about David\'s professional expertise in cloud engineering, database optimization, and infrastructure. Please ask about his background, projects, or technical skills.');
-      return;
-    }
-
-    // Prepare context from database
-    const context = this.buildContext();
-
-    // Call OpenRouter AI
-    if (!this.openRouterApiKey) {
-      this.hideTypingIndicator();
-      this.showMessage('ai', 'I\'m currently being configured. Please check back soon!');
-      return;
-    }
-
-    const response = await this.callOpenRouter(query, context);
-    this.hideTypingIndicator();
-
-    if (response) {
-      this.showMessage('ai', response);
-    } else {
-      this.showMessage('ai', 'I apologize, but I\'m having trouble connecting right now. Please try again in a moment.');
-    }
-
-    // Rate limiting timer
-    this.rateLimitTimer = setTimeout(() => {
-      const input = document.getElementById('chat-input');
-      const sendBtn = document.getElementById('send-message');
-      if (input) input.disabled = false;
-      if (sendBtn) sendBtn.disabled = false;
-    }, 30000);
-  }
-
-  isQueryRelevant(query) {
-    const relevantKeywords = [
-      'david', 'background', 'experience', 'expertise', 'skills', 'projects',
-      'cloud', 'aws', 'gcp', 'azure', 'database', 'postgresql', 'mysql', 'sql',
-      'docker', 'kubernetes', 'terraform', 'github', 'datadog', 'python',
-      'performance', 'optimization', 'cost', 'infrastructure', 'monitoring',
-      'engineering', 'support', 'consulting', 'chicago', 'remote'
-    ];
-
-    const queryLower = query.toLowerCase();
-    return relevantKeywords.some(keyword => queryLower.includes(keyword));
-  }
-
-  buildContext() {
-    return `You are David Ortiz's AI assistant. Respond concisely and professionally about David's expertise based only on this information:
-
-BACKGROUND:
-${JSON.stringify(CREATOR_DATABASE.background, null, 2)}
-
-EXPERTISE:
-${JSON.stringify(CREATOR_DATABASE.expertise, null, 2)}
-
-ACHIEVEMENTS:
-${JSON.stringify(CREATOR_DATABASE.achievements, null, 2)}
-
-PROJECTS:
-${JSON.stringify(CREATOR_DATABASE.projects, null, 2)}
-
-IMPORTANT: Keep responses under 100 tokens. Focus on factual, professional information. If asked about personal or sensitive topics, redirect to professional expertise.`;
-  }
-
-  async callOpenRouter(query, context) {
-    try {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.openRouterApiKey}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'David Ortiz Portfolio'
-        },
-        body: JSON.stringify({
-          model: window.CONFIG?.OPENROUTER_PRIMARY_MODEL || 'x-ai/grok-4-fast:free',
-          messages: [
-            {
-              role: 'system',
-              content: `You are an AI assistant for a personal website. You have access to specific information about the creator stored in a database. You must ONLY answer questions about the creator using the provided context. If asked about anything else, politely redirect back to creator-related topics.
-
-Creator Context: ${context}
-
-Rules:
-- Only answer questions about the creator
-- Keep responses under ${window.CONFIG?.AI_CHAT_TOKEN_LIMIT || 100} tokens (approximately ${(window.CONFIG?.AI_CHAT_TOKEN_LIMIT || 100) * 0.75} words)
-- Be professional and informative
-- If the question is off-topic, say: "I'm designed to help you learn about the creator. What would you like to know about their background, skills, or projects?"`
-            },
-            {
-              role: 'user',
-              content: query
-            }
-          ],
-          max_tokens: window.CONFIG?.AI_CHAT_TOKEN_LIMIT || 100,
-          temperature: 0.7
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`OpenRouter API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return data.choices[0]?.message?.content || null;
-    } catch (error) {
-      console.error('OpenRouter API Error:', error);
-      return null;
-    }
-  }
-
-  showMessage(type, content) {
-    const messagesContainer = document.getElementById('chat-messages');
-    if (!messagesContainer) return;
-
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `chat-message ${type}`;
-    messageDiv.innerHTML = `<p>${this.escapeHtml(content)}</p>`;
-
-    messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  }
-
-  showTypingIndicator() {
-    const messagesContainer = document.getElementById('chat-messages');
-    if (!messagesContainer) return;
-
-    const indicator = document.createElement('div');
-    indicator.className = 'typing-indicator';
-    indicator.id = 'typing-indicator';
-    indicator.innerHTML = `
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-    `;
-
-    messagesContainer.appendChild(indicator);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-  }
-
-  hideTypingIndicator() {
-    const indicator = document.getElementById('typing-indicator');
-    if (indicator) {
-      indicator.remove();
-    }
-  }
-
-  logInteraction(query) {
-    // In a real implementation, this would log to a server
-    const logEntry = {
-      timestamp: new Date().toISOString(),
-      query: query,
-      sessionId: this.sessionData.lastSession,
-      userAgent: navigator.userAgent
-    };
-
-    console.log('AI Chat Interaction:', logEntry);
-  }
-
-  escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-}
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -2751,9 +2618,6 @@ document.addEventListener('DOMContentLoaded', () => {
     new ErrorHandler();
     new MapManager(); // Initialize Google Maps integration
 
-    if (document.querySelector('.ai-chat-container')) {
-      new AIChatManager(); // Initialize AI Chat system when UI is present
-    }
 
     // Initialize browser compatibility detector
     const compatibilityDetector = new BrowserCompatibilityDetector();

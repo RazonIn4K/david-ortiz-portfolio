@@ -6,10 +6,16 @@
   "main": "src/js/script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "python3 -m http.server 8000",
+    "dev": "python3 dev-server.py 9000",
+    "dev-basic": "python3 -m http.server 8000",
     "serve": "python3 -m http.server 8000",
-    "build": "echo \"Static site - no build needed\"",
-    "deploy": "echo \"Deploy to GitHub Pages or Vercel\""
+    "build": "node build-minify.js",
+    "deploy": "echo \"Deploy to GitHub Pages or Vercel\"",
+    "performance-audit": "lighthouse http://localhost:9000 --output json --only-categories=performance",
+    "security-scan": "npm audit && echo 'Consider running: npx snyk test'",
+    "optimize": "npm run build && npm run performance-audit",
+    "lint": "stylelint 'src/**/*.css'",
+    "lint-fix": "stylelint 'src/**/*.css' --fix"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +27,9 @@
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "stylelint": "^16.24.0",
+    "stylelint-config-standard": "^39.0.0",
+    "terser": "^5.44.0"
   }
 }
