@@ -323,7 +323,7 @@ class AnimationController {
   handleIntersection(entries) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+        entry.target.style.animation = 'fade-in-up 0.6s ease-out forwards';
 
         // Track section views for analytics
         if (typeof gtag !== 'undefined') {
@@ -1971,7 +1971,7 @@ class AdvancedAnimationController {
 
         // Trigger different animation intensities based on visibility
         if (visibilityRatio > 0.1 && !element.classList.contains('animated-in')) {
-          this.triggerElementAnimation(element, 'fadeInUp');
+          this.triggerElementAnimation(element, 'fade-in-up');
           element.classList.add('animated-in');
         }
 
@@ -1991,7 +1991,7 @@ class AdvancedAnimationController {
 
   triggerElementAnimation(element, animationType) {
     switch (animationType) {
-      case 'fadeInUp':
+      case 'fade-in-up':
         element.style.cssText += `
           opacity: 1;
           transform: translateY(0);
