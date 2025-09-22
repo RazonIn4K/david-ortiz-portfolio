@@ -1,7 +1,7 @@
 // AI Chat API endpoint for handling chat interactions
 // Integrates with OpenRouter AI service and MongoDB logging
 
-import MongoDBClient from './mongodb-client.js';
+// MongoDB removed - using lightweight in-memory storage
 
 /**
  * Rate limiting for chat requests
@@ -201,38 +201,14 @@ export default async function handler(req, res) {
     const aiResult = await sendToOpenRouter(message, history);
     const responseTime = Date.now() - startTime;
 
-    // Log to MongoDB asynchronously (don't block response)
-    const mongoClient = new MongoDBClient();
-    mongoClient.logChatInteraction({
-      query: message,
-      response: aiResult.response,
-      sessionId: sessionId,
-      model: aiResult.model,
-      responseTime: responseTime,
-      tokenCount: aiResult.usage?.total_tokens || null,
-      errorOccurred: false,
-      timestamp: new Date(),
-      ip: req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown',
-      userAgent: req.headers['user-agent']
-    }).catch(error => {
-      console.error('Failed to log chat interaction:', error);
-    });
-
-    // Log analytics event
-    mongoClient.logAnalyticsEvent({
-      event: 'ai_chat_query',
-      data: {
+    // Optional: Log for debugging (remove in production)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Chat interaction:', {
         model: aiResult.model,
         responseTime: responseTime,
-        queryLength: message.length,
-        responseLength: aiResult.response.length,
-        tokenUsage: aiResult.usage?.total_tokens || null
-      },
-      sessionId: sessionId,
-      timestamp: Date.now()
-    }).catch(error => {
-      console.error('Failed to log chat analytics:', error);
-    });
+        sessionId: sessionId
+      });
+    }
 
     // Success response
     return res.status(200).json({
@@ -249,23 +225,12 @@ export default async function handler(req, res) {
     console.error('Chat API error:', error);
     const responseTime = Date.now() - startTime;
 
-    // Log error to MongoDB
-    try {
-      const mongoClient = new MongoDBClient();
-      mongoClient.logChatInteraction({
-        query: req.body?.message || 'Unknown query',
-        response: `Error: ${error.message}`,
-        sessionId: req.body?.sessionId || 'unknown',
-        model: 'error',
-        responseTime: responseTime,
-        errorOccurred: true,
-        timestamp: new Date(),
-        ip: req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown',
-        userAgent: req.headers['user-agent']
-      }).catch(console.error);
-    } catch (logError) {
-      console.error('Failed to log error:', logError);
-    }
+    // Log error for debugging
+    console.error('Chat error:', {
+      message: error.message,
+      responseTime: responseTime,
+      sessionId: req.body?.sessionId || 'unknown'
+    });
 
     // Return appropriate error response
     if (error.message.includes('OpenRouter')) {

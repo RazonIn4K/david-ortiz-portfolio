@@ -1,7 +1,7 @@
 // Contact form API endpoint for Vercel serverless functions
 // Handles contact form submissions with validation and MongoDB storage
 
-import MongoDBClient from './mongodb-client.js';
+// MongoDB removed - using Formspree for contact forms
 
 /**
  * Rate limiting for contact form (stricter than analytics)
@@ -239,43 +239,26 @@ export default async function handler(req, res) {
       responseTime: null
     };
 
-    // Store in MongoDB
-    const mongoClient = new MongoDBClient();
-    const result = await mongoClient.storeContactSubmission(contactSubmission);
-
-    if (!result.success) {
-      console.error('Failed to store contact submission:', result.error);
-      return res.status(500).json({
-        error: 'Failed to process your message',
-        message: 'Please try again later or contact us directly'
-      });
-    }
+    // Log submission for debugging (optional)
+    console.log('Contact submission received:', {
+      name: sanitizedData.name,
+      email: sanitizedData.email,
+      timestamp: new Date().toISOString()
+    });
 
     // Send notification email (async, don't wait for completion)
     sendNotificationEmail(sanitizedData).catch(error => {
       console.error('Failed to send notification email:', error);
     });
 
-    // Log analytics event
-    try {
-      await mongoClient.logAnalyticsEvent({
-        event: 'contact_form_submission',
-        data: {
-          hasSubject: !!sanitizedData.subject,
-          messageLength: sanitizedData.message.length
-        },
-        sessionId: req.headers['x-session-id'] || 'unknown',
-        timestamp: Date.now()
-      });
-    } catch (error) {
-      console.error('Failed to log contact form analytics:', error);
-    }
+    // Analytics handled by Vercel Analytics
+    // No custom logging needed
 
     // Success response
     return res.status(200).json({
       success: true,
       message: 'Thank you for your message! I will get back to you within 24 hours.',
-      submissionId: result.id,
+      submissionId: `contact-${Date.now()}`,
       timestamp: new Date().toISOString()
     });
 

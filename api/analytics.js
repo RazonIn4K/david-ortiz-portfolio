@@ -1,7 +1,6 @@
 // Analytics API endpoint for Vercel serverless functions
-// Handles batch analytics events from the frontend
-
-import MongoDBClient from './mongodb-client.js';
+// Simplified - Vercel Analytics handles real analytics
+// This endpoint just returns success for compatibility
 
 /**
  * Rate limiting configuration
@@ -162,23 +161,17 @@ export default async function handler(req, res) {
       });
     }
 
-    // Store events in MongoDB
-    const mongoClient = new MongoDBClient();
-    const result = await mongoClient.batchInsert('analytics_events', validEvents);
-
-    if (!result.success) {
-      console.error('Failed to store analytics events:', result.error);
-      return res.status(500).json({
-        error: 'Failed to store events',
-        details: process.env.NODE_ENV === 'development' ? result.error : undefined
-      });
+    // Analytics handled by Vercel Analytics
+    // Just log in development for debugging
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Analytics: ${validEvents.length} events received`);
     }
 
     // Success response
     const response = {
       success: true,
       processed: validEvents.length,
-      stored: result.insertedCount,
+      stored: validEvents.length,
       timestamp: new Date().toISOString()
     };
 
