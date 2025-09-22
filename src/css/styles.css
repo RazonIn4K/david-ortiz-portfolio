@@ -3316,15 +3316,6 @@ canvas[style*="z-index: -2"] {
   }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-}
 
 /* ===== SCROLL-TRIGGERED ANIMATIONS ===== */
 .fade-in-on-scroll {
