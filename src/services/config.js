@@ -20,16 +20,6 @@ const CONFIG = {
         ? process.env.OPENROUTER_FALLBACK_MODEL || 'z-ai/glm-4.5-air:free'
         : 'z-ai/glm-4.5-air:free',
 
-    // MongoDB Configuration
-    MONGODB_CONNECTION_STRING: (typeof process !== 'undefined' && process.env)
-        ? process.env.MONGODB_CONNECTION_STRING || ''
-        : 'mongodb+srv://username:password@cluster.mongodb.net/',
-    MONGODB_USERNAME: (typeof process !== 'undefined' && process.env)
-        ? process.env.MONGODB_USERNAME || 'your-username'
-        : 'your-username',
-    MONGODB_DATABASE: (typeof process !== 'undefined' && process.env)
-        ? process.env.MONGODB_DATABASE || 'personal_website_cs-learning'
-        : 'personal_website_cs-learning',
 
     // AI Chat Session Limits
     AI_CHAT_SESSION_LIMIT: (typeof process !== 'undefined' && process.env)
@@ -58,7 +48,6 @@ const CONFIG = {
 
     // Feature Flags
     ENABLE_AI_CHAT: true,
-    ENABLE_MONGO_LOGGING: false, // Disabled by default for privacy
     DEBUG_MODE: false
 };
 

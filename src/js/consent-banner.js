@@ -150,5 +150,3 @@ if (document.readyState === 'loading') {
 } else {
   window.consentManager = new ConsentManager();
 }
-
-export default ConsentManager;

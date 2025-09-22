@@ -2843,6 +2843,53 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.head.appendChild(style);
 }
 
+// ===== CHAT SYSTEM INITIALIZATION =====
+class ChatSystemManager {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    // Handle Start Chat button
+    const startChatButton = document.getElementById('start-chat');
+    const chatInput = document.getElementById('chat-input');
+
+    if (startChatButton && chatInput) {
+      startChatButton.addEventListener('click', () => {
+        this.enableChat(chatInput, startChatButton);
+      });
+    }
+  }
+
+  enableChat(chatInput, startChatButton) {
+    // Enable the chat input
+    chatInput.disabled = false;
+    chatInput.focus();
+
+    // Update button text and state
+    const buttonSpan = startChatButton.querySelector('span');
+    if (buttonSpan) {
+      buttonSpan.textContent = 'Send Message';
+    }
+
+    // Change button type to submit for form submission
+    startChatButton.type = 'submit';
+
+    // Add visual feedback
+    chatInput.classList.add('chat-enabled');
+    startChatButton.classList.add('chat-active');
+  }
+}
+
+// Initialize chat system when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new ChatSystemManager();
+  });
+} else {
+  new ChatSystemManager();
+}
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     ThemeManager,
@@ -2854,6 +2901,7 @@ if (typeof module !== 'undefined' && module.exports) {
     PerformanceMonitor,
     AccessibilityManager,
     ErrorHandler,
+    ChatSystemManager,
     debounce,
     throttle,
     isInViewport
