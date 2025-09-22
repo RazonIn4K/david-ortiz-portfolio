@@ -9,9 +9,6 @@
     },
     "api/analytics.js": {
       "maxDuration": 5
-    },
-    "api/chat-log.js": {
-      "maxDuration": 5
     }
   },
   "rewrites": [
@@ -22,10 +19,6 @@
     {
       "source": "/api/analytics",
       "destination": "/api/analytics.js"
-    },
-    {
-      "source": "/api/chat-log",
-      "destination": "/api/chat-log.js"
     }
   ],
   "headers": [
