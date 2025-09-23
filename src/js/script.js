@@ -1851,6 +1851,12 @@ class AnimationPresetManager {
 
   init(controllers) {
     this.controllers = controllers;
+
+    // Load stored preset or use default
+    const storedPreset = this.getStoredPreset();
+    this.currentPreset = storedPreset;
+
+    // Apply initial preset and set animation level
     this.applyPreset(this.currentPreset);
     this.createPresetSelector();
   }
@@ -1891,6 +1897,9 @@ class AnimationPresetManager {
   applyPreset(presetName) {
     const preset = this.presets[presetName];
 
+    // Apply animation level to document element for CSS variable control
+    document.documentElement.setAttribute('data-animation-level', presetName);
+
     // Apply global transition duration
     document.documentElement.style.setProperty('--transition-base', preset.transitionDuration);
 
@@ -1914,6 +1923,14 @@ class AnimationPresetManager {
       preset.particleSystem ?
         this.controllers.particleSystem.init() :
         this.controllers.particleSystem.destroy();
+    }
+
+    // Log saturation level change for analytics
+    if (window.analyticsTracker) {
+      window.analyticsTracker.track('animation_level_changed', {
+        level: presetName,
+        timestamp: Date.now()
+      });
     }
   }
 

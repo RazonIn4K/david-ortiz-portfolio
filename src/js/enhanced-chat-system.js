@@ -8,7 +8,7 @@
 class EnhancedAIChat {
   constructor(options = {}) {
     this.config = {
-      apiEndpoint: '/api/chat-log',
+      apiEndpoint: '/api/lightweight-storage',
       analyticsEndpoint: '/api/analytics',
       fallbackToLocalStorage: true,
       enableAnalytics: true,

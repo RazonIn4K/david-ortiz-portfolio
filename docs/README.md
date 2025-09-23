@@ -16,6 +16,9 @@ A professional portfolio website showcasing cloud support engineering and databa
 - **MongoDB Analytics**: Real-time user behavior tracking with MongoDB Atlas backend
 - **Vercel Analytics**: Official Vercel Analytics for web analytics and visitor tracking
 - **Speed Insights**: Vercel Speed Insights for Web Vitals and performance monitoring
+- **GDPR Cookie Consent**: Advanced consent management with localStorage persistence and analytics control
+- **Enhanced AI Chat System**: MongoDB-integrated chat with rate limiting, session management, and offline support
+- **Advanced Saturation Control**: Animation-level specific saturation controls with WCAG accessibility safeguards
 - **Intelligent Automation Showcase**: Static display of MongoDB-backed automation playbooks
 - **Advanced Animation System**: Cross-browser compatible starfield background with 210+ tech icons
 - **Performance Monitoring**: Real-time FPS monitoring with adaptive quality adjustment
@@ -23,7 +26,7 @@ A professional portfolio website showcasing cloud support engineering and databa
 - **Interactive Elements**: Advanced cursor trail, magnetic field effects, and smooth transitions
 - **Responsive Design**: Mobile-first approach with breakpoints for all devices
 - **Dark/Light Theme**: Toggle between themes with localStorage persistence
-- **Accessibility**: WCAG 2.1 AA compliant with keyboard navigation support
+- **Accessibility**: WCAG 2.1 AA compliant with keyboard navigation support and reduced motion support
 - **Performance Optimized**: Lighthouse scores 90+ across all categories
 - **SEO Ready**: Open Graph meta tags, structured data, and optimized content
 - **Contact Form**: MongoDB-backed submission handling with spam detection
@@ -33,21 +36,48 @@ A professional portfolio website showcasing cloud support engineering and databa
 
 ## 🛠 Tech Stack
 
-- **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Backend**: MongoDB Atlas with Node.js serverless functions
-- **Database**: MongoDB with optimized indexes and TTL policies
-- **Animation**: WebGL with Canvas 2D fallback, CSS transitions
-- **Analytics**: MongoDB Atlas + Vercel Analytics + Speed Insights
-- **Icons**: Icons8.com CDN with theme-aware styling
-- **Browser Compatibility**: Feature detection, vendor prefixes, graceful degradation
-- **Performance**: Hardware acceleration, adaptive quality systems, connection pooling
-- **Session Management**: LocalStorage with progressive enhancement
-- **Rate Limiting**: Multi-tier rate limiting for API endpoints
-- **Security**: Input validation, spam detection, PII redaction
-- **Hosting**: Vercel with MongoDB Atlas integration
-- **Maps**: Google Maps API with SVG fallback
-- **Embeds**: Beautiful.ai
-- **Domain**: Custom domain with HTTPS
+### **Core Frontend**
+- **HTML5**: Semantic markup with ARIA accessibility support
+- **CSS3**: Modern CSS with custom properties, Grid, Flexbox, and cross-browser vendor prefixes
+- **JavaScript (ES6+)**: Modular architecture with class-based components and progressive enhancement
+- **WebGL**: Hardware-accelerated graphics with automatic Canvas 2D fallback
+
+### **Backend & Database**
+- **MongoDB Atlas**: Cloud database with optimized indexes and TTL policies
+- **Node.js**: Serverless functions for API endpoints
+- **Vercel Functions**: Edge computing with automatic scaling
+
+### **Development Tools**
+- **Stylelint**: CSS linting with standard configuration
+- **Terser**: JavaScript minification and optimization
+- **Build System**: Custom Node.js build scripts with minification
+
+### **Animation & Graphics**
+- **WebGL**: Hardware-accelerated particle systems
+- **CSS Animations**: Smooth transitions with animation-level controls
+- **Saturation Control**: WCAG-compliant visual effects with accessibility safeguards
+
+### **Analytics & Monitoring**
+- **MongoDB Analytics**: Custom event tracking with offline support
+- **Vercel Analytics**: Official visitor tracking and page analytics
+- **Vercel Speed Insights**: Core Web Vitals and performance monitoring
+
+### **Third-Party Services**
+- **Icons8.com**: Professional icon CDN with theme-aware styling
+- **Formspree**: Contact form backend with spam protection
+- **Beautiful.ai**: Project presentation embeds
+- **Google Maps API**: Location visualization with SVG fallback
+
+### **Security & Performance**
+- **Content Security Policy**: XSS protection with strict CSP headers
+- **Rate Limiting**: Multi-tier protection (Analytics: 60/min, Contact: 5/hour, Chat: 10/min)
+- **Input Validation**: Comprehensive sanitization and spam detection
+- **GDPR Compliance**: Cookie consent management with user preference storage
+
+### **Deployment & Hosting**
+- **Vercel**: Edge deployment with automatic HTTPS
+- **GitHub**: Version control and automated deployments
+- **Custom Domain**: Professional domain with SSL certificates
 
 ## 📁 Project Structure
 
@@ -70,13 +100,14 @@ A professional portfolio website showcasing cloud support engineering and databa
 │
 ├── src/               # Source code organized by type
 │   ├── js/           # Client-side JavaScript
-│   │   ├── script.js           # Theme management, animations, and interactions
-│   │   ├── enhanced-chat-system.js # Enhanced AI chat with MongoDB logging
+│   │   ├── script.js           # Core animations, theme management, and saturation controls
+│   │   ├── enhanced-chat-system.js # MongoDB-integrated AI chat with rate limiting
+│   │   ├── consent-banner.js   # GDPR-compliant cookie consent with analytics control
 │   │   ├── analytics.js        # Vercel Analytics integration (CDN-friendly)
 │   │   ├── analytics-tracker.js # Advanced analytics tracking with offline support
 │   │   ├── speed-insights.js   # Vercel Speed Insights for performance monitoring
 │   │   ├── progressive-enhancement.js # Class enhancement patterns and utilities
-│   │   └── consent-banner.js   # GDPR-compliant cookie consent management
+│   │   └── lazy-loader.js      # Optimized resource loading and performance
 │   │
 │   ├── css/          # Stylesheets
 │   │   └── styles.css          # Responsive CSS with theme-aware styling
@@ -96,11 +127,11 @@ A professional portfolio website showcasing cloud support engineering and databa
 │   ├── chicago-map.svg           # Location map fallback
 │   └── og-image.png              # Open Graph social sharing image
 ├── api/              # Serverless function endpoints (MongoDB integration)
-│   ├── analytics.js      # Analytics data collection endpoint
-│   ├── contact.js        # Contact form submission handling
-│   ├── chat.js          # AI chat API endpoint
-│   ├── chat-log.js       # AI chat interaction logging
-│   └── mongodb-client.js # MongoDB Atlas connection and operations
+│   ├── analytics.js      # Analytics data collection endpoint with rate limiting
+│   ├── contact.js        # Contact form submission handling with spam detection
+│   ├── chat.js          # AI chat API endpoint with session management
+│   ├── lightweight-storage.js # Lightweight chat logging with fallback support
+│   └── (MongoDB integration embedded in individual endpoints)
 ├── docs/             # Documentation and guides
 │   ├── ARCHITECTURE.md   # Technical architecture overview
 │   ├── DEPLOYMENT.md     # Deployment and hosting guide
@@ -267,12 +298,14 @@ The site features a comprehensive triple-analytics setup for maximum insight:
 - Batched event collection with localStorage fallback
 - Custom dashboards via MongoDB Atlas views
 - Rate limited: 60 requests/minute per IP
+- GDPR-compliant with user consent controls
 
 **📊 Vercel Analytics** (Official)
 - Visitor tracking and page view analytics
 - No build process required - static-friendly CDN loading
 - Automatically detects domain configuration
 - Console verification: `✅ Vercel Analytics loaded successfully`
+- Respects cookie consent preferences
 
 **⚡ Speed Insights** (Web Vitals)
 - Core Web Vitals monitoring (LCP, FID, CLS)
@@ -280,27 +313,49 @@ The site features a comprehensive triple-analytics setup for maximum insight:
 - Real User Monitoring (RUM) data
 - Console verification: `✅ Speed Insights loaded successfully`
 
-**Implementation Details:**
-- Both Vercel services load via `va.vercel-scripts.com` CDN
-- CSP-compliant script injection with error handling
-- No npm build step required - works with static hosting
-- Graceful degradation if analytics services are blocked
-  ```json
-  {
-    "timestamp": "2025-09-20T14:30:00.000Z",
-    "sessionId": "unique-session-identifier",
-    "query": "User's question about the creator",
-    "model": "x-ai/grok-4-fast:free",
-    "responseStatus": 200,
-    "userAgent": "Mozilla/5.0...",
-    "ip": "unknown",
-    "collection": "My Projects and learning",
-    "database": "personal_website_cs-learning"
+### 8. API Endpoints & Rate Limiting
+
+**Available Endpoints:**
+```
+/api/analytics      - Event tracking (POST) - 60 req/min per IP
+/api/contact        - Form submissions (POST) - 5 req/hour per IP
+/api/chat           - AI chat interactions (POST) - 10 req/min per user
+/api/lightweight-storage - Chat logging (POST) - 10 req/min per user
+```
+
+**API Response Format:**
+```json
+{
+  "success": true,
+  "message": "Data processed successfully",
+  "data": {
+    "id": "unique-identifier",
+    "timestamp": "2025-09-22T...",
+    "rateLimit": {
+      "remaining": 8,
+      "resetTime": 1695398400000
+    }
   }
-  ```
-- ✅ **Session management** with localStorage persistence
-- ✅ **Content filtering** with keyword validation
-- ✅ **Automatic termination** on limit violations
+}
+```
+
+**Error Handling:**
+```json
+{
+  "success": false,
+  "error": "Rate limit exceeded",
+  "message": "Please wait before sending another request",
+  "retryAfter": 60
+}
+```
+
+**Implementation Details:**
+- All services load via secure CDN with CSP compliance
+- Graceful degradation if analytics services are blocked
+- GDPR consent integration for all tracking services
+- Session management with localStorage persistence
+- Content filtering with keyword validation
+- Automatic rate limit reset and user notification
 
 ### 6. Content Customization
 
@@ -345,15 +400,27 @@ The site tracks the following events for analytics:
 
 ## 🔒 Security Features
 
-- **Rate Limiting**: Contact (5/hour), Chat (10/min), Analytics (60/min)
-- **Input Validation**: Comprehensive sanitization on all forms
-- **Spam Detection**: Keyword filtering, link analysis, pattern detection
-- **API Security**: Environment variables for sensitive keys
-- **CORS Headers**: Properly configured (recommend origin restriction)
-- **Content Security Policy**: CSP headers implemented
-- **HTTPS Enforcement**: Via Vercel deployment
-- **MongoDB Security**: Connection string secured, TTL cleanup
-- **Zero Vulnerabilities**: npm audit shows 0 security issues
+### **API Security & Rate Limiting**
+- **Contact Form**: 5 submissions/hour per IP with spam detection
+- **AI Chat System**: 10 requests/minute per user with session tracking
+- **Analytics Collection**: 60 requests/minute per IP with data validation
+- **Input Validation**: Comprehensive sanitization on all forms and API endpoints
+- **Spam Detection**: Multi-layer protection with keyword filtering, link analysis, and pattern detection
+
+### **Data Protection & Privacy**
+- **GDPR Compliance**: Cookie consent management with user preference storage
+- **PII Detection**: Automatic detection and redaction of sensitive information
+- **TTL Policies**: Automatic data cleanup (Chat: 90 days, Analytics: 1 year, Contact: 2 years)
+- **Environment Variables**: Secure configuration management for sensitive keys
+- **MongoDB Security**: Encrypted connections with Atlas, optimized indexes
+
+### **Application Security**
+- **Content Security Policy**: Strict CSP headers preventing XSS attacks
+- **CORS Configuration**: Properly configured cross-origin resource sharing
+- **HTTPS Enforcement**: Automatic SSL/TLS via Vercel deployment
+- **Input Sanitization**: Server-side validation and sanitization for all user inputs
+- **Error Handling**: Secure error responses that don't leak sensitive information
+- **Zero Vulnerabilities**: Confirmed through npm audit and security scanning
 
 ## 🧪 Testing
 

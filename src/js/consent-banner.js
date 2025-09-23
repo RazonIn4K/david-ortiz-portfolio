@@ -43,12 +43,12 @@ class ConsentManager {
     // Control analytics based on consent
     if (this.consent.analytics) {
       window.analyticsEnabled = true;
-      if (window.analyticsTracker) {
+      if (window.analyticsTracker && typeof window.analyticsTracker.enable === 'function') {
         window.analyticsTracker.enable();
       }
     } else {
       window.analyticsEnabled = false;
-      if (window.analyticsTracker) {
+      if (window.analyticsTracker && typeof window.analyticsTracker.disable === 'function') {
         window.analyticsTracker.disable();
       }
     }
@@ -89,19 +89,6 @@ class ConsentManager {
           <button id="consent-reject">Reject Non-Essential</button>
         </div>
       </div>
-    `;
-
-    // Styles
-    banner.style.cssText = `
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--bg-secondary);
-      border-top: 2px solid var(--accent-primary);
-      padding: 1.5rem;
-      z-index: 10000;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
     `;
 
     document.body.appendChild(banner);
