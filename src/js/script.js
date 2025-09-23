@@ -929,30 +929,24 @@ class StarfieldManager {
   }
 
   addScrollBasedAnimation() {
-    // Simplified scroll animation - just basic parallax
-    let lastScrollY = window.scrollY;
+    // Register scroll handler with the global scroll manager for better performance
+    if (window.globalScrollManager) {
+      let lastScrollY = window.scrollY;
 
-    const scrollHandler = () => {
-      const currentScrollY = window.scrollY;
+      const scrollHandler = (scrollY) => {
+        if (this.starfieldContainer && Math.abs(scrollY - lastScrollY) > 5) {
+          // Simple parallax effect - only at ultimate level
+          const animationLevel = document.documentElement.dataset.animationLevel;
+          if (animationLevel === 'ultimate') {
+            const parallaxOffset = (scrollY - lastScrollY) * 0.05;
+            this.starfieldContainer.style.transform = `translateY(${parallaxOffset}px)`;
+          }
+          lastScrollY = scrollY;
+        }
+      };
 
-      if (this.starfieldContainer && Math.abs(currentScrollY - lastScrollY) > 5) {
-        // Simple parallax effect
-        const parallaxOffset = (currentScrollY - lastScrollY) * 0.05;
-        this.starfieldContainer.style.transform = `translateY(${parallaxOffset}px)`;
-
-        lastScrollY = currentScrollY;
-      }
-    };
-
-    // Throttled scroll listener
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-      if (scrollTimeout) return;
-      scrollTimeout = setTimeout(() => {
-        scrollHandler();
-        scrollTimeout = null;
-      }, 32); // ~30fps
-    }, { passive: true });
+      window.globalScrollManager.addHandler('starfield', scrollHandler);
+    }
   }
 
   addDynamicColorTransitions() {
@@ -1007,6 +1001,197 @@ class StarfieldManager {
     this.iconPool = [];
     this.performanceMonitor = null;
     this.colorAnimationFrame = null;
+  }
+}
+
+// ===== SCROLL-ADJUSTED SATURATION CONTROLLER =====
+class ScrollSaturationController {
+  constructor(options = {}) {
+    this.root = document.documentElement;
+    this.options = {
+      maxSaturationDrop: options.maxSaturationDrop ?? 0.25,
+      maxOpacityDrop: options.maxOpacityDrop ?? 0.35,
+      minSaturation: options.minSaturation ?? 0.6,
+      minOpacity: options.minOpacity ?? 0.18
+    };
+
+    this.handleScroll = (scrollY) => this.update(scrollY);
+    this.handleContrastChange = (event) => this.setEnabled(!event.matches);
+    this.handleResize = null;
+    this.isInitialized = false;
+
+    this.contrastQuery = window.matchMedia('(prefers-contrast: more)');
+    this.enabled = !this.contrastQuery.matches;
+
+    this.observeContrastPreference();
+
+    if (this.enabled) {
+      this.initialize();
+    }
+  }
+
+  observeContrastPreference() {
+    if (!this.contrastQuery) return;
+
+    if (typeof this.contrastQuery.addEventListener === 'function') {
+      this.contrastQuery.addEventListener('change', this.handleContrastChange);
+    } else if (typeof this.contrastQuery.addListener === 'function') {
+      this.contrastQuery.addListener(this.handleContrastChange);
+    }
+  }
+
+  initialize() {
+    this.observePresetChanges();
+    this.refreshBaseValues();
+    this.attachScrollHandler();
+
+    if (!this.handleResize) {
+      this.handleResize = () => this.update(window.scrollY);
+      window.addEventListener('resize', this.handleResize);
+    }
+
+    this.update(window.scrollY);
+    this.isInitialized = true;
+  }
+
+  setEnabled(enabled) {
+    if (this.enabled === enabled) return;
+
+    this.enabled = enabled;
+
+    if (enabled) {
+      this.initialize();
+    } else {
+      this.detachScrollHandler();
+      this.resetInlineAdjustments();
+      this.isInitialized = false;
+    }
+  }
+
+  refreshBaseValues() {
+    const inlineSaturation = this.root.style.getPropertyValue('--current-saturation');
+    const inlineOpacity = this.root.style.getPropertyValue('--current-bg-opacity');
+
+    const previousSaturation = inlineSaturation ? inlineSaturation.trim() : null;
+    const previousOpacity = inlineOpacity ? inlineOpacity.trim() : null;
+
+    if (previousSaturation) {
+      this.root.style.removeProperty('--current-saturation');
+    }
+    if (previousOpacity) {
+      this.root.style.removeProperty('--current-bg-opacity');
+    }
+
+    const computed = getComputedStyle(this.root);
+    this.baseSaturation = this.parseVar(computed.getPropertyValue('--current-saturation'), 0.85);
+    this.baseOpacity = this.parseVar(computed.getPropertyValue('--current-bg-opacity'), 0.5);
+
+    this.targetSaturation = Math.max(this.options.minSaturation, this.baseSaturation - this.options.maxSaturationDrop);
+    this.targetOpacity = Math.max(this.options.minOpacity, this.baseOpacity - this.options.maxOpacityDrop);
+
+    this.lastSaturation = null;
+    this.lastOpacity = null;
+
+    if (previousSaturation) {
+      this.root.style.setProperty('--current-saturation', previousSaturation);
+      this.lastSaturation = this.parseVar(previousSaturation, this.baseSaturation);
+    }
+
+    if (previousOpacity) {
+      this.root.style.setProperty('--current-bg-opacity', previousOpacity);
+      this.lastOpacity = this.parseVar(previousOpacity, this.baseOpacity);
+    }
+  }
+
+  attachScrollHandler() {
+    if (!window.globalScrollManager) return;
+    window.globalScrollManager.addHandler('scrollSaturation', this.handleScroll);
+  }
+
+  detachScrollHandler() {
+    if (window.globalScrollManager) {
+      window.globalScrollManager.removeHandler('scrollSaturation');
+    }
+
+    if (this.handleResize) {
+      window.removeEventListener('resize', this.handleResize);
+      this.handleResize = null;
+    }
+  }
+
+  observePresetChanges() {
+    if (this.presetObserver) return;
+
+    this.presetObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-animation-level') {
+          this.refreshBaseValues();
+          this.update(window.scrollY);
+        }
+      });
+    });
+
+    this.presetObserver.observe(this.root, { attributes: true });
+  }
+
+  parseVar(value, fallback) {
+    if (typeof value === 'string') {
+      const parsed = parseFloat(value.trim());
+      if (Number.isFinite(parsed)) {
+        return parsed;
+      }
+    }
+
+    return fallback;
+  }
+
+  update(scrollY = window.scrollY) {
+    if (!this.enabled) return;
+
+    const progress = this.calculateProgress(scrollY);
+    const saturation = this.lerp(this.baseSaturation, this.targetSaturation, progress);
+    const opacity = this.lerp(this.baseOpacity, this.targetOpacity, progress);
+
+    if (this.lastSaturation === null || Math.abs(saturation - this.lastSaturation) > 0.005) {
+      this.root.style.setProperty('--current-saturation', saturation.toFixed(3));
+      this.lastSaturation = saturation;
+    }
+
+    if (this.lastOpacity === null || Math.abs(opacity - this.lastOpacity) > 0.005) {
+      this.root.style.setProperty('--current-bg-opacity', opacity.toFixed(3));
+      this.lastOpacity = opacity;
+    }
+
+    this.root.style.setProperty('--scroll-saturation-progress', progress.toFixed(3));
+  }
+
+  calculateProgress(scrollY) {
+    const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+    return Math.min(Math.max(scrollY / maxScroll, 0), 1);
+  }
+
+  lerp(start, end, amount) {
+    return start + (end - start) * amount;
+  }
+
+  resetInlineAdjustments() {
+    this.root.style.removeProperty('--current-saturation');
+    this.root.style.removeProperty('--current-bg-opacity');
+    this.root.style.removeProperty('--scroll-saturation-progress');
+    this.lastSaturation = null;
+    this.lastOpacity = null;
+  }
+
+  getState() {
+    return {
+      enabled: this.enabled,
+      baseSaturation: this.baseSaturation,
+      targetSaturation: this.targetSaturation,
+      currentSaturation: this.lastSaturation ?? this.baseSaturation,
+      baseOpacity: this.baseOpacity,
+      targetOpacity: this.targetOpacity,
+      currentOpacity: this.lastOpacity ?? this.baseOpacity
+    };
   }
 }
 
@@ -1599,15 +1784,18 @@ class EnhancedScrollAnimations {
   }
 
   setupSectionAnimations() {
-    let lastScrollY = 0;
+    // Register with global scroll manager instead of adding another listener
+    if (window.globalScrollManager) {
+      let lastScrollY = 0;
 
-    window.addEventListener('scroll', () => {
-      const currentScrollY = window.scrollY;
-      this.scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
-      lastScrollY = currentScrollY;
+      const scrollHandler = (currentScrollY) => {
+        this.scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+        lastScrollY = currentScrollY;
+        this.updateParallaxElements(currentScrollY);
+      };
 
-      this.updateParallaxElements(currentScrollY);
-    }, { passive: true });
+      window.globalScrollManager.addHandler('sectionAnimations', scrollHandler);
+    }
   }
 
   setupParallaxElements() {
@@ -1642,10 +1830,13 @@ class EnhancedScrollAnimations {
     `;
     document.body.appendChild(indicator);
 
-    window.addEventListener('scroll', () => {
-      const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-      indicator.style.width = scrolled + '%';
-    }, { passive: true });
+    // Register with global scroll manager for better performance
+    if (window.globalScrollManager) {
+      window.globalScrollManager.addHandler('scrollProgress', (scrollY) => {
+        const scrolled = (scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        indicator.style.width = scrolled + '%';
+      });
+    }
   }
 }
 
@@ -2716,6 +2907,9 @@ document.addEventListener('DOMContentLoaded', () => {
     animationPresetManager.currentPreset = defaultPreset;
     animationPresetManager.init(animationSystems);
 
+    // Gradually dial down saturation/opacity as the reader moves deeper into the page
+    const scrollSaturationController = new ScrollSaturationController();
+
     // Register all systems with the advanced controller
     advancedAnimationController.registerAnimation('starfield', starfieldManager);
     advancedAnimationController.registerAnimation('particles', webglParticleSystem);
@@ -2753,6 +2947,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.getAnimationMetrics = () => ({
       starfield: starfieldManager.getPerformanceMetrics(),
       global: advancedAnimationController.getGlobalMetrics(),
+      scrollSaturation: scrollSaturationController.getState(),
       systems: {
         webglSupported: webglParticleSystem.isWebGLSupported,
         activeAnimations: advancedAnimationController.animations.size,
@@ -2765,6 +2960,12 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleRainbow: () => starfieldManager.toggleRainbowMode(),
       toggleCursorTrail: () => advancedCursorTrail.setActive(!advancedCursorTrail.isActive),
       toggleMagnetic: () => magneticFieldController.setActive(!magneticFieldController.isActive),
+      toggleScrollSaturation: (enabled) => scrollSaturationController.setEnabled(enabled !== false),
+      refreshScrollSaturation: () => {
+        scrollSaturationController.refreshBaseValues();
+        scrollSaturationController.update(window.scrollY);
+      },
+      getScrollSaturationState: () => scrollSaturationController.getState(),
       setPreset: (preset) => animationPresetManager.setPreset(preset),
       getPresets: () => Object.keys(animationPresetManager.presets)
     };
@@ -2821,15 +3022,71 @@ function isInViewport(element) {
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
-// Enhanced scroll behavior for better UX with scroll-based header state
-window.addEventListener('scroll', throttle(() => {
-  const header = document.querySelector('.header');
-  if (window.scrollY > 24) {
-    header.classList.add('scrolled');
-  } else {
-    header.classList.remove('scrolled');
+// Global Scroll Manager - Consolidates all scroll handlers for better performance
+class GlobalScrollManager {
+  constructor() {
+    this.handlers = new Map();
+    this.isScrolling = false;
+    this.lastScrollY = 0;
+    this.animationFrame = null;
+
+    this.setupScrollListener();
   }
-}, 100));
+
+  setupScrollListener() {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+
+          // Execute all registered handlers efficiently
+          this.handlers.forEach((handler, name) => {
+            try {
+              handler(currentScrollY);
+            } catch (error) {
+              console.warn(`Scroll handler "${name}" error:`, error);
+            }
+          });
+
+          this.lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  addHandler(name, handler) {
+    this.handlers.set(name, handler);
+  }
+
+  removeHandler(name) {
+    this.handlers.delete(name);
+  }
+
+  getHandlerCount() {
+    return this.handlers.size;
+  }
+}
+
+// Initialize global scroll manager
+window.globalScrollManager = new GlobalScrollManager();
+
+// Register header scroll behavior
+window.globalScrollManager.addHandler('header', (scrollY) => {
+  const header = document.querySelector('.header');
+  if (header) {
+    if (scrollY > 24) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+});
 
 // Handle prefers-reduced-motion with respect for user preferences
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

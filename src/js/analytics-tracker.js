@@ -154,7 +154,27 @@ class AnalyticsTracker {
       }
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Register with global scroll manager if available for better performance
+    if (window.globalScrollManager) {
+      window.globalScrollManager.addHandler('analyticsScrollDepth', (scrollY) => {
+        // Use optimized scroll tracking with global manager
+        const scrollPercent = Math.round(
+          (scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+        );
+
+        maxScroll = Math.max(maxScroll, scrollPercent);
+
+        thresholds.forEach(threshold => {
+          if (scrollPercent >= threshold && !fired.has(threshold)) {
+            fired.add(threshold);
+            this.track('scroll_depth', { depth: threshold });
+          }
+        });
+      });
+    } else {
+      // Fallback to individual scroll listener
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
 
     // Track max scroll on page unload
     window.addEventListener('beforeunload', () => {

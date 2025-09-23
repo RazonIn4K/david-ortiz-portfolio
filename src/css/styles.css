@@ -146,6 +146,10 @@
   --current-saturation: var(--saturation-ultimate);
   --current-bg-opacity: var(--bg-opacity-ultimate);
   --current-animation-intensity: 0.9; /* Capped below 1.0 */
+
+  /* Performance optimizations for ultimate level */
+  will-change: auto; /* Only promote what's actively animating */
+  transform: translateZ(0); /* Create compositing layer for smooth scrolling */
 }
 
 /* WCAG Contrast Safeguards */
@@ -3571,14 +3575,21 @@ canvas[style*="z-index: -2"] {
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Scroll-based brightness animations */
-.starfield-background.scroll-boost {
+/* Scroll-based brightness animations - only at ultimate level for performance */
+[data-animation-level="ultimate"] .starfield-background.scroll-boost {
   animation: scroll-brightness-boost 0.3s ease-out;
+}
+
+/* Disable scroll boost for lower animation levels to improve performance */
+[data-animation-level="minimal"] .starfield-background.scroll-boost,
+[data-animation-level="balanced"] .starfield-background.scroll-boost,
+[data-animation-level="enhanced"] .starfield-background.scroll-boost {
+  animation: none;
 }
 
 @keyframes scroll-brightness-boost {
   0% { filter: brightness(1); }
-  50% { filter: brightness(1.3); }
+  50% { filter: brightness(1.2); } /* Reduced from 1.3 for better performance */
   100% { filter: brightness(1); }
 }
 
