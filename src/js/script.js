@@ -3035,8 +3035,22 @@ class GlobalScrollManager {
 
   setupScrollListener() {
     let ticking = false;
+    let scrollTimeout = null;
 
     const handleScroll = () => {
+      // Add scrolling class for performance optimizations
+      document.body.classList.add('is-scrolling');
+
+      // Clear existing timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      // Remove scrolling class after scroll ends
+      scrollTimeout = setTimeout(() => {
+        document.body.classList.remove('is-scrolling');
+      }, 150);
+
       if (!ticking) {
         requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;

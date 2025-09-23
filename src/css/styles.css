@@ -152,6 +152,38 @@
   transform: translateZ(0); /* Create compositing layer for smooth scrolling */
 }
 
+/* Ultimate level performance optimizations for starfield */
+[data-animation-level="ultimate"] .starfield-icon-wrapper {
+  /* Disable will-change to prevent 120+ compositing layers */
+  will-change: auto !important;
+}
+
+[data-animation-level="ultimate"] .starfield-icon {
+  /* Simplify filters for better scroll performance */
+  will-change: auto !important;
+
+  /* Use simpler filter chain at ultimate level */
+  filter: saturate(var(--current-saturation)) !important;
+
+  /* Reduce animation complexity - animate only every 3rd icon */
+  animation: none !important;
+}
+
+/* Apply animations only to subset of icons at ultimate level */
+[data-animation-level="ultimate"] .starfield-icon:nth-child(3n) {
+  animation: rainbow-wave 8s ease-in-out infinite;
+}
+
+[data-animation-level="ultimate"] .starfield-icon:nth-child(5n) {
+  animation: color-burst 10s ease-in-out infinite;
+}
+
+/* Disable heavy filters during scrolling at ultimate level */
+[data-animation-level="ultimate"] body.is-scrolling .starfield-icon {
+  filter: none !important;
+  animation-play-state: paused !important;
+}
+
 /* WCAG Contrast Safeguards */
 .contrast-safe {
   --text-contrast-boost: calc(1 + (var(--current-saturation) - 1) * 0.5);
@@ -3190,14 +3222,16 @@ canvas[style*="z-index: -2"] {
 
 /* Enhanced Starfield with Color Effects and Cross-Browser Support */
 .starfield-icon-wrapper {
-  will-change: transform, filter;
+  /* Remove will-change by default to prevent excessive compositing layers */
+  /* will-change is applied only on hover for better performance */
 
   /* Cross-browser transform optimization */
   transform: translateZ(0);
 }
 
 .starfield-icon {
-  will-change: opacity, transform, filter;
+  /* Remove will-change by default to prevent 120+ compositing layers */
+  /* will-change: opacity, transform, filter; -- Removed for performance */
 
   /* Cross-browser image rendering */
   image-rendering: -webkit-optimize-contrast;
@@ -3251,28 +3285,31 @@ canvas[style*="z-index: -2"] {
 
 @keyframes color-burst {
   0% {
-    filter: hue-rotate(0deg) saturate(calc(var(--current-saturation) * 100%)) brightness(1) grayscale(70%);
+    /* Simplified filters for better performance */
+    filter: hue-rotate(0deg) saturate(var(--current-saturation));
     transform: scale(1);
   }
 
   50% {
-    filter: hue-rotate(180deg) saturate(calc(var(--current-saturation) * 120%)) brightness(calc(1 + var(--current-animation-intensity) * 0.3)) grayscale(0%);
-    transform: scale(calc(1 + var(--current-animation-intensity) * 0.3));
+    /* Reduced filter complexity at ultimate level */
+    filter: hue-rotate(180deg) saturate(calc(var(--current-saturation) * 1.1));
+    transform: scale(calc(1 + var(--current-animation-intensity) * 0.2));
   }
 
   100% {
-    filter: hue-rotate(360deg) saturate(calc(var(--current-saturation) * 100%)) brightness(1) grayscale(70%);
+    filter: hue-rotate(360deg) saturate(var(--current-saturation));
     transform: scale(1);
   }
 }
 
 /* Rainbow Wave Effect - Controlled Saturation */
 @keyframes rainbow-wave {
-  0% { filter: hue-rotate(0deg) saturate(calc(var(--current-saturation) * 100%)) brightness(0.8); }
-  25% { filter: hue-rotate(90deg) saturate(calc(var(--current-saturation) * 110%)) brightness(calc(0.9 + var(--current-animation-intensity) * 0.1)); }
-  50% { filter: hue-rotate(180deg) saturate(calc(var(--current-saturation) * 120%)) brightness(calc(1 + var(--current-animation-intensity) * 0.2)); }
-  75% { filter: hue-rotate(270deg) saturate(calc(var(--current-saturation) * 110%)) brightness(calc(0.9 + var(--current-animation-intensity) * 0.1)); }
-  100% { filter: hue-rotate(360deg) saturate(calc(var(--current-saturation) * 100%)) brightness(0.8); }
+  /* Simplified for performance - removed brightness variations */
+  0% { filter: hue-rotate(0deg) saturate(var(--current-saturation)); }
+  25% { filter: hue-rotate(90deg) saturate(var(--current-saturation)); }
+  50% { filter: hue-rotate(180deg) saturate(var(--current-saturation)); }
+  75% { filter: hue-rotate(270deg) saturate(var(--current-saturation)); }
+  100% { filter: hue-rotate(360deg) saturate(var(--current-saturation)); }
 }
 
 /* High Performance Mode Optimizations */
@@ -3567,7 +3604,8 @@ canvas[style*="z-index: -2"] {
 
 /* Enhanced performance optimizations - Controlled Saturation */
 .starfield-icon-wrapper:hover .starfield-icon {
-  will-change: transform, filter, opacity;
+  /* Apply will-change only on hover to reduce compositing layers */
+  will-change: transform;
   transform: scale(calc(1 + var(--current-animation-intensity) * 0.1)) translateZ(0);
   filter: grayscale(calc(70% - var(--current-animation-intensity) * 40%))
           brightness(calc(0.8 + var(--current-animation-intensity) * 0.4))
