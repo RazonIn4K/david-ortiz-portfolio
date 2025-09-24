@@ -1,4 +1,5 @@
 import Hero from '../components/Hero';
+import FeatureSection from '../components/FeatureSection';
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         primary={{ href: '/', label: 'View current site' }}
         secondary={{ href: 'https://cs-learning.me', label: 'cs-learning.me' }}
       />
+      <FeatureSection />
     </main>
   );
 }
