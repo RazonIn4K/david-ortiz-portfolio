@@ -1,10 +1,13 @@
 import './globals.css';
 import './tailwind.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'David Ortiz — Developer Portfolio',
@@ -14,7 +17,26 @@ export const metadata: Metadata = {
     title: 'David Ortiz — Developer Portfolio',
     description: 'Modern, fast portfolio with Next.js App Router and Tailwind CSS',
     images: ['/opengraph-image'],
+    url: '/',
+    siteName: 'David Ortiz — Developer Portfolio',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'David Ortiz — Developer Portfolio',
+    description: 'Modern, fast portfolio with Next.js App Router and Tailwind CSS',
+    images: ['/opengraph-image'],
+    creator: '@',
+  },
+  alternates: {
+    canonical: '/',
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#0a0f1a',
+  width: 'device-width',
+  initialScale: 1,
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({
@@ -24,7 +46,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
+      <body className={`${inter.className} min-h-screen bg-neutral-950 text-neutral-100 antialiased`}>
         <Header />
         {children}
         <Footer />
