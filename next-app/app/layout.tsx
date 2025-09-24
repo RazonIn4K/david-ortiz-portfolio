@@ -1,5 +1,4 @@
 import './globals.css';
-import './tailwind.css';
 import type { Metadata, Viewport } from 'next';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
