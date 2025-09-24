@@ -41,6 +41,12 @@ This directory contains the Next.js 14 App Router application for the portfolio.
 - `app/robots.ts` and `app/sitemap.ts` are configured.
 - Open Graph image is provided by `app/opengraph-image.tsx`.
 
+## PWA & Icons
+
+- Manifest route: `app/manifest.ts` (served as `/manifest.webmanifest`).
+- App icon: `public/icon.svg`.
+- Metadata in `app/layout.tsx` includes `applicationName`, `authors`, `keywords`, `icons`, and references the manifest.
+
 ## CI
 
 A GitHub Actions workflow `.github/workflows/next-app-ci.yml` runs typecheck, lint, and build on PRs and on pushes to the migration branch.
