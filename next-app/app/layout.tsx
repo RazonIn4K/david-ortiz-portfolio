@@ -11,7 +11,19 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'David Ortiz — Developer Portfolio',
   description: 'Modern, fast portfolio with Next.js App Router and Tailwind CSS',
+  applicationName: 'David Ortiz — Developer Portfolio',
+  authors: [{ name: 'David Ortiz', url: 'https://cs-learning.me' }],
+  keywords: [
+    'David Ortiz',
+    'Developer Portfolio',
+    'Next.js',
+    'TypeScript',
+    'Tailwind CSS',
+    'Vercel',
+  ],
   metadataBase: new URL('https://david-ortiz-portfolio-flax.vercel.app'),
+  icons: { icon: '/icon.svg' },
+  manifest: '/manifest.webmanifest',
   openGraph: {
     title: 'David Ortiz — Developer Portfolio',
     description: 'Modern, fast portfolio with Next.js App Router and Tailwind CSS',
