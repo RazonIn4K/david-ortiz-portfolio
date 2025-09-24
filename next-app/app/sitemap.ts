@@ -10,9 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
-    // Future routes to add as pages/components land
-    // { url: `${base}/projects`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    // { url: `${base}/about`, lastModified: now, changeFrequency: 'yearly', priority: 0.5 },
-    // { url: `${base}/contact`, lastModified: now, changeFrequency: 'yearly', priority: 0.5 },
+    { url: `${base}/projects`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/about`, lastModified: now, changeFrequency: 'yearly', priority: 0.5 },
+    { url: `${base}/contact`, lastModified: now, changeFrequency: 'yearly', priority: 0.5 },
   ];
 }
