@@ -1,5 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
   title: 'David Ortiz — Developer Portfolio',
@@ -14,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-neutral-950 text-neutral-100 antialiased">
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
