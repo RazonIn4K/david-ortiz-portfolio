@@ -1,0 +1,39 @@
+# Cloudflare Workers Configuration
+# Deploy with: wrangler deploy
+
+# Analytics Worker
+[env.analytics]
+name = "portfolio-analytics"
+main = "analytics-worker.js"
+compatibility_date = "2024-01-01"
+route = { pattern = "analytics.cs-learning.me/*", zone_name = "cs-learning.me" }
+
+# Optional KV namespace for analytics storage
+# [[env.analytics.kv_namespaces]]
+# binding = "ANALYTICS_KV"
+# id = "your-kv-namespace-id"
+
+# Chat Worker
+[env.chat]
+name = "portfolio-chat"
+main = "chat-worker.js"
+compatibility_date = "2024-01-01"
+route = { pattern = "chat.cs-learning.me/*", zone_name = "cs-learning.me" }
+
+# Environment variables (non-sensitive)
+[env.chat.vars]
+MAX_MESSAGE_LENGTH = "500"
+MAX_HISTORY_LENGTH = "5"
+
+# Secrets (add with: wrangler secret put OPENROUTER_API_KEY --env chat)
+# OPENROUTER_API_KEY = "set via wrangler secret"
+
+# Development settings
+[dev]
+port = 8787
+local_protocol = "http"
+
+# Usage:
+# Deploy analytics: wrangler deploy --env analytics
+# Deploy chat: wrangler deploy --env chat
+# Set secrets: wrangler secret put OPENROUTER_API_KEY --env chat

@@ -3,72 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self';
-                   script-src 'self' https://www.googletagmanager.com https://formspree.io;
-                   frame-src https://www.beautiful.ai;
-                   img-src 'self' data: https:;
-                   style-src 'self' 'unsafe-inline';">
+
+    <!-- Performance Optimization: Preconnect to critical origins -->
+    <link rel="preconnect" href="https://va.vercel-scripts.com">
+    <link rel="dns-prefetch" href="https://vitals.vercel-insights.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
     <title>David Ortiz - Cloud Support Engineer & Database Specialist</title>
-    <meta name="description" content="Professional portfolio showcasing cloud and database projects with quantifiable results. Cloud Support Engineer & Database Specialist with expertise in AWS, GCP, Azure, and database optimization.">
+    <meta name="description" content="David Ortiz - Cloud Support Engineer & Database Specialist. Professional portfolio showcasing 87% query performance improvements, $40K annual savings, and expertise in AWS, GCP, Azure, PostgreSQL, and database optimization.">
+    <meta name="keywords" content="cloud support engineer, database specialist, AWS, GCP, Azure, PostgreSQL, MySQL, SQL optimization, infrastructure automation, DevOps, Chicago tech">
+    <meta name="author" content="David Ortiz">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="geo.region" content="US-IL">
+    <meta name="geo.placename" content="Chicago">
+    <meta name="geo.position" content="41.8781;-87.6298">
+    <meta name="ICBM" content="41.8781, -87.6298">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="David Ortiz - Cloud Support Portfolio">
     <meta property="og:description" content="Cloud Support Engineer & Database Specialist portfolio showcasing technical expertise and quantifiable project results.">
-    <meta property="og:image" content="https://cs-learning.com/assets/og-image.png">
-    <meta property="og:url" content="https://cs-learning.com">
+    <meta property="og:image" content="https://www.cs-learning.me/assets/og-image.png">
+    <meta property="og:url" content="https://www.cs-learning.me">
     <meta property="og:type" content="website">
+    <link rel="canonical" href="https://www.cs-learning.me/">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="David Ortiz - Cloud Support Portfolio">
     <meta name="twitter:description" content="Cloud Support Engineer & Database Specialist portfolio">
-    <meta name="twitter:image" content="https://cs-learning.com/assets/og-image.png">
+    <meta name="twitter:image" content="https://www.cs-learning.me/assets/og-image.png">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <!-- Modern Favicon Implementation (Local) -->
+    <!-- SVG icon for modern browsers -->
+    <link rel="icon" type="image/svg+xml" href="/assets/icons/icon.svg">
+
+    <!-- Fallback PNG icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+
+    <!-- For older browsers -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Theme Color for Browser UI -->
+    <meta name="theme-color" content="#4F46E5">
+    <meta name="msapplication-TileColor" content="#4F46E5">
+    <meta name="msapplication-TileImage" content="/assets/icons/icon-192.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "David Ortiz",
+      "jobTitle": "Cloud Support Engineer & Database Specialist",
+      "description": "Cloud Support Engineer & Database Specialist with 5+ years of experience in cloud infrastructure optimization, database performance tuning, and cost reduction strategies. Achieved 87% query performance improvements and $40K annual savings for clients.",
+      "url": "https://www.cs-learning.me",
+      "image": "https://www.cs-learning.me/assets/david-ortiz-avatar.svg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Chicago",
+        "addressRegion": "IL",
+        "addressCountry": "US"
+      },
+      "knowsAbout": [
+        "Cloud Computing",
+        "Database Optimization",
+        "AWS",
+        "GCP",
+        "Azure",
+        "PostgreSQL",
+        "MySQL",
+        "SQL",
+        "Docker",
+        "Kubernetes",
+        "Terraform",
+        "DevOps",
+        "Infrastructure as Code",
+        "Performance Tuning",
+        "Cost Optimization"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Cloud Support Engineer",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Chicago"
+        }
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "University of Chicago"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/david-ortiz-210190205/",
+        "https://github.com/RazonIn4K"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "professional",
+        "email": "david@cs-learning.me",
+        "availableLanguage": "English"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "David Ortiz Portfolio",
+      "description": "Professional portfolio of David Ortiz, Cloud Support Engineer & Database Specialist showcasing technical expertise and project results.",
+      "url": "https://www.cs-learning.me",
+      "author": {
+        "@type": "Person",
+        "name": "David Ortiz"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "David Ortiz"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "dateCreated": "2025-01-01",
+      "dateModified": "2025-09-20",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "David Ortiz"
+      }
+    }
+    </script>
 
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="src/css/styles.css" as="style">
+    <link rel="modulepreload" href="src/js/script.js">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="src/css/styles.css">
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID');
-    </script>
+    <!-- Analytics loaded consent-aware by unified-analytics.js -->
 </head>
-<body>
+<body class="no-js">
     <!-- Skip to Content Link for Accessibility -->
     <a href="#main" class="skip-link">Skip to main content</a>
 
     <!-- Header Navigation -->
-    <header class="header" role="banner">
-        <nav class="nav" role="navigation" aria-label="Main navigation">
+    <header class="header">
+        <nav class="nav" aria-label="Main navigation">
             <div class="nav-container">
                 <a href="#home" class="nav-logo" aria-label="Home">David Ortiz</a>
 
-                <ul class="nav-menu" role="menubar">
-                    <li role="none"><a href="#home" class="nav-link" role="menuitem">Home</a></li>
-                    <li role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
-                    <li role="none"><a href="#skills" class="nav-link" role="menuitem">Skills</a></li>
-                    <li role="none"><a href="#projects" class="nav-link" role="menuitem">Projects</a></li>
-                    <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
+                <ul class="nav-menu" id="primary-navigation">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
 
                 <div class="nav-actions">
-                    <button class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+                    <button type="button" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
                         <span class="theme-icon" aria-hidden="true">🌙</span>
                     </button>
-                    <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" title="Menu">
+                    <button type="button" class="mobile-menu-toggle"
+                            aria-controls="primary-navigation"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                            title="Toggle navigation menu">
                         <span class="menu-icon" aria-hidden="true">☰</span>
+                        <span class="sr-only">Toggle navigation</span>
                     </button>
                 </div>
             </div>
@@ -76,7 +188,7 @@
     </header>
 
     <!-- Main Content -->
-    <main id="main" class="main" role="main">
+    <main id="main" class="main">
         <!-- Hero Section -->
         <section id="home" class="hero" aria-label="Introduction">
             <div class="hero-container">
@@ -107,14 +219,20 @@
                         <p class="hero-description">When most engineers see a slow database, I see an optimization opportunity. That late-night PostgreSQL crisis? It became a $40K annual savings story. I help companies turn their infrastructure pain points into competitive advantages.</p>
 
                         <div class="hero-actions">
-                            <a href="#projects" class="hero-cta primary" onclick="gtag('event', 'cta_click', {'event_category': 'engagement', 'event_label': 'hero_cta_primary'});">View Case Studies</a>
-                            <a href="#contact" class="hero-cta secondary" onclick="gtag('event', 'cta_click', {'event_category': 'engagement', 'event_label': 'hero_cta_secondary'});">Let's Talk</a>
+                            <a href="#projects" class="hero-cta primary"
+                               data-track="cta_click"
+                               data-track-category="engagement"
+                               data-track-label="hero_cta_primary">View Case Studies</a>
+                            <a href="#contact" class="hero-cta secondary"
+                               data-track="cta_click"
+                               data-track-category="engagement"
+                               data-track-label="hero_cta_secondary">Let's Talk</a>
                         </div>
                     </div>
 
                     <div class="hero-visual">
                         <div class="hero-photo">
-                            <img src="assets/david-ortiz-profile.jpg" alt="David Ortiz - Cloud Support Engineer optimizing database performance" class="profile-image">
+                            <img src="assets/david-ortiz-avatar.svg" alt="David Ortiz - Cloud Support Engineer optimizing database performance" class="profile-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/1a1a2e/ffffff?text=David+Ortiz'; this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
                             <div class="photo-accent"></div>
                         </div>
                         <div class="hero-badges">
@@ -167,15 +285,15 @@
                 <div class="skill-category">
                     <h3 class="category-title">Cloud Platforms</h3>
                     <div class="skills-grid" role="list">
-                        <div class="skill-card" role="listitem" data-tooltip="Infrastructure automation & cost optimization">
+                        <div class="skill-card" role="listitem" data-tooltip="Infrastructure automation &amp; cost optimization">
                             <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="Amazon Web Services" class="skill-icon" loading="lazy">
                             <span class="skill-name">AWS</span>
                         </div>
-                        <div class="skill-card" role="listitem" data-tooltip="BigQuery performance tuning & data pipelines">
-                            <img src="https://img.icons8.com/fluency/48/cloud-database.png" alt="Google Cloud Platform" class="skill-icon" loading="lazy">
+                        <div class="skill-card" role="listitem" data-tooltip="BigQuery performance tuning &amp; data pipelines">
+                            <img src="https://img.icons8.com/color/48/google-cloud-platform.png" alt="Google Cloud Platform" class="skill-icon" loading="lazy">
                             <span class="skill-name">GCP</span>
                         </div>
-                        <div class="skill-card" role="listitem" data-tooltip="SQL Database optimization & Azure DevOps">
+                        <div class="skill-card" role="listitem" data-tooltip="SQL Database optimization &amp; Azure DevOps">
                             <img src="https://img.icons8.com/fluency/48/azure-1.png" alt="Microsoft Azure" class="skill-icon" loading="lazy">
                             <span class="skill-name">Azure</span>
                         </div>
@@ -191,11 +309,11 @@
                             <span class="skill-name">PostgreSQL</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Complex joins, stored procedures, and database design">
-                            <img src="https://img.icons8.com/fluency/48/database.png" alt="SQL" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/ios/50/sql.png" alt="SQL" class="skill-icon" loading="lazy">
                             <span class="skill-name">SQL</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Replication setup and query optimization">
-                            <img src="https://img.icons8.com/color/48/mysql-logo.png" alt="MySQL" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/ios/50/mysql-logo.png" alt="MySQL" class="skill-icon" loading="lazy">
                             <span class="skill-name">MySQL</span>
                         </div>
                     </div>
@@ -206,11 +324,11 @@
                     <h3 class="category-title">DevOps & Infrastructure</h3>
                     <div class="skills-grid" role="list">
                         <div class="skill-card" role="listitem" data-tooltip="CI/CD pipelines and Git workflow automation">
-                            <img src="https://img.icons8.com/fluency/48/github.png" alt="GitHub" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/ios/50/github.png" alt="GitHub" class="skill-icon" loading="lazy">
                             <span class="skill-name">GitHub</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Container orchestration and microservices">
-                            <img src="https://img.icons8.com/fluency/48/docker.png" alt="Docker" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/docker.png" alt="Docker" class="skill-icon" loading="lazy">
                             <span class="skill-name">Docker</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Cluster management and auto-scaling">
@@ -218,7 +336,7 @@
                             <span class="skill-name">Kubernetes</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Infrastructure as Code and multi-cloud deployments">
-                            <img src="https://img.icons8.com/color/48/terraform.png" alt="Terraform" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/ios/50/terraform.png" alt="Terraform" class="skill-icon" loading="lazy">
                             <span class="skill-name">Terraform</span>
                         </div>
                     </div>
@@ -229,7 +347,7 @@
                     <h3 class="category-title">Monitoring & Analysis</h3>
                     <div class="skills-grid" role="list">
                         <div class="skill-card" role="listitem" data-tooltip="Custom dashboards, alerting, and performance monitoring">
-                            <img src="https://img.icons8.com/fluency/48/monitor.png" alt="Datadog" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/color/48/combo-chart--v1.png" alt="Datadog" class="skill-icon" loading="lazy">
                             <span class="skill-name">Datadog</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Data analysis scripts and automation tools">
@@ -237,7 +355,7 @@
                             <span class="skill-name">Python</span>
                         </div>
                         <div class="skill-card" role="listitem" data-tooltip="Executive presentation design and client reporting">
-                            <img src="https://img.icons8.com/fluency/48/presentation.png" alt="Beautiful.ai" class="skill-icon" loading="lazy">
+                            <img src="https://img.icons8.com/fluency/48/artificial-intelligence.png" alt="Beautiful.ai" class="skill-icon" loading="lazy">
                             <span class="skill-name">Beautiful.ai</span>
                         </div>
                     </div>
@@ -278,17 +396,13 @@
                             <span class="metric-item">$40K annual savings</span>
                         </div>
                         <div class="project-embed">
-                            <iframe
-                                src="https://www.beautiful.ai/player/-DECK-ID-DATABASE-OPT"
-                                frameborder="0"
-                                allowfullscreen
-                                loading="lazy"
-                                title="Database Optimization Project Presentation"
-                                aria-label="Database Optimization presentation embedded from Beautiful.ai">
-                            </iframe>
-                            <a href="https://www.beautiful.ai/view/-DECK-ID-DATABASE-OPT" target="_blank" rel="noopener" class="embed-fallback">
-                                View Case Study
-                            </a>
+                            <!-- Presentation placeholder - replace with actual deck URL when available -->
+                            <div class="presentation-placeholder" style="background: var(--card-bg); border: 2px dashed var(--border-color); border-radius: var(--border-radius); padding: 3rem; text-align: center;">
+                                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 1.5rem;">📊</p>
+                                <p style="color: var(--text-primary); font-weight: 600;">Case Study Presentation</p>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 1rem 0;">Detailed technical walkthrough available</p>
+                                <a href="#contact" class="project-link" style="color: var(--primary-color);">Request Access →</a>
+                            </div>
                         </div>
                         <div class="project-tech">
                             <span class="tech-tag">PostgreSQL</span>
@@ -352,6 +466,38 @@
             </div>
         </section>
 
+        <!-- Portfolio Excellence Presentation Section -->
+        <section class="presentation-showcase" aria-label="Portfolio Excellence Through Accessibility Mastery presentation">
+            <div class="section-container">
+                <h2 class="section-title">Portfolio Excellence Through Accessibility Mastery</h2>
+                <div class="presentation-intro">
+                    <p class="presentation-description">
+                        See how I transformed this portfolio from development-stage to production-ready with WCAG 2.1 AA compliance,
+                        achieving what only 4% of websites accomplish. This presentation showcases the technical excellence and
+                        business impact of comprehensive accessibility implementation.
+                    </p>
+                    <div class="presentation-metrics">
+                        <span class="metric-highlight">87% Performance Improvement</span>
+                        <span class="metric-highlight">$40K Development Savings</span>
+                        <span class="metric-highlight">Top 4% Compliance Achievement</span>
+                    </div>
+                </div>
+                <div class="presentation-container">
+                    <div style="position:relative;width:100%;height:0;padding-bottom:56.25%;">
+                        <iframe allow="clipboard-write" allowfullscreen style="position:absolute; width: 100%; height: 100%;border: solid 1px #333;" src="https://www.beautiful.ai/embed/-O_ZKySTSkElQ_xEcKG6?utm_source=beautiful_player&utm_medium=embed&utm_campaign=-O_ZKBtRAYtCOvmSPBG8" title="Portfolio Excellence Through Accessibility Mastery Presentation" aria-label="Interactive presentation showcasing portfolio accessibility transformation"></iframe>
+                        <a href="https://www.beautiful.ai/embed/-O_ZKySTSkElQ_xEcKG6?utm_source=beautiful_player&utm_medium=embed&utm_campaign=-O_ZKBtRAYtCOvmSPBG8" target="_blank" rel="noopener" class="presentation-fallback">View Portfolio Excellence Through Accessibility Mastery on Beautiful.ai</a>
+                    </div>
+                </div>
+                <div class="presentation-cta">
+                    <p class="cta-text">Ready to see how accessibility mastery can transform your projects? Let's discuss how I can bring this expertise to your team.</p>
+                    <a href="#contact" class="hero-cta primary"
+                       data-track="cta_click"
+                       data-track-category="engagement"
+                       data-track-label="accessibility_cta">Start the Conversation</a>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact Section -->
         <section id="contact" class="contact" aria-label="Contact information">
             <div class="section-container">
@@ -394,7 +540,10 @@
                                 <span id="message-error" class="form-error" role="alert"></span>
                             </div>
 
-                            <button type="submit" class="form-submit" onclick="gtag('event', 'form_submit', {'event_category': 'contact', 'event_label': 'contact_form'});">
+                            <button type="submit" class="form-submit"
+                                    data-track="form_submit"
+                                    data-track-category="contact"
+                                    data-track-label="contact_form">
                                 Send Message
                             </button>
                         </form>
@@ -404,9 +553,9 @@
                         <div class="contact-links">
                             <h3 class="contact-links-title">Get In Touch</h3>
                             <div class="contact-link-list">
-                                <a href="mailto:david@cs-learning.com" class="contact-link-item" aria-label="Send email">
+                                <a href="mailto:david@cs-learning.me" class="contact-link-item" aria-label="Send email">
                                     <img src="https://img.icons8.com/fluency/24/email.png" alt="Email" class="contact-icon-img">
-                                    <span class="contact-text">david@cs-learning.com</span>
+                                    <span class="contact-text">david@cs-learning.me</span>
                                 </a>
                                 <a href="https://www.linkedin.com/in/david-ortiz-210190205/" target="_blank" rel="noopener" class="contact-link-item" aria-label="View LinkedIn profile">
                                     <img src="https://img.icons8.com/fluency/24/linkedin.png" alt="LinkedIn" class="contact-icon-img">
@@ -423,9 +572,9 @@
                             <h3 class="location-title">Based in Chicago</h3>
                             <div class="map-container">
                                 <a href="https://www.google.com/maps/place/Chicago,+IL" target="_blank" rel="noopener" class="map-link" aria-label="View Chicago location on Google Maps">
-                                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=Chicago,IL&zoom=11&size=300x200&maptype=roadmap&markers=color:green%7Clabel:D%7CChicago,IL&key=YOUR_GOOGLE_MAPS_API_KEY"
-                                         alt="Chicago, Illinois location map"
+                                    <img id="location-map" src="" alt="Chicago, Illinois location map"
                                          class="location-map"
+                                         data-placeholder-src="assets/chicago-map.svg"
                                          loading="lazy">
                                     <div class="map-overlay">
                                         <span class="map-text">📍 Click to view on Google Maps</span>
@@ -448,25 +597,125 @@
                             </div>
                         </div>
 
+                        <div class="ai-chat-widget">
+                            <div class="ai-widget-header">
+                                <div class="ai-widget-header-content">
+                                    <div class="ai-widget-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                            <circle cx="9" cy="9" r="1" fill="currentColor"/>
+                                            <circle cx="15" cy="9" r="1" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                    <div class="ai-widget-title">
+                                        <h3>AI Technical Assistant</h3>
+                                        <span class="ai-widget-status">
+                                            <span class="status-dot"></span>
+                                            Ask about David's expertise
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ai-widget-body">
+                                <!-- Quick Actions -->
+                                <div class="ai-quick-actions">
+                                    <button type="button" class="ai-quick-btn" data-question="Tell me about David's PostgreSQL optimization that saved $40K">
+                                        <div class="quick-btn-icon">💰</div>
+                                        <div class="quick-btn-content">
+                                            <span class="quick-btn-title">Cost Savings</span>
+                                            <span class="quick-btn-desc">$40K optimization story</span>
+                                        </div>
+                                    </button>
+                                    <button type="button" class="ai-quick-btn" data-question="What's David's experience with cloud platforms?">
+                                        <div class="quick-btn-icon">☁️</div>
+                                        <div class="quick-btn-content">
+                                            <span class="quick-btn-title">Cloud Expertise</span>
+                                            <span class="quick-btn-desc">AWS, GCP, Azure</span>
+                                        </div>
+                                    </button>
+                                    <button type="button" class="ai-quick-btn" data-question="How does David approach database performance issues?">
+                                        <div class="quick-btn-icon">⚡</div>
+                                        <div class="quick-btn-content">
+                                            <span class="quick-btn-title">Performance</span>
+                                            <span class="quick-btn-desc">87% faster queries</span>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <!-- Chat Container -->
+                                <div class="ai-chat-display">
+                                    <div id="chat-messages" class="ai-messages-container">
+                                        <div class="ai-welcome-message">
+                                            <div class="ai-assistant-avatar">
+                                                <div class="avatar-pulse"></div>
+                                                <span>🤖</span>
+                                            </div>
+                                            <div class="welcome-text">
+                                                <p>Hi! I'm David's AI assistant. I can answer questions about:</p>
+                                                <ul class="welcome-topics">
+                                                    <li>Database optimization techniques</li>
+                                                    <li>Cloud infrastructure solutions</li>
+                                                    <li>Project case studies</li>
+                                                    <li>Technical skills & certifications</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Input Area -->
+                                <div class="ai-input-area">
+                                    <form id="ai-chat-form" class="ai-chat-form">
+                                        <div class="ai-input-wrapper">
+                                            <input
+                                                type="text"
+                                                id="chat-input"
+                                                class="ai-chat-input"
+                                                placeholder="Ask me anything about David's work..."
+                                                maxlength="1000"
+                                                autocomplete="off"
+                                                disabled
+                                            >
+                                            <button type="button" id="start-chat" class="ai-send-button" onclick="event.preventDefault(); enableAIChat(); return false;">
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                    <path d="M2 10L17 2L13 18L9 11L2 10Z" fill="currentColor"/>
+                                                </svg>
+                                                <span>Start Chat</span>
+                                            </button>
+                                        </div>
+                                        <div class="ai-input-footer">
+                                            <span class="ai-powered-by">Powered by OpenRouter AI</span>
+                                            <span class="ai-response-time">~2s response time</span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="future-ai-preview">
-                            <h3 class="ai-preview-title">Coming Soon</h3>
-                            <div class="ai-chat-placeholder">
-                                <div class="ai-chat-header">
-                                    <span class="ai-indicator">🤖</span>
-                                    <span class="ai-title">Fine-tuned LLM for Project Q&A</span>
+                            <h3 class="ai-preview-title">Intelligent Automation Playbooks</h3>
+                            <p class="ai-preview-description">
+                                Beyond chat, here are the automation patterns I'm shipping for clients right now.
+                            </p>
+                            <div class="ai-insight-grid">
+                                <div class="ai-insight-card">
+                                    <h4 class="ai-insight-heading">Guided Diagnostics</h4>
+                                    <p class="ai-insight-copy">Data-backed decision trees capture every incident, surface the next best action, and feed future runbooks.</p>
                                 </div>
-                                <div class="ai-chat-preview">
-                                    <div class="chat-bubble sample">
-                                        <p>"How did you optimize that PostgreSQL query from 10s to 1.3s?"</p>
-                                    </div>
-                                    <div class="chat-bubble ai-response sample">
-                                        <p>I analyzed the execution plan, identified missing indexes on the join columns, and restructured the subqueries...</p>
-                                    </div>
+                                <div class="ai-insight-card">
+                                    <h4 class="ai-insight-heading">Resilient Playbooks</h4>
+                                    <p class="ai-insight-copy">Rate-limited workflows pair serverless endpoints with offline fallbacks, so sensitive automations never become brittle bots.</p>
                                 </div>
-                                <div class="ai-chat-status">
-                                    <span class="status-text">Training on 50+ real optimization cases</span>
-                                    <span class="eta-text">Expected: Q2 2026</span>
+                                <div class="ai-insight-card">
+                                    <h4 class="ai-insight-heading">Insight Dashboards</h4>
+                                    <p class="ai-insight-copy">Speed Insights and backend metrics roll into one view, highlighting regressions before customers ever feel the slowdown.</p>
                                 </div>
+                            </div>
+                            <div class="ai-preview-footer">
+                                <p class="ai-preview-note">Want to explore an automation sprint for your stack?</p>
+                                <a href="#contact" class="ai-preview-cta">Book a working session</a>
                             </div>
                         </div>
                     </div>
@@ -476,17 +725,70 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
+    <footer class="footer">
         <div class="footer-container">
             <p class="footer-text">
                 &copy; 2025 David Ortiz. Built with modern web technologies and hosted on
                 <a href="https://pages.github.com/" target="_blank" rel="noopener" class="footer-link">GitHub Pages</a>.
-                Last updated: September 19, 2025.
+                Last updated: September 20, 2025.
             </p>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="script.js"></script>
+    <!-- Core Configuration -->
+    <script src="src/services/config.js"></script>
+
+    <!-- Quick fix for AI chat functionality -->
+    <script>
+    function enableAIChat() {
+        const chatInput = document.getElementById('ai-chat-input');
+        const startButton = document.getElementById('start-chat');
+
+        if (chatInput && startButton) {
+            // Enable the chat input
+            chatInput.disabled = false;
+            chatInput.focus();
+            chatInput.placeholder = "Ask me about David's expertise...";
+
+            // Update button text
+            const buttonSpan = startButton.querySelector('span');
+            if (buttonSpan) {
+                buttonSpan.textContent = 'Send';
+            }
+
+            // Add visual feedback
+            chatInput.style.backgroundColor = '#ffffff';
+            chatInput.style.borderColor = '#4F46E5';
+
+            console.log('AI Chat enabled successfully');
+        } else {
+            console.error('Could not find chat elements');
+        }
+    }
+    </script>
+
+    <!-- Main Orchestration (First - coordinates everything) -->
+    <script src="src/js/main.min.js"></script>
+
+    <!-- Base Classes and Behaviors -->
+    <script type="module" src="src/js/script.js"></script>
+
+    <!-- Feature Modules -->
+    <script defer src="src/js/analytics-tracker.min.js"></script>
+    <script defer src="src/js/consent-banner.min.js"></script>
+    <script defer src="src/js/lazy-loader.min.js"></script>
+    <script defer src="src/js/progressive-enhancement.min.js"></script>
+    <script defer src="src/js/enhanced-chat-system.min.js"></script>
+
+    <!-- Additional Orchestration Layer -->
+    <script defer src="src/js/global-scroll-manager.js"></script>
+    <script defer src="src/js/unified-analytics.js"></script>
+
+    <!-- Speed Insights (loaded after main initialization) -->
+    <script type="module" src="src/js/speed-insights.min.js"></script>
+
+    <noscript>
+        <p style="text-align:center;margin-top:1rem;">This site works best with JavaScript enabled.</p>
+    </noscript>
 </body>
 </html>

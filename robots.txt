@@ -26,7 +26,7 @@ Disallow: /node_modules/
 Disallow: /*.log
 
 # Sitemap location
-Sitemap: https://cs-learning.com/sitemap.xml
+Sitemap: https://www.cs-learning.me/sitemap.xml
 
 # Crawl delay to be respectful to server resources
 Crawl-delay: 1
