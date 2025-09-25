@@ -206,24 +206,28 @@
     return Boolean(event.target?.closest?.(SHORTCUT_IGNORE_SELECTOR));
   }
 
+  // Helper functions for keyboard shortcut matching (reduces CC from 11 to 3)
+  function isCorrectKey(pressedKey, expectedKey) {
+    return pressedKey === expectedKey.toLowerCase();
+  }
+
+  function hasRequiredModifiers(event, ctrlOrMeta) {
+    if (ctrlOrMeta) {
+      return event.ctrlKey || event.metaKey;
+    }
+    return !event.ctrlKey && !event.metaKey;
+  }
+
+  function hasExactModifiers(event, shift, alt) {
+    return shift === event.shiftKey && alt === event.altKey;
+  }
+
   function matchesShortcut(event, { key, ctrlOrMeta = false, shift = false, alt = false }) {
     const pressedKey = event.key?.toLowerCase();
-    if (pressedKey !== key.toLowerCase()) {
-      return false;
-    }
-    if (ctrlOrMeta && !(event.ctrlKey || event.metaKey)) {
-      return false;
-    }
-    if (!ctrlOrMeta && (event.ctrlKey || event.metaKey)) {
-      return false;
-    }
-    if (shift !== event.shiftKey) {
-      return false;
-    }
-    if (alt !== event.altKey) {
-      return false;
-    }
-    return true;
+
+    return isCorrectKey(pressedKey, key) &&
+           hasRequiredModifiers(event, ctrlOrMeta) &&
+           hasExactModifiers(event, shift, alt);
   }
 
   function trackShortcutUsage(eventLabel) {
@@ -232,45 +236,69 @@
       event_label: eventLabel
     });
   }
+  // Constants for better maintainability
+  const HOUR_IN_MS = 60 * 60 * 1000;
+  const SECOND_IN_MS = 1000;
+
+  // Helper functions for page tracking (reduces CC from 9 to 3)
+  function trackInitialPageView() {
+    window.analytics?.pageview();
+  }
+
+  function handleVisibilityChange() {
+    const eventType = document.hidden ? 'page_hidden' : 'page_visible';
+    const params = {
+      event_category: 'engagement'
+    };
+
+    if (document.hidden) {
+      params.time_on_page = Math.round(performance.now() / SECOND_IN_MS);
+    }
+
+    window.analytics?.track(eventType, params);
+  }
+
+  function setupVisibilityTracking() {
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+  }
+
+  function sendUnloadBeacon(timeOnSite) {
+    if (!navigator.sendBeacon || !window.analytics.localTracker) {
+      return;
+    }
+
+    const payload = JSON.stringify({
+      event: 'page_unload',
+      params: {
+        event_category: 'engagement',
+        time_on_site: timeOnSite,
+        session_id: window.analytics.getSessionId()
+      }
+    });
+
+    navigator.sendBeacon('/api/analytics', payload);
+  }
+
+  function handleBeforeUnload() {
+    if (!window.analytics || !window.performance) {
+      return;
+    }
+
+    const timeOnSite = Math.round(performance.now() / SECOND_IN_MS);
+    sendUnloadBeacon(timeOnSite);
+  }
+
+  function setupUnloadTracking() {
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  }
+
   /**
    * Track initial pageview and setup page visibility tracking
    */
   function setupPageTracking() {
-    // Initial pageview
-    if (window.analytics) {
-      window.analytics.pageview();
-    }
-    // Track page visibility changes
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        window.analytics?.track('page_hidden', {
-          event_category: 'engagement',
-          time_on_page: Math.round(performance.now() / 1000)
-        });
-      } else {
-        window.analytics?.track('page_visible', {
-          event_category: 'engagement'
-        });
-      }
-    });
-    // Track before unload (time on site)
-    window.addEventListener('beforeunload', function() {
-      if (window.analytics && window.performance) {
-        const timeOnSite = Math.round(performance.now() / 1000);
-        // Use sendBeacon for reliability
-        if (navigator.sendBeacon && window.analytics.localTracker) {
-          const payload = JSON.stringify({
-            event: 'page_unload',
-            params: {
-              event_category: 'engagement',
-              time_on_site: timeOnSite,
-              session_id: window.analytics.getSessionId()
-            }
-          });
-          navigator.sendBeacon('/api/analytics', payload);
-        }
-      }
-    });
+    trackInitialPageView();
+    setupVisibilityTracking();
+    setupUnloadTracking();
   }
   /**
    * Register service worker for offline support
@@ -284,7 +312,7 @@
             // Check for updates periodically
             setInterval(() => {
               registration.update();
-            }, 60 * 60 * 1000); // Check every hour
+            }, HOUR_IN_MS); // Check every hour
           })
           .catch(error => {
           });

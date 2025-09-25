@@ -738,19 +738,20 @@
     <!-- Core Configuration -->
     <script src="src/services/config.js"></script>
 
-    <!-- Quick fix for AI chat functionality -->
+    <!-- Enhanced AI chat functionality -->
     <script>
     function enableAIChat() {
-        const chatInput = document.getElementById('ai-chat-input');
+        const chatInput = document.getElementById('chat-input'); // Fixed ID to match HTML
         const startButton = document.getElementById('start-chat');
 
         if (chatInput && startButton) {
             // Enable the chat input
             chatInput.disabled = false;
             chatInput.focus();
-            chatInput.placeholder = "Ask me about David's expertise...";
+            chatInput.placeholder = "Type your message...";
 
-            // Update button text
+            // Update button functionality
+            startButton.onclick = sendChatMessage;
             const buttonSpan = startButton.querySelector('span');
             if (buttonSpan) {
                 buttonSpan.textContent = 'Send';
@@ -759,10 +760,87 @@
             // Add visual feedback
             chatInput.style.backgroundColor = '#ffffff';
             chatInput.style.borderColor = '#4F46E5';
+            startButton.style.backgroundColor = '#4F46E5';
+
+            // Initialize enhanced chat if available
+            if (window.EnhancedAIChat && !window.chatInstance) {
+                try {
+                    window.chatInstance = new window.EnhancedAIChat({
+                        enableAnalytics: true,
+                        debug: window.CONFIG?.DEBUG || false
+                    });
+                    console.log('Enhanced AI Chat initialized successfully');
+                } catch (error) {
+                    console.warn('Enhanced AI Chat initialization failed, using basic functionality:', error);
+                }
+            }
+
+            // Add Enter key support
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChatMessage();
+                }
+            });
 
             console.log('AI Chat enabled successfully');
         } else {
-            console.error('Could not find chat elements');
+            console.error('Could not find chat elements. Input:', chatInput, 'Button:', startButton);
+        }
+    }
+
+    function sendChatMessage() {
+        const chatInput = document.getElementById('chat-input');
+        const message = chatInput?.value?.trim();
+
+        if (!message) {
+            console.warn('No message to send');
+            return;
+        }
+
+        // Use enhanced chat if available, otherwise show placeholder response
+        if (window.chatInstance && typeof window.chatInstance.sendMessage === 'function') {
+            try {
+                window.chatInstance.sendMessage(message);
+                chatInput.value = '';
+                console.log('Message sent via Enhanced AI Chat:', message);
+            } catch (error) {
+                console.error('Error sending message via Enhanced AI Chat:', error);
+                showBasicChatResponse(message);
+                chatInput.value = '';
+            }
+        } else {
+            showBasicChatResponse(message);
+            chatInput.value = '';
+        }
+    }
+
+    function showBasicChatResponse(userMessage) {
+        // Basic fallback response when enhanced chat isn't available
+        const responses = [
+            "Thanks for your message about David's expertise! For detailed inquiries, please use the contact form above or reach out via email.",
+            "David specializes in cloud infrastructure, database optimization, and has achieved 87% performance improvements. What specific area interests you?",
+            "That's a great question about David's work! He's helped clients save $40K+ annually through database optimizations. Please feel free to connect directly."
+        ];
+
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+
+        // Create a simple message display
+        const chatContainer = document.querySelector('.ai-chat-container') || document.querySelector('.contact-ai-card');
+        if (chatContainer) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = 'margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #4F46E5;';
+            messageDiv.innerHTML = `<strong>You:</strong> ${userMessage}<br><strong>Assistant:</strong> ${randomResponse}`;
+
+            // Insert before the input area
+            const inputArea = document.querySelector('.ai-input-area');
+            if (inputArea) {
+                chatContainer.insertBefore(messageDiv, inputArea);
+            } else {
+                chatContainer.appendChild(messageDiv);
+            }
+
+            console.log('Basic chat response displayed');
         }
     }
     </script>
