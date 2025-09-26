@@ -633,7 +633,7 @@ a:focus {
   height: 60px;
   background: var(--tech-emerald);
   border-radius: 50%;
-  opacity: 0.8;
+  opacity: 1;
   z-index: -1;
 }
 
