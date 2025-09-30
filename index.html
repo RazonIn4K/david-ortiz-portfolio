@@ -179,7 +179,6 @@
 
         <!-- Preload Critical Resources -->
         <link rel="preload" href="src/css/styles.css" as="style" />
-        <link rel="modulepreload" href="src/js/script.js" />
 
         <!-- Stylesheet -->
         <link rel="stylesheet" href="src/css/styles.css" />
@@ -613,11 +612,11 @@
                                 </h3>
                                 <div class="project-links">
                                     <a
-                                        href="https://github.com/RazonIn4K/postgresql-performance-87-percent"
+                                        href="https://github.com/RazonIn4K/database-learning-portfolio"
                                         target="_blank"
                                         rel="noopener"
                                         class="project-link"
-                                        aria-label="View PostgreSQL Performance Optimization project on GitHub"
+                                        aria-label="View Database Learning Portfolio project on GitHub"
                                     >
                                         GitHub
                                     </a>
@@ -718,11 +717,11 @@
                                 </h3>
                                 <div class="project-links">
                                     <a
-                                        href="https://github.com/RazonIn4K/multi-cloud-cost-35-percent-savings"
+                                        href="https://github.com/RazonIn4K"
                                         target="_blank"
                                         rel="noopener"
                                         class="project-link"
-                                        aria-label="View Multi-Cloud Cost Optimization project on GitHub"
+                                        aria-label="View David Ortiz's GitHub profile and projects"
                                     >
                                         GitHub
                                     </a>
@@ -758,11 +757,11 @@
                                 </h3>
                                 <div class="project-links">
                                     <a
-                                        href="https://github.com/RazonIn4K/proactive-monitoring-60-percent-fewer-incidents"
+                                        href="https://github.com/RazonIn4K/monitoring-dashboard"
                                         target="_blank"
                                         rel="noopener"
                                         class="project-link"
-                                        aria-label="View Proactive Monitoring System project on GitHub"
+                                        aria-label="View Monitoring Dashboard project on GitHub"
                                     >
                                         GitHub
                                     </a>
@@ -1388,38 +1387,17 @@
         <!-- Enhanced AI chat functionality -->
         <script>
             function enableAIChat() {
-                const chatInput = document.getElementById("chat-input"); // Fixed ID to match HTML
+                const chatInput = document.getElementById("chat-input");
                 const startButton = document.getElementById("start-chat");
 
                 if (chatInput && startButton) {
-                    // Enable the chat input
                     chatInput.disabled = false;
                     chatInput.focus();
                     chatInput.placeholder = "Type your message...";
-
-                    // Update button functionality
                     startButton.onclick = sendChatMessage;
                     const buttonSpan = startButton.querySelector("span");
                     if (buttonSpan) {
                         buttonSpan.textContent = "Send";
-                    }
-
-                    // Add visual feedback
-                    chatInput.style.backgroundColor = "#ffffff";
-                    chatInput.style.borderColor = "#4F46E5";
-                    startButton.style.backgroundColor = "#4F46E5";
-
-                    // Initialize enhanced chat if available
-                    if (window.EnhancedAIChat && !window.chatInstance) {
-                        try {
-                            window.chatInstance = new window.EnhancedAIChat({
-                                enableAnalytics: true,
-                                debug: window.CONFIG?.DEBUG || false,
-                            });
-                            // removed console log
-                        } catch (error) {
-                            // removed console warn
-                        }
                     }
 
                     // Add Enter key support
@@ -1429,10 +1407,6 @@
                             sendChatMessage();
                         }
                     });
-
-                    // removed console log
-                } else {
-                    // removed console error
                 }
             }
 
@@ -1440,84 +1414,35 @@
                 const chatInput = document.getElementById("chat-input");
                 const message = chatInput?.value?.trim();
 
-                if (!message) {
-                    // removed console warn
-                    return;
-                }
+                if (!message) return;
 
-                // Use enhanced chat if available, otherwise show placeholder response
-                if (
-                    window.chatInstance &&
-                    typeof window.chatInstance.sendMessage === "function"
-                ) {
-                    try {
-                        window.chatInstance.sendMessage(message);
-                        chatInput.value = "";
-                        // removed console log
-                    } catch (error) {
-                        // removed console error
-                        showBasicChatResponse(message);
-                        chatInput.value = "";
-                    }
-                } else {
-                    showBasicChatResponse(message);
-                    chatInput.value = "";
-                }
-            }
-
-            function showBasicChatResponse(userMessage) {
-                // Basic fallback response when enhanced chat isn't available
+                // Simple response for demo purposes
                 const responses = [
-                    "Thanks for your message about David's expertise! For detailed inquiries, please use the contact form above or reach out via email.",
-                    "David specializes in cloud infrastructure, database optimization, and has achieved 87% performance improvements. What specific area interests you?",
-                    "That's a great question about David's work! He's helped clients save $40K+ annually through database optimizations. Please feel free to connect directly.",
+                    "Thanks for your interest in David's work! He's a Cloud Support Engineer specializing in database optimization and has helped clients achieve 87% performance improvements.",
+                    "David has extensive experience with PostgreSQL, AWS, GCP, and Azure. He's currently available for new projects starting Q1 2026.",
+                    "That's a great question! David has helped clients save $40K+ annually through infrastructure optimizations. Feel free to reach out via the contact form above."
                 ];
 
-                const randomResponse =
-                    responses[Math.floor(Math.random() * responses.length)];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
 
-                // Create a simple message display
-                const chatContainer =
-                    document.querySelector(".ai-chat-container") ||
-                    document.querySelector(".contact-ai-card");
+                // Create message display
+                const chatContainer = document.querySelector(".ai-chat-container");
                 if (chatContainer) {
                     const messageDiv = document.createElement("div");
-                    messageDiv.style.cssText =
-                        "margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #4F46E5;";
-                    messageDiv.innerHTML = `<strong>You:</strong> ${userMessage}<br><strong>Assistant:</strong> ${randomResponse}`;
-
-                    // Insert before the input area
-                    const inputArea = document.querySelector(".ai-input-area");
-                    if (inputArea) {
-                        chatContainer.insertBefore(messageDiv, inputArea);
-                    } else {
-                        chatContainer.appendChild(messageDiv);
-                    }
-
-                    // removed console log
+                    messageDiv.style.cssText = "margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #4F46E5;";
+                    messageDiv.innerHTML = `<strong>You:</strong> ${message}<br><strong>Assistant:</strong> ${randomResponse}`;
+                    chatContainer.insertBefore(messageDiv, document.querySelector(".ai-input-area"));
                 }
+
+                chatInput.value = "";
             }
         </script>
 
-        <!-- Main Orchestration (First - coordinates everything) -->
+        <!-- Core Scripts (Simplified) -->
         <script src="src/js/main.min.js"></script>
-
-        <!-- Base Classes and Behaviors -->
-        <script type="module" src="src/js/script.js"></script>
-
-        <!-- Feature Modules -->
-        <script defer src="src/js/analytics-tracker.min.js"></script>
         <script defer src="src/js/consent-banner.min.js"></script>
-        <script defer src="src/js/lazy-loader.min.js"></script>
-        <script defer src="src/js/progressive-enhancement.min.js"></script>
-        <script defer src="src/js/enhanced-chat-system.min.js"></script>
-
-        <!-- Additional Orchestration Layer -->
-        <script defer src="src/js/global-scroll-manager.js"></script>
         <script defer src="src/js/unified-analytics.js"></script>
-
-        <!-- Speed Insights (loaded after main initialization) -->
-        <script type="module" src="src/js/speed-insights.min.js"></script>
+        <script defer src="src/js/global-scroll-manager.js"></script>
 
         <noscript>
             <p style="text-align: center; margin-top: 1rem">
