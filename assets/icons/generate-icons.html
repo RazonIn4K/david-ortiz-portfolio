@@ -1,55 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <title>PWA Icon Generator</title>
-    <style>
-        body { font-family: system-ui; padding: 20px; }
-        canvas { border: 1px solid #ddd; margin: 10px; }
-        .icon-grid { display: flex; flex-wrap: wrap; gap: 20px; }
-    </style>
-</head>
-<body>
-    <h1>PWA Icon Generator for David Ortiz Portfolio</h1>
-    <p>Right-click and save each icon to the appropriate filename</p>
-    <div class="icon-grid" id="icons"></div>
+    <head>
+        <title>PWA Icon Generator</title>
+        <style>
+            body {
+                font-family: system-ui;
+                padding: 20px;
+            }
+            canvas {
+                border: 1px solid #ddd;
+                margin: 10px;
+            }
+            .icon-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>PWA Icon Generator for David Ortiz Portfolio</h1>
+        <p>Right-click and save each icon to the appropriate filename</p>
+        <div class="icon-grid" id="icons"></div>
 
-    <script>
-        const sizes = [16, 32, 48, 72, 96, 120, 128, 144, 152, 180, 192, 384, 512];
-        const container = document.getElementById('icons');
+        <script>
+            const sizes = [
+                16, 32, 48, 72, 96, 120, 128, 144, 152, 180, 192, 384, 512,
+            ];
+            const container = document.getElementById("icons");
 
-        sizes.forEach(size => {
-            const canvas = document.createElement('canvas');
-            canvas.width = size;
-            canvas.height = size;
+            sizes.forEach((size) => {
+                const canvas = document.createElement("canvas");
+                canvas.width = size;
+                canvas.height = size;
 
-            const ctx = canvas.getContext('2d');
+                const ctx = canvas.getContext("2d");
 
-            // Background gradient (matches brand colors)
-            const gradient = ctx.createLinearGradient(0, 0, size, size);
-            gradient.addColorStop(0, '#4F46E5'); // Indigo
-            gradient.addColorStop(1, '#7C3AED'); // Purple
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, size, size);
+                // Background gradient (matches brand colors)
+                const gradient = ctx.createLinearGradient(0, 0, size, size);
+                gradient.addColorStop(0, "#4F46E5"); // Indigo
+                gradient.addColorStop(1, "#7C3AED"); // Purple
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, size, size);
 
-            // Draw "DO" initials
-            ctx.fillStyle = 'white';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
+                // Draw "DO" initials
+                ctx.fillStyle = "white";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
 
-            // Scale font size based on icon size
-            const fontSize = Math.floor(size * 0.4);
-            ctx.font = `bold ${fontSize}px system-ui, -apple-system, sans-serif`;
-            ctx.fillText('DO', size / 2, size / 2);
+                // Scale font size based on icon size
+                const fontSize = Math.floor(size * 0.4);
+                ctx.font = `bold ${fontSize}px system-ui, -apple-system, sans-serif`;
+                ctx.fillText("DO", size / 2, size / 2);
 
-            // Create container
-            const div = document.createElement('div');
-            div.innerHTML = `
+                // Create container
+                const div = document.createElement("div");
+                div.innerHTML = `
                 <h3>icon-${size}x${size}.png</h3>
                 <p>Right-click → Save as → icon-${size}.png</p>
             `;
-            div.appendChild(canvas);
-            container.appendChild(div);
-        });
-    </script>
-</body>
+                div.appendChild(canvas);
+                container.appendChild(div);
+            });
+        </script>
+    </body>
 </html>

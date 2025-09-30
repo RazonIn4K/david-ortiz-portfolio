@@ -1,5 +1,5 @@
 // GDPR-compliant Cookie Consent Manager
-import { STORAGE_KEYS } from './constants.js';
+import { STORAGE_KEYS } from "./constants.js";
 
 class ConsentManager {
   constructor() {
@@ -29,7 +29,7 @@ class ConsentManager {
     this.consent = {
       ...preferences,
       timestamp: Date.now(),
-      version: '1.0'
+      version: "1.0",
     };
     localStorage.setItem(this.consentKey, JSON.stringify(this.consent));
     this.applyConsent();
@@ -40,7 +40,9 @@ class ConsentManager {
     }
 
     // Dispatch custom event for other listeners
-    window.dispatchEvent(new CustomEvent('consentChanged', { detail: this.consent }));
+    window.dispatchEvent(
+      new CustomEvent("consentChanged", { detail: this.consent }),
+    );
   }
 
   hasConsent() {
@@ -53,12 +55,18 @@ class ConsentManager {
     // Control analytics based on consent
     if (this.consent.analytics) {
       window.analyticsEnabled = true;
-      if (window.analyticsTracker && typeof window.analyticsTracker.enable === 'function') {
+      if (
+        window.analyticsTracker &&
+        typeof window.analyticsTracker.enable === "function"
+      ) {
         window.analyticsTracker.enable();
       }
     } else {
       window.analyticsEnabled = false;
-      if (window.analyticsTracker && typeof window.analyticsTracker.disable === 'function') {
+      if (
+        window.analyticsTracker &&
+        typeof window.analyticsTracker.disable === "function"
+      ) {
         window.analyticsTracker.disable();
       }
     }
@@ -73,8 +81,8 @@ class ConsentManager {
   }
 
   showBanner() {
-    const banner = document.createElement('div');
-    banner.className = 'consent-banner';
+    const banner = document.createElement("div");
+    banner.className = "consent-banner";
     banner.innerHTML = `
       <div class="consent-content">
         <h3>Cookie Consent</h3>
@@ -85,7 +93,7 @@ class ConsentManager {
             Necessary (Required)
           </label>
           <label>
-            <input type="checkbox" id="consent-analytics" checked>
+            <input type="checkbox" id="consent-analytics">
             Analytics
           </label>
           <label>
@@ -104,29 +112,33 @@ class ConsentManager {
     document.body.appendChild(banner);
 
     // Event handlers
-    document.getElementById('consent-accept-all').addEventListener('click', () => {
-      this.saveConsent({
-        necessary: true,
-        analytics: true,
-        thirdParty: true
+    document
+      .getElementById("consent-accept-all")
+      .addEventListener("click", () => {
+        this.saveConsent({
+          necessary: true,
+          analytics: true,
+          thirdParty: true,
+        });
+        banner.remove();
       });
-      banner.remove();
-    });
 
-    document.getElementById('consent-accept-selected').addEventListener('click', () => {
-      this.saveConsent({
-        necessary: true,
-        analytics: document.getElementById('consent-analytics').checked,
-        thirdParty: document.getElementById('consent-third-party').checked
+    document
+      .getElementById("consent-accept-selected")
+      .addEventListener("click", () => {
+        this.saveConsent({
+          necessary: true,
+          analytics: document.getElementById("consent-analytics").checked,
+          thirdParty: document.getElementById("consent-third-party").checked,
+        });
+        banner.remove();
       });
-      banner.remove();
-    });
 
-    document.getElementById('consent-reject').addEventListener('click', () => {
+    document.getElementById("consent-reject").addEventListener("click", () => {
       this.saveConsent({
         necessary: true,
         analytics: false,
-        thirdParty: false
+        thirdParty: false,
       });
       banner.remove();
     });
@@ -140,8 +152,8 @@ class ConsentManager {
 }
 
 // Initialize consent manager
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
     window.consentManager = new ConsentManager();
   });
 } else {

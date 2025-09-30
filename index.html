@@ -1,872 +1,1528 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Performance Optimization: Preconnect to critical origins -->
-    <link rel="preconnect" href="https://va.vercel-scripts.com">
-    <link rel="dns-prefetch" href="https://vitals.vercel-insights.com">
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+        <!-- Performance Optimization: Preconnect to critical origins -->
+        <link rel="preconnect" href="https://va.vercel-scripts.com" />
+        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
-    <title>David Ortiz - Cloud Support Engineer & Database Specialist</title>
-    <meta name="description" content="David Ortiz - Cloud Support Engineer & Database Specialist. Professional portfolio showcasing 87% query performance improvements, $40K annual savings, and expertise in AWS, GCP, Azure, PostgreSQL, and database optimization.">
-    <meta name="keywords" content="cloud support engineer, database specialist, AWS, GCP, Azure, PostgreSQL, MySQL, SQL optimization, infrastructure automation, DevOps, Chicago tech">
-    <meta name="author" content="David Ortiz">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="geo.region" content="US-IL">
-    <meta name="geo.placename" content="Chicago">
-    <meta name="geo.position" content="41.8781;-87.6298">
-    <meta name="ICBM" content="41.8781, -87.6298">
+        <title>
+            David Ortiz - Cloud Support Engineer & Database Specialist
+        </title>
+        <meta
+            name="description"
+            content="David Ortiz - Cloud Support Engineer & Database Specialist. Professional portfolio showcasing 87% query performance improvements, $40K annual savings, and expertise in AWS, GCP, Azure, PostgreSQL, and database optimization."
+        />
+        <meta
+            name="keywords"
+            content="cloud support engineer, database specialist, AWS, GCP, Azure, PostgreSQL, MySQL, SQL optimization, infrastructure automation, DevOps, Chicago tech"
+        />
+        <meta name="author" content="David Ortiz" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="geo.region" content="US-IL" />
+        <meta name="geo.placename" content="Chicago" />
+        <meta name="geo.position" content="41.8781;-87.6298" />
+        <meta name="ICBM" content="41.8781, -87.6298" />
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="David Ortiz - Cloud Support Portfolio">
-    <meta property="og:description" content="Cloud Support Engineer & Database Specialist portfolio showcasing technical expertise and quantifiable project results.">
-    <meta property="og:image" content="https://www.cs-learning.me/assets/og-image.png">
-    <meta property="og:url" content="https://www.cs-learning.me">
-    <meta property="og:type" content="website">
-    <link rel="canonical" href="https://www.cs-learning.me/">
+        <!-- Open Graph Meta Tags -->
+        <meta
+            property="og:title"
+            content="David Ortiz - Cloud Support Portfolio"
+        />
+        <meta
+            property="og:description"
+            content="Cloud Support Engineer & Database Specialist portfolio showcasing technical expertise and quantifiable project results."
+        />
+        <meta
+            property="og:image"
+            content="https://www.cs-learning.me/assets/og-image.png"
+        />
+        <meta property="og:url" content="https://www.cs-learning.me" />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://www.cs-learning.me/" />
 
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="David Ortiz - Cloud Support Portfolio">
-    <meta name="twitter:description" content="Cloud Support Engineer & Database Specialist portfolio">
-    <meta name="twitter:image" content="https://www.cs-learning.me/assets/og-image.png">
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="David Ortiz - Cloud Support Portfolio"
+        />
+        <meta
+            name="twitter:description"
+            content="Cloud Support Engineer & Database Specialist portfolio"
+        />
+        <meta
+            name="twitter:image"
+            content="https://www.cs-learning.me/assets/og-image.png"
+        />
 
-    <!-- Modern Favicon Implementation (Local) -->
-    <!-- SVG icon for modern browsers -->
-    <link rel="icon" type="image/svg+xml" href="/assets/icons/icon.svg">
+        <!-- Modern Favicon Implementation (Local) -->
+        <!-- SVG icon for modern browsers -->
+        <link rel="icon" type="image/svg+xml" href="/assets/icons/icon.svg" />
 
-    <!-- Fallback PNG icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/icons/icon-192.png">
-    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+        <!-- Fallback PNG icons -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="192x192"
+            href="/assets/icons/icon-192.png"
+        />
+        <link rel="apple-touch-icon" href="/assets/icons/icon-192.png" />
 
-    <!-- For older browsers -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <!-- For older browsers -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-    <!-- Web App Manifest -->
-    <link rel="manifest" href="manifest.json">
+        <!-- Web App Manifest -->
+        <link rel="manifest" href="manifest.json" />
 
-    <!-- Theme Color for Browser UI -->
-    <meta name="theme-color" content="#4F46E5">
-    <meta name="msapplication-TileColor" content="#4F46E5">
-    <meta name="msapplication-TileImage" content="/assets/icons/icon-192.png">
+        <!-- Theme Color for Browser UI -->
+        <meta name="theme-color" content="#4F46E5" />
+        <meta name="msapplication-TileColor" content="#4F46E5" />
+        <meta
+            name="msapplication-TileImage"
+            content="/assets/icons/icon-192.png"
+        />
 
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "David Ortiz",
-      "jobTitle": "Cloud Support Engineer & Database Specialist",
-      "description": "Cloud Support Engineer & Database Specialist with 5+ years of experience in cloud infrastructure optimization, database performance tuning, and cost reduction strategies. Achieved 87% query performance improvements and $40K annual savings for clients.",
-      "url": "https://www.cs-learning.me",
-      "image": "https://www.cs-learning.me/assets/david-ortiz-avatar.svg",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Chicago",
-        "addressRegion": "IL",
-        "addressCountry": "US"
-      },
-      "knowsAbout": [
-        "Cloud Computing",
-        "Database Optimization",
-        "AWS",
-        "GCP",
-        "Azure",
-        "PostgreSQL",
-        "MySQL",
-        "SQL",
-        "Docker",
-        "Kubernetes",
-        "Terraform",
-        "DevOps",
-        "Infrastructure as Code",
-        "Performance Tuning",
-        "Cost Optimization"
-      ],
-      "hasOccupation": {
-        "@type": "Occupation",
-        "name": "Cloud Support Engineer",
-        "occupationLocation": {
-          "@type": "City",
-          "name": "Chicago"
-        }
-      },
-      "alumniOf": {
-        "@type": "EducationalOrganization",
-        "name": "University of Chicago"
-      },
-      "sameAs": [
-        "https://www.linkedin.com/in/david-ortiz-210190205/",
-        "https://github.com/RazonIn4K"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "professional",
-        "email": "david@cs-learning.me",
-        "availableLanguage": "English"
-      }
-    }
-    </script>
+        <!-- Structured Data (JSON-LD) -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": "David Ortiz",
+                "jobTitle": "Cloud Support Engineer & Database Specialist",
+                "description": "Cloud Support Engineer & Database Specialist with 5+ years of experience in cloud infrastructure optimization, database performance tuning, and cost reduction strategies. Achieved 87% query performance improvements and $40K annual savings for clients.",
+                "url": "https://www.cs-learning.me",
+                "image": "https://www.cs-learning.me/assets/david-ortiz-avatar.svg",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Chicago",
+                    "addressRegion": "IL",
+                    "addressCountry": "US"
+                },
+                "knowsAbout": [
+                    "Cloud Computing",
+                    "Database Optimization",
+                    "AWS",
+                    "GCP",
+                    "Azure",
+                    "PostgreSQL",
+                    "MySQL",
+                    "SQL",
+                    "Docker",
+                    "Kubernetes",
+                    "Terraform",
+                    "DevOps",
+                    "Infrastructure as Code",
+                    "Performance Tuning",
+                    "Cost Optimization"
+                ],
+                "hasOccupation": {
+                    "@type": "Occupation",
+                    "name": "Cloud Support Engineer",
+                    "occupationLocation": {
+                        "@type": "City",
+                        "name": "Chicago"
+                    }
+                },
+                "alumniOf": {
+                    "@type": "EducationalOrganization",
+                    "name": "University of Chicago"
+                },
+                "sameAs": [
+                    "https://www.linkedin.com/in/david-ortiz-210190205/",
+                    "https://github.com/RazonIn4K"
+                ],
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "contactType": "professional",
+                    "email": "david@cs-learning.me",
+                    "availableLanguage": "English"
+                }
+            }
+        </script>
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "David Ortiz Portfolio",
-      "description": "Professional portfolio of David Ortiz, Cloud Support Engineer & Database Specialist showcasing technical expertise and project results.",
-      "url": "https://www.cs-learning.me",
-      "author": {
-        "@type": "Person",
-        "name": "David Ortiz"
-      },
-      "publisher": {
-        "@type": "Person",
-        "name": "David Ortiz"
-      }
-    }
-    </script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "David Ortiz Portfolio",
+                "description": "Professional portfolio of David Ortiz, Cloud Support Engineer & Database Specialist showcasing technical expertise and project results.",
+                "url": "https://www.cs-learning.me",
+                "author": {
+                    "@type": "Person",
+                    "name": "David Ortiz"
+                },
+                "publisher": {
+                    "@type": "Person",
+                    "name": "David Ortiz"
+                }
+            }
+        </script>
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "dateCreated": "2025-01-01",
-      "dateModified": "2025-09-20",
-      "mainEntity": {
-        "@type": "Person",
-        "name": "David Ortiz"
-      }
-    }
-    </script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "ProfilePage",
+                "dateCreated": "2025-01-01",
+                "dateModified": "2025-09-20",
+                "mainEntity": {
+                    "@type": "Person",
+                    "name": "David Ortiz"
+                }
+            }
+        </script>
 
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="src/css/styles.css" as="style">
-    <link rel="modulepreload" href="src/js/script.js">
+        <!-- Preload Critical Resources -->
+        <link rel="preload" href="src/css/styles.css" as="style" />
+        <link rel="modulepreload" href="src/js/script.js" />
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="src/css/styles.css">
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="src/css/styles.css" />
 
-    <!-- Analytics loaded consent-aware by unified-analytics.js -->
-</head>
-<body class="no-js">
-    <!-- Skip to Content Link for Accessibility -->
-    <a href="#main" class="skip-link">Skip to main content</a>
+        <!-- Analytics loaded consent-aware by unified-analytics.js -->
+    </head>
+    <body class="no-js">
+        <!-- Skip to Content Link for Accessibility -->
+        <a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- Header Navigation -->
-    <header class="header">
-        <nav class="nav" aria-label="Main navigation">
-            <div class="nav-container">
-                <a href="#home" class="nav-logo" aria-label="Home">David Ortiz</a>
+        <!-- Header Navigation -->
+        <header class="header">
+            <nav class="nav" aria-label="Main navigation">
+                <div class="nav-container">
+                    <a href="#home" class="nav-logo" aria-label="Home"
+                        >David Ortiz</a
+                    >
 
-                <ul class="nav-menu" id="primary-navigation">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#skills" class="nav-link">Skills</a></li>
-                    <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
+                    <ul class="nav-menu" id="primary-navigation">
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#skills" class="nav-link">Skills</a></li>
+                        <li>
+                            <a href="#projects" class="nav-link">Projects</a>
+                        </li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
 
-                <div class="nav-actions">
-                    <button type="button" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
-                        <span class="theme-icon" aria-hidden="true">🌙</span>
-                    </button>
-                    <button type="button" class="mobile-menu-toggle"
+                    <div class="nav-actions">
+                        <button
+                            type="button"
+                            class="theme-toggle"
+                            aria-label="Toggle dark/light theme"
+                            title="Toggle theme"
+                        >
+                            <span class="theme-icon" aria-hidden="true"
+                                >🌙</span
+                            >
+                        </button>
+                        <button
+                            type="button"
+                            class="mobile-menu-toggle"
                             aria-controls="primary-navigation"
                             aria-expanded="false"
                             aria-label="Toggle navigation"
-                            title="Toggle navigation menu">
-                        <span class="menu-icon" aria-hidden="true">☰</span>
-                        <span class="sr-only">Toggle navigation</span>
-                    </button>
+                            title="Toggle navigation menu"
+                        >
+                            <span class="menu-icon" aria-hidden="true">☰</span>
+                            <span class="sr-only">Toggle navigation</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
 
-    <!-- Main Content -->
-    <main id="main" class="main">
-        <!-- Hero Section -->
-        <section id="home" class="hero" aria-label="Introduction">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <div class="hero-story-intro">
-                            <span class="hero-location">Chicago, IL</span>
-                            <span class="hero-role">Cloud Support Engineer</span>
+        <!-- Main Content -->
+        <main id="main" class="main">
+            <!-- Hero Section -->
+            <section id="home" class="hero" aria-label="Introduction">
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <div class="hero-story-intro">
+                                <span class="hero-location">Chicago, IL</span>
+                                <span class="hero-role"
+                                    >Cloud Support Engineer</span
+                                >
+                            </div>
+
+                            <h1 class="hero-title">
+                                David Ortiz debugged a Docker issue during a 3am
+                                support call to slash infrastructure costs by
+                                35%
+                            </h1>
+
+                            <div class="hero-metrics">
+                                <div class="metric-highlight">
+                                    <span class="metric-number">87%</span>
+                                    <span class="metric-label"
+                                        >Query Performance Boost</span
+                                    >
+                                </div>
+                                <div class="metric-highlight">
+                                    <span class="metric-number">$40K</span>
+                                    <span class="metric-label"
+                                        >Annual Savings Delivered</span
+                                    >
+                                </div>
+                                <div class="metric-highlight">
+                                    <span class="metric-number">1.3s</span>
+                                    <span class="metric-label"
+                                        >From 10+ Second Queries</span
+                                    >
+                                </div>
+                            </div>
+
+                            <p class="hero-description">
+                                When most engineers see a slow database, I see
+                                an optimization opportunity. That late-night
+                                PostgreSQL crisis? It became a $40K annual
+                                savings story. I help companies turn their
+                                infrastructure pain points into competitive
+                                advantages.
+                            </p>
+
+                            <div class="hero-actions">
+                                <a
+                                    href="#projects"
+                                    class="hero-cta primary"
+                                    data-track="cta_click"
+                                    data-track-category="engagement"
+                                    data-track-label="hero_cta_primary"
+                                    >View Case Studies</a
+                                >
+                                <a
+                                    href="#contact"
+                                    class="hero-cta secondary"
+                                    data-track="cta_click"
+                                    data-track-category="engagement"
+                                    data-track-label="hero_cta_secondary"
+                                    >Let's Talk</a
+                                >
+                            </div>
                         </div>
 
-                        <h1 class="hero-title">David Ortiz debugged a Docker issue during a 3am support call to slash infrastructure costs by 35%</h1>
+                        <div class="hero-visual">
+                            <div class="hero-photo">
+                                <img
+                                    src="assets/david-ortiz-avatar.svg"
+                                    alt="David Ortiz - Cloud Support Engineer optimizing database performance"
+                                    class="profile-image"
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/1a1a2e/ffffff?text=David+Ortiz'; this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'"
+                                />
+                                <div class="photo-accent"></div>
+                            </div>
+                            <div class="hero-badges">
+                                <span class="availability-badge"
+                                    >Available for Q1 2026</span
+                                >
+                                <span class="location-badge"
+                                    >🌃 Chicago + Remote</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                        <div class="hero-metrics">
-                            <div class="metric-highlight">
+            <!-- About Section -->
+            <section id="about" class="about" aria-label="About me">
+                <div class="section-container">
+                    <h2 class="section-title">About Me</h2>
+                    <div class="about-content">
+                        <p class="about-text">
+                            I'm a Cloud Support Engineer based in Chicago who
+                            started my career debugging slow database queries
+                            during late-night support shifts. That experience
+                            taught me that performance problems are usually
+                            hiding in plain sight – you just need the right
+                            tools and approach to find them.
+                        </p>
+                        <p class="about-text">
+                            These days, I help companies tackle their most
+                            frustrating infrastructure problems. My recent win
+                            was diving into a client's PostgreSQL nightmare
+                            where analytical queries were taking 10+ seconds.
+                            After some strategic indexing and query
+                            restructuring, we got them down to 1.3 seconds. The
+                            client saved $40K annually just from reduced compute
+                            costs.
+                        </p>
+                        <p class="about-text">
+                            <strong
+                                >Currently open to remote opportunities</strong
+                            >
+                            • Available for new projects starting Q1 2026 •
+                            Chicago-based but happy to travel for the right
+                            challenge.
+                        </p>
+                        <div class="about-metrics">
+                            <div class="metric">
                                 <span class="metric-number">87%</span>
-                                <span class="metric-label">Query Performance Boost</span>
+                                <span class="metric-label"
+                                    >Query Performance Improvement</span
+                                >
                             </div>
-                            <div class="metric-highlight">
-                                <span class="metric-number">$40K</span>
-                                <span class="metric-label">Annual Savings Delivered</span>
+                            <div class="metric">
+                                <span class="metric-number">35%</span>
+                                <span class="metric-label"
+                                    >Cost Reduction Achieved</span
+                                >
                             </div>
-                            <div class="metric-highlight">
-                                <span class="metric-number">1.3s</span>
-                                <span class="metric-label">From 10+ Second Queries</span>
+                            <div class="metric">
+                                <span class="metric-number">3+</span>
+                                <span class="metric-label"
+                                    >Cloud Platforms</span
+                                >
                             </div>
-                        </div>
-
-                        <p class="hero-description">When most engineers see a slow database, I see an optimization opportunity. That late-night PostgreSQL crisis? It became a $40K annual savings story. I help companies turn their infrastructure pain points into competitive advantages.</p>
-
-                        <div class="hero-actions">
-                            <a href="#projects" class="hero-cta primary"
-                               data-track="cta_click"
-                               data-track-category="engagement"
-                               data-track-label="hero_cta_primary">View Case Studies</a>
-                            <a href="#contact" class="hero-cta secondary"
-                               data-track="cta_click"
-                               data-track-category="engagement"
-                               data-track-label="hero_cta_secondary">Let's Talk</a>
-                        </div>
-                    </div>
-
-                    <div class="hero-visual">
-                        <div class="hero-photo">
-                            <img src="assets/david-ortiz-avatar.svg" alt="David Ortiz - Cloud Support Engineer optimizing database performance" class="profile-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/1a1a2e/ffffff?text=David+Ortiz'; this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
-                            <div class="photo-accent"></div>
-                        </div>
-                        <div class="hero-badges">
-                            <span class="availability-badge">Available for Q1 2026</span>
-                            <span class="location-badge">🌃 Chicago + Remote</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- About Section -->
-        <section id="about" class="about" aria-label="About me">
-            <div class="section-container">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-content">
-                    <p class="about-text">
-                        I'm a Cloud Support Engineer based in Chicago who started my career debugging slow database queries during late-night support shifts. That experience taught me that performance problems are usually hiding in plain sight – you just need the right tools and approach to find them.
-                    </p>
-                    <p class="about-text">
-                        These days, I help companies tackle their most frustrating infrastructure problems. My recent win was diving into a client's PostgreSQL nightmare where analytical queries were taking 10+ seconds. After some strategic indexing and query restructuring, we got them down to 1.3 seconds. The client saved $40K annually just from reduced compute costs.
-                    </p>
-                    <p class="about-text">
-                        <strong>Currently open to remote opportunities</strong> • Available for new projects starting Q1 2026 • Chicago-based but happy to travel for the right challenge.
-                    </p>
-                    <div class="about-metrics">
-                        <div class="metric">
-                            <span class="metric-number">87%</span>
-                            <span class="metric-label">Query Performance Improvement</span>
+            <!-- Skills Section -->
+            <section
+                id="skills"
+                class="skills"
+                aria-label="Technical skills and tools"
+            >
+                <div class="section-container">
+                    <h2 class="section-title">Skills & Tools</h2>
+
+                    <!-- Cloud Platforms -->
+                    <div class="skill-category">
+                        <h3 class="category-title">Cloud Platforms</h3>
+                        <div class="skills-grid" role="list">
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Infrastructure automation &amp; cost optimization"
+                            >
+                                <img
+                                    src="https://img.icons8.com/color/48/amazon-web-services.png"
+                                    alt="Amazon Web Services"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">AWS</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="BigQuery performance tuning &amp; data pipelines"
+                            >
+                                <img
+                                    src="https://img.icons8.com/color/48/google-cloud-platform.png"
+                                    alt="Google Cloud Platform"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">GCP</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="SQL Database optimization &amp; Azure DevOps"
+                            >
+                                <img
+                                    src="https://img.icons8.com/fluency/48/azure-1.png"
+                                    alt="Microsoft Azure"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">Azure</span>
+                            </div>
                         </div>
-                        <div class="metric">
-                            <span class="metric-number">35%</span>
-                            <span class="metric-label">Cost Reduction Achieved</span>
+                    </div>
+
+                    <!-- Database & Data -->
+                    <div class="skill-category">
+                        <h3 class="category-title">Database & Data</h3>
+                        <div class="skills-grid" role="list">
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Query optimization, indexing strategies, and performance tuning"
+                            >
+                                <img
+                                    src="https://img.icons8.com/color/48/postgreesql.png"
+                                    alt="PostgreSQL"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">PostgreSQL</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Complex joins, stored procedures, and database design"
+                            >
+                                <img
+                                    src="https://img.icons8.com/ios/50/sql.png"
+                                    alt="SQL"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">SQL</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Replication setup and query optimization"
+                            >
+                                <img
+                                    src="https://img.icons8.com/ios/50/mysql-logo.png"
+                                    alt="MySQL"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">MySQL</span>
+                            </div>
                         </div>
-                        <div class="metric">
-                            <span class="metric-number">3+</span>
-                            <span class="metric-label">Cloud Platforms</span>
+                    </div>
+
+                    <!-- DevOps & Tools -->
+                    <div class="skill-category">
+                        <h3 class="category-title">DevOps & Infrastructure</h3>
+                        <div class="skills-grid" role="list">
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="CI/CD pipelines and Git workflow automation"
+                            >
+                                <img
+                                    src="https://img.icons8.com/ios/50/github.png"
+                                    alt="GitHub"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">GitHub</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Container orchestration and microservices"
+                            >
+                                <img
+                                    src="https://img.icons8.com/color/48/docker.png"
+                                    alt="Docker"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">Docker</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Cluster management and auto-scaling"
+                            >
+                                <img
+                                    src="https://img.icons8.com/color/48/kubernetes.png"
+                                    alt="Kubernetes"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">Kubernetes</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Infrastructure as Code and multi-cloud deployments"
+                            >
+                                <img
+                                    src="https://img.icons8.com/ios/50/terraform.png"
+                                    alt="Terraform"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">Terraform</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monitoring & Analysis -->
+                    <div class="skill-category">
+                        <h3 class="category-title">Monitoring & Analysis</h3>
+                        <div class="skills-grid" role="list">
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Custom dashboards, alerting, and performance monitoring"
+                            >
+                                <img
+                                    src="https://img.icons8.com/color/48/combo-chart--v1.png"
+                                    alt="Datadog"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">Datadog</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Data analysis scripts and automation tools"
+                            >
+                                <img
+                                    src="https://img.icons8.com/color/48/python--v1.png"
+                                    alt="Python"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">Python</span>
+                            </div>
+                            <div
+                                class="skill-card"
+                                role="listitem"
+                                data-tooltip="Executive presentation design and client reporting"
+                            >
+                                <img
+                                    src="https://img.icons8.com/fluency/48/artificial-intelligence.png"
+                                    alt="Beautiful.ai"
+                                    class="skill-icon"
+                                    loading="lazy"
+                                />
+                                <span class="skill-name">Beautiful.ai</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="skills" aria-label="Technical skills and tools">
-            <div class="section-container">
-                <h2 class="section-title">Skills & Tools</h2>
+            <!-- Projects Section -->
+            <section
+                id="projects"
+                class="projects"
+                aria-label="Portfolio projects"
+            >
+                <div class="section-container">
+                    <h2 class="section-title">Featured Projects</h2>
+                    <div class="projects-grid" role="list">
+                        <!-- Featured Project: Database Optimization -->
+                        <article
+                            class="project-card featured"
+                            role="listitem"
+                            data-tilt
+                        >
+                            <div class="featured-badge">Featured Project</div>
+                            <div class="project-header">
+                                <h3 class="project-title">
+                                    PostgreSQL Performance Crisis → 87% Faster
+                                </h3>
+                                <div class="project-links">
+                                    <a
+                                        href="https://github.com/RazonIn4K/db-optimization"
+                                        target="_blank"
+                                        rel="noopener"
+                                        class="project-link"
+                                        aria-label="View Database Optimization project on GitHub"
+                                    >
+                                        GitHub
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="problem-result">
+                                <div class="problem">
+                                    <h4>The Problem</h4>
+                                    <p>
+                                        E-commerce client's analytical queries
+                                        were taking 10+ seconds, blocking their
+                                        daily reports and costing $40K annually
+                                        in compute overhead.
+                                    </p>
+                                </div>
+                                <div class="result">
+                                    <h4>The Solution</h4>
+                                    <p>
+                                        Deep-dived into query execution plans,
+                                        rebuilt critical indexes, and
+                                        restructured 15 problematic queries.
+                                        Result: 1.3-second average query time.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="project-metrics">
+                                <span class="metric-item major"
+                                    >87% performance gain</span
+                                >
+                                <span class="metric-item"
+                                    >10s → 1.3s queries</span
+                                >
+                                <span class="metric-item"
+                                    >$40K annual savings</span
+                                >
+                            </div>
+                            <div class="project-embed">
+                                <!-- Presentation placeholder - replace with actual deck URL when available -->
+                                <div
+                                    class="presentation-placeholder"
+                                    style="
+                                        background: var(--card-bg);
+                                        border: 2px dashed var(--border-color);
+                                        border-radius: var(--border-radius);
+                                        padding: 3rem;
+                                        text-align: center;
+                                    "
+                                >
+                                    <p
+                                        style="
+                                            color: var(--text-muted);
+                                            margin-bottom: 1rem;
+                                            font-size: 1.5rem;
+                                        "
+                                    >
+                                        📊
+                                    </p>
+                                    <p
+                                        style="
+                                            color: var(--text-primary);
+                                            font-weight: 600;
+                                        "
+                                    >
+                                        Case Study Presentation
+                                    </p>
+                                    <p
+                                        style="
+                                            color: var(--text-secondary);
+                                            font-size: 0.9rem;
+                                            margin: 1rem 0;
+                                        "
+                                    >
+                                        Detailed technical walkthrough available
+                                    </p>
+                                    <a
+                                        href="#contact"
+                                        class="project-link"
+                                        style="color: var(--primary-color)"
+                                        >Request Access →</a
+                                    >
+                                </div>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Query Optimization</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag"
+                                    >Performance Analysis</span
+                                >
+                            </div>
+                        </article>
 
-                <!-- Cloud Platforms -->
-                <div class="skill-category">
-                    <h3 class="category-title">Cloud Platforms</h3>
-                    <div class="skills-grid" role="list">
-                        <div class="skill-card" role="listitem" data-tooltip="Infrastructure automation &amp; cost optimization">
-                            <img src="https://img.icons8.com/color/48/amazon-web-services.png" alt="Amazon Web Services" class="skill-icon" loading="lazy">
-                            <span class="skill-name">AWS</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="BigQuery performance tuning &amp; data pipelines">
-                            <img src="https://img.icons8.com/color/48/google-cloud-platform.png" alt="Google Cloud Platform" class="skill-icon" loading="lazy">
-                            <span class="skill-name">GCP</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="SQL Database optimization &amp; Azure DevOps">
-                            <img src="https://img.icons8.com/fluency/48/azure-1.png" alt="Microsoft Azure" class="skill-icon" loading="lazy">
-                            <span class="skill-name">Azure</span>
-                        </div>
+                        <!-- Project 2: Cloud Cost Optimization -->
+                        <article class="project-card" role="listitem" data-tilt>
+                            <div class="project-header">
+                                <h3 class="project-title">
+                                    Multi-Cloud Cost Surgery
+                                </h3>
+                                <div class="project-links">
+                                    <a
+                                        href="https://github.com/RazonIn4K/cloud-cost-optimization"
+                                        target="_blank"
+                                        rel="noopener"
+                                        class="project-link"
+                                        aria-label="View Cloud Cost Optimization project on GitHub"
+                                    >
+                                        GitHub
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="project-description">
+                                Startup was burning through AWS, GCP, and Azure
+                                credits with unoptimized infrastructure. Built
+                                automated rightsizing and scheduling system that
+                                cut costs by 35% without touching performance.
+                            </p>
+                            <div class="project-metrics">
+                                <span class="metric-item"
+                                    >35% cost reduction</span
+                                >
+                                <span class="metric-item"
+                                    >3 cloud platforms</span
+                                >
+                                <span class="metric-item">Zero downtime</span>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-tag">AWS</span>
+                                <span class="tech-tag">Terraform</span>
+                                <span class="tech-tag">Cost Optimization</span>
+                            </div>
+                        </article>
+
+                        <!-- Project 3: Monitoring Dashboard -->
+                        <article class="project-card" role="listitem" data-tilt>
+                            <div class="project-header">
+                                <h3 class="project-title">
+                                    Proactive Monitoring System
+                                </h3>
+                                <div class="project-links">
+                                    <a
+                                        href="https://github.com/RazonIn4K/monitoring-dashboard"
+                                        target="_blank"
+                                        rel="noopener"
+                                        class="project-link"
+                                        aria-label="View Monitoring Dashboard project on GitHub"
+                                    >
+                                        GitHub
+                                    </a>
+                                </div>
+                            </div>
+                            <p class="project-description">
+                                Built custom Datadog integration that predicts
+                                performance bottlenecks 20 minutes before they
+                                impact users. Reduced emergency support calls by
+                                60%.
+                            </p>
+                            <div class="project-metrics">
+                                <span class="metric-item"
+                                    >60% fewer incidents</span
+                                >
+                                <span class="metric-item"
+                                    >20min early warning</span
+                                >
+                                <span class="metric-item"
+                                    >Custom ML alerts</span
+                                >
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-tag">Datadog</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag"
+                                    >Predictive Analytics</span
+                                >
+                            </div>
+                        </article>
                     </div>
                 </div>
+            </section>
 
-                <!-- Database & Data -->
-                <div class="skill-category">
-                    <h3 class="category-title">Database & Data</h3>
-                    <div class="skills-grid" role="list">
-                        <div class="skill-card" role="listitem" data-tooltip="Query optimization, indexing strategies, and performance tuning">
-                            <img src="https://img.icons8.com/color/48/postgreesql.png" alt="PostgreSQL" class="skill-icon" loading="lazy">
-                            <span class="skill-name">PostgreSQL</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="Complex joins, stored procedures, and database design">
-                            <img src="https://img.icons8.com/ios/50/sql.png" alt="SQL" class="skill-icon" loading="lazy">
-                            <span class="skill-name">SQL</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="Replication setup and query optimization">
-                            <img src="https://img.icons8.com/ios/50/mysql-logo.png" alt="MySQL" class="skill-icon" loading="lazy">
-                            <span class="skill-name">MySQL</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DevOps & Tools -->
-                <div class="skill-category">
-                    <h3 class="category-title">DevOps & Infrastructure</h3>
-                    <div class="skills-grid" role="list">
-                        <div class="skill-card" role="listitem" data-tooltip="CI/CD pipelines and Git workflow automation">
-                            <img src="https://img.icons8.com/ios/50/github.png" alt="GitHub" class="skill-icon" loading="lazy">
-                            <span class="skill-name">GitHub</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="Container orchestration and microservices">
-                            <img src="https://img.icons8.com/color/48/docker.png" alt="Docker" class="skill-icon" loading="lazy">
-                            <span class="skill-name">Docker</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="Cluster management and auto-scaling">
-                            <img src="https://img.icons8.com/color/48/kubernetes.png" alt="Kubernetes" class="skill-icon" loading="lazy">
-                            <span class="skill-name">Kubernetes</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="Infrastructure as Code and multi-cloud deployments">
-                            <img src="https://img.icons8.com/ios/50/terraform.png" alt="Terraform" class="skill-icon" loading="lazy">
-                            <span class="skill-name">Terraform</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Monitoring & Analysis -->
-                <div class="skill-category">
-                    <h3 class="category-title">Monitoring & Analysis</h3>
-                    <div class="skills-grid" role="list">
-                        <div class="skill-card" role="listitem" data-tooltip="Custom dashboards, alerting, and performance monitoring">
-                            <img src="https://img.icons8.com/color/48/combo-chart--v1.png" alt="Datadog" class="skill-icon" loading="lazy">
-                            <span class="skill-name">Datadog</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="Data analysis scripts and automation tools">
-                            <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" class="skill-icon" loading="lazy">
-                            <span class="skill-name">Python</span>
-                        </div>
-                        <div class="skill-card" role="listitem" data-tooltip="Executive presentation design and client reporting">
-                            <img src="https://img.icons8.com/fluency/48/artificial-intelligence.png" alt="Beautiful.ai" class="skill-icon" loading="lazy">
-                            <span class="skill-name">Beautiful.ai</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects" aria-label="Portfolio projects">
-            <div class="section-container">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="projects-grid" role="list">
-
-                    <!-- Featured Project: Database Optimization -->
-                    <article class="project-card featured" role="listitem" data-tilt>
-                        <div class="featured-badge">Featured Project</div>
-                        <div class="project-header">
-                            <h3 class="project-title">PostgreSQL Performance Crisis → 87% Faster</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/RazonIn4K/db-optimization" target="_blank" rel="noopener" class="project-link" aria-label="View Database Optimization project on GitHub">
-                                    GitHub
-                                </a>
-                            </div>
-                        </div>
-                        <div class="problem-result">
-                            <div class="problem">
-                                <h4>The Problem</h4>
-                                <p>E-commerce client's analytical queries were taking 10+ seconds, blocking their daily reports and costing $40K annually in compute overhead.</p>
-                            </div>
-                            <div class="result">
-                                <h4>The Solution</h4>
-                                <p>Deep-dived into query execution plans, rebuilt critical indexes, and restructured 15 problematic queries. Result: 1.3-second average query time.</p>
-                            </div>
-                        </div>
-                        <div class="project-metrics">
-                            <span class="metric-item major">87% performance gain</span>
-                            <span class="metric-item">10s → 1.3s queries</span>
-                            <span class="metric-item">$40K annual savings</span>
-                        </div>
-                        <div class="project-embed">
-                            <!-- Presentation placeholder - replace with actual deck URL when available -->
-                            <div class="presentation-placeholder" style="background: var(--card-bg); border: 2px dashed var(--border-color); border-radius: var(--border-radius); padding: 3rem; text-align: center;">
-                                <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 1.5rem;">📊</p>
-                                <p style="color: var(--text-primary); font-weight: 600;">Case Study Presentation</p>
-                                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 1rem 0;">Detailed technical walkthrough available</p>
-                                <a href="#contact" class="project-link" style="color: var(--primary-color);">Request Access →</a>
-                            </div>
-                        </div>
-                        <div class="project-tech">
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Query Optimization</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Performance Analysis</span>
-                        </div>
-                    </article>
-
-                    <!-- Project 2: Cloud Cost Optimization -->
-                    <article class="project-card" role="listitem" data-tilt>
-                        <div class="project-header">
-                            <h3 class="project-title">Multi-Cloud Cost Surgery</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/RazonIn4K/cloud-cost-optimization" target="_blank" rel="noopener" class="project-link" aria-label="View Cloud Cost Optimization project on GitHub">
-                                    GitHub
-                                </a>
-                            </div>
-                        </div>
-                        <p class="project-description">
-                            Startup was burning through AWS, GCP, and Azure credits with unoptimized infrastructure. Built automated rightsizing and scheduling system that cut costs by 35% without touching performance.
+            <!-- Portfolio Excellence Presentation Section -->
+            <section
+                class="presentation-showcase"
+                aria-label="Portfolio Excellence Through Accessibility Mastery presentation"
+            >
+                <div class="section-container">
+                    <h2 class="section-title">
+                        Portfolio Excellence Through Accessibility Mastery
+                    </h2>
+                    <div class="presentation-intro">
+                        <p class="presentation-description">
+                            See how I transformed this portfolio from
+                            development-stage to production-ready with WCAG 2.1
+                            AA compliance, achieving what only 4% of websites
+                            accomplish. This presentation showcases the
+                            technical excellence and business impact of
+                            comprehensive accessibility implementation.
                         </p>
-                        <div class="project-metrics">
-                            <span class="metric-item">35% cost reduction</span>
-                            <span class="metric-item">3 cloud platforms</span>
-                            <span class="metric-item">Zero downtime</span>
+                        <div class="presentation-metrics">
+                            <span class="metric-highlight"
+                                >87% Performance Improvement</span
+                            >
+                            <span class="metric-highlight"
+                                >$40K Development Savings</span
+                            >
+                            <span class="metric-highlight"
+                                >Top 4% Compliance Achievement</span
+                            >
                         </div>
-                        <div class="project-tech">
-                            <span class="tech-tag">AWS</span>
-                            <span class="tech-tag">Terraform</span>
-                            <span class="tech-tag">Cost Optimization</span>
+                    </div>
+                    <div class="presentation-container">
+                        <div
+                            style="
+                                position: relative;
+                                width: 100%;
+                                height: 0;
+                                padding-bottom: 56.25%;
+                            "
+                        >
+                            <iframe
+                                allow="clipboard-write"
+                                allowfullscreen
+                                style="
+                                    position: absolute;
+                                    width: 100%;
+                                    height: 100%;
+                                    border: solid 1px #333;
+                                "
+                                src="https://www.beautiful.ai/embed/-O_ZKySTSkElQ_xEcKG6?utm_source=beautiful_player&utm_medium=embed&utm_campaign=-O_ZKBtRAYtCOvmSPBG8"
+                                title="Portfolio Excellence Through Accessibility Mastery Presentation"
+                                aria-label="Interactive presentation showcasing portfolio accessibility transformation"
+                            ></iframe>
+                            <a
+                                href="https://www.beautiful.ai/embed/-O_ZKySTSkElQ_xEcKG6?utm_source=beautiful_player&utm_medium=embed&utm_campaign=-O_ZKBtRAYtCOvmSPBG8"
+                                target="_blank"
+                                rel="noopener"
+                                class="presentation-fallback"
+                                >View Portfolio Excellence Through Accessibility
+                                Mastery on Beautiful.ai</a
+                            >
                         </div>
-                    </article>
-
-                    <!-- Project 3: Monitoring Dashboard -->
-                    <article class="project-card" role="listitem" data-tilt>
-                        <div class="project-header">
-                            <h3 class="project-title">Proactive Monitoring System</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/RazonIn4K/monitoring-dashboard" target="_blank" rel="noopener" class="project-link" aria-label="View Monitoring Dashboard project on GitHub">
-                                    GitHub
-                                </a>
-                            </div>
-                        </div>
-                        <p class="project-description">
-                            Built custom Datadog integration that predicts performance bottlenecks 20 minutes before they impact users. Reduced emergency support calls by 60%.
+                    </div>
+                    <div class="presentation-cta">
+                        <p class="cta-text">
+                            Ready to see how accessibility mastery can transform
+                            your projects? Let's discuss how I can bring this
+                            expertise to your team.
                         </p>
-                        <div class="project-metrics">
-                            <span class="metric-item">60% fewer incidents</span>
-                            <span class="metric-item">20min early warning</span>
-                            <span class="metric-item">Custom ML alerts</span>
-                        </div>
-                        <div class="project-tech">
-                            <span class="tech-tag">Datadog</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Predictive Analytics</span>
-                        </div>
-                    </article>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Excellence Presentation Section -->
-        <section class="presentation-showcase" aria-label="Portfolio Excellence Through Accessibility Mastery presentation">
-            <div class="section-container">
-                <h2 class="section-title">Portfolio Excellence Through Accessibility Mastery</h2>
-                <div class="presentation-intro">
-                    <p class="presentation-description">
-                        See how I transformed this portfolio from development-stage to production-ready with WCAG 2.1 AA compliance,
-                        achieving what only 4% of websites accomplish. This presentation showcases the technical excellence and
-                        business impact of comprehensive accessibility implementation.
-                    </p>
-                    <div class="presentation-metrics">
-                        <span class="metric-highlight">87% Performance Improvement</span>
-                        <span class="metric-highlight">$40K Development Savings</span>
-                        <span class="metric-highlight">Top 4% Compliance Achievement</span>
+                        <a
+                            href="#contact"
+                            class="hero-cta primary"
+                            data-track="cta_click"
+                            data-track-category="engagement"
+                            data-track-label="accessibility_cta"
+                            >Start the Conversation</a
+                        >
                     </div>
                 </div>
-                <div class="presentation-container">
-                    <div style="position:relative;width:100%;height:0;padding-bottom:56.25%;">
-                        <iframe allow="clipboard-write" allowfullscreen style="position:absolute; width: 100%; height: 100%;border: solid 1px #333;" src="https://www.beautiful.ai/embed/-O_ZKySTSkElQ_xEcKG6?utm_source=beautiful_player&utm_medium=embed&utm_campaign=-O_ZKBtRAYtCOvmSPBG8" title="Portfolio Excellence Through Accessibility Mastery Presentation" aria-label="Interactive presentation showcasing portfolio accessibility transformation"></iframe>
-                        <a href="https://www.beautiful.ai/embed/-O_ZKySTSkElQ_xEcKG6?utm_source=beautiful_player&utm_medium=embed&utm_campaign=-O_ZKBtRAYtCOvmSPBG8" target="_blank" rel="noopener" class="presentation-fallback">View Portfolio Excellence Through Accessibility Mastery on Beautiful.ai</a>
+            </section>
+
+            <!-- Contact Section -->
+            <section
+                id="contact"
+                class="contact"
+                aria-label="Contact information"
+            >
+                <div class="section-container">
+                    <h2 class="section-title">Get In Touch</h2>
+
+                    <!-- Human touch note -->
+                    <div class="contact-intro">
+                        <p class="contact-note">
+                            📍 Chicago-based, open to remote opportunities.
+                            <strong>24-hour response guaranteed</strong> for
+                            project inquiries.
+                        </p>
+                        <p class="availability-note">
+                            Currently available for database optimization
+                            projects and cloud infrastructure consulting.
+                        </p>
                     </div>
-                </div>
-                <div class="presentation-cta">
-                    <p class="cta-text">Ready to see how accessibility mastery can transform your projects? Let's discuss how I can bring this expertise to your team.</p>
-                    <a href="#contact" class="hero-cta primary"
-                       data-track="cta_click"
-                       data-track-category="engagement"
-                       data-track-label="accessibility_cta">Start the Conversation</a>
-                </div>
-            </div>
-        </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact" aria-label="Contact information">
-            <div class="section-container">
-                <h2 class="section-title">Get In Touch</h2>
+                    <div class="contact-content">
+                        <div class="contact-form-container">
+                            <form
+                                class="contact-form"
+                                action="https://formspree.io/f/xvgbeqbg"
+                                method="POST"
+                                aria-label="Contact form"
+                            >
+                                <div class="form-group">
+                                    <label for="name" class="form-label"
+                                        >Name
+                                        <span
+                                            class="required"
+                                            aria-label="required"
+                                            >*</span
+                                        ></label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        class="form-input"
+                                        required
+                                        aria-describedby="name-error"
+                                    />
+                                    <span
+                                        id="name-error"
+                                        class="form-error"
+                                        role="alert"
+                                    ></span>
+                                </div>
 
-                <!-- Human touch note -->
-                <div class="contact-intro">
-                    <p class="contact-note">
-                        📍 Chicago-based, open to remote opportunities.
-                        <strong>24-hour response guaranteed</strong> for project inquiries.
-                    </p>
-                    <p class="availability-note">
-                        Currently available for database optimization projects and cloud infrastructure consulting.
-                    </p>
-                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label"
+                                        >Email
+                                        <span
+                                            class="required"
+                                            aria-label="required"
+                                            >*</span
+                                        ></label
+                                    >
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        class="form-input"
+                                        required
+                                        aria-describedby="email-error"
+                                    />
+                                    <span
+                                        id="email-error"
+                                        class="form-error"
+                                        role="alert"
+                                    ></span>
+                                </div>
 
-                <div class="contact-content">
-                    <div class="contact-form-container">
-                        <form class="contact-form" action="https://formspree.io/f/xvgbeqbg" method="POST" aria-label="Contact form">
-                            <div class="form-group">
-                                <label for="name" class="form-label">Name <span class="required" aria-label="required">*</span></label>
-                                <input type="text" id="name" name="name" class="form-input" required aria-describedby="name-error">
-                                <span id="name-error" class="form-error" role="alert"></span>
-                            </div>
+                                <div class="form-group">
+                                    <label for="subject" class="form-label"
+                                        >Subject</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="subject"
+                                        name="subject"
+                                        class="form-input"
+                                    />
+                                </div>
 
-                            <div class="form-group">
-                                <label for="email" class="form-label">Email <span class="required" aria-label="required">*</span></label>
-                                <input type="email" id="email" name="email" class="form-input" required aria-describedby="email-error">
-                                <span id="email-error" class="form-error" role="alert"></span>
-                            </div>
+                                <div class="form-group">
+                                    <label for="message" class="form-label"
+                                        >Message
+                                        <span
+                                            class="required"
+                                            aria-label="required"
+                                            >*</span
+                                        ></label
+                                    >
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        class="form-textarea"
+                                        rows="5"
+                                        required
+                                        aria-describedby="message-error"
+                                        placeholder="Tell me about your project or how I can help..."
+                                    ></textarea>
+                                    <span
+                                        id="message-error"
+                                        class="form-error"
+                                        role="alert"
+                                    ></span>
+                                </div>
 
-                            <div class="form-group">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" id="subject" name="subject" class="form-input">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message" class="form-label">Message <span class="required" aria-label="required">*</span></label>
-                                <textarea id="message" name="message" class="form-textarea" rows="5" required aria-describedby="message-error" placeholder="Tell me about your project or how I can help..."></textarea>
-                                <span id="message-error" class="form-error" role="alert"></span>
-                            </div>
-
-                            <button type="submit" class="form-submit"
+                                <button
+                                    type="submit"
+                                    class="form-submit"
                                     data-track="form_submit"
                                     data-track-category="contact"
-                                    data-track-label="contact_form">
-                                Send Message
-                            </button>
-                        </form>
-                    </div>
-
-                    <div class="contact-options">
-                        <div class="contact-links">
-                            <h3 class="contact-links-title">Get In Touch</h3>
-                            <div class="contact-link-list">
-                                <a href="mailto:david@cs-learning.me" class="contact-link-item" aria-label="Send email">
-                                    <img src="https://img.icons8.com/fluency/24/email.png" alt="Email" class="contact-icon-img">
-                                    <span class="contact-text">david@cs-learning.me</span>
-                                </a>
-                                <a href="https://www.linkedin.com/in/david-ortiz-210190205/" target="_blank" rel="noopener" class="contact-link-item" aria-label="View LinkedIn profile">
-                                    <img src="https://img.icons8.com/fluency/24/linkedin.png" alt="LinkedIn" class="contact-icon-img">
-                                    <span class="contact-text">LinkedIn Profile</span>
-                                </a>
-                                <a href="https://calendly.com/davidinfosec07" target="_blank" rel="noopener" class="contact-link-item" aria-label="Schedule a meeting">
-                                    <img src="https://img.icons8.com/fluency/24/calendar.png" alt="Calendar" class="contact-icon-img">
-                                    <span class="contact-text">Schedule a 15-min Chat</span>
-                                </a>
-                            </div>
+                                    data-track-label="contact_form"
+                                >
+                                    Send Message
+                                </button>
+                            </form>
                         </div>
 
-                        <div class="location-info">
-                            <h3 class="location-title">Based in Chicago</h3>
-                            <div class="map-container">
-                                <a href="https://www.google.com/maps/place/Chicago,+IL" target="_blank" rel="noopener" class="map-link" aria-label="View Chicago location on Google Maps">
-                                    <img id="location-map" src="" alt="Chicago, Illinois location map"
-                                         class="location-map"
-                                         data-placeholder-src="assets/chicago-map.svg"
-                                         loading="lazy">
-                                    <div class="map-overlay">
-                                        <span class="map-text">📍 Click to view on Google Maps</span>
-                                    </div>
-                                </a>
+                        <div class="contact-options">
+                            <div class="contact-links">
+                                <h3 class="contact-links-title">
+                                    Get In Touch
+                                </h3>
+                                <div class="contact-link-list">
+                                    <a
+                                        href="mailto:david@cs-learning.me"
+                                        class="contact-link-item"
+                                        aria-label="Send email"
+                                    >
+                                        <img
+                                            src="https://img.icons8.com/fluency/24/email.png"
+                                            alt="Email"
+                                            class="contact-icon-img"
+                                        />
+                                        <span class="contact-text"
+                                            >david@cs-learning.me</span
+                                        >
+                                    </a>
+                                    <a
+                                        href="https://www.linkedin.com/in/david-ortiz-210190205/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        class="contact-link-item"
+                                        aria-label="View LinkedIn profile"
+                                    >
+                                        <img
+                                            src="https://img.icons8.com/fluency/24/linkedin.png"
+                                            alt="LinkedIn"
+                                            class="contact-icon-img"
+                                        />
+                                        <span class="contact-text"
+                                            >LinkedIn Profile</span
+                                        >
+                                    </a>
+                                    <a
+                                        href="https://calendly.com/davidinfosec07"
+                                        target="_blank"
+                                        rel="noopener"
+                                        class="contact-link-item"
+                                        aria-label="Schedule a meeting"
+                                    >
+                                        <img
+                                            src="https://img.icons8.com/fluency/24/calendar.png"
+                                            alt="Calendar"
+                                            class="contact-icon-img"
+                                        />
+                                        <span class="contact-text"
+                                            >Schedule a 15-min Chat</span
+                                        >
+                                    </a>
+                                </div>
                             </div>
-                            <div class="location-details">
-                                <div class="location-item">
-                                    <span class="location-label">🕒 Timezone:</span>
-                                    <span class="location-value">Central Standard Time (CST)</span>
-                                </div>
-                                <div class="location-item">
-                                    <span class="location-label">🌍 Availability:</span>
-                                    <span class="location-value">Chicago + Remote Worldwide</span>
-                                </div>
-                                <div class="location-item">
-                                    <span class="location-label">✈️ Travel:</span>
-                                    <span class="location-value">Available for on-site consulting</span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="ai-chat-widget">
-                            <div class="ai-widget-header">
-                                <div class="ai-widget-header-content">
-                                    <div class="ai-widget-icon">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                            <circle cx="9" cy="9" r="1" fill="currentColor"/>
-                                            <circle cx="15" cy="9" r="1" fill="currentColor"/>
-                                        </svg>
-                                    </div>
-                                    <div class="ai-widget-title">
-                                        <h3>AI Technical Assistant</h3>
-                                        <span class="ai-widget-status">
-                                            <span class="status-dot"></span>
-                                            Ask about David's expertise
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="ai-widget-body">
-                                <!-- Quick Actions -->
-                                <div class="ai-quick-actions">
-                                    <button type="button" class="ai-quick-btn" data-question="Tell me about David's PostgreSQL optimization that saved $40K">
-                                        <div class="quick-btn-icon">💰</div>
-                                        <div class="quick-btn-content">
-                                            <span class="quick-btn-title">Cost Savings</span>
-                                            <span class="quick-btn-desc">$40K optimization story</span>
-                                        </div>
-                                    </button>
-                                    <button type="button" class="ai-quick-btn" data-question="What's David's experience with cloud platforms?">
-                                        <div class="quick-btn-icon">☁️</div>
-                                        <div class="quick-btn-content">
-                                            <span class="quick-btn-title">Cloud Expertise</span>
-                                            <span class="quick-btn-desc">AWS, GCP, Azure</span>
-                                        </div>
-                                    </button>
-                                    <button type="button" class="ai-quick-btn" data-question="How does David approach database performance issues?">
-                                        <div class="quick-btn-icon">⚡</div>
-                                        <div class="quick-btn-content">
-                                            <span class="quick-btn-title">Performance</span>
-                                            <span class="quick-btn-desc">87% faster queries</span>
-                                        </div>
-                                    </button>
-                                </div>
-
-                                <!-- Chat Container -->
-                                <div class="ai-chat-display">
-                                    <div id="chat-messages" class="ai-messages-container">
-                                        <div class="ai-welcome-message">
-                                            <div class="ai-assistant-avatar">
-                                                <div class="avatar-pulse"></div>
-                                                <span>🤖</span>
-                                            </div>
-                                            <div class="welcome-text">
-                                                <p>Hi! I'm David's AI assistant. I can answer questions about:</p>
-                                                <ul class="welcome-topics">
-                                                    <li>Database optimization techniques</li>
-                                                    <li>Cloud infrastructure solutions</li>
-                                                    <li>Project case studies</li>
-                                                    <li>Technical skills & certifications</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Input Area -->
-                                <div class="ai-input-area">
-                                    <form id="ai-chat-form" class="ai-chat-form">
-                                        <div class="ai-input-wrapper">
-                                            <input
-                                                type="text"
-                                                id="chat-input"
-                                                class="ai-chat-input"
-                                                placeholder="Ask me anything about David's work..."
-                                                maxlength="1000"
-                                                autocomplete="off"
-                                                disabled
+                            <div class="location-info">
+                                <h3 class="location-title">Based in Chicago</h3>
+                                <div class="map-container">
+                                    <a
+                                        href="https://www.google.com/maps/place/Chicago,+IL"
+                                        target="_blank"
+                                        rel="noopener"
+                                        class="map-link"
+                                        aria-label="View Chicago location on Google Maps"
+                                    >
+                                        <img
+                                            id="location-map"
+                                            src=""
+                                            alt="Chicago, Illinois location map"
+                                            class="location-map"
+                                            data-placeholder-src="assets/chicago-map.svg"
+                                            loading="lazy"
+                                        />
+                                        <div class="map-overlay">
+                                            <span class="map-text"
+                                                >📍 Click to view on Google
+                                                Maps</span
                                             >
-                                            <button type="button" id="start-chat" class="ai-send-button" onclick="event.preventDefault(); enableAIChat(); return false;">
-                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                    <path d="M2 10L17 2L13 18L9 11L2 10Z" fill="currentColor"/>
-                                                </svg>
-                                                <span>Start Chat</span>
-                                            </button>
                                         </div>
-                                        <div class="ai-input-footer">
-                                            <span class="ai-powered-by">Powered by OpenRouter AI</span>
-                                            <span class="ai-response-time">~2s response time</span>
-                                        </div>
-                                    </form>
+                                    </a>
+                                </div>
+                                <div class="location-details">
+                                    <div class="location-item">
+                                        <span class="location-label"
+                                            >🕒 Timezone:</span
+                                        >
+                                        <span class="location-value"
+                                            >Central Standard Time (CST)</span
+                                        >
+                                    </div>
+                                    <div class="location-item">
+                                        <span class="location-label"
+                                            >🌍 Availability:</span
+                                        >
+                                        <span class="location-value"
+                                            >Chicago + Remote Worldwide</span
+                                        >
+                                    </div>
+                                    <div class="location-item">
+                                        <span class="location-label"
+                                            >✈️ Travel:</span
+                                        >
+                                        <span class="location-value"
+                                            >Available for on-site
+                                            consulting</span
+                                        >
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="future-ai-preview">
-                            <h3 class="ai-preview-title">Intelligent Automation Playbooks</h3>
-                            <p class="ai-preview-description">
-                                Beyond chat, here are the automation patterns I'm shipping for clients right now.
-                            </p>
-                            <div class="ai-insight-grid">
-                                <div class="ai-insight-card">
-                                    <h4 class="ai-insight-heading">Guided Diagnostics</h4>
-                                    <p class="ai-insight-copy">Data-backed decision trees capture every incident, surface the next best action, and feed future runbooks.</p>
+                            <div class="ai-chat-widget">
+                                <div class="ai-widget-header">
+                                    <div class="ai-widget-header-content">
+                                        <div class="ai-widget-icon">
+                                            <svg
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                            >
+                                                <circle
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                />
+                                                <path
+                                                    d="M8 14s1.5 2 4 2 4-2 4-2"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                />
+                                                <circle
+                                                    cx="9"
+                                                    cy="9"
+                                                    r="1"
+                                                    fill="currentColor"
+                                                />
+                                                <circle
+                                                    cx="15"
+                                                    cy="9"
+                                                    r="1"
+                                                    fill="currentColor"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <div class="ai-widget-title">
+                                            <h3>AI Technical Assistant</h3>
+                                            <span class="ai-widget-status">
+                                                <span class="status-dot"></span>
+                                                Ask about David's expertise
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="ai-insight-card">
-                                    <h4 class="ai-insight-heading">Resilient Playbooks</h4>
-                                    <p class="ai-insight-copy">Rate-limited workflows pair serverless endpoints with offline fallbacks, so sensitive automations never become brittle bots.</p>
-                                </div>
-                                <div class="ai-insight-card">
-                                    <h4 class="ai-insight-heading">Insight Dashboards</h4>
-                                    <p class="ai-insight-copy">Speed Insights and backend metrics roll into one view, highlighting regressions before customers ever feel the slowdown.</p>
+
+                                <div class="ai-widget-body">
+                                    <!-- Quick Actions -->
+                                    <div class="ai-quick-actions">
+                                        <button
+                                            type="button"
+                                            class="ai-quick-btn"
+                                            data-question="Tell me about David's PostgreSQL optimization that saved $40K"
+                                        >
+                                            <div class="quick-btn-icon">💰</div>
+                                            <div class="quick-btn-content">
+                                                <span class="quick-btn-title"
+                                                    >Cost Savings</span
+                                                >
+                                                <span class="quick-btn-desc"
+                                                    >$40K optimization
+                                                    story</span
+                                                >
+                                            </div>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="ai-quick-btn"
+                                            data-question="What's David's experience with cloud platforms?"
+                                        >
+                                            <div class="quick-btn-icon">☁️</div>
+                                            <div class="quick-btn-content">
+                                                <span class="quick-btn-title"
+                                                    >Cloud Expertise</span
+                                                >
+                                                <span class="quick-btn-desc"
+                                                    >AWS, GCP, Azure</span
+                                                >
+                                            </div>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="ai-quick-btn"
+                                            data-question="How does David approach database performance issues?"
+                                        >
+                                            <div class="quick-btn-icon">⚡</div>
+                                            <div class="quick-btn-content">
+                                                <span class="quick-btn-title"
+                                                    >Performance</span
+                                                >
+                                                <span class="quick-btn-desc"
+                                                    >87% faster queries</span
+                                                >
+                                            </div>
+                                        </button>
+                                    </div>
+
+                                    <!-- Chat Container -->
+                                    <div class="ai-chat-display">
+                                        <div
+                                            id="chat-messages"
+                                            class="ai-messages-container"
+                                        >
+                                            <div class="ai-welcome-message">
+                                                <div
+                                                    class="ai-assistant-avatar"
+                                                >
+                                                    <div
+                                                        class="avatar-pulse"
+                                                    ></div>
+                                                    <span>🤖</span>
+                                                </div>
+                                                <div class="welcome-text">
+                                                    <p>
+                                                        Hi! I'm David's AI
+                                                        assistant. I can answer
+                                                        questions about:
+                                                    </p>
+                                                    <ul class="welcome-topics">
+                                                        <li>
+                                                            Database
+                                                            optimization
+                                                            techniques
+                                                        </li>
+                                                        <li>
+                                                            Cloud infrastructure
+                                                            solutions
+                                                        </li>
+                                                        <li>
+                                                            Project case studies
+                                                        </li>
+                                                        <li>
+                                                            Technical skills &
+                                                            certifications
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Input Area -->
+                                    <div class="ai-input-area">
+                                        <form
+                                            id="ai-chat-form"
+                                            class="ai-chat-form"
+                                        >
+                                            <div class="ai-input-wrapper">
+                                                <input
+                                                    type="text"
+                                                    id="chat-input"
+                                                    class="ai-chat-input"
+                                                    placeholder="Ask me anything about David's work..."
+                                                    maxlength="1000"
+                                                    autocomplete="off"
+                                                    disabled
+                                                />
+                                                <button
+                                                    type="button"
+                                                    id="start-chat"
+                                                    class="ai-send-button"
+                                                    onclick="event.preventDefault(); enableAIChat(); return false;"
+                                                >
+                                                    <svg
+                                                        width="20"
+                                                        height="20"
+                                                        viewBox="0 0 20 20"
+                                                        fill="none"
+                                                    >
+                                                        <path
+                                                            d="M2 10L17 2L13 18L9 11L2 10Z"
+                                                            fill="currentColor"
+                                                        />
+                                                    </svg>
+                                                    <span>Start Chat</span>
+                                                </button>
+                                            </div>
+                                            <div class="ai-input-footer">
+                                                <span class="ai-powered-by"
+                                                    >Powered by OpenRouter
+                                                    AI</span
+                                                >
+                                                <span class="ai-response-time"
+                                                    >~2s response time</span
+                                                >
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="ai-preview-footer">
-                                <p class="ai-preview-note">Want to explore an automation sprint for your stack?</p>
-                                <a href="#contact" class="ai-preview-cta">Book a working session</a>
+
+                            <div class="future-ai-preview">
+                                <h3 class="ai-preview-title">
+                                    Intelligent Automation Playbooks
+                                </h3>
+                                <p class="ai-preview-description">
+                                    Beyond chat, here are the automation
+                                    patterns I'm shipping for clients right now.
+                                </p>
+                                <div class="ai-insight-grid">
+                                    <div class="ai-insight-card">
+                                        <h4 class="ai-insight-heading">
+                                            Guided Diagnostics
+                                        </h4>
+                                        <p class="ai-insight-copy">
+                                            Data-backed decision trees capture
+                                            every incident, surface the next
+                                            best action, and feed future
+                                            runbooks.
+                                        </p>
+                                    </div>
+                                    <div class="ai-insight-card">
+                                        <h4 class="ai-insight-heading">
+                                            Resilient Playbooks
+                                        </h4>
+                                        <p class="ai-insight-copy">
+                                            Rate-limited workflows pair
+                                            serverless endpoints with offline
+                                            fallbacks, so sensitive automations
+                                            never become brittle bots.
+                                        </p>
+                                    </div>
+                                    <div class="ai-insight-card">
+                                        <h4 class="ai-insight-heading">
+                                            Insight Dashboards
+                                        </h4>
+                                        <p class="ai-insight-copy">
+                                            Speed Insights and backend metrics
+                                            roll into one view, highlighting
+                                            regressions before customers ever
+                                            feel the slowdown.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ai-preview-footer">
+                                    <p class="ai-preview-note">
+                                        Want to explore an automation sprint for
+                                        your stack?
+                                    </p>
+                                    <a href="#contact" class="ai-preview-cta"
+                                        >Book a working session</a
+                                    >
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <p class="footer-text">
+                    &copy; 2025 David Ortiz. Built with modern web technologies
+                    and hosted on
+                    <a
+                        href="https://pages.github.com/"
+                        target="_blank"
+                        rel="noopener"
+                        class="footer-link"
+                        >GitHub Pages</a
+                    >. Last updated: September 20, 2025.
+                </p>
             </div>
-        </section>
-    </main>
+        </footer>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <p class="footer-text">
-                &copy; 2025 David Ortiz. Built with modern web technologies and hosted on
-                <a href="https://pages.github.com/" target="_blank" rel="noopener" class="footer-link">GitHub Pages</a>.
-                Last updated: September 20, 2025.
-            </p>
-        </div>
-    </footer>
+        <!-- Core Configuration -->
+        <script src="src/services/config.js"></script>
 
-    <!-- Core Configuration -->
-    <script src="src/services/config.js"></script>
+        <!-- Enhanced AI chat functionality -->
+        <script>
+            function enableAIChat() {
+                const chatInput = document.getElementById("chat-input"); // Fixed ID to match HTML
+                const startButton = document.getElementById("start-chat");
 
-    <!-- Enhanced AI chat functionality -->
-    <script>
-    function enableAIChat() {
-        const chatInput = document.getElementById('chat-input'); // Fixed ID to match HTML
-        const startButton = document.getElementById('start-chat');
+                if (chatInput && startButton) {
+                    // Enable the chat input
+                    chatInput.disabled = false;
+                    chatInput.focus();
+                    chatInput.placeholder = "Type your message...";
 
-        if (chatInput && startButton) {
-            // Enable the chat input
-            chatInput.disabled = false;
-            chatInput.focus();
-            chatInput.placeholder = "Type your message...";
+                    // Update button functionality
+                    startButton.onclick = sendChatMessage;
+                    const buttonSpan = startButton.querySelector("span");
+                    if (buttonSpan) {
+                        buttonSpan.textContent = "Send";
+                    }
 
-            // Update button functionality
-            startButton.onclick = sendChatMessage;
-            const buttonSpan = startButton.querySelector('span');
-            if (buttonSpan) {
-                buttonSpan.textContent = 'Send';
-            }
+                    // Add visual feedback
+                    chatInput.style.backgroundColor = "#ffffff";
+                    chatInput.style.borderColor = "#4F46E5";
+                    startButton.style.backgroundColor = "#4F46E5";
 
-            // Add visual feedback
-            chatInput.style.backgroundColor = '#ffffff';
-            chatInput.style.borderColor = '#4F46E5';
-            startButton.style.backgroundColor = '#4F46E5';
+                    // Initialize enhanced chat if available
+                    if (window.EnhancedAIChat && !window.chatInstance) {
+                        try {
+                            window.chatInstance = new window.EnhancedAIChat({
+                                enableAnalytics: true,
+                                debug: window.CONFIG?.DEBUG || false,
+                            });
+                            // removed console log
+                        } catch (error) {
+                            // removed console warn
+                        }
+                    }
 
-            // Initialize enhanced chat if available
-            if (window.EnhancedAIChat && !window.chatInstance) {
-                try {
-                    window.chatInstance = new window.EnhancedAIChat({
-                        enableAnalytics: true,
-                        debug: window.CONFIG?.DEBUG || false
+                    // Add Enter key support
+                    chatInput.addEventListener("keypress", function (e) {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            sendChatMessage();
+                        }
                     });
-                    console.log('Enhanced AI Chat initialized successfully');
-                } catch (error) {
-                    console.warn('Enhanced AI Chat initialization failed, using basic functionality:', error);
+
+                    // removed console log
+                } else {
+                    // removed console error
                 }
             }
 
-            // Add Enter key support
-            chatInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendChatMessage();
+            function sendChatMessage() {
+                const chatInput = document.getElementById("chat-input");
+                const message = chatInput?.value?.trim();
+
+                if (!message) {
+                    // removed console warn
+                    return;
                 }
-            });
 
-            console.log('AI Chat enabled successfully');
-        } else {
-            console.error('Could not find chat elements. Input:', chatInput, 'Button:', startButton);
-        }
-    }
-
-    function sendChatMessage() {
-        const chatInput = document.getElementById('chat-input');
-        const message = chatInput?.value?.trim();
-
-        if (!message) {
-            console.warn('No message to send');
-            return;
-        }
-
-        // Use enhanced chat if available, otherwise show placeholder response
-        if (window.chatInstance && typeof window.chatInstance.sendMessage === 'function') {
-            try {
-                window.chatInstance.sendMessage(message);
-                chatInput.value = '';
-                console.log('Message sent via Enhanced AI Chat:', message);
-            } catch (error) {
-                console.error('Error sending message via Enhanced AI Chat:', error);
-                showBasicChatResponse(message);
-                chatInput.value = '';
-            }
-        } else {
-            showBasicChatResponse(message);
-            chatInput.value = '';
-        }
-    }
-
-    function showBasicChatResponse(userMessage) {
-        // Basic fallback response when enhanced chat isn't available
-        const responses = [
-            "Thanks for your message about David's expertise! For detailed inquiries, please use the contact form above or reach out via email.",
-            "David specializes in cloud infrastructure, database optimization, and has achieved 87% performance improvements. What specific area interests you?",
-            "That's a great question about David's work! He's helped clients save $40K+ annually through database optimizations. Please feel free to connect directly."
-        ];
-
-        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-
-        // Create a simple message display
-        const chatContainer = document.querySelector('.ai-chat-container') || document.querySelector('.contact-ai-card');
-        if (chatContainer) {
-            const messageDiv = document.createElement('div');
-            messageDiv.style.cssText = 'margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #4F46E5;';
-            messageDiv.innerHTML = `<strong>You:</strong> ${userMessage}<br><strong>Assistant:</strong> ${randomResponse}`;
-
-            // Insert before the input area
-            const inputArea = document.querySelector('.ai-input-area');
-            if (inputArea) {
-                chatContainer.insertBefore(messageDiv, inputArea);
-            } else {
-                chatContainer.appendChild(messageDiv);
+                // Use enhanced chat if available, otherwise show placeholder response
+                if (
+                    window.chatInstance &&
+                    typeof window.chatInstance.sendMessage === "function"
+                ) {
+                    try {
+                        window.chatInstance.sendMessage(message);
+                        chatInput.value = "";
+                        // removed console log
+                    } catch (error) {
+                        // removed console error
+                        showBasicChatResponse(message);
+                        chatInput.value = "";
+                    }
+                } else {
+                    showBasicChatResponse(message);
+                    chatInput.value = "";
+                }
             }
 
-            console.log('Basic chat response displayed');
-        }
-    }
-    </script>
+            function showBasicChatResponse(userMessage) {
+                // Basic fallback response when enhanced chat isn't available
+                const responses = [
+                    "Thanks for your message about David's expertise! For detailed inquiries, please use the contact form above or reach out via email.",
+                    "David specializes in cloud infrastructure, database optimization, and has achieved 87% performance improvements. What specific area interests you?",
+                    "That's a great question about David's work! He's helped clients save $40K+ annually through database optimizations. Please feel free to connect directly.",
+                ];
 
-    <!-- Main Orchestration (First - coordinates everything) -->
-    <script src="src/js/main.min.js"></script>
+                const randomResponse =
+                    responses[Math.floor(Math.random() * responses.length)];
 
-    <!-- Base Classes and Behaviors -->
-    <script type="module" src="src/js/script.js"></script>
+                // Create a simple message display
+                const chatContainer =
+                    document.querySelector(".ai-chat-container") ||
+                    document.querySelector(".contact-ai-card");
+                if (chatContainer) {
+                    const messageDiv = document.createElement("div");
+                    messageDiv.style.cssText =
+                        "margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #4F46E5;";
+                    messageDiv.innerHTML = `<strong>You:</strong> ${userMessage}<br><strong>Assistant:</strong> ${randomResponse}`;
 
-    <!-- Feature Modules -->
-    <script defer src="src/js/analytics-tracker.min.js"></script>
-    <script defer src="src/js/consent-banner.min.js"></script>
-    <script defer src="src/js/lazy-loader.min.js"></script>
-    <script defer src="src/js/progressive-enhancement.min.js"></script>
-    <script defer src="src/js/enhanced-chat-system.min.js"></script>
+                    // Insert before the input area
+                    const inputArea = document.querySelector(".ai-input-area");
+                    if (inputArea) {
+                        chatContainer.insertBefore(messageDiv, inputArea);
+                    } else {
+                        chatContainer.appendChild(messageDiv);
+                    }
 
-    <!-- Additional Orchestration Layer -->
-    <script defer src="src/js/global-scroll-manager.js"></script>
-    <script defer src="src/js/unified-analytics.js"></script>
+                    // removed console log
+                }
+            }
+        </script>
 
-    <!-- Speed Insights (loaded after main initialization) -->
-    <script type="module" src="src/js/speed-insights.min.js"></script>
+        <!-- Main Orchestration (First - coordinates everything) -->
+        <script src="src/js/main.min.js"></script>
 
-    <noscript>
-        <p style="text-align:center;margin-top:1rem;">This site works best with JavaScript enabled.</p>
-    </noscript>
-</body>
+        <!-- Base Classes and Behaviors -->
+        <script type="module" src="src/js/script.js"></script>
+
+        <!-- Feature Modules -->
+        <script defer src="src/js/analytics-tracker.min.js"></script>
+        <script defer src="src/js/consent-banner.min.js"></script>
+        <script defer src="src/js/lazy-loader.min.js"></script>
+        <script defer src="src/js/progressive-enhancement.min.js"></script>
+        <script defer src="src/js/enhanced-chat-system.min.js"></script>
+
+        <!-- Additional Orchestration Layer -->
+        <script defer src="src/js/global-scroll-manager.js"></script>
+        <script defer src="src/js/unified-analytics.js"></script>
+
+        <!-- Speed Insights (loaded after main initialization) -->
+        <script type="module" src="src/js/speed-insights.min.js"></script>
+
+        <noscript>
+            <p style="text-align: center; margin-top: 1rem">
+                This site works best with JavaScript enabled.
+            </p>
+        </noscript>
+    </body>
 </html>

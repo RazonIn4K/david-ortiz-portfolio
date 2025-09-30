@@ -11,20 +11,20 @@ const MAX_LOGS_LENGTH = 50;
 const HISTORY_CONTEXT_LENGTH = 5;
 const TOKEN_ESTIMATE_RATIO = 4; // ~4 characters per token
 const CHAT_EVENTS = {
-  SYSTEM_INIT: 'chat_system_initialized',
-  MESSAGE_SENT: 'chat_message_sent',
-  RESPONSE_RECEIVED: 'chat_response_received',
-  ERROR: 'chat_error'
+  SYSTEM_INIT: "chat_system_initialized",
+  MESSAGE_SENT: "chat_message_sent",
+  RESPONSE_RECEIVED: "chat_response_received",
+  ERROR: "chat_error",
 };
 const API_ENDPOINTS = {
-  CHAT: '/api/chat',
-  STORAGE: '/api/lightweight-storage',
-  ANALYTICS: '/api/analytics'
+  CHAT: "/api/chat",
+  STORAGE: "/api/lightweight-storage",
+  ANALYTICS: "/api/analytics",
 };
 const MESSAGES = {
-  RATE_LIMIT: 'Please wait before sending another message.',
-  GENERIC_ERROR: 'Sorry, I encountered an error. Please try again.',
-  NO_RESPONSE: 'I apologize, but I could not generate a response.'
+  RATE_LIMIT: "Please wait before sending another message.",
+  GENERIC_ERROR: "Sorry, I encountered an error. Please try again.",
+  NO_RESPONSE: "I apologize, but I could not generate a response.",
 };
 /**
  * Enhanced AI Chat class that extends existing functionality
@@ -38,17 +38,19 @@ class EnhancedAIChat {
       fallbackToLocalStorage: true,
       enableAnalytics: true,
       debug: false,
-      ...options
+      ...options,
     };
     // Initialize analytics tracker
     if (this.config.enableAnalytics) {
       // Use unified analytics if available, otherwise fallback to AnalyticsTracker
-      this.analytics = window.analytics || (typeof AnalyticsTracker !== 'undefined'
-        ? new AnalyticsTracker({
-            endpoint: this.config.analyticsEndpoint,
-            debug: this.config.debug
-          })
-        : null);
+      this.analytics =
+        window.analytics ||
+        (typeof AnalyticsTracker !== "undefined"
+          ? new AnalyticsTracker({
+              endpoint: this.config.analyticsEndpoint,
+              debug: this.config.debug,
+            })
+          : null);
     }
     // Session management
     this.sessionId = this.getOrCreateSessionId();
@@ -72,7 +74,7 @@ class EnhancedAIChat {
     if (this.analytics) {
       this.analytics.track(CHAT_EVENTS.SYSTEM_INIT, {
         sessionId: this.sessionId,
-        hasExistingHistory: this.conversationHistory.length > 0
+        hasExistingHistory: this.conversationHistory.length > 0,
       });
     }
     if (this.config.debug) {
@@ -83,12 +85,12 @@ class EnhancedAIChat {
    */
   enhanceExistingChat() {
     // Look for existing chat interface
-    const existingChatForm = document.querySelector('#ai-chat-form');
-    const existingChatInput = document.querySelector('#chat-input');
-    const existingChatMessages = document.querySelector('#chat-messages');
+    const existingChatForm = document.querySelector("#ai-chat-form");
+    const existingChatInput = document.querySelector("#chat-input");
+    const existingChatMessages = document.querySelector("#chat-messages");
     if (existingChatForm && existingChatInput) {
       // Enhance existing form submission
-      existingChatForm.addEventListener('submit', (e) => {
+      existingChatForm.addEventListener("submit", (e) => {
         e.preventDefault();
         this.handleChatSubmission(existingChatInput.value.trim());
       });
@@ -106,7 +108,7 @@ class EnhancedAIChat {
   enhanceInputField(inputElement) {
     // Add typing indicators
     let typingTimer;
-    inputElement.addEventListener('input', () => {
+    inputElement.addEventListener("input", () => {
       clearTimeout(typingTimer);
       this.showTypingIndicator(true);
       typingTimer = setTimeout(() => {
@@ -116,7 +118,7 @@ class EnhancedAIChat {
     // Add character counter
     this.addCharacterCounter(inputElement);
     // Add keyboard shortcuts
-    inputElement.addEventListener('keydown', (e) => {
+    inputElement.addEventListener("keydown", (e) => {
       this.handleKeyboardShortcuts(e, inputElement);
     });
   }
@@ -168,9 +170,9 @@ class EnhancedAIChat {
     const response = await this.sendToAI(message);
     const responseTime = Date.now() - startTime;
     // Log interaction (non-blocking)
-    this.logInteraction(message, response, responseTime).catch(error => {
+    this.logInteraction(message, response, responseTime).catch((error) => {
       if (this.config.debug) {
-        console.debug('Failed to log interaction:', error);
+        console.debug("Failed to log interaction:", error);
       }
     });
     return response;
@@ -195,8 +197,12 @@ class EnhancedAIChat {
    */
   async handleResponseError(message, error, startTime) {
     // Log error (non-blocking)
-    this.logInteraction(message, `Error: ${error.message}`, Date.now() - startTime, true)
-      .catch(() => {});
+    this.logInteraction(
+      message,
+      `Error: ${error.message}`,
+      Date.now() - startTime,
+      true,
+    ).catch(() => {});
     this.showError(MESSAGES.GENERIC_ERROR);
     this.trackError(error);
   }
@@ -208,7 +214,7 @@ class EnhancedAIChat {
     if (this.analytics) {
       this.analytics.track(CHAT_EVENTS.MESSAGE_SENT, {
         messageLength: message.length,
-        sessionId: this.sessionId
+        sessionId: this.sessionId,
       });
     }
   }
@@ -222,7 +228,7 @@ class EnhancedAIChat {
       this.analytics.track(CHAT_EVENTS.RESPONSE_RECEIVED, {
         responseTime: responseTime,
         responseLength: response.length,
-        sessionId: this.sessionId
+        sessionId: this.sessionId,
       });
     }
   }
@@ -234,7 +240,7 @@ class EnhancedAIChat {
     if (this.analytics) {
       this.analytics.track(CHAT_EVENTS.ERROR, {
         error: error.message,
-        sessionId: this.sessionId
+        sessionId: this.sessionId,
       });
     }
   }
@@ -246,15 +252,15 @@ class EnhancedAIChat {
    */
   updateConversationHistory(message, response, responseTime) {
     this.addToConversationHistory({
-      type: 'user',
+      type: "user",
       message: message,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
     this.addToConversationHistory({
-      type: 'assistant',
+      type: "assistant",
       message: response,
       timestamp: new Date(),
-      responseTime: responseTime
+      responseTime: responseTime,
     });
   }
   /**
@@ -263,8 +269,8 @@ class EnhancedAIChat {
    * @param {string} response - AI response
    */
   updateChatUI(message, response) {
-    this.displayMessage('user', message);
-    this.displayMessage('assistant', response);
+    this.displayMessage("user", message);
+    this.displayMessage("assistant", response);
   }
   /**
    * Handle keyboard shortcuts for chat input
@@ -285,7 +291,7 @@ class EnhancedAIChat {
    * @returns {boolean} True if submit shortcut
    */
   isSubmitShortcut(e) {
-    return (e.ctrlKey || e.metaKey) && e.key === 'Enter';
+    return (e.ctrlKey || e.metaKey) && e.key === "Enter";
   }
   /**
    * Check if keyboard event is clear shortcut
@@ -293,14 +299,14 @@ class EnhancedAIChat {
    * @returns {boolean} True if clear shortcut
    */
   isClearShortcut(e) {
-    return e.key === 'Escape';
+    return e.key === "Escape";
   }
   /**
    * Clear input field
    * @param {HTMLElement} inputElement - Input element
    */
   clearInput(inputElement) {
-    inputElement.value = '';
+    inputElement.value = "";
     this.showTypingIndicator(false);
   }
   /**
@@ -309,23 +315,23 @@ class EnhancedAIChat {
   async sendToAI(message) {
     // Check if chat is enabled
     if (!window.CONFIG?.ENABLE_AI_CHAT) {
-      return 'Chat is currently unavailable. Please use the contact form.';
+      return "Chat is currently unavailable. Please use the contact form.";
     }
     const response = await fetch(API_ENDPOINTS.CHAT, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         message: message,
         sessionId: this.sessionId,
-        history: this.conversationHistory.slice(-HISTORY_CONTEXT_LENGTH) // Last messages for context
-      })
+        history: this.conversationHistory.slice(-HISTORY_CONTEXT_LENGTH), // Last messages for context
+      }),
     });
     if (!response.ok) {
       // Graceful fallback for 404 or disabled endpoint
       if (response.status === 404) {
-        return 'Chat is temporarily offline. Please reach me via the contact form.';
+        return "Chat is temporarily offline. Please reach me via the contact form.";
       }
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
@@ -345,7 +351,7 @@ class EnhancedAIChat {
    */
   saveToLocalStorage(query, response, responseTime, errorOccurred) {
     try {
-      const logs = JSON.parse(localStorage.getItem('chat_logs') || '[]');
+      const logs = JSON.parse(localStorage.getItem("chat_logs") || "[]");
       logs.push({
         query,
         response,
@@ -353,17 +359,16 @@ class EnhancedAIChat {
         responseTime,
         errorOccurred,
         timestamp: new Date().toISOString(),
-        synced: false
+        synced: false,
       });
       // Keep only last 50 logs
       if (logs.length > MAX_LOGS_LENGTH) {
         logs.splice(0, logs.length - MAX_LOGS_LENGTH);
       }
-      localStorage.setItem('chat_logs', JSON.stringify(logs));
+      localStorage.setItem("chat_logs", JSON.stringify(logs));
       if (this.config.debug) {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
   /**
    * Rate limiting check
@@ -386,9 +391,9 @@ class EnhancedAIChat {
    * Display message in chat UI
    */
   displayMessage(type, message) {
-    const chatMessages = document.querySelector('#chat-messages');
+    const chatMessages = document.querySelector("#chat-messages");
     if (!chatMessages) return;
-    const messageElement = document.createElement('div');
+    const messageElement = document.createElement("div");
     messageElement.className = `chat-message chat-message-${type}`;
     messageElement.innerHTML = `
       <div class="message-content">${this.escapeHtml(message)}</div>
@@ -398,24 +403,24 @@ class EnhancedAIChat {
     chatMessages.scrollTop = chatMessages.scrollHeight;
     // Animate new message
     requestAnimationFrame(() => {
-      messageElement.classList.add('message-visible');
+      messageElement.classList.add("message-visible");
     });
   }
   /**
    * Show/hide thinking indicator
    */
   showThinkingIndicator(show) {
-    let indicator = document.querySelector('.thinking-indicator');
+    let indicator = document.querySelector(".thinking-indicator");
     if (show && !indicator) {
-      indicator = document.createElement('div');
-      indicator.className = 'thinking-indicator';
+      indicator = document.createElement("div");
+      indicator.className = "thinking-indicator";
       indicator.innerHTML = `
         <div class="thinking-dots">
           <span></span><span></span><span></span>
         </div>
         <span>Thinking...</span>
       `;
-      const chatMessages = document.querySelector('#chat-messages');
+      const chatMessages = document.querySelector("#chat-messages");
       if (chatMessages) {
         chatMessages.appendChild(indicator);
         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -437,15 +442,15 @@ class EnhancedAIChat {
    */
   addCharacterCounter(inputElement) {
     const maxLength = MAX_CHAR_LENGTH;
-    const counter = document.createElement('div');
-    counter.className = 'character-counter';
+    const counter = document.createElement("div");
+    counter.className = "character-counter";
     counter.textContent = `0/${maxLength}`;
     inputElement.parentNode.appendChild(counter);
-    inputElement.addEventListener('input', () => {
+    inputElement.addEventListener("input", () => {
       const length = inputElement.value.length;
       counter.textContent = `${length}/${maxLength}`;
-      counter.classList.toggle('warning', length > maxLength * 0.8);
-      counter.classList.toggle('error', length > maxLength);
+      counter.classList.toggle("warning", length > maxLength * 0.8);
+      counter.classList.toggle("error", length > maxLength);
     });
   }
   /**
@@ -453,8 +458,8 @@ class EnhancedAIChat {
    */
   showError(message) {
     // Create error toast or integrate with existing error handling
-    const error = document.createElement('div');
-    error.className = 'chat-error';
+    const error = document.createElement("div");
+    error.className = "chat-error";
     error.textContent = message;
     document.body.appendChild(error);
     setTimeout(() => {
@@ -465,10 +470,10 @@ class EnhancedAIChat {
    * Session management
    */
   getOrCreateSessionId() {
-    let sessionId = sessionStorage.getItem('chat_session_id');
+    let sessionId = sessionStorage.getItem("chat_session_id");
     if (!sessionId) {
       sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      sessionStorage.setItem('chat_session_id', sessionId);
+      sessionStorage.setItem("chat_session_id", sessionId);
     }
     return sessionId;
   }
@@ -487,19 +492,19 @@ class EnhancedAIChat {
     this.conversationHistory.push(entry);
     // Keep only last 20 messages
     if (this.conversationHistory.length > MAX_HISTORY_LENGTH) {
-      this.conversationHistory = this.conversationHistory.slice(-MAX_HISTORY_LENGTH);
+      this.conversationHistory =
+        this.conversationHistory.slice(-MAX_HISTORY_LENGTH);
     }
     // Save to session storage
     try {
       sessionStorage.setItem(
         `chat_history_${this.sessionId}`,
-        JSON.stringify(this.conversationHistory)
+        JSON.stringify(this.conversationHistory),
       );
-    } catch (error) {
-    }
+    } catch (error) {}
   }
   displayConversationHistory(container) {
-    this.conversationHistory.forEach(entry => {
+    this.conversationHistory.forEach((entry) => {
       this.displayMessage(entry.type, entry.message);
     });
   }
@@ -507,7 +512,7 @@ class EnhancedAIChat {
    * Utility functions
    */
   escapeHtml(text) {
-    const div = document.createElement('div');
+    const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
   }
@@ -517,12 +522,12 @@ class EnhancedAIChat {
   }
   setupEventListeners() {
     // Clean up on page unload
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener("beforeunload", () => {
       // Sync any pending localStorage data
       this.syncPendingLogs();
     });
     // Network status monitoring
-    window.addEventListener('online', () => {
+    window.addEventListener("online", () => {
       this.syncPendingLogs();
     });
   }
@@ -531,19 +536,18 @@ class EnhancedAIChat {
    */
   async syncPendingLogs() {
     try {
-      const logs = JSON.parse(localStorage.getItem('chat_logs') || '[]');
-      const pendingLogs = logs.filter(log => !log.synced);
+      const logs = JSON.parse(localStorage.getItem("chat_logs") || "[]");
+      const pendingLogs = logs.filter((log) => !log.synced);
       if (pendingLogs.length === 0) return;
       // No remote syncing; mark all as synced to prevent reprocessing
       for (const log of pendingLogs) {
         log.synced = true;
       }
       // Update localStorage
-      localStorage.setItem('chat_logs', JSON.stringify(logs));
+      localStorage.setItem("chat_logs", JSON.stringify(logs));
       if (this.config.debug) {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
   /**
    * Enable debug mode
@@ -563,16 +567,35 @@ class EnhancedAIChat {
       messageCount: this.conversationHistory.length,
       requestCount: this.requestCount,
       rateLimitWindow: this.rateLimitWindow,
-      maxRequestsPerWindow: this.maxRequestsPerWindow
+      maxRequestsPerWindow: this.maxRequestsPerWindow,
     };
   }
 }
+if (typeof window !== "undefined") {
+  // Expose class without forcing auto-initialization
+  window.EnhancedAIChat = EnhancedAIChat;
+
+  // Provide a factory to get/create a singleton instance on demand
+  if (!window.getEnhancedChat) {
+    window.getEnhancedChat = function (options = {}) {
+      if (window.chatInstance) return window.chatInstance;
+      if (window.enhancedChat) return window.enhancedChat;
+      window.enhancedChat = new EnhancedAIChat(options);
+      return window.enhancedChat;
+    };
+  }
+}
+
+// CommonJS export (for tooling/tests)
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = EnhancedAIChat;
+}
 // Auto-initialize if in browser environment
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.EnhancedAIChat = EnhancedAIChat;
   // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
       window.enhancedChat = new EnhancedAIChat();
     });
   } else {
@@ -580,6 +603,6 @@ if (typeof window !== 'undefined') {
   }
 }
 // Export for modules
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = EnhancedAIChat;
 }
