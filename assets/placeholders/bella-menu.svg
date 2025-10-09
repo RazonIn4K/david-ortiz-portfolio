@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <rect width="1200" height="800" fill="#f5f5dc" />
+  <rect x="120" y="160" width="960" height="520" rx="28" fill="#fff8e1" stroke="#d4af37" stroke-width="4" />
+  <text x="50%" y="44%" dominant-baseline="middle" text-anchor="middle" font-family="Playfair Display, serif" font-size="72" fill="#800020">Menu Placeholder</text>
+  <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Lato, Arial, sans-serif" font-size="30" fill="#6b4c36">Swap with plated cuisine shot</text>
+</svg>

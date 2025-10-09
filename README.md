@@ -18,7 +18,8 @@ Modern, fast personal portfolio optimized for performance, accessibility, and SE
 - Smart lazy‑loading and asset optimization
 - Structured CSS and JS modules
 - Analytics + speed insights hooks
-- Production‑ready static deployment (Vercel, GitHub Pages)
+- Production-ready static deployment (Vercel, GitHub Pages)
+- Placeholder-ready showcase assets under `assets/placeholders/` for all Tailwind case-study demos
 
 ## Contributor Guide
 See [AGENTS.md](./AGENTS.md) for the tailored contributor playbook covering layout, local preview commands, style conventions, testing expectations, and PR norms.

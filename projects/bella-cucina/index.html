@@ -55,6 +55,8 @@
         }
 
         .hero-overlay {
+            position: relative;
+            overflow: hidden;
             background: linear-gradient(rgba(128, 0, 32, 0.75), rgba(44, 44, 44, 0.85));
         }
 
@@ -81,6 +83,29 @@
 
         .dark .hover-scale:hover {
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .hero-media {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.45;
+        }
+
+        .image-card {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chef-placeholder {
+            width: 100%;
+            max-width: 360px;
+            border-radius: 999px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+            border: 4px solid rgba(212, 175, 55, 0.35);
         }
     </style>
 </head>
@@ -134,6 +159,12 @@
     <section id="home" class="relative h-screen mt-20">
         <div class="absolute inset-0 bg-gradient-to-r from-burgundy via-gray-900 to-charcoal dark:from-black dark:via-charcoal dark:to-burgundy">
             <div class="absolute inset-0 hero-overlay flex items-center justify-center">
+                <img
+                    src="/assets/placeholders/bella-hero.svg"
+                    alt="Bella Cucina dining room placeholder"
+                    class="hero-media"
+                    loading="lazy"
+                />
                 <div class="text-center text-white px-4 max-w-5xl">
                     <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-2.5 rounded-full mb-6 border border-white/20">
                         <span class="material-symbols-outlined text-gold text-sm">star</span>
@@ -195,12 +226,17 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <!-- Dish 1 -->
                 <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale border border-gray-100 dark:border-gray-800 transition-colors duration-300">
-                    <div class="h-72 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/20 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="relative z-10 text-center p-8">
-                            <span class="material-symbols-outlined text-8xl text-amber-600 dark:text-amber-400 mb-4 block">lunch_dining</span>
-                            <p class="font-serif text-2xl font-bold text-gray-900 dark:text-white">Handmade Pappardelle</p>
-                            <p class="text-gray-700 dark:text-gray-300 italic">al Ragù</p>
+                    <div class="h-72 relative overflow-hidden">
+                        <img
+                            src="/assets/placeholders/bella-menu.svg"
+                            alt="Handmade Pappardelle presentation placeholder"
+                            class="image-card absolute inset-0"
+                            loading="lazy"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent"></div>
+                        <div class="relative z-10 text-center p-8 text-white">
+                            <p class="font-serif text-2xl font-bold">Handmade Pappardelle</p>
+                            <p class="italic">al Ragù</p>
                         </div>
                     </div>
                     <div class="p-6">
@@ -217,12 +253,17 @@
 
                 <!-- Dish 2 -->
                 <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale border border-gray-100 dark:border-gray-800 transition-colors duration-300">
-                    <div class="h-72 bg-gradient-to-br from-red-50 to-pink-100 dark:from-red-900/20 dark:to-pink-900/20 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="relative z-10 text-center p-8">
-                            <span class="material-symbols-outlined text-8xl text-red-600 dark:text-red-400 mb-4 block">skillet</span>
-                            <p class="font-serif text-2xl font-bold text-gray-900 dark:text-white">Tuscan Grilled</p>
-                            <p class="text-gray-700 dark:text-gray-300 italic">Ribeye</p>
+                    <div class="h-72 relative overflow-hidden">
+                        <img
+                            src="/assets/placeholders/bella-menu.svg"
+                            alt="Tuscan grilled ribeye plating placeholder"
+                            class="image-card absolute inset-0"
+                            loading="lazy"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent"></div>
+                        <div class="relative z-10 text-center p-8 text-white">
+                            <p class="font-serif text-2xl font-bold">Tuscan Grilled</p>
+                            <p class="italic">Ribeye</p>
                         </div>
                     </div>
                     <div class="p-6">
@@ -239,12 +280,17 @@
 
                 <!-- Dish 3 -->
                 <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale border border-gray-100 dark:border-gray-800 transition-colors duration-300">
-                    <div class="h-72 bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/20 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                        <div class="relative z-10 text-center p-8">
-                            <span class="material-symbols-outlined text-8xl text-blue-600 dark:text-blue-400 mb-4 block">set_meal</span>
-                            <p class="font-serif text-2xl font-bold text-gray-900 dark:text-white">Lobster</p>
-                            <p class="text-gray-700 dark:text-gray-300 italic">Risotto</p>
+                    <div class="h-72 relative overflow-hidden">
+                        <img
+                            src="/assets/placeholders/bella-menu.svg"
+                            alt="Lobster risotto placeholder plating"
+                            class="image-card absolute inset-0"
+                            loading="lazy"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent"></div>
+                        <div class="relative z-10 text-center p-8 text-white">
+                            <p class="font-serif text-2xl font-bold">Lobster</p>
+                            <p class="italic">Risotto</p>
                         </div>
                     </div>
                     <div class="p-6">
@@ -275,17 +321,12 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="order-2 lg:order-1">
                     <div class="bg-gradient-to-br from-burgundy to-charcoal dark:from-charcoal dark:to-burgundy rounded-2xl h-[500px] flex items-center justify-center shadow-2xl relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                        <div class="relative z-10 text-center p-8">
-                            <div class="w-56 h-56 bg-white/10 backdrop-blur-sm rounded-full mx-auto mb-6 flex items-center justify-center border-4 border-gold/30 shadow-2xl">
-                                <span class="material-symbols-outlined text-gold" style="font-size: 120px;">person</span>
-                            </div>
-                            <p class="text-white text-3xl font-serif font-bold mb-2">Chef Marco Bianchi</p>
-                            <div class="flex items-center justify-center gap-1 text-gold">
-                                <span class="material-symbols-outlined text-sm">star</span>
-                                <span class="text-sm">Michelin-Starred Chef</span>
-                            </div>
-                        </div>
+                        <img
+                            src="/assets/placeholders/bella-chef.svg"
+                            alt="Chef portrait placeholder artwork"
+                            class="chef-placeholder relative z-10"
+                            loading="lazy"
+                        />
                     </div>
                 </div>
 
@@ -341,21 +382,37 @@
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="aspect-square bg-gradient-to-br from-green-100 to-teal-100 dark:from-green-900/30 dark:to-teal-900/30 rounded-2xl shadow-lg hover-scale flex items-center justify-center relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
-                    <span class="material-symbols-outlined text-teal-600 dark:text-teal-400 relative z-10" style="font-size: 80px;">restaurant</span>
+                <div class="aspect-square rounded-2xl shadow-lg hover-scale overflow-hidden border border-gold/20">
+                    <img
+                        src="/assets/placeholders/bella-menu.svg"
+                        alt="Restaurant plating placeholder"
+                        class="image-card"
+                        loading="lazy"
+                    />
                 </div>
-                <div class="aspect-square bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 rounded-2xl shadow-lg hover-scale flex items-center justify-center relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
-                    <span class="material-symbols-outlined text-orange-600 dark:text-orange-400 relative z-10" style="font-size: 80px;">wine_bar</span>
+                <div class="aspect-square rounded-2xl shadow-lg hover-scale overflow-hidden border border-gold/20">
+                    <img
+                        src="/assets/placeholders/bella-menu.svg"
+                        alt="Signature cocktail placeholder"
+                        class="image-card"
+                        loading="lazy"
+                    />
                 </div>
-                <div class="aspect-square bg-gradient-to-br from-red-100 to-pink-100 dark:from-red-900/30 dark:to-pink-900/30 rounded-2xl shadow-lg hover-scale flex items-center justify-center relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
-                    <span class="material-symbols-outlined text-red-600 dark:text-red-400 relative z-10" style="font-size: 80px;">cooking</span>
+                <div class="aspect-square rounded-2xl shadow-lg hover-scale overflow-hidden border border-gold/20">
+                    <img
+                        src="/assets/placeholders/bella-menu.svg"
+                        alt="Open kitchen placeholder"
+                        class="image-card"
+                        loading="lazy"
+                    />
                 </div>
-                <div class="aspect-square bg-gradient-to-br from-yellow-100 to-amber-100 dark:from-yellow-900/30 dark:to-amber-900/30 rounded-2xl shadow-lg hover-scale flex items-center justify-center relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div>
-                    <span class="material-symbols-outlined text-amber-600 dark:text-amber-400 relative z-10" style="font-size: 80px;">cake</span>
+                <div class="aspect-square rounded-2xl shadow-lg hover-scale overflow-hidden border border-gold/20">
+                    <img
+                        src="/assets/placeholders/bella-menu.svg"
+                        alt="Dessert spread placeholder"
+                        class="image-card"
+                        loading="lazy"
+                    />
                 </div>
             </div>
         </div>

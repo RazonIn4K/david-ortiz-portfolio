@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <rect width="1200" height="800" fill="#111827" />
+  <rect x="130" y="150" width="940" height="500" rx="28" fill="#1e293b" stroke="#00d9ff" stroke-width="5" />
+  <text x="50%" y="48%" dominant-baseline="middle" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-size="70" fill="#e2e8f0">Training Session Placeholder</text>
+  <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Roboto, Arial, sans-serif" font-size="30" fill="#94a3b8">Drop in class photography later</text>
+</svg>
