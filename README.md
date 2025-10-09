@@ -20,6 +20,9 @@ Modern, fast personal portfolio optimized for performance, accessibility, and SE
 - Analytics + speed insights hooks
 - Production‑ready static deployment (Vercel, GitHub Pages)
 
+## Contributor Guide
+See [AGENTS.md](./AGENTS.md) for the tailored contributor playbook covering layout, local preview commands, style conventions, testing expectations, and PR norms.
+
 ## Getting started
 
 ### Prerequisites
