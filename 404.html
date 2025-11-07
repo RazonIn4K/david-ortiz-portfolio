@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Not Found - David Ortiz Portfolio</title>
     <meta name="description" content="The requested page could not be found. Return to David Ortiz's portfolio homepage.">
+    <meta name="robots" content="noindex, nofollow">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -184,8 +185,8 @@
     </style>
 </head>
 <body>
-    <div class="error-container">
-        <div class="error-code" aria-label="Error 404">404</div>
+    <div class="error-container" role="main">
+        <div class="error-code" aria-label="Error 404" role="img">404</div>
         <h1 class="error-title">Page Not Found</h1>
         <p class="error-description">
             Sorry, the page you're looking for doesn't exist or has been moved.
@@ -203,16 +204,31 @@
 
         <div class="helpful-links">
             <h3>Popular Sections</h3>
-            <ul>
+            <ul role="list">
                 <li><a href="/#about" aria-label="Learn about David Ortiz">About</a></li>
                 <li><a href="/#skills" aria-label="View technical skills">Skills</a></li>
                 <li><a href="/#projects" aria-label="View portfolio projects">Projects</a></li>
                 <li><a href="/#contact" aria-label="Contact David Ortiz">Contact</a></li>
             </ul>
         </div>
+
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #2d3748;">
+            <p style="color: #a1a8b3; font-size: 0.95rem;">
+                Something broken?
+                <a
+                    href="https://github.com/RazonIn4K/david-ortiz-portfolio/issues/new?labels=bug&template=bug_report.md&title=[404%20Error]%20Broken%20Link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="color: #1e3a8a; font-weight: 500; text-decoration: none;"
+                    aria-label="Report broken link on GitHub (opens in new tab)"
+                >
+                    Report this issue on GitHub
+                </a>
+            </p>
+        </div>
     </div>
 
-    <!-- Google Analytics 4 (if available) -->
+    <!-- Analytics tracking (if available) -->
     <script>
         // Track 404 errors for analytics
         if (typeof gtag !== 'undefined') {
