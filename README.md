@@ -89,6 +89,60 @@ npm run lint-fix
 - Optional Next.js version for server‑rendered pages
 - Expanded project gallery with live demos
 
+## Operating Policies
+
+### Security & Privacy
+
+This portfolio follows strict security and privacy guidelines:
+
+- **Security Headers**: Comprehensive security headers configured in `vercel.json` (CSP, HSTS, X-Frame-Options, etc.)
+- **Rate Limiting**: 10 requests/min/IP for all API endpoints (see `lib/security/rateLimiter.js`)
+- **PII Protection**: All sensitive data is hashed via HMAC-SHA256 before logging (see `lib/security/sanitize.js`)
+- **No Raw PII in Logs**: Email addresses, IP addresses, and other PII are never logged in plaintext
+
+### Analytics & Monitoring
+
+**L5 Tool Limit**: Maximum 1 third-party analytics tool allowed
+
+**Current L5 Tools**:
+- ✅ Vercel Analytics (privacy-safe, no PII, performance monitoring only)
+
+**Prohibited Tools**:
+- ❌ Sentry / Datadog (excessive data collection)
+- ❌ Google Analytics (privacy concerns)
+- ❌ Session recording tools (FullStory, Hotjar, LogRocket)
+
+See `docs/Tool-Analytics.md` for full policy.
+
+### CI/CD & Security Scanning
+
+All PRs must pass:
+- ✅ Linting (Stylelint for CSS)
+- ✅ Type checking (JavaScript syntax validation)
+- ✅ SBOM generation (Syft)
+- ✅ Vulnerability scanning (Grype) - fails on high/critical vulnerabilities
+- ✅ CodeQL static analysis (JavaScript security patterns)
+
+### Documentation
+
+- **Security Policy**: See `docs/SECURITY.md` for vulnerability reporting
+- **Privacy Policy**: See `docs/PRIVACY.md` for data handling practices
+- **Go-Live Checklist**: See `docs/Go-Live-Gate.md` for pre-deployment verification
+- **Analytics Policy**: See `docs/Tool-Analytics.md` for L5 tool governance
+
+### Contributing
+
+When contributing, ensure:
+1. No secrets in code or git history
+2. PII is hashed using `lib/security/sanitize.js` before logging
+3. Rate limiting applied to new API routes
+4. Security headers updated for new external resources
+5. PR template checklist completed
+
+See `.github/pull_request_template.md` for full requirements.
+
+---
+
 ## License
 This project is licensed under the **ISC** license. See `docs/LICENSE` for details.
 

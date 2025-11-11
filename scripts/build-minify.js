@@ -14,7 +14,7 @@ async function minifyJSFiles() {
     }
     const jsDir = './src/js';
     const files = fs.readdirSync(jsDir)
-      .filter(file => file.endsWith('.js') && !file.endsWith('.min.js') && file !== 'script.js');
+      .filter(file => file.endsWith('.js') && !file.endsWith('.min.js'));
 
     console.log('🚀 Starting JavaScript minification...');
 

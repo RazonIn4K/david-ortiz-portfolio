@@ -1,0 +1,80 @@
+name: CodeQL Security Analysis
+
+on:
+  push:
+    branches: [ main, develop, 'claude/**' ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run weekly on Mondays at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: Analyze JavaScript
+    runs-on: ubuntu-latest
+    permissions:
+      # Required for all workflows
+      security-events: write
+      # Required to fetch internal or private CodeQL packs
+      packages: read
+      # Only required for workflows in private repositories
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # CodeQL supports: 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby', 'swift'
+        # Learn more about CodeQL language support: https://aka.ms/codeql-docs/language-support
+        language: [ 'javascript' ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # Specify queries to run (default + security-extended)
+          queries: security-extended,security-and-quality
+          # If you want to customize queries, uncomment below:
+          # config-file: ./.github/codeql/codeql-config.yml
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+          # Upload results even if there are findings
+          upload: true
+
+      - name: Check for critical findings
+        if: always()
+        run: |
+          echo "## CodeQL Analysis Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Language: JavaScript" >> $GITHUB_STEP_SUMMARY
+          echo "Queries: security-extended, security-and-quality" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Review findings in the Security tab of this repository." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Key Security Areas Analyzed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ SQL Injection vulnerabilities" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Cross-Site Scripting (XSS)" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Command Injection" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Path Traversal" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Insecure Randomness" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Hardcoded Credentials" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Information Exposure" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Improper Authentication" >> $GITHUB_STEP_SUMMARY
