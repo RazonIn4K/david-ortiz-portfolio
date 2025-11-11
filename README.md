@@ -5,6 +5,7 @@
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://vercel.com)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./docs/LICENSE)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRazonIn4K%2Fdavid-ortiz-portfolio.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FRazonIn4K%2Fdavid-ortiz-portfolio?ref=badge_shield)
 
 Modern, fast personal portfolio optimized for performance, accessibility, and SEO.
 
@@ -90,3 +91,6 @@ npm run lint-fix
 
 ## License
 This project is licensed under the **ISC** license. See `docs/LICENSE` for details.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRazonIn4K%2Fdavid-ortiz-portfolio.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRazonIn4K%2Fdavid-ortiz-portfolio?ref=badge_large)
