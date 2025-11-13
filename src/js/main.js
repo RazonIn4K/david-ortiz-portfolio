@@ -112,16 +112,6 @@
       init: () => new window.ErrorHandler(),
     },
     {
-      label: "FormValidator",
-      assign: "formValidator",
-      isAvailable: () =>
-        Boolean(
-          document.querySelector(CONTACT_FORM_SELECTOR) &&
-            typeof window.FormValidator !== "undefined",
-        ),
-      init: () => new window.FormValidator(CONTACT_FORM_SELECTOR),
-    },
-    {
       label: "EnhancedFormValidator",
       assign: "enhancedFormValidator",
       isAvailable: () =>
