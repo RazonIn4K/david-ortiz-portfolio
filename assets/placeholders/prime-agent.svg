@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
-  <rect width="600" height="600" fill="#111827" />
-  <circle cx="300" cy="230" r="130" fill="#1e3a8a" stroke="#f59e0b" stroke-width="6" />
-  <rect x="150" y="360" width="300" height="170" rx="40" fill="#1e293b" stroke="#f59e0b" stroke-width="4" />
-  <text x="50%" y="230" dominant-baseline="middle" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="56" fill="#f8fafc">Agent</text>
-  <text x="50%" y="430" dominant-baseline="middle" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-size="28" fill="#93c5fd">Portrait placeholder</text>
-</svg>

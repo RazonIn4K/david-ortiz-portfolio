@@ -1,150 +1,39 @@
-# David Ortiz — Developer Portfolio
+# David Ortiz — AI Automation Portfolio
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=nextdotjs)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?logo=vercel)](https://vercel.com)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./docs/LICENSE)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRazonIn4K%2Fdavid-ortiz-portfolio.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FRazonIn4K%2Fdavid-ortiz-portfolio?ref=badge_shield)
+Next.js 14 + Tailwind rebuild focused on AI automation, chatbots, scraping, and AI security services. Includes dedicated Work With Me and Case Studies pages, live web-design demos under `/projects`, and an AI concierge powered by OpenRouter.
 
-Modern, fast personal portfolio optimized for performance, accessibility, and SEO.
+## Getting Started
 
-- **Live demo**: https://david-ortiz-portfolio-flax.vercel.app
-- **Goals**: Showcase professional full‑stack skills, clean UI/UX, and pragmatic engineering.
-
----
-
-## Features
-- Interactive UI with progressive enhancement
-- Smart lazy‑loading and asset optimization
-- Structured CSS and JS modules
-- Analytics + speed insights hooks
-- Production-ready static deployment (Vercel, GitHub Pages)
-- Placeholder-ready showcase assets under `assets/placeholders/` for all Tailwind case-study demos
-
-## Contributor Guide
-See [AGENTS.md](./AGENTS.md) for the tailored contributor playbook covering layout, local preview commands, style conventions, testing expectations, and PR norms.
-
-## Getting started
-
-### Prerequisites
-- Node.js 18+ (for build/lint tooling)
-- Python 3 (for local dev server)
-
-### Install
 ```bash
 npm install
-```
-
-### Run locally (with live reload and helpful tooling)
-```bash
 npm run dev
-# serves at http://localhost:9000
 ```
 
-### Simple static serve (no tooling)
+- `npm run build` – production build
+- `npm run start` – run production server
+- `npm run lint` – lint project
+
+## Environment via Doppler
+
+Secrets are managed through [Doppler](https://www.doppler.com/). Install the Doppler CLI, update `doppler.yaml` with your `project`/`config`, then run:
+
 ```bash
-npm run serve
-# serves at http://localhost:8000
+doppler setup                # authenticate once
+doppler secrets set OPENROUTER_API_KEY
+doppler secrets set OPENROUTER_PRIMARY_MODEL=x-ai/grok-4-fast:free
+doppler secrets set SITE_URL=https://www.cs-learning.me
+
+doppler run -- npm run dev   # injects secrets when running locally
 ```
 
-### Build (minify/optimize assets)
-```bash
-npm run build
+## Structure
+
 ```
-
-### Optimize & audit
-```bash
-npm run optimize          # build + performance audit
-npm run performance-audit # lighthouse against http://localhost:9000
+app/
+  page.tsx              # Home
+  work-with-me/         # Engagement details
+  case-studies/         # Deep dives
+  api/chat/route.ts     # AI assistant endpoint
+components/             # Section components
+public/projects/        # Legacy Tailwind demos served statically
 ```
-
-### Lint
-```bash
-npm run lint
-npm run lint-fix
-```
-
-## Project structure
-```
-.
-├─ index.html
-├─ src/
-│  ├─ css/                 # styles.css (global styles)
-│  ├─ js/                  # modular JS (progressive enhancement, analytics, etc.)
-│  ├─ services/            # integration helpers
-│  └─ utils/               # shared utilities
-├─ assets/                 # images, icons, etc.
-├─ scripts/                # build/minify utilities
-├─ dev-server.py           # local dev server
-└─ vercel.json             # optional Vercel config
-```
-
-## Deployment
-- Vercel: connect the repo and deploy from the dashboard (recommended)
-- GitHub Pages: serve the root as a static site
-
-## Roadmap
-- Componentize UI sections and design tokens
-- Optional Next.js version for server‑rendered pages
-- Expanded project gallery with live demos
-
-## Operating Policies
-
-### Security & Privacy
-
-This portfolio follows strict security and privacy guidelines:
-
-- **Security Headers**: Comprehensive security headers configured in `vercel.json` (CSP, HSTS, X-Frame-Options, etc.)
-- **Rate Limiting**: 10 requests/min/IP for all API endpoints (see `lib/security/rateLimiter.js`)
-- **PII Protection**: All sensitive data is hashed via HMAC-SHA256 before logging (see `lib/security/sanitize.js`)
-- **No Raw PII in Logs**: Email addresses, IP addresses, and other PII are never logged in plaintext
-
-### Analytics & Monitoring
-
-**L5 Tool Limit**: Maximum 1 third-party analytics tool allowed
-
-**Current L5 Tools**:
-- ✅ Vercel Analytics (privacy-safe, no PII, performance monitoring only)
-
-**Prohibited Tools**:
-- ❌ Sentry / Datadog (excessive data collection)
-- ❌ Google Analytics (privacy concerns)
-- ❌ Session recording tools (FullStory, Hotjar, LogRocket)
-
-See `docs/Tool-Analytics.md` for full policy.
-
-### CI/CD & Security Scanning
-
-All PRs must pass:
-- ✅ Linting (Stylelint for CSS)
-- ✅ Type checking (JavaScript syntax validation)
-- ✅ SBOM generation (Syft)
-- ✅ Vulnerability scanning (Grype) - fails on high/critical vulnerabilities
-- ✅ CodeQL static analysis (JavaScript security patterns)
-
-### Documentation
-
-- **Security Policy**: See `docs/SECURITY.md` for vulnerability reporting
-- **Privacy Policy**: See `docs/PRIVACY.md` for data handling practices
-- **Go-Live Checklist**: See `docs/Go-Live-Gate.md` for pre-deployment verification
-- **Analytics Policy**: See `docs/Tool-Analytics.md` for L5 tool governance
-
-### Contributing
-
-When contributing, ensure:
-1. No secrets in code or git history
-2. PII is hashed using `lib/security/sanitize.js` before logging
-3. Rate limiting applied to new API routes
-4. Security headers updated for new external resources
-5. PR template checklist completed
-
-See `.github/pull_request_template.md` for full requirements.
-
----
-
-## License
-This project is licensed under the **ISC** license. See `docs/LICENSE` for details.
-
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRazonIn4K%2Fdavid-ortiz-portfolio.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRazonIn4K%2Fdavid-ortiz-portfolio?ref=badge_large)

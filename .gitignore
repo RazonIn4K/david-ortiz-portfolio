@@ -63,11 +63,9 @@ Thumbs.db
 # Build outputs (if any)
 dist/
 build/
+.next/
 
-# Documentation files (exclude from deployment)
-*.md
-!README.md
-docs/*.md
+# Documentation/log artifacts
 lighthouse-*.json
 .playwright-mcp/
 test-reports/
