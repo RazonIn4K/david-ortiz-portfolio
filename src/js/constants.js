@@ -150,9 +150,9 @@ export const EXTERNAL_URLS = {
 
 // SEO Metadata
 export const SEO_DEFAULTS = {
-  TITLE: 'David Ortiz - Cloud Support Engineer & Database Specialist',
-  DESCRIPTION: 'Professional portfolio showcasing 87% query performance improvements, $40K annual savings, and expertise in AWS, GCP, Azure, PostgreSQL, and database optimization.',
-  KEYWORDS: 'cloud support engineer, database specialist, AWS, GCP, Azure, PostgreSQL, MySQL, SQL optimization',
+  TITLE: 'David Ortiz | AI Automation & Chatbot Consultant',
+  DESCRIPTION: 'David Ortiz helps founders, agencies, and small businesses launch AI automations, chatbots, and data workflows with Typeform, Zapier, Notion, and n8n.',
+  KEYWORDS: 'AI automation consultant, chatbot builder, Zapier expert, Typeform workflows, n8n agency partner, Upwork automation expert',
   OG_IMAGE: 'https://www.cs-learning.me/assets/og-image.png'
 };
 
