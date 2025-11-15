@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900">
-  <rect width="900" height="900" fill="#2c2c2c" />
-  <circle cx="450" cy="320" r="200" fill="#4f1d2a" stroke="#d4af37" stroke-width="6" />
-  <text x="50%" y="320" dominant-baseline="middle" text-anchor="middle" font-family="Playfair Display, serif" font-size="72" fill="#f5f5dc">Chef</text>
-  <text x="50%" y="520" dominant-baseline="middle" text-anchor="middle" font-family="Lato, Arial, sans-serif" font-size="30" fill="#fcd34d">Portrait placeholder</text>
-</svg>

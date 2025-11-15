@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
-  <rect width="1200" height="800" fill="#1d0c12" />
-  <rect x="140" y="150" width="920" height="500" rx="32" fill="#2a131c" stroke="#f8bbd9" stroke-dasharray="10 16" stroke-width="4" />
-  <text x="50%" y="46%" dominant-baseline="middle" text-anchor="middle" font-family="Work Sans, Arial, sans-serif" font-size="70" fill="#f8bbd9">Product Grid Placeholder</text>
-  <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="Work Sans, Arial, sans-serif" font-size="30" fill="#fce4ec">Swap with collection photography</text>
-</svg>
