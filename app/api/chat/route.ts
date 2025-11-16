@@ -54,29 +54,61 @@ async function sendToOpenRouter(message: string, history: HistoryMessage[] = [])
     { role: 'user', content: message }
   ];
 
-  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-      'HTTP-Referer': process.env.SITE_URL || 'https://cs-learning.me',
-      'X-Title': 'David Ortiz Portfolio Chat'
-    },
-    body: JSON.stringify({
-      model: process.env.OPENROUTER_PRIMARY_MODEL || 'x-ai/grok-4-fast:free',
-      messages,
-      max_tokens: 200,
-      temperature: 0.6
-    })
-  });
+  // Model priority: Sherlock models first, then free fallbacks
+  const fallbackModels = [
+    'openrouter/sherlock-dash-alpha',
+    'openrouter/sherlock-think-alpha',
+    'nvidia/nemotron-nano-9b-v2:free',
+    'z-ai/glm-4.5-air:free'
+  ];
 
-  if (!response.ok) {
-    const payload = await response.json().catch(() => ({}));
-    throw new Error(payload.error?.message || 'OpenRouter error');
+  const modelsToTry = process.env.OPENROUTER_PRIMARY_MODEL
+    ? [process.env.OPENROUTER_PRIMARY_MODEL]
+    : fallbackModels;
+
+  let lastError: Error | null = null;
+
+  for (const model of modelsToTry) {
+    try {
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': process.env.SITE_URL || 'https://cs-learning.me',
+          'X-Title': 'David Ortiz Portfolio Chat'
+        },
+        body: JSON.stringify({
+          model,
+          messages,
+          max_tokens: 200,
+          temperature: 0.6
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const content = data.choices?.[0]?.message?.content;
+        if (typeof content === 'string') {
+          return content; // Success!
+        }
+        // Response OK, but content is invalid. Treat as failure.
+        lastError = new Error(`Invalid response structure from model ${model}`);
+        continue;
+      }
+
+      // Handle non-OK responses
+      const errorPayload = await response.json().catch(() => null);
+      lastError = new Error(
+        errorPayload?.error?.message || `Model ${model} failed with status ${response.status}`
+      );
+    } catch (error) {
+      lastError = error as Error;
+      continue; // Network or other fetch error
+    }
   }
 
-  const data = await response.json();
-  return data.choices?.[0]?.message?.content as string;
+  throw lastError || new Error('All models failed');
 }
 
 export async function POST(request: Request) {

@@ -40,7 +40,7 @@ doppler run -- npm run dev           # Run with secrets
 Vercel pulls secrets from Doppler at build time. Required secrets:
 - `OPENROUTER_API_KEY` - Powers the AI concierge
 - `SITE_URL` - Used for OpenRouter HTTP-Referer header (defaults to cs-learning.me)
-- `OPENROUTER_PRIMARY_MODEL` - Model for AI assistant (defaults to `x-ai/grok-4-fast:free`)
+- `OPENROUTER_PRIMARY_MODEL` - Optional override for AI model (defaults to fallback chain: openrouter/sherlock-dash-alpha → openrouter/sherlock-think-alpha → nvidia/nemotron-nano-9b-v2:free → z-ai/glm-4.5-air:free)
 
 ## Architecture
 
