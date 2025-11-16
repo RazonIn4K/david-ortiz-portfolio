@@ -42,6 +42,10 @@ vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.cs-learning.me
 vercel certs issue cs-learning.me www.cs-learning.me
 ```
 
+### Monitoring
+
+`.github/workflows/check-project-routes.yml` runs hourly and curls each `/projects/<slug>/` URL on `https://cs-learning.me`. The workflow fails (and alerts) if any route stops returning `200`. Add new slugs to `PROJECT_URLS` whenever more demos ship.
+
 ## Structure
 
 ```
