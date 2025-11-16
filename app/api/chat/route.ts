@@ -59,7 +59,7 @@ async function sendToOpenRouter(message: string, history: HistoryMessage[] = [])
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': process.env.SITE_URL || 'https://www.cs-learning.me',
+      'HTTP-Referer': process.env.SITE_URL || 'https://cs-learning.me',
       'X-Title': 'David Ortiz Portfolio Chat'
     },
     body: JSON.stringify({

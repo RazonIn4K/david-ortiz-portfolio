@@ -10,12 +10,12 @@ export const metadata: Metadata = {
   title: 'David Ortiz | AI Automation & Chatbot Consultant',
   description:
     'AI automation consultant helping founders and agencies ship Typeform → Zapier → Notion workflows, GPT-4o chatbots, lead-gen scrapers, and AI security guardrails.',
-  metadataBase: new URL('https://www.cs-learning.me'),
+  metadataBase: new URL('https://cs-learning.me'),
   openGraph: {
     title: 'David Ortiz | AI Automation & Chatbot Consultant',
     description:
       'Ship AI automations, chatbots, and lead-gen pipelines with Zapier, Notion, GPT-4o, and n8n. Includes case studies, resources, and Upwork-ready CTAs.',
-    url: 'https://www.cs-learning.me',
+    url: 'https://cs-learning.me',
     siteName: 'David Ortiz Automation',
     type: 'website'
   },

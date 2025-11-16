@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Next.js 14 portfolio site for David Ortiz's AI automation studio. The site showcases AI automation services (chatbots, scraping, AI security) with an OpenRouter-powered AI concierge, case studies, and legacy Tailwind demo projects served via rewrites.
 
-**Production**: `cs-learning.me` / `www.cs-learning.me`
+**Production**: `cs-learning.me` (apex domain preferred, www redirects to apex)
 **Vercel Project**: `david-ortiz-portfolio` (team: razs-projects-29d4f2e6)
 
 ## Development Commands
