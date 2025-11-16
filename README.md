@@ -13,17 +13,33 @@ npm run dev
 - `npm run start` – run production server
 - `npm run lint` – lint project
 
-## Environment via Doppler
+## Secret management (Doppler)
 
-Secrets are managed through [Doppler](https://www.doppler.com/). Install the Doppler CLI, update `doppler.yaml` with your `project`/`config`, then run:
+The repo uses Doppler for secrets. Install Doppler CLI, then:
 
 ```bash
-doppler setup                # authenticate once
+doppler setup         # authenticate once
 doppler secrets set OPENROUTER_API_KEY
-doppler secrets set OPENROUTER_PRIMARY_MODEL=x-ai/grok-4-fast:free
-doppler secrets set SITE_URL=https://www.cs-learning.me
 
-doppler run -- npm run dev   # injects secrets when running locally
+doppler run -- npm run dev
+```
+
+Vercel pulls secrets from Doppler at build time.
+
+## Deployment
+
+The repo is linked to the Vercel project `david-ortiz-portfolio` (team `razs-projects-29d4f2e6`).
+
+- Production deploy: `vercel --prod`
+- Domains: `cs-learning.me` (apex) and `www.cs-learning.me`
+  - @ → 76.76.21.21 (A record)
+  - www → cname.vercel-dns-017.com (CNAME)
+
+Alias commands (when needed):
+```bash
+vercel alias set david-ortiz-portfolio-<latest>.vercel.app cs-learning.me
+vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.cs-learning.me
+vercel certs issue cs-learning.me www.cs-learning.me
 ```
 
 ## Structure
@@ -35,5 +51,6 @@ app/
   case-studies/         # Deep dives
   api/chat/route.ts     # AI assistant endpoint
 components/             # Section components
-public/projects/        # Legacy Tailwind demos served statically
+data/                   # Content used across sections
+public/projects/        # Legacy Tailwind demos
 ```

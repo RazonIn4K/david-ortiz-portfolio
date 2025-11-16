@@ -74,3 +74,4 @@ test-reports/
 tmp/
 temp/
 .vercel
+.env*.local
