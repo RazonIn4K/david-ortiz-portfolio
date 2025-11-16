@@ -55,16 +55,20 @@ async function sendToOpenRouter(message: string, history: HistoryMessage[] = [])
   ];
 
   // Model priority: Sherlock models first, then free fallbacks
-  const models = [
+  const fallbackModels = [
     'openrouter/sherlock-dash-alpha',
     'openrouter/sherlock-think-alpha',
     'nvidia/nemotron-nano-12b-v2-vl:free',
-    'x-ai/glm-4.5-air:free'
+    'z-ai/glm-4.5-air:free'
   ];
+
+  const modelsToTry = process.env.OPENROUTER_PRIMARY_MODEL
+    ? [process.env.OPENROUTER_PRIMARY_MODEL]
+    : fallbackModels;
 
   let lastError: Error | null = null;
 
-  for (const model of models) {
+  for (const model of modelsToTry) {
     try {
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
@@ -75,7 +79,7 @@ async function sendToOpenRouter(message: string, history: HistoryMessage[] = [])
           'X-Title': 'David Ortiz Portfolio Chat'
         },
         body: JSON.stringify({
-          model: process.env.OPENROUTER_PRIMARY_MODEL || model,
+          model,
           messages,
           max_tokens: 200,
           temperature: 0.6
@@ -84,14 +88,23 @@ async function sendToOpenRouter(message: string, history: HistoryMessage[] = [])
 
       if (response.ok) {
         const data = await response.json();
-        return data.choices?.[0]?.message?.content as string;
+        const content = data.choices?.[0]?.message?.content;
+        if (typeof content === 'string') {
+          return content; // Success!
+        }
+        // Response OK, but content is invalid. Treat as failure.
+        lastError = new Error(`Invalid response structure from model ${model}`);
+        continue;
       }
 
-      const payload = await response.json().catch(() => ({}));
-      lastError = new Error(payload.error?.message || `Model ${model} failed`);
+      // Handle non-OK responses
+      const errorPayload = await response.json().catch(() => null);
+      lastError = new Error(
+        errorPayload?.error?.message || `Model ${model} failed with status ${response.status}`
+      );
     } catch (error) {
       lastError = error as Error;
-      continue; // Try next model
+      continue; // Network or other fetch error
     }
   }
 
