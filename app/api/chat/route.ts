@@ -58,7 +58,7 @@ async function sendToOpenRouter(message: string, history: HistoryMessage[] = [])
   const fallbackModels = [
     'openrouter/sherlock-dash-alpha',
     'openrouter/sherlock-think-alpha',
-    'nvidia/nemotron-nano-12b-v2-vl:free',
+    'nvidia/nemotron-nano-9b-v2:free',
     'z-ai/glm-4.5-air:free'
   ];
 
