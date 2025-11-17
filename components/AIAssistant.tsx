@@ -56,7 +56,7 @@ export function AIAssistant() {
           {error && <p className="text-sm text-red-600">{error}</p>}
           <form onSubmit={handleSubmit} className="flex gap-2">
             <input
-              className="flex-1 rounded-xl border border-slate/200 bg-white px-4 py-3 text-sm"
+              className="flex-1 rounded-xl border border-slate/200 bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/50 focus:outline-none focus:ring-2 focus:ring-accent"
               placeholder="Ask about automations, pricing, onboarding..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
