@@ -29,16 +29,27 @@ doppler run -- npm run build
 
 ## Secret Management (Doppler)
 
-Secrets are managed via Doppler CLI:
+This project uses Doppler CLI for secrets management. The Doppler project is `david-ortiz-portfolio`.
 
+**First-time setup:**
 ```bash
-doppler setup                        # Authenticate once
-doppler secrets set OPENROUTER_API_KEY  # Set a secret
-doppler run -- npm run dev           # Run with secrets
+doppler login                                          # Authenticate with Doppler (one-time)
+doppler setup --project david-ortiz-portfolio --config dev --no-interactive  # Configure for dev
 ```
 
-Vercel pulls secrets from Doppler at build time. Required secrets:
-- `OPENROUTER_API_KEY` - Powers the AI concierge
+**Working with secrets:**
+```bash
+doppler secrets                                        # List all secrets
+doppler secrets set KEY="value"                        # Add/update a secret
+doppler run -- npm run dev                            # Run dev server with Doppler secrets
+doppler run -- npm run build                          # Build with Doppler secrets
+```
+
+**Vercel Integration:**
+To sync secrets to Vercel, set up the Doppler-Vercel integration in the [Doppler Dashboard](https://dashboard.doppler.com) under Integrations. This will automatically sync secrets from Doppler to Vercel on every change.
+
+**Required secrets:**
+- `OPENROUTER_API_KEY` - Powers the AI concierge (get from [OpenRouter](https://openrouter.ai))
 - `SITE_URL` - Used for OpenRouter HTTP-Referer header (defaults to cs-learning.me)
 - `OPENROUTER_PRIMARY_MODEL` - Optional override for AI model (defaults to fallback chain: openrouter/sherlock-dash-alpha → openrouter/sherlock-think-alpha → nvidia/nemotron-nano-9b-v2:free → z-ai/glm-4.5-air:free)
 
