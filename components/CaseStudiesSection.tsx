@@ -3,36 +3,56 @@ import { caseStudies } from '@/data/content';
 
 export function CaseStudiesSection() {
   return (
-    <section className="bg-white py-20">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="flex flex-col gap-3 text-center">
-          <p className="text-sm uppercase tracking-[0.3em] text-ink/60">Automation Proof</p>
-          <h2 className="text-3xl font-semibold text-ink">Case studies built for lean teams</h2>
-          <p className="text-sm text-ink/70">
-            Want the deeper breakdown? <a className="text-accent underline" href="/case-studies">Read every detail →</a>
+    <section className="bg-ink py-24">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="flex flex-col gap-4 text-center mb-16">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal">Case Studies</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white">Proven results for lean teams</h2>
+          <p className="text-white/60 max-w-2xl mx-auto">
+            See how we&apos;ve helped other businesses save time and scale operations.
+            <br />
+            <Link href="/case-studies" className="text-teal hover:text-teal/80 underline decoration-teal/30 underline-offset-4 mt-2 inline-block">
+              Read all case studies →
+            </Link>
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+
+        <div className="grid gap-8 md:grid-cols-3">
           {caseStudies.map((study) => (
-            <article key={study.title} className="rounded-3xl border border-slate/10 bg-slate-50 p-6">
-              <h3 className="text-xl font-semibold text-ink">{study.title}</h3>
-              <div className="mt-4 space-y-2 text-sm text-ink/80">
-                <p><span className="font-semibold text-ink">Problem:</span> {study.problem}</p>
-                <p><span className="font-semibold text-ink">Solution:</span> {study.solution}</p>
-                <p><span className="font-semibold text-ink">Results:</span> {study.results}</p>
+            <article key={study.title} className="flex flex-col rounded-2xl border border-white/10 bg-slate/50 p-8 transition hover:border-teal/30">
+              <div className="mb-6">
+                <h3 className="text-2xl font-bold text-white">{study.title}</h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {study.stack.map((item) => (
+                    <span key={item} className="rounded-full bg-white/5 border border-white/10 px-3 py-1 text-xs text-white/60">
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className="mt-4 flex flex-wrap gap-2 text-xs text-ink/60">
-                {study.stack.map((item) => (
-                  <span key={item} className="rounded-full border border-ink/10 px-3 py-1">
-                    {item}
-                  </span>
-                ))}
+
+              <div className="flex-1 space-y-6 border-t border-white/10 pt-6">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-red-400 mb-2">Problem</p>
+                  <p className="text-sm text-white/70 leading-relaxed">{study.problem}</p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Solution</p>
+                  <p className="text-sm text-white/70 leading-relaxed">{study.solution}</p>
+                </div>
+
+                <div className="rounded-xl bg-teal/10 border border-teal/20 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-teal mb-2">Results</p>
+                  <p className="text-sm font-medium text-white leading-relaxed">{study.results}</p>
+                </div>
               </div>
+
               {study.links && (
-                <div className="mt-4 flex flex-wrap gap-3 text-xs font-semibold text-accent">
+                <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-4 text-xs font-bold text-teal">
                   {study.links.map((link) => (
-                    <Link key={link.href} href={link.href} target="_blank" className="underline">
-                      {link.label}
+                    <Link key={link.href} href={link.href} target="_blank" className="flex items-center gap-1 hover:underline">
+                      {link.label} <span className="text-lg leading-none">↗</span>
                     </Link>
                   ))}
                 </div>

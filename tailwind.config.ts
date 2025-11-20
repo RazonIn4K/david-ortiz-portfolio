@@ -10,10 +10,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#0F172A',
+        ink: '#0a1929',
         slate: '#1E293B',
         accent: '#4F46E5',
-        teal: '#2DD4BF'
+        teal: '#14b8a6'
       },
       backgroundImage: {
         'grid-light': 'radial-gradient(circle at 1px 1px, rgba(79, 70, 229, 0.2) 1px, transparent 0)'
