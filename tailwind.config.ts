@@ -16,7 +16,8 @@ const config: Config = {
         teal: '#2DD4BF'
       },
       backgroundImage: {
-        'grid-light': 'radial-gradient(circle at 1px 1px, rgba(79, 70, 229, 0.2) 1px, transparent 0)'
+        'grid-light': 'radial-gradient(circle at 1px 1px, rgba(79, 70, 229, 0.2) 1px, transparent 0)',
+        'gradient-teal': 'linear-gradient(to right, #14b8a6, #67e8f9)'
       }
     }
   },

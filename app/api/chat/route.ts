@@ -54,10 +54,9 @@ async function sendToOpenRouter(message: string, history: HistoryMessage[] = [])
     { role: 'user', content: message }
   ];
 
-  // Model priority: Sherlock models first, then free fallbacks
+  // Model priority: Grok models first, then free fallbacks
   const fallbackModels = [
-    'openrouter/sherlock-dash-alpha',
-    'openrouter/sherlock-think-alpha',
+    'x-ai/grok-4.1-fast:free',
     'nvidia/nemotron-nano-9b-v2:free',
     'z-ai/glm-4.5-air:free'
   ];

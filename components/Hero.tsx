@@ -3,65 +3,116 @@ import { UPWORK_URL } from '@/lib/constants';
 
 export function Hero() {
   return (
-    <section className="bg-gradient-to-b from-ink via-slate to-ink py-20 text-white">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 lg:flex-row">
+    <section className="bg-navy py-20 text-white lg:py-32">
+      <div className="mx-auto flex max-w-7xl flex-col gap-12 px-4 lg:flex-row lg:items-center lg:gap-16">
+        {/* Left Content */}
         <div className="flex-1">
-          <p className="text-sm uppercase tracking-[0.3em] text-white/60">AI Automation &amp; Chatbot Consultant</p>
-          <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">
-            Ship AI automations that save hours without adding headcount.
+          <h1 className="text-5xl font-bold leading-tight lg:text-6xl">
+            Ship{' '}
+            <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
+              AI automations
+            </span>{' '}
+            that{' '}
+            <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
+              save hours
+            </span>{' '}
+            without adding headcount
           </h1>
-          <p className="mt-6 text-lg text-white/80">
-            I build Typeform → Zapier → Notion systems, GPT-4o chatbots, scraping pipelines, and AI security guardrails so
-            founders, agencies, and small teams can scale calmly.
+
+          <p className="mt-6 text-lg text-white/70 lg:text-xl">
+            Build with <strong className="text-white/90">Typeform</strong>, <strong className="text-white/90">Zapier</strong>, <strong className="text-white/90">Notion</strong>, <strong className="text-white/90">GPT-4o</strong> — plus scraping pipelines and AI security guardrails to keep your automations safe at scale.
           </p>
+
+          {/* CTAs */}
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="https://calendly.com/davidinfosec07"
               target="_blank"
-              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:-translate-y-0.5"
+              className="rounded-lg bg-teal-500 px-8 py-4 text-base font-semibold text-white transition hover:bg-teal-600 hover:shadow-lg hover:shadow-teal-500/30"
             >
-              Book a discovery call
+              Book discovery call
             </Link>
             <Link
-              href="/work-with-me"
-              className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5"
+              href={UPWORK_URL}
+              target="_blank"
+              className="rounded-lg border-2 border-white/20 px-8 py-4 text-base font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
             >
-              See how I work
-            </Link>
-            <Link
-              href="/case-studies"
-              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/80 transition hover:text-white"
-            >
-              Read case studies
+              View Upwork offers
             </Link>
           </div>
-          <p className="mt-3 text-xs text-white/70">
-            Prefer packaged pricing? Book the Automation or Chatbot sprint via my{' '}
-            <Link href={UPWORK_URL} target="_blank" className="underline">
-              Upwork Project Catalog
-            </Link>
-            .
-          </p>
+
+          {/* Proof Metrics Badges */}
+          <div className="mt-10 flex flex-wrap gap-3">
+            <div className="rounded-full border border-teal-500/30 bg-teal-500/10 px-4 py-2 text-sm font-medium text-teal-400">
+              ⚡ Avg 20+ Hours Saved/Week
+            </div>
+            <div className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-400">
+              🚀 80% Faster Response Times
+            </div>
+            <div className="rounded-full border border-teal-400/30 bg-teal-400/10 px-4 py-2 text-sm font-medium text-teal-300">
+              ✅ Zero-Touch Lead Verification
+            </div>
+          </div>
         </div>
-        <div className="flex flex-1 flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 text-white/80">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-teal">In one sprint you get</p>
-          <ul className="space-y-3">
-            <li className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-sm font-semibold text-white">Live discovery + blueprint</p>
-              <p className="text-sm text-white/70">We map every trigger, SLA, and handoff before lines of code.</p>
-            </li>
-            <li className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-sm font-semibold text-white">Build + monitoring</p>
-              <p className="text-sm text-white/70">Automations ship with guardrails, alerts, and staging demos.</p>
-            </li>
-            <li className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-sm font-semibold text-white">Handoff + SOPs</p>
-              <p className="text-sm text-white/70">Looms, docs, and light retainers keep your ops team in control.</p>
-            </li>
-          </ul>
-          <p className="text-xs text-white/60">
-            Found me on Upwork? <Link href="/work-with-me#work-process" className="underline">Here&apos;s how we&apos;ll work together.</Link>
-          </p>
+
+        {/* Right Side - Dashboard Mockup with Glass Morphism */}
+        <div className="flex-1">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-red-400"></div>
+              <div className="h-3 w-3 rounded-full bg-yellow-400"></div>
+              <div className="h-3 w-3 rounded-full bg-green-400"></div>
+              <span className="ml-2 text-xs text-white/60">Automation Dashboard</span>
+            </div>
+
+            {/* Dashboard Content */}
+            <div className="space-y-4">
+              {/* Metric Cards */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-lg border border-white/10 bg-gradient-to-br from-teal-500/20 to-transparent p-4">
+                  <div className="text-2xl font-bold text-teal-400">120</div>
+                  <div className="text-xs text-white/60">Leads/Week</div>
+                </div>
+                <div className="rounded-lg border border-white/10 bg-gradient-to-br from-cyan-400/20 to-transparent p-4">
+                  <div className="text-2xl font-bold text-cyan-400">5m</div>
+                  <div className="text-xs text-white/60">Response Time</div>
+                </div>
+              </div>
+
+              {/* Activity Feed */}
+              <div className="space-y-2 rounded-lg border border-white/10 bg-white/5 p-4">
+                <div className="text-xs font-semibold uppercase tracking-wider text-white/60">Recent Activity</div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-sm">
+                    <div className="h-2 w-2 rounded-full bg-green-400"></div>
+                    <span className="text-white/80">Lead scored & routed</span>
+                    <span className="ml-auto text-xs text-white/50">2m ago</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <div className="h-2 w-2 rounded-full bg-teal-400"></div>
+                    <span className="text-white/80">GPT summary sent</span>
+                    <span className="ml-auto text-xs text-white/50">8m ago</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <div className="h-2 w-2 rounded-full bg-cyan-400"></div>
+                    <span className="text-white/80">Notion task created</span>
+                    <span className="ml-auto text-xs text-white/50">12m ago</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status Bar */}
+              <div className="rounded-lg border border-white/10 bg-gradient-to-r from-teal-500/10 to-cyan-400/10 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-white/70">All systems operational</span>
+                  <div className="flex items-center gap-1">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-green-400"></div>
+                    <span className="text-xs text-green-400">Live</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

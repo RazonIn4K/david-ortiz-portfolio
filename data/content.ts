@@ -225,3 +225,64 @@ export const processSteps = [
     description: 'SOPs, alert routing, and optional retainers keep your team in control without chasing a freelancer for tweaks.'
   }
 ];
+
+export type HeroMetric = {
+  label: string;
+  value: string;
+  change: string;
+  changeColor: string;
+  arrow?: boolean;
+};
+
+export const heroMetrics: HeroMetric[] = [
+  {
+    label: 'Hours Saved',
+    value: '128h',
+    change: '12% vs last week',
+    changeColor: 'text-teal/80',
+    arrow: true
+  },
+  {
+    label: 'Active Workflows',
+    value: '24',
+    change: 'All systems operational',
+    changeColor: 'text-green-400/80',
+    arrow: false
+  }
+];
+
+export type HeroActivity = {
+  icon: string;
+  iconBg: string;
+  iconColor: string;
+  title: string;
+  subtitle: string;
+  time: string;
+};
+
+export const heroActivities: HeroActivity[] = [
+  {
+    icon: '⚡',
+    iconBg: 'bg-teal/20',
+    iconColor: 'text-teal',
+    title: 'New Lead Qualified',
+    subtitle: 'Typeform → OpenAI → Slack',
+    time: 'Just now'
+  },
+  {
+    icon: '🤖',
+    iconBg: 'bg-purple-500/20',
+    iconColor: 'text-purple-400',
+    title: 'Support Ticket Resolved',
+    subtitle: 'Chatbot → Knowledge Base',
+    time: '2m ago'
+  },
+  {
+    icon: '📄',
+    iconBg: 'bg-blue-500/20',
+    iconColor: 'text-blue-400',
+    title: 'Contract Generated',
+    subtitle: 'DocuSign → Google Drive',
+    time: '15m ago'
+  }
+];
