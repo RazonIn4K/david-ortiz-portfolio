@@ -8,69 +8,68 @@ export type Service = {
   description: string;
   bullets: string[];
   icon: string;
-  links?: LinkRef[];
+  cta: {
+    label: string;
+    href: string;
+  };
 };
 
 export const services: Service[] = [
   {
     title: 'AI Automation Sprints',
-    description:
-      'Typeform → Zapier → Notion builds that auto-score leads, trigger follow-ups, and log every action so you never chase spreadsheets again.',
+    description: 'Stop drowning in admin. I build systems that handle the busywork so you can focus on strategy.',
     bullets: [
-      'Live discovery → blueprint in 48 hours',
-      'Scoring + routing logic with monitoring + alerts',
-      'Delivered inside the Upwork Project Catalog for fast approvals'
+      'Custom workflow mapping',
+      'Integration with your stack',
+      'Error handling & logging'
     ],
     icon: '⚙️',
-    links: [
-      { label: 'Automation Catalog Offer', href: 'https://www.upwork.com/freelancers/davido174?s=1737190722364944384' },
-      { label: 'automation-templates repo', href: 'https://github.com/RazonIn4K/automation-templates' }
-    ]
+    cta: {
+      label: 'Start a Sprint',
+      href: 'https://calendly.com/davidinfosec07'
+    }
   },
   {
     title: 'Chatbots & RAG Agents',
-    description:
-      'GPT-4o bots with fallback logic, consent tracking, and retrieval from Notion or Postgres so high-intent conversations reach humans fast.',
+    description: 'Deploy intelligent agents that answer customer queries 24/7 with your custom knowledge base.',
     bullets: [
-      'On-brand conversation design + guardrails',
-      'Analytics + transcripts inside Slack',
-      'Prompt Defenders governance baked in for compliance teams'
+      'Custom knowledge base (RAG)',
+      'Multi-platform deployment',
+      'Conversation analytics'
     ],
     icon: '💬',
-    links: [
-      { label: 'Chatbot Catalog Offer', href: 'https://www.upwork.com/freelancers/davido174?s=1737190722364944384' },
-      { label: 'chatbot-templates repo', href: 'https://github.com/RazonIn4K/chatbot-templates' }
-    ]
+    cta: {
+      label: 'Build My Agent',
+      href: 'https://calendly.com/davidinfosec07'
+    }
   },
   {
     title: 'Lead Gen & Scraping Pipelines',
-    description:
-      'Playwright + Apify enrichment flows that feed Airtable or HubSpot with deduped, attributed prospects every morning.',
+    description: 'Fill your CRM with high-quality leads automatically. No more manual copy-pasting.',
     bullets: [
-      'Rotating proxies + anti-blocking baked in',
-      'Enrichment + scoring before CRM sync',
-      'Proof-of-work attachments for every record via ShopMatch Pro'
+      'Targeted data extraction',
+      'Data enrichment & cleaning',
+      'Automated CRM sync'
     ],
-    icon: '📈',
-    links: [
-      { label: 'ShopMatch Pro', href: 'https://shopmatch.pro' },
-      { label: 'Hire via Upwork', href: 'https://www.upwork.com/freelancers/davido174?s=1737190722364944384' }
-    ]
+    icon: '🌪️',
+    cta: {
+      label: 'Automate Leads',
+      href: 'https://calendly.com/davidinfosec07'
+    }
   },
   {
     title: 'AI Security & Prompt Defense',
-    description:
-      'Threat modeling, logging, and guardrail implementation for Zapier, n8n, or bespoke LLM workflows headed for enterprise reviews.',
+    description: 'Secure your AI applications against prompt injection and data leakage.',
     bullets: [
-      'Prompt-injection + exfiltration drills powered by Prompt Defenders',
-      'Secrets/rate-limit audits with remediation plan',
-      'Implementation sprint available directly or through Upwork'
+      'Vulnerability assessment',
+      'Prompt injection defense',
+      'Security monitoring'
     ],
     icon: '🛡️',
-    links: [
-      { label: 'Prompt Defenders', href: 'https://prompt-defenders.com' },
-      { label: 'Security Catalog Offer', href: 'https://www.upwork.com/freelancers/davido174?s=1737190722364944384' }
-    ]
+    cta: {
+      label: 'Secure Your AI',
+      href: 'https://calendly.com/davidinfosec07'
+    }
   }
 ];
 
@@ -160,6 +159,7 @@ export type Testimonial = {
   quote: string;
   author: string;
   role: string;
+  avatar?: string;
 };
 
 export const testimonials: Testimonial[] = [
@@ -210,19 +210,19 @@ export const resources: Resource[] = [
 export const processSteps = [
   {
     title: 'Discovery',
-    description: '60-minute working session capturing triggers, SLAs, and business outcomes. Recording + notes shared instantly.'
+    description: 'We dive deep into your current workflows, identify bottlenecks, and map out the automation strategy.'
   },
   {
     title: 'Design',
-    description: 'Blueprint delivered within 48 hours covering architecture, data model, testing, and security considerations.'
+    description: 'I architect the solution, selecting the best tools and designing robust workflows that scale.'
   },
   {
     title: 'Build',
-    description: 'Implementation with staging environments, monitoring, and Loom walkthroughs so you can preview everything live.'
+    description: 'I build and test your automations, ensuring reliability, security, and seamless integration.'
   },
   {
     title: 'Handoff',
-    description: 'SOPs, alert routing, and optional retainers keep your team in control without chasing a freelancer for tweaks.'
+    description: 'You get full documentation, training, and support to ensure your team can manage the new system.'
   }
 ];
 
