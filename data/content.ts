@@ -243,3 +243,10 @@ export const processSteps = [
     description: 'You get full documentation, training, and support to ensure your team can manage the new system.'
   }
 ];
+
+export const chatConfig = {
+  title: 'AI CONCIERGE',
+  subtitle: 'Ask about services, process, or availability',
+  placeholder: 'Ask about automations, pricing, onboarding...',
+  welcomeMessage: "Hi! Welcome to David Ortiz's AI Automation Studio. I'm your concierge. Need help with automations, chatbots, web scraping, or AI security? What's up?"
+};
