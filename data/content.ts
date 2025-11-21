@@ -3,6 +3,18 @@ export type LinkRef = {
   href: string;
 };
 
+export type ProofMetric = {
+  text: string;
+  color: 'teal' | 'cyan';
+  emoji: string;
+};
+
+export const proofMetrics: ProofMetric[] = [
+  { text: 'Avg 20+ Hours Saved/Week', color: 'teal', emoji: '⚡' },
+  { text: '80% Faster Response Times', color: 'cyan', emoji: '🚀' },
+  { text: 'Zero-Touch Lead Verification', color: 'teal', emoji: '✅' }
+];
+
 export type Service = {
   title: string;
   description: string;
