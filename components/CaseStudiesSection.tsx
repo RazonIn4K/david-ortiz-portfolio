@@ -23,7 +23,7 @@ export function CaseStudiesSection() {
           {caseStudies.map((study) => (
             <article
               key={study.title}
-              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/10"
+              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-teal-400/50 hover:bg-white/10"
             >
               <h3 className="text-2xl font-bold text-white">{study.title}</h3>
 

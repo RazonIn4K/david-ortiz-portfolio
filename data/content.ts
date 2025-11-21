@@ -12,6 +12,7 @@ export type Service = {
     label: string;
     href: string;
   };
+  links?: LinkRef[];
 };
 
 export const services: Service[] = [
