@@ -1,4 +1,5 @@
 import { testimonials } from '@/data/content';
+import { GlassmorphismCard } from '@/components/ui/GlassmorphismCard';
 
 export function TestimonialsSection() {
   return (
@@ -13,16 +14,17 @@ export function TestimonialsSection() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <article
+            <GlassmorphismCard
               key={testimonial.author}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
+              hover={true}
+              className="p-6"
             >
               <p className="text-sm leading-relaxed text-white/80">&ldquo;{testimonial.quote}&rdquo;</p>
               <div className="mt-6 border-t border-white/10 pt-4">
                 <p className="text-sm font-semibold text-white">{testimonial.author}</p>
                 <p className="text-xs text-white/60">{testimonial.role}</p>
               </div>
-            </article>
+            </GlassmorphismCard>
           ))}
         </div>
       </div>

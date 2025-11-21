@@ -30,7 +30,7 @@ export function ProjectsSection() {
               <Link
                 href={project.href}
                 target="_blank"
-                className="mt-6 inline-flex items-center text-sm font-semibold text-accent"
+                className="mt-6 inline-flex items-center text-sm font-semibold text-accent transition-colors duration-300 hover:text-teal-600"
               >
                 Launch demo →
               </Link>

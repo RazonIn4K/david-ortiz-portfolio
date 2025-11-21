@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { services } from '@/data/content';
+import { GlassmorphismCard } from '@/components/ui/GlassmorphismCard';
 
 export function ServicesSection() {
   return (
@@ -17,9 +18,10 @@ export function ServicesSection() {
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:gap-8">
           {services.map((service) => (
-            <div
+            <GlassmorphismCard
               key={service.title}
-              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/10"
+              hover={true}
+              className="group p-8"
             >
               <div className="text-4xl">{service.icon}</div>
               <h3 className="mt-4 text-2xl font-bold text-white">{service.title}</h3>
@@ -34,21 +36,16 @@ export function ServicesSection() {
                 ))}
               </ul>
 
-              {service.links && (
-                <div className="mt-6 flex flex-wrap gap-3 border-t border-white/10 pt-6">
-                  {service.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      target="_blank"
-                      className="text-xs font-semibold text-teal-400 transition hover:text-teal-300"
-                    >
-                      {link.label} →
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+              <div className="mt-6 border-t border-white/10 pt-6">
+                <Link
+                  href={service.cta.href}
+                  target="_blank"
+                  className="inline-flex items-center text-sm font-semibold text-teal-400 transition-colors duration-300 hover:text-teal-300"
+                >
+                  {service.cta.label} →
+                </Link>
+              </div>
+            </GlassmorphismCard>
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { caseStudies } from '@/data/content';
+import { GlassmorphismCard } from '@/components/ui/GlassmorphismCard';
 
 export function CaseStudiesSection() {
   return (
@@ -13,7 +14,7 @@ export function CaseStudiesSection() {
           </p>
           <p className="mt-2 text-sm text-white/50">
             Want the deeper breakdown?{' '}
-            <a className="text-teal-400 underline transition hover:text-teal-300" href="/case-studies">
+            <a className="text-teal-400 underline transition-colors duration-300 hover:text-teal-300" href="/case-studies">
               Read every detail →
             </a>
           </p>
@@ -21,9 +22,10 @@ export function CaseStudiesSection() {
 
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((study) => (
-            <article
+            <GlassmorphismCard
               key={study.title}
-              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/10"
+              hover={true}
+              className="group p-8"
             >
               <h3 className="text-2xl font-bold text-white">{study.title}</h3>
 
@@ -73,14 +75,14 @@ export function CaseStudiesSection() {
                       key={link.href}
                       href={link.href}
                       target="_blank"
-                      className="text-xs font-semibold text-teal-400 transition hover:text-teal-300"
+                      className="text-xs font-semibold text-teal-400 transition-colors duration-300 hover:text-teal-300"
                     >
                       {link.label} →
                     </Link>
                   ))}
                 </div>
               )}
-            </article>
+            </GlassmorphismCard>
           ))}
         </div>
       </div>

@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import { UPWORK_URL } from '@/lib/constants';
+import { TealGradientText } from '@/components/ui/TealGradientText';
+import { ProofMetrics } from '@/components/ProofMetrics';
+import { GlassmorphismCard } from '@/components/ui/GlassmorphismCard';
 
 export function Hero() {
   return (
@@ -8,15 +11,8 @@ export function Hero() {
         {/* Left Content */}
         <div className="flex-1">
           <h1 className="text-5xl font-bold leading-tight lg:text-6xl">
-            Ship{' '}
-            <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
-              AI automations
-            </span>{' '}
-            that{' '}
-            <span className="bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
-              save hours
-            </span>{' '}
-            without adding headcount
+            Ship <TealGradientText>AI automations</TealGradientText> that{' '}
+            <TealGradientText>save hours</TealGradientText> without adding headcount
           </h1>
 
           <p className="mt-6 text-lg text-white/70 lg:text-xl">
@@ -28,36 +24,28 @@ export function Hero() {
             <Link
               href="https://calendly.com/davidinfosec07"
               target="_blank"
-              className="rounded-lg bg-teal-500 px-8 py-4 text-base font-semibold text-white transition hover:bg-teal-600 hover:shadow-lg hover:shadow-teal-500/30"
+              className="rounded-lg bg-teal-500 px-8 py-4 text-base font-semibold text-white transition-all duration-300 hover:bg-teal-400 hover:shadow-lg hover:shadow-teal-500/30"
             >
               Book discovery call
             </Link>
             <Link
               href={UPWORK_URL}
               target="_blank"
-              className="rounded-lg border-2 border-white/20 px-8 py-4 text-base font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
+              className="rounded-lg border-2 border-white/20 px-8 py-4 text-base font-semibold text-white transition-all duration-300 hover:border-teal-400 hover:bg-white/5"
             >
               View Upwork offers
             </Link>
           </div>
 
           {/* Proof Metrics Badges */}
-          <div className="mt-10 flex flex-wrap gap-3">
-            <div className="rounded-full border border-teal-500/30 bg-teal-500/10 px-4 py-2 text-sm font-medium text-teal-400">
-              ⚡ Avg 20+ Hours Saved/Week
-            </div>
-            <div className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-400">
-              🚀 80% Faster Response Times
-            </div>
-            <div className="rounded-full border border-teal-400/30 bg-teal-400/10 px-4 py-2 text-sm font-medium text-teal-300">
-              ✅ Zero-Touch Lead Verification
-            </div>
+          <div className="mt-10">
+            <ProofMetrics />
           </div>
         </div>
 
         {/* Right Side - Dashboard Mockup with Glass Morphism */}
         <div className="flex-1">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md">
+          <GlassmorphismCard className="p-6 backdrop-blur-md">
             <div className="mb-4 flex items-center gap-2">
               <div className="h-3 w-3 rounded-full bg-red-400"></div>
               <div className="h-3 w-3 rounded-full bg-yellow-400"></div>
@@ -112,7 +100,7 @@ export function Hero() {
                 </div>
               </div>
             </div>
-          </div>
+          </GlassmorphismCard>
         </div>
       </div>
     </section>
