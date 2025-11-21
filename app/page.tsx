@@ -1,10 +1,9 @@
 import { Hero } from '@/components/Hero';
 import { ServicesSection } from '@/components/ServicesSection';
-import { ProjectsSection } from '@/components/ProjectsSection';
+import { DeliveryProcess } from '@/components/DeliveryProcess';
 import { CaseStudiesSection } from '@/components/CaseStudiesSection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
 import { ResourcesSection } from '@/components/ResourcesSection';
-import { ProcessSection } from '@/components/ProcessSection';
 import { CTASection } from '@/components/CTASection';
 import { AIAssistant } from '@/components/AIAssistant';
 
@@ -13,11 +12,10 @@ export default function HomePage() {
     <>
       <Hero />
       <ServicesSection />
-      <ProjectsSection />
+      <DeliveryProcess />
       <CaseStudiesSection />
       <TestimonialsSection />
       <ResourcesSection />
-      <ProcessSection />
       <AIAssistant />
       <CTASection />
     </>
