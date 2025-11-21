@@ -14,11 +14,17 @@ export const metadata: Metadata = {
 
 export default function WorkWithMePage() {
   return (
-    <div className="bg-white text-ink">
+    <div className="bg-ink text-white">
       <section className="bg-gradient-to-b from-ink to-slate py-24 text-white">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-white/60">Work With Me</p>
-          <h1 className="mt-3 text-4xl font-semibold">Execution partner for AI automation, chatbots, scraping, and security</h1>
+          <h1 className="mt-3 text-4xl font-semibold">
+            Execution partner for{' '}
+            <span className="bg-gradient-teal bg-clip-text text-transparent">
+              AI automation
+            </span>
+            , chatbots, scraping, and security
+          </h1>
           <p className="mt-4 text-sm text-white/80">
             Found me on Upwork?{' '}
             <a href="#work-process" className="underline">
@@ -30,14 +36,14 @@ export default function WorkWithMePage() {
             <a
               href="https://calendly.com/davidinfosec07"
               target="_blank"
-              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink"
+              className="rounded-lg bg-teal-500 px-6 py-3 text-sm font-semibold text-white hover:bg-teal-400"
             >
               Book a discovery call
             </a>
             <a
               href={UPWORK_URL}
               target="_blank"
-              className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white"
+              className="rounded-lg border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/5 hover:border-white/40"
             >
               Hire me on Upwork
             </a>

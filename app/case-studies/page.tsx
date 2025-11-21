@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function CaseStudiesPage() {
   return (
-    <div className="bg-white text-ink">
+    <div className="bg-ink text-white">
       <section className="bg-gradient-to-b from-ink to-slate py-24 text-white">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-white/60">Case Studies</p>
@@ -36,42 +36,45 @@ export default function CaseStudiesPage() {
         <div className="mx-auto max-w-5xl px-4">
           <div className="space-y-10">
             {caseStudies.map((study) => (
-              <article key={study.title} className="rounded-3xl border border-slate/10 bg-slate-50 p-6">
+              <article
+                key={study.title}
+                className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-teal-400/50 hover:bg-white/10"
+              >
                 <div className="flex flex-col gap-1">
-                  <p className="text-xs uppercase tracking-[0.3em] text-ink/50">Case Study</p>
-                  <h2 className="text-2xl font-semibold text-ink">{study.title}</h2>
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/50">Case Study</p>
+                  <h2 className="text-2xl font-semibold text-teal-400">{study.title}</h2>
                 </div>
-                <div className="mt-6 grid gap-4 text-sm text-ink/80 md:grid-cols-3">
+                <div className="mt-6 grid gap-4 text-sm text-white/80 md:grid-cols-3">
                   <div>
-                    <p className="font-semibold text-ink">Problem</p>
+                    <p className="font-semibold text-white">Problem</p>
                     <p className="mt-2">{study.problem}</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-ink">Solution</p>
+                    <p className="font-semibold text-white">Solution</p>
                     <p className="mt-2">{study.solution}</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-ink">Results</p>
+                    <p className="font-semibold text-white">Results</p>
                     <p className="mt-2">{study.results}</p>
                   </div>
                 </div>
-              <div className="mt-6 flex flex-wrap gap-2 text-xs text-ink/60">
-                {study.stack.map((item) => (
-                  <span key={item} className="rounded-full border border-ink/10 px-3 py-1">
-                    {item}
-                  </span>
-                ))}
-              </div>
-              {study.links && (
-                <div className="mt-6 flex flex-wrap gap-3 text-xs font-semibold text-accent">
-                  {study.links.map((link) => (
-                    <Link key={link.href} href={link.href} target="_blank" className="underline">
-                      {link.label}
-                    </Link>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {study.stack.map((item) => (
+                    <span key={item} className="rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs text-white/60">
+                      {item}
+                    </span>
                   ))}
                 </div>
-              )}
-            </article>
+                {study.links && (
+                  <div className="mt-6 flex flex-wrap gap-3 text-xs font-semibold text-teal-400">
+                    {study.links.map((link) => (
+                      <Link key={link.href} href={link.href} target="_blank" className="underline">
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </article>
           ))}
         </div>
         </div>
