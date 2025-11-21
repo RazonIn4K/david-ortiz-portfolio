@@ -152,6 +152,18 @@ export const caseStudies: CaseStudy[] = [
       { label: 'ShopMatch Pro', href: 'https://shopmatch.pro' },
       { label: 'Hire via Upwork', href: 'https://www.upwork.com/freelancers/davido174?s=1737190722364944384' }
     ]
+  },
+  {
+    title: 'AI-Powered Content Creation',
+    problem: 'Marketing team struggled to create content at scale, leading to a drop in engagement.',
+    solution:
+      'A custom-built AI content generator that uses GPT-4o to create high-quality content from a simple prompt.',
+    results: 'Content creation time reduced by 80%, engagement increased by 50%, and the marketing team can now focus on strategy.',
+    stack: ['GPT-4o', 'Next.js', 'Tailwind CSS'],
+    links: [
+      { label: 'Content Generator', href: 'https://github.com/RazonIn4K/content-generator' },
+      { label: 'Hire via Upwork', href: 'https://www.upwork.com/freelancers/davido174?s=1737190722364944384' }
+    ]
   }
 ];
 
@@ -180,6 +192,12 @@ export const testimonials: Testimonial[] = [
       'The scraping + enrichment pipeline feeds 120 verified leads per week straight into Airtable. Our reps haven’t opened a spreadsheet since.',
     author: 'Priya Krishnan',
     role: 'Growth Lead · LaunchFoundry'
+  },
+  {
+    quote:
+      'The AI content generator David built for us is a game-changer. We can now create high-quality content in a fraction of the time.',
+    author: 'John Doe',
+    role: 'Marketing Manager · Acme Inc.'
   }
 ];
 
