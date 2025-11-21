@@ -3,52 +3,51 @@ import { services } from '@/data/content';
 
 export function ServicesSection() {
   return (
-    <section id="services" className="bg-ink py-24 relative overflow-hidden">
-       {/* Background glow */}
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-teal/5 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="mx-auto max-w-7xl px-4 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal mb-4">Services</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Automation retainers built for <br className="hidden md:block" />
-            founders, agencies, and small businesses
+    <section id="services" className="bg-navy-dark py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4">
+        <div className="text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-teal-400">Offerings</p>
+          <h2 className="mt-3 text-4xl font-bold text-white lg:text-5xl">
+            How we automate your operations
           </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/60">
+            Four core solutions to eliminate manual work and scale your team without adding headcount
+          </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:gap-8">
           {services.map((service) => (
-            <div key={service.title} className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition duration-300 hover:border-teal/30 hover:bg-white/10">
-              <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-teal/10 text-2xl border border-teal/20 group-hover:scale-110 transition duration-300">
-                {service.icon}
-              </div>
+            <div
+              key={service.title}
+              className="group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/10"
+            >
+              <div className="text-4xl">{service.icon}</div>
+              <h3 className="mt-4 text-2xl font-bold text-white">{service.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/70">{service.description}</p>
 
-              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-teal transition-colors">
-                {service.title}
-              </h3>
-
-              <p className="text-sm text-white/60 mb-6 leading-relaxed">
-                {service.description}
-              </p>
-
-              <ul className="space-y-3 mb-8 flex-1">
+              <ul className="mt-6 space-y-3 text-sm text-white/80">
                 {service.bullets.map((bullet) => (
-                  <li key={bullet} className="flex items-start gap-2 text-sm text-white/80">
-                    <svg className="mt-1 h-4 w-4 min-w-[16px] text-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+                  <li key={bullet} className="flex items-start gap-3">
+                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-teal-400"></span>
                     <span>{bullet}</span>
                   </li>
                 ))}
               </ul>
 
-              <Link
-                href={service.cta.href}
-                target="_blank"
-                className="mt-auto block w-full rounded-xl border border-white/20 bg-white/5 py-3 text-center text-sm font-semibold text-white transition hover:bg-teal hover:border-teal hover:text-ink"
-              >
-                {service.cta.label}
-              </Link>
+              {service.links && (
+                <div className="mt-6 flex flex-wrap gap-3 border-t border-white/10 pt-6">
+                  {service.links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      className="text-xs font-semibold text-teal-400 transition hover:text-teal-300"
+                    >
+                      {link.label} →
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

@@ -16,14 +16,14 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-ink/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-navy/90 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
         <Link href="/" className="text-lg font-semibold text-white">
           David Ortiz
         </Link>
         <nav className="hidden gap-6 text-sm font-medium text-white/80 md:flex">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="transition hover:text-white">
+            <Link key={item.href} href={item.href} className="transition hover:text-teal-400">
               {item.label}
             </Link>
           ))}
@@ -40,13 +40,13 @@ export function Navbar() {
       </div>
       <div
         className={clsx(
-          'border-t border-white/10 bg-ink/95 px-4 py-4 md:hidden',
+          'border-t border-white/10 bg-navy/95 px-4 py-4 md:hidden',
           open ? 'block' : 'hidden'
         )}
       >
         <div className="flex flex-col gap-3 text-sm font-medium text-white/80">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="transition hover:text-teal-400">
               {item.label}
             </Link>
           ))}
