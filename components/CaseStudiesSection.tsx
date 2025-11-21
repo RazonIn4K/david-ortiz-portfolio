@@ -3,8 +3,11 @@ import { caseStudies } from '@/data/content';
 
 export function CaseStudiesSection() {
   return (
-    <section className="bg-ink py-24">
-      <div className="mx-auto max-w-7xl px-4">
+    <section className="bg-ink py-24 relative overflow-hidden">
+       {/* Background glow */}
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-teal/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-4 relative z-10">
         <div className="flex flex-col gap-4 text-center mb-16">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal">Case Studies</p>
           <h2 className="text-3xl md:text-4xl font-bold text-white">Proven results for lean teams</h2>
