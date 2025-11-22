@@ -1,29 +1,42 @@
 # Stripe Environment Variables Setup
 
-This document describes all environment variables required for Stripe integration, including the Tip Jar checkout and webhook handling.
+This document describes all environment variables for Stripe integration.
 
-## Required Variables
+## Payment Link URLs (Required for Payments)
 
-### STRIPE_SECRET_KEY
+We use Stripe Payment Links for accepting payments. See `PAYMENT_LINKS_SETUP.md` for detailed setup instructions.
 
-The Stripe secret API key. **Required** for creating Checkout Sessions (Tip Jar) and making Stripe API calls.
+### NEXT_PUBLIC_PHOTO_RESTORATION_PAYMENT_LINK
+
+The Stripe Payment Link URL for the photo restoration service ($7/photo).
 
 | Property | Value |
 |----------|-------|
-| Required | **Yes** (for Tip Jar / Checkout) |
-| Format | `sk_test_...` or `sk_live_...` |
-| Where to find | Stripe Dashboard > Developers > API keys |
-| Used by | `/api/create-tip-checkout` |
+| Required | Yes (for photo restoration) |
+| Format | `https://buy.stripe.com/...` |
+| Where to find | Stripe Dashboard > Payment Links |
+| Client-accessible | Yes |
 
-**Test Mode:**
-```
-STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxx
+```bash
+NEXT_PUBLIC_PHOTO_RESTORATION_PAYMENT_LINK=https://buy.stripe.com/xxx
 ```
 
-**Live Mode:**
+### NEXT_PUBLIC_TIP_JAR_PAYMENT_LINK
+
+The Stripe Payment Link URL for the tip jar (customer chooses price).
+
+| Property | Value |
+|----------|-------|
+| Required | Yes (for tip jar) |
+| Format | `https://buy.stripe.com/...` |
+| Where to find | Stripe Dashboard > Payment Links |
+| Client-accessible | Yes |
+
+```bash
+NEXT_PUBLIC_TIP_JAR_PAYMENT_LINK=https://buy.stripe.com/yyy
 ```
-STRIPE_SECRET_KEY=sk_live_xxxxxxxxxxxxx
-```
+
+## Webhook Configuration (Optional)
 
 ### STRIPE_WEBHOOK_SECRET
 
@@ -53,30 +66,39 @@ stripe listen --forward-to localhost:3000/api/stripe-webhook
 # Output: Your webhook signing secret is whsec_xxxxx
 ```
 
-## Optional Variables
+## Optional Variables (For Advanced Use)
+
+### STRIPE_SECRET_KEY
+
+The Stripe secret API key. Only needed if your webhook handlers make API calls back to Stripe.
+
+| Property | Value |
+|----------|-------|
+| Required | No (only for Stripe API calls) |
+| Format | `sk_test_...` or `sk_live_...` |
+| Where to find | Stripe Dashboard > Developers > API keys |
+
+```bash
+STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxx  # Test mode
+STRIPE_SECRET_KEY=sk_live_xxxxxxxxxxxxx  # Live mode
+```
 
 ### NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 
-The Stripe publishable key for client-side Stripe.js. Only needed if you implement client-side Stripe Elements or embedded checkout.
+The Stripe publishable key for client-side Stripe.js. Only needed if you implement Stripe Elements or embedded checkout.
 
 | Property | Value |
 |----------|-------|
 | Required | No (only for Stripe.js / Elements) |
 | Format | `pk_test_...` or `pk_live_...` |
 | Where to find | Stripe Dashboard > Developers > API keys |
-| Client-accessible | Yes (NEXT_PUBLIC_ prefix) |
 
-**Test Mode:**
-```
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxx
-```
-
-**Live Mode:**
-```
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_xxxxxxxxxxxxx
+```bash
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxx  # Test mode
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_xxxxxxxxxxxxx  # Live mode
 ```
 
-> **Note:** The Tip Jar currently uses Stripe Checkout (redirect), so the publishable key is not required. It would be needed for embedded checkout or Stripe Elements.
+> **Note:** We use Stripe Payment Links (redirect-based), so these API keys are not required for basic payment functionality.
 
 ## Environment-Specific Configuration
 
@@ -270,16 +292,24 @@ vercel --prod
 
 ## Quick Reference
 
-| Environment | STRIPE_SECRET_KEY | STRIPE_WEBHOOK_SECRET | NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY |
-|-------------|-------------------|----------------------|-----------------------------------|
-| Local (CLI) | `sk_test_...` | `whsec_...` (from CLI) | `pk_test_...` (optional) |
-| Development | `sk_test_...` | `whsec_test_...` | `pk_test_...` (optional) |
-| Staging | `sk_test_...` | `whsec_test_...` | `pk_test_...` (optional) |
-| Production | `sk_live_...` | `whsec_live_...` | `pk_live_...` (optional) |
+### Payment Links (Required)
 
-## API Endpoints
+| Variable | Test Mode | Live Mode |
+|----------|-----------|-----------|
+| `NEXT_PUBLIC_PHOTO_RESTORATION_PAYMENT_LINK` | `https://buy.stripe.com/test_xxx` | `https://buy.stripe.com/xxx` |
+| `NEXT_PUBLIC_TIP_JAR_PAYMENT_LINK` | `https://buy.stripe.com/test_yyy` | `https://buy.stripe.com/yyy` |
 
-| Endpoint | Required Variables | Purpose |
-|----------|-------------------|---------|
-| `/api/create-tip-checkout` | `STRIPE_SECRET_KEY` | Create Checkout Sessions for tips |
+### Webhooks (Optional)
+
+| Environment | STRIPE_WEBHOOK_SECRET |
+|-------------|----------------------|
+| Local (CLI) | `whsec_...` (from Stripe CLI) |
+| Development | `whsec_test_...` |
+| Production | `whsec_live_...` |
+
+## Components & Endpoints
+
+| Component/Endpoint | Required Variables | Purpose |
+|-------------------|-------------------|---------|
+| `PaymentButtons` | `NEXT_PUBLIC_*_PAYMENT_LINK` | Buttons linking to Stripe Payment Links |
 | `/api/stripe-webhook` | `STRIPE_WEBHOOK_SECRET` | Handle Stripe webhook events |
