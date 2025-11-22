@@ -1,8 +1,29 @@
 # Stripe Environment Variables Setup
 
-This document describes all environment variables required for the Stripe webhook integration.
+This document describes all environment variables required for Stripe integration, including the Tip Jar checkout and webhook handling.
 
 ## Required Variables
+
+### STRIPE_SECRET_KEY
+
+The Stripe secret API key. **Required** for creating Checkout Sessions (Tip Jar) and making Stripe API calls.
+
+| Property | Value |
+|----------|-------|
+| Required | **Yes** (for Tip Jar / Checkout) |
+| Format | `sk_test_...` or `sk_live_...` |
+| Where to find | Stripe Dashboard > Developers > API keys |
+| Used by | `/api/create-tip-checkout` |
+
+**Test Mode:**
+```
+STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxx
+```
+
+**Live Mode:**
+```
+STRIPE_SECRET_KEY=sk_live_xxxxxxxxxxxxx
+```
 
 ### STRIPE_WEBHOOK_SECRET
 
@@ -10,9 +31,10 @@ The webhook signing secret used to verify that webhook requests come from Stripe
 
 | Property | Value |
 |----------|-------|
-| Required | Yes |
+| Required | Yes (for webhooks) |
 | Format | `whsec_...` |
 | Where to find | Stripe Dashboard > Webhooks > Endpoint > Signing secret |
+| Used by | `/api/stripe-webhook` |
 
 **Test Mode:**
 ```
@@ -31,35 +53,30 @@ stripe listen --forward-to localhost:3000/api/stripe-webhook
 # Output: Your webhook signing secret is whsec_xxxxx
 ```
 
-### STRIPE_SECRET_KEY (Optional)
+## Optional Variables
 
-The Stripe secret API key. Only required if your webhook handlers need to make API calls back to Stripe.
+### NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+
+The Stripe publishable key for client-side Stripe.js. Only needed if you implement client-side Stripe Elements or embedded checkout.
 
 | Property | Value |
 |----------|-------|
-| Required | No (only if making Stripe API calls) |
-| Format | `sk_test_...` or `sk_live_...` |
+| Required | No (only for Stripe.js / Elements) |
+| Format | `pk_test_...` or `pk_live_...` |
 | Where to find | Stripe Dashboard > Developers > API keys |
+| Client-accessible | Yes (NEXT_PUBLIC_ prefix) |
 
 **Test Mode:**
 ```
-STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxx
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxx
 ```
 
 **Live Mode:**
 ```
-STRIPE_SECRET_KEY=sk_live_xxxxxxxxxxxxx
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_xxxxxxxxxxxxx
 ```
 
-### STRIPE_PUBLISHABLE_KEY (Optional)
-
-The Stripe publishable key for client-side Stripe.js. Only needed if you have a frontend checkout.
-
-| Property | Value |
-|----------|-------|
-| Required | No (only for frontend checkout) |
-| Format | `pk_test_...` or `pk_live_...` |
-| Where to find | Stripe Dashboard > Developers > API keys |
+> **Note:** The Tip Jar currently uses Stripe Checkout (redirect), so the publishable key is not required. It would be needed for embedded checkout or Stripe Elements.
 
 ## Environment-Specific Configuration
 
@@ -181,10 +198,14 @@ The Doppler-Vercel integration automatically syncs secrets:
 
 ```bash
 # Local (with Doppler)
+doppler run -- node -e "console.log('Secret key exists:', !!process.env.STRIPE_SECRET_KEY)"
 doppler run -- node -e "console.log('Webhook secret exists:', !!process.env.STRIPE_WEBHOOK_SECRET)"
 
-# Or check the health endpoint
+# Check the health endpoints
 curl http://localhost:3000/api/stripe-webhook
+# Should show: "configured": true
+
+curl http://localhost:3000/api/create-tip-checkout
 # Should show: "configured": true
 ```
 
@@ -193,9 +214,23 @@ curl http://localhost:3000/api/stripe-webhook
 1. Go to Vercel Dashboard
 2. Select project "david-ortiz-portfolio"
 3. Settings > Environment Variables
-4. Verify STRIPE_WEBHOOK_SECRET is set for correct environments
+4. Verify both keys are set for correct environments:
+   - `STRIPE_SECRET_KEY` (required for Tip Jar)
+   - `STRIPE_WEBHOOK_SECRET` (required for webhooks)
 
 ## Troubleshooting
+
+### "Payment processing is not available" error (Tip Jar)
+
+The `STRIPE_SECRET_KEY` environment variable is missing.
+
+```bash
+# Check if set
+doppler secrets get STRIPE_SECRET_KEY
+
+# If not set, add it
+doppler secrets set STRIPE_SECRET_KEY="sk_test_xxx"
+```
 
 ### "Webhook not configured" error
 
@@ -235,9 +270,16 @@ vercel --prod
 
 ## Quick Reference
 
-| Environment | Webhook Secret Format | API Key Format |
-|-------------|----------------------|----------------|
-| Local (CLI) | `whsec_...` (from CLI) | `sk_test_...` |
-| Development | `whsec_test_...` | `sk_test_...` |
-| Staging | `whsec_test_...` | `sk_test_...` |
-| Production | `whsec_live_...` | `sk_live_...` |
+| Environment | STRIPE_SECRET_KEY | STRIPE_WEBHOOK_SECRET | NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY |
+|-------------|-------------------|----------------------|-----------------------------------|
+| Local (CLI) | `sk_test_...` | `whsec_...` (from CLI) | `pk_test_...` (optional) |
+| Development | `sk_test_...` | `whsec_test_...` | `pk_test_...` (optional) |
+| Staging | `sk_test_...` | `whsec_test_...` | `pk_test_...` (optional) |
+| Production | `sk_live_...` | `whsec_live_...` | `pk_live_...` (optional) |
+
+## API Endpoints
+
+| Endpoint | Required Variables | Purpose |
+|----------|-------------------|---------|
+| `/api/create-tip-checkout` | `STRIPE_SECRET_KEY` | Create Checkout Sessions for tips |
+| `/api/stripe-webhook` | `STRIPE_WEBHOOK_SECRET` | Handle Stripe webhook events |
