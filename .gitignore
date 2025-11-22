@@ -64,6 +64,7 @@ Thumbs.db
 dist/
 build/
 .next/
+*.tsbuildinfo
 
 # Documentation/log artifacts
 lighthouse-*.json

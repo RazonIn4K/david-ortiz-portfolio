@@ -3,8 +3,11 @@ import { showcaseProjects } from '@/data/content';
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="bg-grid-light bg-[length:20px_20px] py-20">
-      <div className="mx-auto max-w-6xl px-4">
+    <section id="projects" className="bg-grid-light bg-[length:20px_20px] py-20 relative overflow-hidden">
+       {/* Background glow */}
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-teal/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="mx-auto max-w-6xl px-4 relative z-10">
         <div className="flex flex-col gap-3 text-center">
           <p className="text-sm uppercase tracking-[0.3em] text-ink/60">Design Systems</p>
           <h2 className="text-3xl font-semibold text-ink">Website projects you can preview live</h2>
