@@ -19,8 +19,12 @@ const config: Config = {
           600: '#0d9488'
         },
         cyan: {
+<<<<<<< HEAD
+          400: '#22d3ee'
+=======
           400: '#22d3ee',
           300: '#67e8f9'
+>>>>>>> origin/main
         },
         navy: {
           DEFAULT: '#0a1929',
@@ -29,8 +33,12 @@ const config: Config = {
       },
       backgroundImage: {
         'grid-light': 'radial-gradient(circle at 1px 1px, rgba(79, 70, 229, 0.2) 1px, transparent 0)',
+<<<<<<< HEAD
+        'gradient-teal': 'linear-gradient(to right, #2dd4bf, #22d3ee)'
+=======
         'gradient-teal': 'linear-gradient(to right, #2dd4bf, #22d3ee)',
         'gradient-cyan': 'linear-gradient(to right, #67e8f9, #14b8a6)'
+>>>>>>> origin/main
       },
       backdropBlur: {
         xs: '2px'
