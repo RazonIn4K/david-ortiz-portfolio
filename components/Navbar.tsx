@@ -9,6 +9,7 @@ const navItems = [
   { href: '#projects', label: 'Projects' },
   { href: '/work-with-me', label: 'Work With Me' },
   { href: '/case-studies', label: 'Case Studies' },
+  { href: '/support', label: 'Support' },
   { href: '#contact', label: 'Contact' }
 ];
 
