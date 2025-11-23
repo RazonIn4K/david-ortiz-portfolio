@@ -119,6 +119,18 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
+    title: 'Keap → GoHighLevel Migration',
+    problem: 'Membership entrepreneur stuck with fragmented operations across Keap, manual spreadsheets, and 400+ disorganized tags blocking reliable segmentation for monthly launches.',
+    solution:
+      'Full platform migration with campaign rebuilds, tagging taxonomy cleanup, smart list reconstruction, newsletter migration with improved deliverability, and social automation setup.',
+    results: 'Unified to 1 platform, reduced tags by 60%, cut launch prep from 2 days to 4 hours, boosted open rates 15%, and established scalable automations.',
+    stack: ['GoHighLevel', 'Keap', 'Email Marketing', 'CRM Migration', 'Automation'],
+    links: [
+      { label: 'Full Case Study', href: '/case-studies/keap-ghl-migration' },
+      { label: 'Book a Call', href: 'https://calendly.com/davidinfosec07' }
+    ]
+  },
+  {
     title: 'Driver Scoring System',
     problem: 'Safety team manually reviewed Typeform submissions, delaying renewals and missing risky drivers.',
     solution:
