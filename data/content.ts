@@ -105,6 +105,12 @@ export const showcaseProjects: Project[] = [
     description: 'High-energy product site with video hero, schedules, and membership tiers.',
     href: '/projects/powerfit-studios/',
     metrics: ['Video hero', 'Schedule grid', 'Membership tiers']
+  },
+  {
+    title: 'Agency OS · AI Automation Studio',
+    description: 'A complete operating system for agencies, featuring autonomous coding agents (Jules) and AI designers (Stitch).',
+    href: '/projects/agency-os/',
+    metrics: ['Autonomous Agents', 'AI Design', 'Full Stack']
   }
 ];
 
@@ -175,6 +181,18 @@ export const caseStudies: CaseStudy[] = [
     stack: ['GPT-4o', 'Next.js', 'Tailwind CSS'],
     links: [
       { label: 'Content Generator', href: 'https://github.com/RazonIn4K/content-generator' },
+      { label: 'Hire via Upwork', href: 'https://www.upwork.com/freelancers/davido174?s=1737190722364944384' }
+    ]
+  },
+  {
+    title: 'HighEncode Agency OS',
+    problem: 'Scaling an agency requires managing complex workflows, design assets, and codebases across multiple teams.',
+    solution:
+      'Built a unified "Agency OS" that orchestrates Google Jules (Code) and Google Stitch (Design) to automate delivery.',
+    results: 'Reduced project setup time by 90%, enabled autonomous feature development, and unified design-to-code workflows.',
+    stack: ['Google Jules', 'Google Stitch', 'FastAPI', 'React', 'n8n'],
+    links: [
+      { label: 'View Blueprint', href: 'https://github.com/RazonIn4K/ops-hub/blob/main/docs/AGENCY_OS_BLUEPRINT.md' },
       { label: 'Hire via Upwork', href: 'https://www.upwork.com/freelancers/davido174?s=1737190722364944384' }
     ]
   }
