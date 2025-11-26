@@ -16,7 +16,9 @@ export function AIAssistant() {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length > 0 || loading) {
+      scrollToBottom();
+    }
   }, [messages, loading]);
 
   async function handleSubmit(e: React.FormEvent) {
