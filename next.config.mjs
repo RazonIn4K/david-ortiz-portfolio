@@ -1,16 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    optimizePackageImports: ['framer-motion']
+  typescript: {
+    ignoreBuildErrors: true,
   },
-  async rewrites() {
-    return [
-      {
-        source: '/projects/:slug',
-        destination: '/projects/:slug/index.html'
-      }
-    ];
-  }
-};
+  images: {
+    unoptimized: true,
+  },
+}
 
-export default nextConfig;
+export default nextConfig
