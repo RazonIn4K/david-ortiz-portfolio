@@ -1,26 +1,50 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @media (prefers-color-scheme: light) {
-      .background { fill: black; }
-      .foreground { fill: white; }
-    }
-    @media (prefers-color-scheme: dark) {
-      .background { fill: white; }
-      .foreground { fill: black; }
-    }
-  </style>
-  <g clip-path="url(#clip0_7960_43945)">
-    <rect class="background" width="180" height="180" rx="37" />
-    <g style="transform: scale(95%); transform-origin: center">
-      <path class="foreground"
-        d="M101.141 53H136.632C151.023 53 162.689 64.6662 162.689 79.0573V112.904H148.112V79.0573C148.112 78.7105 148.098 78.3662 148.072 78.0251L112.581 112.898C112.701 112.902 112.821 112.904 112.941 112.904H148.112V126.672H112.941C98.5504 126.672 86.5638 114.891 86.5638 100.5V66.7434H101.141V100.5C101.141 101.15 101.191 101.792 101.289 102.422L137.56 66.7816C137.255 66.7563 136.945 66.7434 136.632 66.7434H101.141V53Z" />
-      <path class="foreground"
-        d="M65.2926 124.136L14 66.7372H34.6355L64.7495 100.436V66.7372H80.1365V118.47C80.1365 126.278 70.4953 129.958 65.2926 124.136Z" />
-    </g>
+  <!-- Neural Brain Logo for csbrain - David Ortiz AI Automation Studio -->
+  <g transform="translate(90, 85)">
+    <!-- Brain outline connections -->
+    <!-- Top arc -->
+    <line x1="-45" y1="-30" x2="-20" y2="-45" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-20" y1="-45" x2="15" y2="-45" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="15" y1="-45" x2="40" y2="-30" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Right side -->
+    <line x1="40" y1="-30" x2="50" y2="0" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="50" y1="0" x2="40" y2="25" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Bottom -->
+    <line x1="40" y1="25" x2="10" y2="35" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="10" y1="35" x2="-25" y2="25" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Left side -->
+    <line x1="-25" y1="25" x2="-45" y2="0" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-45" y1="0" x2="-45" y2="-30" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Internal connections -->
+    <line x1="-20" y1="-45" x2="-20" y2="-10" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="15" y1="-45" x2="15" y2="-10" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-45" y1="0" x2="-20" y2="-10" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-20" y1="-10" x2="15" y2="-10" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="15" y1="-10" x2="50" y2="0" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-20" y1="-10" x2="-25" y2="25" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="15" y1="-10" x2="40" y2="25" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Brain stem -->
+    <line x1="10" y1="35" x2="25" y2="55" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="25" y1="55" x2="35" y2="70" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Node circles -->
+    <circle cx="-45" cy="-30" r="10" fill="#0D9488"/>
+    <circle cx="-20" cy="-45" r="10" fill="#0D9488"/>
+    <circle cx="15" cy="-45" r="10" fill="#0D9488"/>
+    <circle cx="40" cy="-30" r="10" fill="#0D9488"/>
+    <circle cx="50" cy="0" r="10" fill="#0D9488"/>
+    <circle cx="40" cy="25" r="10" fill="#0D9488"/>
+    <circle cx="10" cy="35" r="8" fill="#0D9488"/>
+    <circle cx="-25" cy="25" r="10" fill="#0D9488"/>
+    <circle cx="-45" cy="0" r="10" fill="#0D9488"/>
+    <circle cx="-20" cy="-10" r="8" fill="#0D9488"/>
+    <circle cx="15" cy="-10" r="8" fill="#0D9488"/>
+    <circle cx="25" cy="55" r="7" fill="#0D9488"/>
+    <circle cx="35" cy="70" r="6" fill="#0D9488"/>
   </g>
-  <defs>
-    <clipPath id="clip0_7960_43945">
-      <rect width="180" height="180" fill="white" />
-    </clipPath>
-  </defs>
 </svg>
