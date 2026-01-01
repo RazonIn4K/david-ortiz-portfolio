@@ -1,15 +1,13 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Home, Zap, FolderOpen, User, MessageCircle, GraduationCap, ExternalLink } from "lucide-react"
+import { Home, Zap, MessageCircle, GraduationCap } from "lucide-react"
 import { useState } from "react"
 
 const dockItems = [
   { icon: Home, label: "Home", href: "#" },
   { icon: Zap, label: "Services", href: "#services" },
-  { icon: FolderOpen, label: "Case Studies", href: "#cases" },
-  { icon: GraduationCap, label: "Learning", href: "https://highencodelearning.com", external: true },
-  { icon: User, label: "About", href: "#about" },
+  { icon: GraduationCap, label: "Learning", href: "#learning" },
   { icon: MessageCircle, label: "Contact", href: "#contact" },
 ]
 
@@ -35,8 +33,6 @@ export function FloatingDock() {
             <motion.a
               key={i}
               href={item.href}
-              target={item.external ? "_blank" : undefined}
-              rel={item.external ? "noopener noreferrer" : undefined}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               animate={{ scale, y }}
@@ -44,9 +40,6 @@ export function FloatingDock() {
               className="relative p-3 rounded-xl hover:bg-white/10 transition-colors group"
             >
               <item.icon className="w-5 h-5 text-white/70 group-hover:text-[#2dd4bf] transition-colors" />
-
-              {/* External indicator */}
-              {item.external && <ExternalLink className="absolute top-1 right-1 w-2.5 h-2.5 text-white/30" />}
 
               {/* Tooltip */}
               <motion.div
