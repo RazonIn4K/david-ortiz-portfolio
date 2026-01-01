@@ -36,7 +36,7 @@
 
 - [ ] `npm run lint`
 - [ ] `npm run build`
-- [ ] Manual smoke test on key pages (`/`, `/work-with-me`, `/case-studies`, `/design-system`)
+- [ ] Manual smoke test on key pages (`/`, `/design-system`)
 
 ### Content & Links (if applicable)
 
