@@ -48,7 +48,7 @@ export default function HomePage() {
             transition={{ delay: 0.2 }}
             className="hidden lg:flex items-center gap-8"
           >
-            {["Services", "Case Studies", "Learning", "About"].map((item) => (
+            {["Services", "Learning", "Contact"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase().replace(" ", "-")}`}
@@ -135,11 +135,11 @@ export default function HomePage() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
-                  href="#cases"
+                  href="#services"
                   className="flex items-center gap-2 px-8 py-4 rounded-2xl glass border border-white/10 font-medium hover:border-white/30 transition-colors"
                 >
                   <Play className="w-4 h-4" />
-                  View case studies
+                  View services
                 </a>
               </motion.div>
             </div>
@@ -305,7 +305,7 @@ export default function HomePage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://calendly.com"
+                href="https://calendly.com/davidinfosec07"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-semibold hover:shadow-xl hover:shadow-[#ff6b6b]/20 transition-all"
@@ -338,18 +338,18 @@ export default function HomePage() {
           </div>
 
           <div className="flex items-center gap-6 text-sm text-white/40">
-            <a href="https://twitter.com" className="hover:text-white transition-colors">
-              Twitter
+            <a href="https://www.fiverr.com/davido174" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
+              Fiverr
             </a>
-            <a href="https://linkedin.com" className="hover:text-white transition-colors">
-              LinkedIn
+            <a href="https://www.upwork.com/freelancers/davido174" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
+              Upwork
             </a>
-            <a href="https://github.com" className="hover:text-white transition-colors">
+            <a href="https://github.com/RazonIn4K" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
           </div>
 
-          <p className="text-sm text-white/30">© 2025 David Ortiz. All rights reserved.</p>
+          <p className="text-sm text-white/30">© {new Date().getFullYear()} David Ortiz. All rights reserved.</p>
         </div>
       </footer>
 

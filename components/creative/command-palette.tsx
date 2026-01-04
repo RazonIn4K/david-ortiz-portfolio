@@ -60,6 +60,17 @@ export function CommandPalette() {
   const [search, setSearch] = useState("")
   const [selectedIndex, setSelectedIndex] = useState(0)
 
+  const filteredSites = sites.filter(
+    (site) =>
+      site.name.toLowerCase().includes(search.toLowerCase()) ||
+      site.description.toLowerCase().includes(search.toLowerCase()),
+  )
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+    setSelectedIndex(0) // Reset selection when search changes
+  }
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -69,17 +80,17 @@ export function CommandPalette() {
       if (e.key === "Escape") {
         setIsOpen(false)
       }
-      if (isOpen) {
+      if (isOpen && filteredSites.length > 0) {
         if (e.key === "ArrowDown") {
           e.preventDefault()
-          setSelectedIndex((prev) => (prev + 1) % sites.length)
+          setSelectedIndex((prev) => (prev + 1) % filteredSites.length)
         }
         if (e.key === "ArrowUp") {
           e.preventDefault()
-          setSelectedIndex((prev) => (prev - 1 + sites.length) % sites.length)
+          setSelectedIndex((prev) => (prev - 1 + filteredSites.length) % filteredSites.length)
         }
         if (e.key === "Enter") {
-          window.open(sites[selectedIndex].url, "_blank")
+          window.open(filteredSites[selectedIndex].url, "_blank")
           setIsOpen(false)
         }
       }
@@ -87,13 +98,7 @@ export function CommandPalette() {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isOpen, selectedIndex])
-
-  const filteredSites = sites.filter(
-    (site) =>
-      site.name.toLowerCase().includes(search.toLowerCase()) ||
-      site.description.toLowerCase().includes(search.toLowerCase()),
-  )
+  }, [isOpen, selectedIndex, filteredSites])
 
   return (
     <>
@@ -140,7 +145,7 @@ export function CommandPalette() {
                     type="text"
                     placeholder="Search ecosystem..."
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={handleSearchChange}
                     className="flex-1 bg-transparent text-white placeholder:text-white/30 outline-none text-lg"
                     autoFocus
                   />

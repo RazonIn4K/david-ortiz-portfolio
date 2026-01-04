@@ -22,11 +22,23 @@ const siteKeys: SiteKey[] = ["csLearning", "highEncode", "csBrainAI", "promptDef
 
 function ColorSwatch({ color, name, hex }: { color: string; name: string; hex: string }) {
   const [copied, setCopied] = React.useState(false)
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+
+  React.useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
 
   const copyHex = () => {
     navigator.clipboard.writeText(hex)
     setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    timeoutRef.current = setTimeout(() => setCopied(false), 2000)
   }
 
   return (

@@ -23,7 +23,6 @@ export function DSBadge({
   ...props
 }: DSBadgeProps) {
   const config = siteConfigs[site]
-  const isDark = config.theme === "dark"
 
   const sizeClasses = {
     sm: "px-2 py-0.5 text-xs",

@@ -53,6 +53,8 @@ export function ParticleField() {
     }
     window.addEventListener("mousemove", handleMouseMove)
 
+    let animationFrameId: number
+
     const animate = () => {
       ctx.fillStyle = "rgba(10, 14, 26, 0.1)"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -98,11 +100,12 @@ export function ParticleField() {
         })
       })
 
-      requestAnimationFrame(animate)
+      animationFrameId = requestAnimationFrame(animate)
     }
     animate()
 
     return () => {
+      cancelAnimationFrame(animationFrameId)
       window.removeEventListener("resize", resizeCanvas)
       window.removeEventListener("mousemove", handleMouseMove)
     }

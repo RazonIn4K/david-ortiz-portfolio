@@ -146,14 +146,6 @@ vercel certs issue cs-learning.me www.cs-learning.me
 - @ → 76.76.21.21 (A record)
 - www → cname.vercel-dns-017.com (CNAME)
 
-## CI/CD
-
-GitHub Actions workflows in `.github/workflows/`:
-- `check-project-routes.yml` - Hourly cron to verify `/projects/*` demos return HTTP 200
-- `ci.yml` - Standard CI checks
-- `codeql.yml` - Security scanning
-- `security-scan.yml` - Additional security audits
-
 ## Path Aliases
 
 TypeScript `baseUrl: "."` with `@/*` mapping to root:
