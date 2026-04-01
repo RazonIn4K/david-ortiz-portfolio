@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight, Sparkles, Play, ChevronDown } from "lucide-react"
-import Link from "next/link"
 
 import { AIAssistant } from "@/components/ui-creative/ai-assistant"
 import { HexGridBackground } from "@/components/ui-creative/hex-grid-bg"
@@ -58,13 +57,6 @@ export default function HomePage() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] group-hover:w-full transition-all duration-300" />
               </a>
             ))}
-            <Link
-              href="/design-system"
-              className="text-sm text-[#2dd4bf] hover:text-white transition-colors relative group"
-            >
-              Design System
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] group-hover:w-full transition-all duration-300" />
-            </Link>
           </motion.div>
 
           <motion.div
@@ -116,9 +108,9 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
                 className="text-lg md:text-xl text-white/50 mb-10 max-w-lg leading-relaxed"
               >
-                Build intelligent workflows with <span className="text-white/80">Typeform</span>,{" "}
-                <span className="text-white/80">Zapier</span>, <span className="text-white/80">Notion</span>, and{" "}
-                <span className="text-white/80">GPT-4o</span> — plus scraping pipelines and AI security guardrails.
+                Build production AI workflows with <span className="text-white/80">n8n</span>,{" "}
+                <span className="text-white/80">Claude API</span>, and{" "}
+                <span className="text-white/80">Microsoft Graph</span> — plus MCP server development and AI security auditing.
               </motion.p>
 
               <motion.div
@@ -221,7 +213,7 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
                 className="flex flex-wrap gap-3"
               >
-                {["Typeform", "Zapier", "Notion", "GPT-4o", "Security"].map((tool) => (
+                {["n8n", "Claude API", "Microsoft Graph", "MCP Server", "Security"].map((tool) => (
                   <span key={tool} className="px-4 py-2 rounded-full glass text-sm text-white/70">
                     {tool}
                   </span>

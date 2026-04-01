@@ -13,7 +13,7 @@ interface Stat {
 const stats: Stat[] = [
   { value: 50, suffix: "+", label: "Automations Built", color: "#2dd4bf" },
   { value: 1200, suffix: "+", label: "Hours Saved", color: "#22d3ee" },
-  { value: 98, suffix: "%", label: "Client Satisfaction", color: "#a78bfa" },
+  { value: 100, suffix: "%", label: "Client Satisfaction", color: "#a78bfa" },
   { value: 24, suffix: "/7", label: "AI Support", color: "#ff6b6b" },
 ]
 

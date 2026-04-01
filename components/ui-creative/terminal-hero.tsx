@@ -5,16 +5,16 @@ import { motion } from "framer-motion"
 
 const codeLines = [
   { text: "// Initializing AI Automation Pipeline...", color: "#6b7280" },
-  { text: "import { typeform, zapier, notion, gpt4 } from '@automation';", color: "#22d3ee" },
+  { text: "import { n8n, claudeAPI, msGraph } from '@automation';", color: "#22d3ee" },
   { text: "", color: "" },
   { text: "const pipeline = await createPipeline({", color: "#f8f8f2" },
-  { text: "  source: typeform.onSubmit('lead-capture'),", color: "#a78bfa" },
-  { text: "  enrich: gpt4.analyze({ context: 'lead-scoring' }),", color: "#a78bfa" },
-  { text: "  destination: notion.addToDatabase('Leads'),", color: "#a78bfa" },
-  { text: "  notify: slack.send('#sales-team')", color: "#a78bfa" },
+  { text: "  trigger: msGraph.outlook.onNewEmail(),", color: "#a78bfa" },
+  { text: "  classify: claudeAPI.batch({ model: 'claude-sonnet-4-6' }),", color: "#a78bfa" },
+  { text: "  route: n8n.workflow('broker-triage'),", color: "#a78bfa" },
+  { text: "  update: msGraph.excel.appendRow('MASTER Tracker'),", color: "#a78bfa" },
   { text: "});", color: "#f8f8f2" },
   { text: "", color: "" },
-  { text: "// 🚀 Pipeline active — saving 12hrs/week", color: "#2dd4bf" },
+  { text: "// 🚀 Pipeline active — processing 805 brokers/day", color: "#2dd4bf" },
 ]
 
 export function TerminalHero() {
