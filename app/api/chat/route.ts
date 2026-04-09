@@ -12,7 +12,7 @@ const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (
 - Do not present it like a course platform or education business
 
 ## Ecosystem Sites:
-- **High Encode Learning** (highencodelearning.com) - The business-facing site for services, demos, project scoping, and client work
+- **High Encode Learning** (highencodelearning.com) - The business-facing site for services, demos, project scoping, and business work
 - **CSBrainAI** (csbrainai.com) - Retrieval and explanation experiments for technical knowledge
 - **Prompt Defenders** (promptdefenders.com) - AI security testing and prompt-safety work
 
@@ -104,7 +104,7 @@ function getFallbackResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase()
 
   if (lowerMessage.includes("hire") || lowerMessage.includes("project") || lowerMessage.includes("service") || lowerMessage.includes("work")) {
-    return "For business services, scoped work, and client conversations, use High Encode Learning: https://highencodelearning.com. This site is the personal notebook layer."
+    return "For business services, scoped work, and business conversations, use High Encode Learning: https://highencodelearning.com. This site is the personal notebook layer."
   }
 
   if (lowerMessage.includes("learn") || lowerMessage.includes("building") || lowerMessage.includes("studying")) {

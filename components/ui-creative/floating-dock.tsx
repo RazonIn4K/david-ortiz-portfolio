@@ -12,7 +12,7 @@ interface DockItem {
 
 const dockItems: DockItem[] = [
   { icon: Home, label: "Home", href: "#" },
-  { icon: Zap, label: "Focus", href: "#services" },
+  { icon: Zap, label: "Focus", href: "#focus" },
   { icon: BookOpen, label: "Learning", href: "#learning" },
   { icon: MessageCircle, label: "Business", href: "#contact" },
 ]

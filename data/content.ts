@@ -127,7 +127,7 @@ export const caseStudies: CaseStudy[] = [
     solution:
       'Stand up OAuth, connect the MCC and client account, test read paths, and document what the tool can really do versus what still needs custom workflow design.',
     results:
-      'The result was a real operator-layer demo instead of a theoretical pitch, along with clearer scope boundaries for future client work.',
+      'The result was a real operator-layer demo instead of a theoretical pitch, along with clearer scope boundaries for future delivery work.',
     stack: ['AdLoop', 'Google Ads API', 'GA4', 'MCP', 'Claude workflows'],
     links: [
       { label: 'High Encode Learning', href: 'https://highencodelearning.com' },

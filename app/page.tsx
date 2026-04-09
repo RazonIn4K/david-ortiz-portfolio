@@ -51,7 +51,7 @@ export default function HomePage() {
             {["Focus", "Learning", "Business"].map((item) => (
               <a
                 key={item}
-                href={item === "Focus" ? "#services" : item === "Business" ? "#contact" : "#learning"}
+                href={item === "Focus" ? "#focus" : item === "Business" ? "#contact" : "#learning"}
                 className="text-sm text-white/50 hover:text-white transition-colors relative group"
               >
                 {item}
@@ -244,8 +244,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="relative z-10 py-24 px-6">
+      {/* Focus Section */}
+      <section id="focus" className="relative z-10 py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
