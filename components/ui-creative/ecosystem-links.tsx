@@ -1,24 +1,32 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ExternalLink, Sparkles, GraduationCap, Shield, Brain } from "lucide-react"
+import { ExternalLink, Sparkles, Briefcase, Shield, Brain, NotebookPen } from "lucide-react"
 
 const ecosystemItems = [
   {
+    name: "cs-learning.me",
+    description: "Personal notes, experiments, and learning-in-public",
+    icon: NotebookPen,
+    url: "https://cs-learning.me",
+    gradient: "from-teal-500 to-cyan-600",
+    features: ["Personal Voice", "Build Logs", "Abstraction Notes"],
+  },
+  {
     name: "High Encode Learning",
-    description: "CS & Cybersecurity Education",
-    icon: GraduationCap,
+    description: "Business-facing demos, scoping, and implementation notes",
+    icon: Briefcase,
     url: "https://highencodelearning.com",
     gradient: "from-blue-500 to-indigo-600",
-    features: ["Structured Curriculum", "Live Cohorts", "AI Tools"],
+    features: ["Services", "Demos", "Scoped work"],
   },
   {
     name: "CSBrainAI",
-    description: "AI Learning Companion",
+    description: "Retrieval and explanation experiments",
     icon: Brain,
     url: "https://csbrain.ai",
     gradient: "from-purple-500 to-pink-500",
-    features: ["Personalized Learning", "Concept Explanations", "Practice Problems"],
+    features: ["Grounded answers", "Knowledge interfaces", "Explanation quality"],
   },
   {
     name: "Prompt Defenders",
@@ -26,13 +34,13 @@ const ecosystemItems = [
     icon: Shield,
     url: "https://prompt-defenders.com",
     gradient: "from-orange-500 to-red-500",
-    features: ["Prompt Injection", "Security Audits", "LLM Testing"],
+    features: ["Prompt injection", "Safety tests", "LLM behavior"],
   },
 ]
 
 export function EcosystemLinks() {
   return (
-    <div className="grid md:grid-cols-3 gap-6">
+    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
       {ecosystemItems.map((item, i) => (
         <motion.a
           key={i}

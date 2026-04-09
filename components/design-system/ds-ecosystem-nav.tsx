@@ -15,26 +15,26 @@ const ecosystemSites = [
   {
     key: "csLearning" as SiteKey,
     icon: Sparkles,
-    label: "Consulting",
-    description: "AI Automation Services",
+    label: "Personal Notes",
+    description: "Experiments and learning in public",
   },
   {
     key: "highEncode" as SiteKey,
     icon: BookOpen,
-    label: "Learning",
-    description: "CS & Cybersecurity Education",
+    label: "Business Site",
+    description: "Services, demos, and scoped work",
   },
   {
     key: "csBrainAI" as SiteKey,
     icon: Brain,
     label: "CSBrain AI",
-    description: "AI Learning Assistant",
+    description: "Retrieval and explanation experiments",
   },
   {
     key: "promptDefenders" as SiteKey,
     icon: Shield,
     label: "Prompt Defenders",
-    description: "Security Testing",
+    description: "Prompt-safety testing",
   },
 ]
 

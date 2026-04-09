@@ -4,17 +4,17 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 const codeLines = [
-  { text: "// Initializing AI Automation Pipeline...", color: "#6b7280" },
-  { text: "import { n8n, claudeAPI, msGraph } from '@automation';", color: "#22d3ee" },
+  { text: "// Mapping the layers behind a web page...", color: "#6b7280" },
+  { text: "import { browser, frontend, api, infra } from '@system';", color: "#22d3ee" },
   { text: "", color: "" },
-  { text: "const pipeline = await createPipeline({", color: "#f8f8f2" },
-  { text: "  trigger: msGraph.outlook.onNewEmail(),", color: "#a78bfa" },
-  { text: "  classify: claudeAPI.batch({ model: 'claude-sonnet-4-6' }),", color: "#a78bfa" },
-  { text: "  route: n8n.workflow('broker-triage'),", color: "#a78bfa" },
-  { text: "  update: msGraph.excel.appendRow('MASTER Tracker'),", color: "#a78bfa" },
+  { text: "const system = traceAbstractions({", color: "#f8f8f2" },
+  { text: "  browser: browser.inspect({ media: 'buffering' }),", color: "#a78bfa" },
+  { text: "  frontend: frontend.review({ focus: 'trust + copy' }),", color: "#a78bfa" },
+  { text: "  backend: api.check({ auth: 'permissions' }),", color: "#a78bfa" },
+  { text: "  business: infra.note({ domains: ['personal', 'business'] })", color: "#a78bfa" },
   { text: "});", color: "#f8f8f2" },
   { text: "", color: "" },
-  { text: "// 🚀 Pipeline active — processing 805 brokers/day", color: "#2dd4bf" },
+  { text: "// Notes ready — explain the system without flattening the layers", color: "#2dd4bf" },
 ]
 
 export function TerminalHero() {
@@ -58,7 +58,7 @@ export function TerminalHero() {
             <div className="w-3 h-3 rounded-full bg-[#feca57]" />
             <div className="w-3 h-3 rounded-full bg-[#2dd4bf]" />
           </div>
-          <span className="text-xs text-white/30 ml-2 terminal-text">automation.ts</span>
+          <span className="text-xs text-white/30 ml-2 terminal-text">layers.ts</span>
           <div className="ml-auto flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2dd4bf] opacity-75" />

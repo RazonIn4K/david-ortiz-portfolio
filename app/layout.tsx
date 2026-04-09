@@ -14,25 +14,24 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = "https://cs-learning.me";
-const siteTitle = "David Ortiz | AI Automation Studio";
+const siteTitle = "David Ortiz | Personal notes on AI systems and abstraction layers";
 const siteDescription =
-  "AI automation studio building n8n/Make workflows, custom RAG chatbots, SaaS security audits, and AI video/UGC.";
+  "Personal site for experiments, notes, demos, and learning-in-public across automation, web systems, AI tooling, and abstraction layers.";
 
 export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
   keywords: [
-    "AI automation",
-    "n8n",
-    "Make",
-    "chatbots",
-    "RAG",
-    "security audits",
-    "workflow automation",
-    "AI video",
-    "UGC",
+    "abstraction layers",
+    "browser behavior",
+    "frontend and backend",
+    "web systems",
+    "ai tooling notes",
+    "learning in public",
+    "system design",
+    "automation experiments",
   ],
-  applicationName: "David Ortiz AI Automation Studio",
+  applicationName: "David Ortiz Personal Site",
   creator: "David Ortiz",
   authors: [{ name: "David Ortiz", url: siteUrl }],
   metadataBase: new URL(siteUrl),
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     url: siteUrl,
-    siteName: "David Ortiz AI Automation Studio",
+    siteName: "David Ortiz Personal Site",
     type: "website",
   },
   twitter: {
