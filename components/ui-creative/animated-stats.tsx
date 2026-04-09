@@ -4,50 +4,17 @@ import { useEffect, useState, useRef } from "react"
 import { motion, useInView } from "framer-motion"
 
 interface Stat {
-  value: number
-  suffix: string
   label: string
+  detail: string
   color: string
 }
 
 const stats: Stat[] = [
-  { value: 50, suffix: "+", label: "Automations Built", color: "#2dd4bf" },
-  { value: 1200, suffix: "+", label: "Hours Saved", color: "#22d3ee" },
-  { value: 98, suffix: "%", label: "Client Satisfaction", color: "#a78bfa" },
-  { value: 24, suffix: "/7", label: "AI Support", color: "#ff6b6b" },
+  { label: "Browser runtime", detail: "Buffering, cache, media loading, rendering", color: "#2dd4bf" },
+  { label: "Frontend decisions", detail: "Routes, copy, hierarchy, accessibility", color: "#22d3ee" },
+  { label: "Backend boundaries", detail: "Auth, APIs, storage, permissions", color: "#a78bfa" },
+  { label: "Business layer", detail: "Offers, domains, trust, scoping", color: "#ff6b6b" },
 ]
-
-function AnimatedNumber({ value, suffix, inView }: { value: number; suffix: string; inView: boolean }) {
-  const [displayValue, setDisplayValue] = useState(0)
-
-  useEffect(() => {
-    if (!inView) return
-
-    const duration = 2000
-    const steps = 60
-    const increment = value / steps
-    let current = 0
-
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= value) {
-        setDisplayValue(value)
-        clearInterval(timer)
-      } else {
-        setDisplayValue(Math.floor(current))
-      }
-    }, duration / steps)
-
-    return () => clearInterval(timer)
-  }, [value, inView])
-
-  return (
-    <span>
-      {displayValue.toLocaleString()}
-      {suffix}
-    </span>
-  )
-}
 
 export function AnimatedStats() {
   const ref = useRef(null)
@@ -76,10 +43,10 @@ export function AnimatedStats() {
               style={{ backgroundColor: stat.color }}
             />
 
-            <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: stat.color }}>
-              <AnimatedNumber value={stat.value} suffix={stat.suffix} inView={isInView} />
+            <div className="text-xl md:text-2xl font-bold mb-2" style={{ color: stat.color }}>
+              {stat.label}
             </div>
-            <p className="text-white/50 text-sm">{stat.label}</p>
+            <p className="text-white/50 text-sm leading-relaxed">{stat.detail}</p>
           </div>
         </motion.div>
       ))}

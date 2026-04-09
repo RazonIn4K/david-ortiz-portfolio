@@ -1,16 +1,24 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ExternalLink, Sparkles, GraduationCap, Shield, Brain } from "lucide-react"
+import { ExternalLink, Sparkles, Briefcase, Shield, Brain, NotebookPen } from "lucide-react"
 
 const ecosystemItems = [
   {
+    name: "cs-learning.me",
+    description: "Personal notes, experiments, and learning-in-public",
+    icon: NotebookPen,
+    url: "https://cs-learning.me",
+    gradient: "from-teal-500 to-cyan-600",
+    features: ["Personal Voice", "Build Logs", "Abstraction Notes"],
+  },
+  {
     name: "High Encode Learning",
-    description: "CS & Cybersecurity Education",
-    icon: GraduationCap,
+    description: "Business-facing services & demos",
+    icon: Briefcase,
     url: "https://highencodelearning.com",
     gradient: "from-blue-500 to-indigo-600",
-    features: ["Structured Curriculum", "Live Cohorts", "AI Tools"],
+    features: ["Client Work", "Scoped Offers", "Implementation Demos"],
   },
   {
     name: "CSBrainAI",
@@ -32,7 +40,7 @@ const ecosystemItems = [
 
 export function EcosystemLinks() {
   return (
-    <div className="grid md:grid-cols-3 gap-6">
+    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
       {ecosystemItems.map((item, i) => (
         <motion.a
           key={i}

@@ -38,7 +38,7 @@ export default function HomePage() {
             </div>
             <div>
               <span className="font-semibold text-white">David Ortiz</span>
-              <p className="text-xs text-white/40">AI Automation</p>
+              <p className="text-xs text-white/40">Personal notebook</p>
             </div>
           </motion.div>
 
@@ -48,10 +48,10 @@ export default function HomePage() {
             transition={{ delay: 0.2 }}
             className="hidden lg:flex items-center gap-8"
           >
-            {["Services", "Learning", "Contact"].map((item) => (
+            {["Focus", "Learning", "Business"].map((item) => (
               <a
                 key={item}
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
+                href={item === "Focus" ? "#services" : item === "Business" ? "#contact" : "#learning"}
                 className="text-sm text-white/50 hover:text-white transition-colors relative group"
               >
                 {item}
@@ -73,10 +73,12 @@ export default function HomePage() {
             className="flex items-center gap-3"
           >
             <a
-              href="#contact"
+              href="https://highencodelearning.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-medium text-sm hover:shadow-lg hover:shadow-[#ff6b6b]/25 transition-shadow"
             >
-              Book Call
+              Business Site
               <ArrowRight className="w-4 h-4" />
             </a>
           </motion.div>
@@ -95,7 +97,7 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8"
               >
                 <Sparkles className="w-4 h-4 text-[#2dd4bf]" />
-                <span className="text-sm text-white/60">AI-Powered Automation</span>
+                <span className="text-sm text-white/60">Personal Notes + Experiments</span>
                 <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse" />
               </motion.div>
 
@@ -105,9 +107,9 @@ export default function HomePage() {
                 transition={{ delay: 0.1 }}
                 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6"
               >
-                Ship <span className="gradient-text text-glow-teal">AI automations</span>
+                Documenting <span className="gradient-text text-glow-teal">AI systems</span>
                 <br />
-                that <span className="gradient-text-warm">save hours</span>
+                and <span className="gradient-text-warm">abstraction layers</span>
               </motion.h1>
 
               <motion.p
@@ -116,9 +118,9 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
                 className="text-lg md:text-xl text-white/50 mb-10 max-w-lg leading-relaxed"
               >
-                Build intelligent workflows with <span className="text-white/80">Typeform</span>,{" "}
-                <span className="text-white/80">Zapier</span>, <span className="text-white/80">Notion</span>, and{" "}
-                <span className="text-white/80">GPT-4o</span> — plus scraping pipelines and AI security guardrails.
+                This is the personal side of my ecosystem: build logs, experiments, demos, and notes on how browsers,
+                apps, APIs, automation, and business systems fit together. If you need the business-facing layer, go to{" "}
+                <span className="text-white/80">highencodelearning.com</span>.
               </motion.p>
 
               <motion.div
@@ -128,18 +130,20 @@ export default function HomePage() {
                 className="flex flex-wrap gap-4"
               >
                 <a
-                  href="#contact"
+                  href="#learning"
                   className="group flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-semibold hover:shadow-xl hover:shadow-[#ff6b6b]/20 transition-all glow-coral"
                 >
-                  Book discovery call
+                  What I&apos;m learning
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
-                  href="#services"
+                  href="https://highencodelearning.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 px-8 py-4 rounded-2xl glass border border-white/10 font-medium hover:border-white/30 transition-colors"
                 >
                   <Play className="w-4 h-4" />
-                  View services
+                  Go to business site
                 </a>
               </motion.div>
             </div>
@@ -200,9 +204,9 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 className="text-4xl md:text-5xl font-bold mt-4 mb-6"
               >
-                AI at the center of
+                A working system is more than
                 <br />
-                <span className="gradient-text">everything you do</span>
+                <span className="gradient-text">frontend vs backend</span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -211,8 +215,8 @@ export default function HomePage() {
                 transition={{ delay: 0.1 }}
                 className="text-white/50 text-lg leading-relaxed mb-8"
               >
-                Your tools orbit around a central AI brain that orchestrates, optimizes, and automates. From form
-                submissions to CRM updates, every step is intelligent.
+                I use this section to think through the layers around a web system: browser runtime, frontend UX,
+                APIs, storage, deployment, and the business rules that sit above the code.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -221,7 +225,7 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
                 className="flex flex-wrap gap-3"
               >
-                {["Typeform", "Zapier", "Notion", "GPT-4o", "Security"].map((tool) => (
+                {["Browser", "Frontend", "API", "Infrastructure", "Business Layer"].map((tool) => (
                   <span key={tool} className="px-4 py-2 rounded-full glass text-sm text-white/70">
                     {tool}
                   </span>
@@ -249,10 +253,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="text-[#2dd4bf] text-sm font-medium uppercase tracking-wider">Services</span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">How we automate your operations</h2>
+            <span className="text-[#2dd4bf] text-sm font-medium uppercase tracking-wider">Focus Areas</span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">What I&apos;m building and testing</h2>
             <p className="text-white/50 max-w-2xl mx-auto">
-              Four core solutions to eliminate manual work and scale your team without adding headcount
+              These are the themes I keep returning to while I study, prototype, and document how systems behave in the real world.
             </p>
           </motion.div>
 
@@ -269,10 +273,10 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="text-[#22d3ee] text-sm font-medium uppercase tracking-wider">The Network</span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">Explore the full ecosystem</h2>
+            <span className="text-[#22d3ee] text-sm font-medium uppercase tracking-wider">The Ecosystem</span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">How the sites connect</h2>
             <p className="text-white/50 max-w-2xl mx-auto">
-              Beyond consulting — education platforms, AI tools, and security testing all connected
+              cs-learning.me is personal and reflective. High Encode Learning is the business-facing layer. The other tools sit between learning, testing, and delivery.
             </p>
           </motion.div>
 
@@ -297,20 +301,20 @@ export default function HomePage() {
               <Sparkles className="w-8 h-8 text-[#060a14]" />
             </motion.div>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to automate your operations?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Need the business-facing version of this?</h2>
             <p className="text-white/50 mb-8 max-w-xl mx-auto">
-              Book a free discovery call to discuss your workflows and see how AI automation can save you 10+ hours
-              every week.
+              Use High Encode Learning for scoped work, demos, and project conversations. Keep this site for notes,
+              experiments, and the personal layer underneath the work.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://calendly.com/davidinfosec07"
+                href="https://highencodelearning.com/contact"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-semibold hover:shadow-xl hover:shadow-[#ff6b6b]/20 transition-all"
               >
-                Book free call
+                Visit High Encode Learning
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
@@ -333,19 +337,19 @@ export default function HomePage() {
             </div>
             <div>
               <p className="font-semibold">David Ortiz</p>
-              <p className="text-xs text-white/40">AI Automation Specialist</p>
+              <p className="text-xs text-white/40">Personal notebook and experiment layer</p>
             </div>
           </div>
 
           <div className="flex items-center gap-6 text-sm text-white/40">
-            <a href="https://www.fiverr.com/davido174" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
-              Fiverr
-            </a>
-            <a href="https://www.upwork.com/freelancers/davido174" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
-              Upwork
-            </a>
             <a href="https://github.com/RazonIn4K" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
               GitHub
+            </a>
+            <a href="https://highencodelearning.com" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
+              High Encode
+            </a>
+            <a href="https://csbrain.ai" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
+              CSBrainAI
             </a>
           </div>
 

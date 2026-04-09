@@ -1,14 +1,14 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Bot, Database, Workflow, FileText, Shield } from "lucide-react"
+import { Database, LayoutTemplate, MonitorPlay, Network, Briefcase } from "lucide-react"
 
 const orbitItems = [
-  { icon: FileText, label: "Typeform", color: "#2dd4bf", orbit: 1, delay: 0 },
-  { icon: Workflow, label: "Zapier", color: "#ff6b6b", orbit: 1, delay: 1.5 },
-  { icon: Database, label: "Notion", color: "#a78bfa", orbit: 2, delay: 0.5 },
-  { icon: Bot, label: "GPT-4o", color: "#22d3ee", orbit: 2, delay: 2 },
-  { icon: Shield, label: "Security", color: "#feca57", orbit: 2, delay: 3 },
+  { icon: MonitorPlay, label: "Browser", color: "#2dd4bf", orbit: 1, delay: 0 },
+  { icon: LayoutTemplate, label: "Frontend", color: "#ff6b6b", orbit: 1, delay: 1.5 },
+  { icon: Network, label: "API", color: "#a78bfa", orbit: 2, delay: 0.5 },
+  { icon: Database, label: "Data", color: "#22d3ee", orbit: 2, delay: 2 },
+  { icon: Briefcase, label: "Business", color: "#feca57", orbit: 2, delay: 3 },
 ]
 
 export function OrbitVisualization() {
@@ -21,7 +21,7 @@ export function OrbitVisualization() {
           transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
           className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center shadow-lg glow-teal"
         >
-          <span className="text-2xl font-bold text-[#060a14]">AI</span>
+          <span className="text-lg font-bold text-[#060a14]">Layers</span>
         </motion.div>
       </div>
 

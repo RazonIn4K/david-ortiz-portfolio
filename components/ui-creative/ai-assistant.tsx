@@ -1,9 +1,7 @@
 "use client"
 
-import type React from "react"
-
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useRef, useEffect, useCallback, useMemo } from "react"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { X, Send, Sparkles, Bot, User, Zap, BookOpen, Shield, Minimize2, Maximize2 } from "lucide-react"
 
 interface Message {
@@ -13,40 +11,54 @@ interface Message {
   timestamp: Date
 }
 
-const quickActions = [
-  { icon: Zap, label: "Automate my workflows", query: "How can you help automate my business workflows?" },
-  { icon: BookOpen, label: "Learn CS & Security", query: "Tell me about your educational programs" },
-  { icon: Shield, label: "Security audit", query: "What security services do you offer?" },
+interface QuickAction {
+  icon: typeof Zap
+  label: string
+  query: string
+}
+
+const quickActions: QuickAction[] = [
+  { icon: Zap, label: "What are you building?", query: "What are you currently building and testing?" },
+  { icon: BookOpen, label: "How do the sites connect?", query: "How do cs-learning.me and highencodelearning.com connect?" },
+  { icon: Shield, label: "Where should business inquiries go?", query: "Where should someone go if they want to hire you or discuss scoped work?" },
 ]
 
-const generateId = () => globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`
+const generateId = () =>
+  globalThis.crypto?.randomUUID?.() ?? `msg-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`
 
-const initialMessages: Message[] = [
-  {
-    id: "1",
-    role: "assistant",
-    content:
-      "Hey! I'm your AI guide to David's ecosystem. Ask me about automation services, learning programs, or our AI tools like CSBrainAI and Prompt Defenders.",
-    timestamp: new Date(),
-  },
-]
+// Move outside component to prevent recreation
+const createInitialMessage = (): Message => ({
+  id: "welcome-message",
+  role: "assistant",
+  content:
+    "Hey! I'm your AI guide to David's ecosystem. This site is the personal notebook layer, so ask about what David is learning, building, and how the ecosystem sites connect.",
+  timestamp: new Date(),
+})
 
 export function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
-  const [messages, setMessages] = useState<Message[]>(initialMessages)
+  const [messages, setMessages] = useState<Message[]>(() => [createInitialMessage()])
   const [input, setInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const abortControllerRef = useRef<AbortController | null>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+  // Accessibility: Check for reduced motion preference
+  const prefersReducedMotion = useReducedMotion()
+
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth"
+    })
+  }, [prefersReducedMotion])
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages])
+  }, [messages, scrollToBottom])
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -54,51 +66,94 @@ export function AIAssistant() {
     }
   }, [isOpen])
 
-  const simulateResponse = async (userMessage: string) => {
-    setIsTyping(true)
-
-    // Simulate AI thinking
-    await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 1000))
-
-    let response = ""
-    const lowerMessage = userMessage.toLowerCase()
-
-    if (lowerMessage.includes("automat") || lowerMessage.includes("workflow")) {
-      response =
-        "Great question! I specialize in building AI-powered automation using tools like n8n, Make, Zapier, and custom solutions. Whether it's lead qualification, CRM sync, or data pipelines — I can help you save 10+ hours/week. Want to book a discovery call to discuss your specific needs?"
-    } else if (
-      lowerMessage.includes("learn") ||
-      lowerMessage.includes("education") ||
-      lowerMessage.includes("program")
-    ) {
-      response =
-        "High Encode Learning offers structured CS & Cybersecurity education with three tiers:\n\n• **Starter** — Self-paced fundamentals\n• **Pro Cohort** — Live sessions + projects\n• **Team** — Custom training for organizations\n\nPlus, you get access to CSBrainAI for personalized learning assistance!"
-    } else if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {
-      response =
-        "I offer comprehensive SaaS security audits including OSINT reconnaissance, vulnerability assessments, and security gate implementation. Also check out Prompt Defenders — our tool for testing AI systems against prompt injection attacks."
-    } else if (lowerMessage.includes("csbrain") || lowerMessage.includes("ai tool")) {
-      response =
-        "CSBrainAI is an AI learning companion trained on CS fundamentals and security concepts. It helps students understand complex topics through conversation. Prompt Defenders tests LLM applications for security vulnerabilities. Both are part of the ecosystem!"
-    } else {
-      response =
-        "I can help you with:\n\n• **Automation** — AI workflows, chatbots, integrations\n• **Education** — CS & security learning programs\n• **Security** — Audits, vulnerability testing\n• **AI Tools** — CSBrainAI, Prompt Defenders\n\nWhat interests you most?"
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort()
     }
+  }, [])
 
-    setIsTyping(false)
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: generateId(),
-        role: "assistant",
-        content: response,
-        timestamp: new Date(),
-      },
-    ])
-  }
+  // Handle escape key to close
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false)
+      }
+    }
+    window.addEventListener("keydown", handleEscape)
+    return () => window.removeEventListener("keydown", handleEscape)
+  }, [isOpen])
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const getAIResponse = useCallback(async (userMessage: string, conversationHistory: Message[]) => {
+    setIsTyping(true)
+    setError(null)
+
+    // Create abort controller for this request
+    abortControllerRef.current = new AbortController()
+
+    try {
+      // Prepare messages for API (convert to API format)
+      const apiMessages = conversationHistory
+        .filter(m => m.id !== "welcome-message") // Exclude welcome message
+        .map(m => ({
+          role: m.role,
+          content: m.content
+        }))
+
+      // Add the new user message
+      apiMessages.push({ role: "user" as const, content: userMessage })
+
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages: apiMessages }),
+        signal: abortControllerRef.current.signal,
+      })
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      if (data.error) {
+        throw new Error(data.error)
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: generateId(),
+          role: "assistant",
+          content: data.message,
+          timestamp: new Date(),
+        },
+      ])
+    } catch (err) {
+      if (err instanceof Error && err.name === "AbortError") {
+        return // Silently handle abort
+      }
+      console.error("AI response failed:", err)
+      setError("Something went wrong. Please try again.")
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: generateId(),
+          role: "assistant",
+          content: "Sorry, I encountered an error. Please try again. For business inquiries, use High Encode Learning: https://highencodelearning.com.",
+          timestamp: new Date(),
+        },
+      ])
+    } finally {
+      setIsTyping(false)
+    }
+  }, [])
+
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!input.trim()) return
+    if (!input.trim() || isTyping) return
 
     const userMessage: Message = {
       id: generateId(),
@@ -107,13 +162,17 @@ export function AIAssistant() {
       timestamp: new Date(),
     }
 
-    setMessages((prev) => [...prev, userMessage])
+    const currentMessages = [...messages, userMessage]
+    setMessages(currentMessages)
     setInput("")
+    setError(null)
 
-    await simulateResponse(userMessage.content)
-  }
+    await getAIResponse(userMessage.content, messages)
+  }, [input, isTyping, messages, getAIResponse])
 
-  const handleQuickAction = async (query: string) => {
+  const handleQuickAction = useCallback(async (query: string) => {
+    if (isTyping) return
+
     const userMessage: Message = {
       id: generateId(),
       role: "user",
@@ -121,34 +180,59 @@ export function AIAssistant() {
       timestamp: new Date(),
     }
 
-    setMessages((prev) => [...prev, userMessage])
-    await simulateResponse(query)
-  }
+    const currentMessages = [...messages, userMessage]
+    setMessages(currentMessages)
+    await getAIResponse(query, messages)
+  }, [isTyping, messages, getAIResponse])
+
+  // Memoize animation variants for performance
+  const motionVariants = useMemo(() => ({
+    button: prefersReducedMotion
+      ? {}
+      : { hover: { scale: 1.05 }, tap: { scale: 0.95 } },
+    panel: prefersReducedMotion
+      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
+      : {
+          initial: { opacity: 0, y: 20, scale: 0.95 },
+          animate: { opacity: 1, y: 0, scale: 1 },
+          exit: { opacity: 0, y: 20, scale: 0.95 }
+        },
+    message: prefersReducedMotion
+      ? { initial: { opacity: 0 }, animate: { opacity: 1 } }
+      : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 } }
+  }), [prefersReducedMotion])
 
   return (
     <>
       {/* Floating Trigger Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 ${isOpen ? "hidden" : "flex"}`}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        aria-label="Open AI Assistant chat"
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
+        className={`fixed bottom-6 right-6 z-50 ${isOpen ? "hidden" : "flex"} focus:outline-none focus:ring-2 focus:ring-[#2dd4bf] focus:ring-offset-2 focus:ring-offset-[#060a14] rounded-full`}
+        whileHover={motionVariants.button.hover}
+        whileTap={motionVariants.button.tap}
       >
         <div className="relative">
-          {/* Pulse rings */}
-          <span className="absolute inset-0 rounded-full bg-[#2dd4bf] animate-pulse-ring" />
+          {/* Pulse rings - hidden from screen readers */}
+          <span className="absolute inset-0 rounded-full bg-[#2dd4bf] animate-pulse-ring" aria-hidden="true" />
           <span
             className="absolute inset-0 rounded-full bg-[#2dd4bf] animate-pulse-ring"
             style={{ animationDelay: "0.5s" }}
+            aria-hidden="true"
           />
 
           {/* Main button */}
           <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center shadow-lg glow-teal">
-            <Sparkles className="w-7 h-7 text-[#060a14]" />
+            <Sparkles className="w-7 h-7 text-[#060a14]" aria-hidden="true" />
           </div>
 
           {/* Status indicator */}
-          <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#ff6b6b] rounded-full border-2 border-[#060a14] flex items-center justify-center">
+          <span
+            className="absolute -top-1 -right-1 w-5 h-5 bg-[#ff6b6b] rounded-full border-2 border-[#060a14] flex items-center justify-center"
+            aria-hidden="true"
+          >
             <span className="text-[10px] font-bold text-white">AI</span>
           </span>
         </div>
@@ -158,55 +242,65 @@ export function AIAssistant() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="AI Assistant chat window"
+            {...motionVariants.panel}
+            transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", damping: 25, stiffness: 300 }}
             className={`fixed z-50 ${
               isExpanded ? "inset-4 md:inset-8" : "bottom-6 right-6 w-[380px] h-[600px] max-h-[80vh]"
             }`}
           >
             <div className="w-full h-full glass-strong rounded-2xl overflow-hidden flex flex-col shadow-2xl">
               {/* Header */}
-              <div className="p-4 border-b border-[#2dd4bf]/20 flex items-center justify-between bg-gradient-to-r from-[#2dd4bf]/10 to-transparent">
+              <header className="p-4 border-b border-[#2dd4bf]/20 flex items-center justify-between bg-gradient-to-r from-[#2dd4bf]/10 to-transparent">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center" aria-hidden="true">
                     <Bot className="w-5 h-5 text-[#060a14]" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">AI Assistant</h3>
+                    <h2 id="chat-title" className="font-semibold text-white">AI Assistant</h2>
                     <p className="text-xs text-[#2dd4bf]">Always here to help</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setIsExpanded(!isExpanded)}
-                    className="p-2 rounded-lg hover:bg-white/5 transition-colors text-white/60 hover:text-white"
+                    aria-label={isExpanded ? "Minimize chat window" : "Expand chat window"}
+                    className="p-2 rounded-lg hover:bg-white/5 transition-colors text-white/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
                   >
-                    {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                    {isExpanded ? <Minimize2 className="w-4 h-4" aria-hidden="true" /> : <Maximize2 className="w-4 h-4" aria-hidden="true" />}
                   </button>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg hover:bg-white/5 transition-colors text-white/60 hover:text-white"
+                    aria-label="Close chat window"
+                    className="p-2 rounded-lg hover:bg-white/5 transition-colors text-white/60 hover:text-white focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-4 h-4" aria-hidden="true" />
                   </button>
                 </div>
-              </div>
+              </header>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              <div
+                className="flex-1 overflow-y-auto p-4 space-y-4"
+                role="log"
+                aria-label="Chat messages"
+                aria-live="polite"
+                aria-relevant="additions"
+              >
                 {messages.map((message) => (
-                  <motion.div
+                  <motion.article
                     key={message.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    {...motionVariants.message}
                     className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
+                    aria-label={`${message.role === "user" ? "You" : "AI Assistant"} said`}
                   >
                     <div
                       className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                         message.role === "user" ? "bg-[#ff6b6b]/20 text-[#ff6b6b]" : "bg-[#2dd4bf]/20 text-[#2dd4bf]"
                       }`}
+                      aria-hidden="true"
                     >
                       {message.role === "user" ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
                     </div>
@@ -217,32 +311,36 @@ export function AIAssistant() {
                     >
                       <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
                     </div>
-                  </motion.div>
+                  </motion.article>
                 ))}
 
                 {/* Typing indicator */}
                 {isTyping && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#2dd4bf]/20 text-[#2dd4bf] flex items-center justify-center">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex gap-3"
+                    role="status"
+                    aria-label="AI Assistant is typing"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-[#2dd4bf]/20 text-[#2dd4bf] flex items-center justify-center" aria-hidden="true">
                       <Bot className="w-4 h-4" />
                     </div>
                     <div className="bg-white/5 rounded-2xl px-4 py-3">
-                      <div className="flex gap-1">
-                        <span
-                          className="w-2 h-2 bg-[#2dd4bf] rounded-full animate-bounce"
-                          style={{ animationDelay: "0ms" }}
-                        />
-                        <span
-                          className="w-2 h-2 bg-[#2dd4bf] rounded-full animate-bounce"
-                          style={{ animationDelay: "150ms" }}
-                        />
-                        <span
-                          className="w-2 h-2 bg-[#2dd4bf] rounded-full animate-bounce"
-                          style={{ animationDelay: "300ms" }}
-                        />
+                      <div className="flex gap-1" aria-hidden="true">
+                        <span className="w-2 h-2 bg-[#2dd4bf] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                        <span className="w-2 h-2 bg-[#2dd4bf] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                        <span className="w-2 h-2 bg-[#2dd4bf] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                       </div>
                     </div>
                   </motion.div>
+                )}
+
+                {/* Error message */}
+                {error && (
+                  <div role="alert" className="text-center text-sm text-[#ff6b6b] py-2">
+                    {error}
+                  </div>
                 )}
 
                 <div ref={messagesEndRef} />
@@ -251,15 +349,17 @@ export function AIAssistant() {
               {/* Quick Actions */}
               {messages.length <= 2 && (
                 <div className="px-4 py-2 border-t border-white/5">
-                  <p className="text-xs text-white/40 mb-2">Quick actions</p>
-                  <div className="flex flex-wrap gap-2">
-                    {quickActions.map((action, i) => (
+                  <p className="text-xs text-white/40 mb-2" id="quick-actions-label">Quick actions</p>
+                  <div className="flex flex-wrap gap-2" role="group" aria-labelledby="quick-actions-label">
+                    {quickActions.map((action) => (
                       <button
-                        key={i}
+                        key={action.label}
                         onClick={() => handleQuickAction(action.query)}
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white text-xs transition-colors"
+                        disabled={isTyping}
+                        aria-label={action.label}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#2dd4bf]"
                       >
-                        <action.icon className="w-3 h-3" />
+                        <action.icon className="w-3 h-3" aria-hidden="true" />
                         {action.label}
                       </button>
                     ))}
@@ -270,24 +370,30 @@ export function AIAssistant() {
               {/* Input */}
               <form onSubmit={handleSubmit} className="p-4 border-t border-white/10">
                 <div className="flex gap-2">
+                  <label htmlFor="chat-input" className="sr-only">Type your message</label>
                   <input
+                    id="chat-input"
                     ref={inputRef}
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask me anything..."
-                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#2dd4bf]/50 transition-colors"
+                    disabled={isTyping}
+                    aria-describedby={error ? "chat-error" : undefined}
+                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#2dd4bf]/50 focus:ring-2 focus:ring-[#2dd4bf]/20 transition-colors disabled:opacity-50"
                   />
                   <motion.button
                     type="submit"
-                    disabled={!input.trim()}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center text-[#060a14] disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!input.trim() || isTyping}
+                    aria-label="Send message"
+                    whileHover={!input.trim() || isTyping ? {} : motionVariants.button.hover}
+                    whileTap={!input.trim() || isTyping ? {} : motionVariants.button.tap}
+                    className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center text-[#060a14] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-[#2dd4bf] focus:ring-offset-2 focus:ring-offset-[#060a14]"
                   >
-                    <Send className="w-5 h-5" />
+                    <Send className="w-5 h-5" aria-hidden="true" />
                   </motion.button>
                 </div>
+                {error && <p id="chat-error" className="sr-only">{error}</p>}
               </form>
             </div>
           </motion.div>
