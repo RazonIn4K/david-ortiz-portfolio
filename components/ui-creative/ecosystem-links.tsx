@@ -14,19 +14,19 @@ const ecosystemItems = [
   },
   {
     name: "High Encode Learning",
-    description: "Business-facing services & demos",
+    description: "Business-facing demos, scoping, and implementation notes",
     icon: Briefcase,
     url: "https://highencodelearning.com",
     gradient: "from-blue-500 to-indigo-600",
-    features: ["Client Work", "Scoped Offers", "Implementation Demos"],
+    features: ["Services", "Demos", "Scoped work"],
   },
   {
     name: "CSBrainAI",
-    description: "AI Learning Companion",
+    description: "Retrieval and explanation experiments",
     icon: Brain,
     url: "https://csbrain.ai",
     gradient: "from-purple-500 to-pink-500",
-    features: ["Personalized Learning", "Concept Explanations", "Practice Problems"],
+    features: ["Grounded answers", "Knowledge interfaces", "Explanation quality"],
   },
   {
     name: "Prompt Defenders",
@@ -34,7 +34,7 @@ const ecosystemItems = [
     icon: Shield,
     url: "https://prompt-defenders.com",
     gradient: "from-orange-500 to-red-500",
-    features: ["Prompt Injection", "Security Audits", "LLM Testing"],
+    features: ["Prompt injection", "Safety tests", "LLM behavior"],
   },
 ]
 
