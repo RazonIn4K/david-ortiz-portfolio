@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { personalSiteName, personalSiteUrl } from "@/lib/site-config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,7 +14,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-const siteUrl = "https://cs-learning.me";
+const siteUrl = personalSiteUrl;
 const siteTitle = "David Ortiz | Personal notes on AI systems and abstraction layers";
 const siteDescription =
   "Personal site for experiments, notes, demos, and learning-in-public across automation, web systems, AI tooling, and abstraction layers.";
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     "system design",
     "automation experiments",
   ],
-  applicationName: "David Ortiz Personal Site",
+  applicationName: personalSiteName,
   creator: "David Ortiz",
   authors: [{ name: "David Ortiz", url: siteUrl }],
   metadataBase: new URL(siteUrl),
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     url: siteUrl,
-    siteName: "David Ortiz Personal Site",
+    siteName: personalSiteName,
     type: "website",
   },
   twitter: {

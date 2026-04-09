@@ -2,13 +2,14 @@
 
 import { motion } from "framer-motion"
 import { ExternalLink, Sparkles, Briefcase, Shield, Brain, NotebookPen } from "lucide-react"
+import { businessSiteUrl, personalSiteDomain, personalSiteUrl } from "@/lib/site-config"
 
 const ecosystemItems = [
   {
-    name: "cs-learning.me",
+    name: personalSiteDomain,
     description: "Personal notes, experiments, and learning-in-public",
     icon: NotebookPen,
-    url: "https://cs-learning.me",
+    url: personalSiteUrl,
     gradient: "from-teal-500 to-cyan-600",
     features: ["Personal Voice", "Build Logs", "Abstraction Notes"],
   },
@@ -16,7 +17,7 @@ const ecosystemItems = [
     name: "High Encode Learning",
     description: "Business-facing demos, scoping, and implementation notes",
     icon: Briefcase,
-    url: "https://highencodelearning.com",
+    url: businessSiteUrl,
     gradient: "from-blue-500 to-indigo-600",
     features: ["Services", "Demos", "Scoped work"],
   },

@@ -1,18 +1,19 @@
 import { NextRequest, NextResponse } from "next/server"
+import { businessSiteUrl, personalSiteDomain, personalSiteUrl } from "@/lib/site-config"
 
-const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (cs-learning.me). This site is a personal notebook and ecosystem guide, not the primary sales site.
+const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (${personalSiteDomain}). This site is a personal notebook and ecosystem guide, not the primary sales site.
 
-## What cs-learning.me is for:
+## What the personal site is for:
 - Personal notes, experiments, demos, and learning-in-public
 - Explaining abstraction layers across browsers, apps, APIs, infrastructure, and business systems
 - Helping visitors understand how David's ecosystem fits together
 
-## What cs-learning.me is NOT for:
+## What the personal site is NOT for:
 - It is not the main place for closing scoped work or presenting formal offers
 - Do not present it like a course platform or education business
 
 ## Ecosystem Sites:
-- **High Encode Learning** (highencodelearning.com) - The business-facing site for services, demos, project scoping, and business work
+- **High Encode Learning** (${businessSiteUrl}) - The business-facing site for services, demos, project scoping, and business work
 - **CSBrainAI** (csbrainai.com) - Retrieval and explanation experiments for technical knowledge
 - **Prompt Defenders** (promptdefenders.com) - AI security testing and prompt-safety work
 
@@ -59,7 +60,7 @@ export async function POST(request: NextRequest) {
       headers: {
         "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": process.env.SITE_URL || "https://cs-learning.me",
+        "HTTP-Referer": personalSiteUrl,
         "X-Title": "David Ortiz AI Assistant"
       },
       body: JSON.stringify({
@@ -104,7 +105,7 @@ function getFallbackResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase()
 
   if (lowerMessage.includes("hire") || lowerMessage.includes("project") || lowerMessage.includes("service") || lowerMessage.includes("work")) {
-    return "For business services, scoped work, and business conversations, use High Encode Learning: https://highencodelearning.com. This site is the personal notebook layer."
+    return `For business services, scoped work, and business conversations, use High Encode Learning: ${businessSiteUrl}. This site is the personal notebook layer.`
   }
 
   if (lowerMessage.includes("learn") || lowerMessage.includes("building") || lowerMessage.includes("studying")) {
@@ -112,12 +113,12 @@ function getFallbackResponse(userMessage: string): string {
   }
 
   if (lowerMessage.includes("high encode") || lowerMessage.includes("cs-learning") || lowerMessage.includes("ecosystem")) {
-    return "cs-learning.me is the personal site for notes, experiments, and learning in public. highencodelearning.com is the business-facing site for services, demos, and project scoping."
+    return `${personalSiteDomain} is the personal site for notes, experiments, and learning in public. High Encode Learning is the business-facing site for services, demos, and project scoping: ${businessSiteUrl}.`
   }
 
   if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {
     return "Prompt safety, AI system behavior, and security testing are active topics in the ecosystem. Prompt Defenders is the security-focused surface: https://promptdefenders.com."
   }
 
-  return "This site is the personal notebook layer in David Ortiz's ecosystem. Ask about what he is learning, what he is building, or how the ecosystem sites connect. For scoped business work, use High Encode Learning: https://highencodelearning.com."
+  return `This site is the personal notebook layer in David Ortiz's ecosystem. Ask about what he is learning, what he is building, or how the ecosystem sites connect. For scoped business work, use High Encode Learning: ${businessSiteUrl}.`
 }

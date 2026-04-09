@@ -12,6 +12,7 @@ import { OrbitVisualization } from "@/components/ui-creative/orbit-visualization
 import { AnimatedStats } from "@/components/ui-creative/animated-stats"
 import { ServiceGrid } from "@/components/ui-creative/service-grid"
 import { EcosystemLinks } from "@/components/ui-creative/ecosystem-links"
+import { businessSiteUrl, personalSiteDomain } from "@/lib/site-config"
 
 export default function HomePage() {
   return (
@@ -73,7 +74,7 @@ export default function HomePage() {
             className="flex items-center gap-3"
           >
             <a
-              href="https://highencodelearning.com"
+              href={businessSiteUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-medium text-sm hover:shadow-lg hover:shadow-[#ff6b6b]/25 transition-shadow"
@@ -120,7 +121,7 @@ export default function HomePage() {
               >
                 This is the personal side of my ecosystem: build logs, experiments, demos, and notes on how browsers,
                 apps, APIs, automation, and business systems fit together. If you need the business-facing layer, go to{" "}
-                <span className="text-white/80">highencodelearning.com</span>.
+                <span className="text-white/80">High Encode Learning</span>.
               </motion.p>
 
               <motion.div
@@ -137,7 +138,7 @@ export default function HomePage() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
-                  href="https://highencodelearning.com"
+                  href={businessSiteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-8 py-4 rounded-2xl glass border border-white/10 font-medium hover:border-white/30 transition-colors"
@@ -276,7 +277,7 @@ export default function HomePage() {
             <span className="text-[#22d3ee] text-sm font-medium uppercase tracking-wider">The Ecosystem</span>
             <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">How the sites connect</h2>
             <p className="text-white/50 max-w-2xl mx-auto">
-              cs-learning.me is personal and reflective. High Encode Learning is the business-facing layer. The other tools sit between learning, testing, and delivery.
+              {personalSiteDomain} is personal and reflective. High Encode Learning is the business-facing layer. The other tools sit between learning, testing, and delivery.
             </p>
           </motion.div>
 
@@ -309,7 +310,7 @@ export default function HomePage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://highencodelearning.com/contact"
+                href={`${businessSiteUrl}/contact`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-semibold hover:shadow-xl hover:shadow-[#ff6b6b]/20 transition-all"
@@ -318,10 +319,10 @@ export default function HomePage() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="mailto:hello@cs-learning.me"
+                href={`${businessSiteUrl}/contact`}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl glass border border-white/10 font-medium hover:border-white/30 transition-colors"
               >
-                Send email
+                Business contact
               </a>
             </div>
           </motion.div>
@@ -345,7 +346,7 @@ export default function HomePage() {
             <a href="https://github.com/RazonIn4K" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
-            <a href="https://highencodelearning.com" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
+            <a href={businessSiteUrl} className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
               High Encode
             </a>
             <a href="https://csbrain.ai" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">

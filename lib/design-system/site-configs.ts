@@ -4,6 +4,7 @@
 // =============================================================================
 
 import { tokens } from "./tokens"
+import { businessSiteDomain, personalSiteDomain } from "@/lib/site-config"
 
 export type SiteKey = "csLearning" | "highEncode" | "csBrainAI" | "promptDefenders"
 
@@ -39,12 +40,12 @@ export interface SiteConfig {
 
 export const siteConfigs: Record<SiteKey, SiteConfig> = {
   // ---------------------------------------------------------------------------
-  // CS-LEARNING.ME - Dark cyber tech aesthetic
+  // PERSONAL SITE - Dark cyber tech aesthetic
   // ---------------------------------------------------------------------------
   csLearning: {
     name: "David Ortiz",
-    domain: "cs-learning.me",
-    tagline: "AI Automation Specialist",
+    domain: personalSiteDomain,
+    tagline: "Personal notes on systems, experiments, and abstraction layers",
     theme: "dark",
     colors: tokens.colors.sites.csLearning,
     gradients: {
@@ -71,12 +72,12 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
   },
 
   // ---------------------------------------------------------------------------
-  // HIGHENCODELEARNING.COM - Clean educational light theme
+  // HIGH ENCODE LEARNING - Clean business-facing light theme
   // ---------------------------------------------------------------------------
   highEncode: {
     name: "High Encode Learning",
-    domain: "highencodelearning.com",
-    tagline: "CS & Cybersecurity Education",
+    domain: businessSiteDomain,
+    tagline: "Business-facing demos, scoped work, and implementation notes",
     theme: "light",
     colors: tokens.colors.sites.highEncode,
     gradients: {

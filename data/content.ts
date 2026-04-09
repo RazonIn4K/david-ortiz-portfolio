@@ -1,3 +1,5 @@
+import { businessSiteUrl, personalSiteDomain, personalSiteUrl } from "@/lib/site-config"
+
 export type LinkRef = {
   label: string
   href: string
@@ -23,8 +25,8 @@ export const services: Service[] = [
     bullets: ['Browser runtime', 'Frontend architecture', 'Business-layer decisions'],
     icon: '🧠',
     cta: {
-      label: 'Read the personal site',
-      href: 'https://cs-learning.me',
+      label: `Read ${personalSiteDomain}`,
+      href: personalSiteUrl,
     },
   },
   {
@@ -35,7 +37,7 @@ export const services: Service[] = [
     icon: '⚙️',
     cta: {
       label: 'Visit High Encode',
-      href: 'https://highencodelearning.com/services',
+      href: `${businessSiteUrl}/services`,
     },
   },
   {
@@ -73,13 +75,13 @@ export const showcaseProjects: Project[] = [
   {
     title: 'High Encode Learning',
     description: 'Business-facing services, demos, and scoped work tied back to actual experiments and notes.',
-    href: 'https://highencodelearning.com',
+    href: businessSiteUrl,
     metrics: ['Business layer', 'Services', 'Demos'],
   },
   {
-    title: 'cs-learning.me',
+    title: personalSiteDomain,
     description: 'Personal notes, experiments, and the learning-in-public side of the ecosystem.',
-    href: 'https://cs-learning.me',
+    href: personalSiteUrl,
     metrics: ['Personal layer', 'Notes', 'Experiments'],
   },
   {
@@ -111,13 +113,13 @@ export const caseStudies: CaseStudy[] = [
     problem:
       'One site was trying to be a personal notebook, a service page, and a product surface all at once, which made the positioning muddy.',
     solution:
-      'Split the ecosystem clearly: cs-learning.me for personal notes and High Encode Learning for business-facing services, demos, and scoped work.',
+      `Split the ecosystem clearly: ${personalSiteDomain} for personal notes and High Encode Learning for business-facing services, demos, and scoped work.`,
     results:
       'The roles of each domain became easier to explain, easier to trust, and easier to maintain without invented marketing claims.',
     stack: ['Next.js', 'Vercel', 'Content strategy', 'System design'],
     links: [
-      { label: 'Business-facing site', href: 'https://highencodelearning.com' },
-      { label: 'Personal site', href: 'https://cs-learning.me' },
+      { label: 'Business-facing site', href: businessSiteUrl },
+      { label: 'Personal site', href: personalSiteUrl },
     ],
   },
   {
@@ -130,7 +132,7 @@ export const caseStudies: CaseStudy[] = [
       'The result was a real operator-layer demo instead of a theoretical pitch, along with clearer scope boundaries for future delivery work.',
     stack: ['AdLoop', 'Google Ads API', 'GA4', 'MCP', 'Claude workflows'],
     links: [
-      { label: 'High Encode Learning', href: 'https://highencodelearning.com' },
+      { label: 'High Encode Learning', href: businessSiteUrl },
     ],
   },
   {
@@ -164,12 +166,12 @@ export const resources: Resource[] = [
   {
     title: 'High Encode Learning',
     description: 'Business-facing services, demos, and project scoping.',
-    href: 'https://highencodelearning.com',
+    href: businessSiteUrl,
   },
   {
     title: 'Learning Notes',
     description: 'High Encode’s public notes on abstraction layers, browser behavior, and system design.',
-    href: 'https://highencodelearning.com/learning',
+    href: `${businessSiteUrl}/learning`,
   },
   {
     title: 'Prompt Defenders',

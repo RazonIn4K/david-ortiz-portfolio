@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { X, Send, Sparkles, Bot, User, Zap, BookOpen, Shield, Minimize2, Maximize2 } from "lucide-react"
+import { businessSiteUrl, personalSiteDomain } from "@/lib/site-config"
 
 interface Message {
   id: string
@@ -19,7 +20,7 @@ interface QuickAction {
 
 const quickActions: QuickAction[] = [
   { icon: Zap, label: "What are you building?", query: "What are you currently building and testing?" },
-  { icon: BookOpen, label: "How do the sites connect?", query: "How do cs-learning.me and highencodelearning.com connect?" },
+  { icon: BookOpen, label: "How do the sites connect?", query: `How do ${personalSiteDomain} and High Encode Learning connect?` },
   { icon: Shield, label: "Where should business inquiries go?", query: "Where should someone go if they want to hire you or discuss scoped work?" },
 ]
 
@@ -142,7 +143,7 @@ export function AIAssistant() {
         {
           id: generateId(),
           role: "assistant",
-          content: "Sorry, I encountered an error. Please try again. For business inquiries, use High Encode Learning: https://highencodelearning.com.",
+          content: `Sorry, I encountered an error. Please try again. For business inquiries, use High Encode Learning: ${businessSiteUrl}.`,
           timestamp: new Date(),
         },
       ])
