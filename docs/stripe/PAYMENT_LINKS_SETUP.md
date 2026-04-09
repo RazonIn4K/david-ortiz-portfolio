@@ -146,7 +146,7 @@ You can customize Payment Links in Stripe Dashboard:
 In Stripe Dashboard > Payment Link > Settings:
 
 ```
-After payment redirect: https://cs-learning.me?payment=success
+After payment redirect: https://davidtiz.com?payment=success
 ```
 
 ## Updating Payment Links

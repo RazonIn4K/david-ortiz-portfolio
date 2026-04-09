@@ -1,6 +1,6 @@
-# David Ortiz — AI Automation Portfolio
+# David Ortiz — Personal Site
 
-Next.js 14 + Tailwind rebuild focused on AI automation, chatbots, scraping, and AI security services. Includes dedicated Work With Me and Case Studies pages, live web-design demos under `/projects`, and an AI concierge powered by OpenRouter.
+Next.js site for David Ortiz's personal notes, experiments, demos, and systems-thinking writeups. This repo is the personal side of the ecosystem. The business-facing layer lives at [highencodelearning.com](https://highencodelearning.com).
 
 ## Getting Started
 
@@ -31,20 +31,20 @@ Vercel pulls secrets from Doppler at build time.
 The repo is linked to the Vercel project `david-ortiz-portfolio` (team `razs-projects-29d4f2e6`).
 
 - Production deploy: `vercel --prod`
-- Domains: `cs-learning.me` (apex) and `www.cs-learning.me`
+- Domains: `davidtiz.com` (canonical apex) and `www.davidtiz.com`
   - @ → 76.76.21.21 (A record)
-  - www → cname.vercel-dns-017.com (CNAME)
+  - www → 76.76.21.21 (A record, redirects to apex)
 
 Alias commands (when needed):
 ```bash
-vercel alias set david-ortiz-portfolio-<latest>.vercel.app cs-learning.me
-vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.cs-learning.me
-vercel certs issue cs-learning.me www.cs-learning.me
+vercel alias set david-ortiz-portfolio-<latest>.vercel.app davidtiz.com
+vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.davidtiz.com
+vercel certs issue davidtiz.com www.davidtiz.com
 ```
 
 ### Monitoring
 
-`.github/workflows/check-project-routes.yml` runs hourly and curls each `/projects/<slug>/` URL on `https://cs-learning.me`. The workflow fails (and alerts) if any route stops returning `200`. Add new slugs to `PROJECT_URLS` whenever more demos ship.
+`.github/workflows/check-project-routes.yml` runs hourly and curls each `/projects/<slug>/` URL on `https://davidtiz.com`. The workflow fails (and alerts) if any route stops returning `200`. Add new slugs to `PROJECT_URLS` whenever more demos ship.
 
 ## Structure
 

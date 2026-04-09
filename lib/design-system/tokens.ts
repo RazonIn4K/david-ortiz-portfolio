@@ -1,6 +1,6 @@
 // =============================================================================
 // DESIGN SYSTEM TOKENS
-// Shared across: cs-learning.me, highencodelearning.com, csbrainai.com, promptdefenders.com
+// Shared across: davidtiz.com, highencodelearning.com, csbrain.ai, and prompt-defenders.com
 // =============================================================================
 
 export const tokens = {

@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Next.js 14 portfolio site for David Ortiz's AI automation studio. The site showcases AI automation services (chatbots, scraping, AI security) with an OpenRouter-powered AI concierge, case studies, and legacy Tailwind demo projects served via rewrites.
+Next.js site for David Ortiz's personal notes, systems experiments, design-system work, and legacy demo projects served via rewrites. This repo is the personal side of the ecosystem. Business-facing work lives at High Encode Learning.
 
-**Production**: `cs-learning.me` (apex domain preferred, www redirects to apex)
+**Production**: `davidtiz.com` (apex domain preferred, www redirects to apex)
 **Vercel Project**: `david-ortiz-portfolio` (team: razs-projects-29d4f2e6)
 
 ## Development Commands
@@ -50,7 +50,7 @@ To sync secrets to Vercel, set up the Doppler-Vercel integration in the [Doppler
 
 **Required secrets:**
 - `OPENROUTER_API_KEY` - Powers the AI concierge (get from [OpenRouter](https://openrouter.ai))
-- `SITE_URL` - Used for OpenRouter HTTP-Referer header (defaults to cs-learning.me)
+- `SITE_URL` - Used for OpenRouter HTTP-Referer header (defaults to davidtiz.com)
 - `OPENROUTER_PRIMARY_MODEL` - Optional override for AI model (defaults to fallback chain: openrouter/sherlock-dash-alpha → openrouter/sherlock-think-alpha → nvidia/nemotron-nano-9b-v2:free → z-ai/glm-4.5-air:free)
 
 ## Architecture
@@ -137,14 +137,14 @@ When updating site copy, edit `data/content.ts` rather than hardcoding in compon
 vercel --prod
 
 # Manual alias setup (if needed)
-vercel alias set david-ortiz-portfolio-<latest>.vercel.app cs-learning.me
-vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.cs-learning.me
-vercel certs issue cs-learning.me www.cs-learning.me
+vercel alias set david-ortiz-portfolio-<latest>.vercel.app davidtiz.com
+vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.davidtiz.com
+vercel certs issue davidtiz.com www.davidtiz.com
 ```
 
 **DNS Configuration**:
 - @ → 76.76.21.21 (A record)
-- www → cname.vercel-dns-017.com (CNAME)
+- www → 76.76.21.21 (A record)
 
 ## Path Aliases
 

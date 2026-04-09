@@ -62,7 +62,7 @@ export const baseKeyframes = {
 
 // Site-specific keyframes
 export const siteKeyframes = {
-  // CS-LEARNING.ME specific
+  // Personal-site specific
   csLearning: {
     scanLine: {
       "0%": { transform: "translateY(-100%)" },

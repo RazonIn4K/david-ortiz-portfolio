@@ -28,7 +28,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 # Configuration
-PRODUCTION_URL="https://cs-learning.me"
+PRODUCTION_URL="https://davidtiz.com"
 WEBHOOK_PATH="/api/stripe-webhook"
 
 # State tracking

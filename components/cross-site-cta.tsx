@@ -24,15 +24,15 @@ export function CrossSiteCta({ variant, articleTitle, className = "" }: CrossSit
           <div className="flex-1">
             <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Want to learn how this works?</h4>
             <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
-              Explore in-depth tutorials on AI automation, RAG systems, and security best practices.
+              Open the personal notes and experiments behind the systems work.
             </p>
             <a
-              href="https://highencodelearning.com/programs"
+              href="https://davidtiz.com/#learning"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
             >
-              Browse learning programs
+              Open personal notes
               <ArrowRightIcon className="h-4 w-4" />
             </a>
           </div>
@@ -53,16 +53,16 @@ export function CrossSiteCta({ variant, articleTitle, className = "" }: CrossSit
           <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Need this built for you?</h4>
           <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
             {articleTitle
-              ? `Let me implement ${articleTitle} for your team with a done-for-you automation package.`
-              : "Get expert help implementing AI automation, chatbots, and security solutions for your business."}
+              ? `If you want ${articleTitle} implemented for your team, use the business site to scope the work.`
+              : "If you need implementation help, move over to the business side and scope it there."}
           </p>
           <a
-            href="https://cs-learning.me/work-with-me"
+            href="https://highencodelearning.com/services"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-medium text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors"
           >
-            View consulting services
+            Visit business site
             <ArrowRightIcon className="h-4 w-4" />
           </a>
         </div>

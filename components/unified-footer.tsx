@@ -1,22 +1,22 @@
 import { AutomationIcon, BookIcon, ShieldIcon, ToolsIcon, ExternalLinkIcon } from "./icons/ecosystem-icons"
 
 const footerSections = {
-  consulting: {
-    title: "Consulting",
+  notebook: {
+    title: "Personal Site",
     links: [
-      { name: "AI Automation", href: "https://cs-learning.me/work-with-me#automation" },
-      { name: "RAG Chatbots", href: "https://cs-learning.me/work-with-me#chatbots" },
-      { name: "Security Audits", href: "https://cs-learning.me/work-with-me#security" },
-      { name: "Case Studies", href: "https://cs-learning.me/case-studies" },
+      { name: "Focus", href: "https://davidtiz.com/#focus" },
+      { name: "Learning", href: "https://davidtiz.com/#learning" },
+      { name: "Design System", href: "https://davidtiz.com/design-system" },
+      { name: "Projects", href: "https://davidtiz.com/projects" },
     ],
   },
-  learning: {
-    title: "Learning",
+  business: {
+    title: "High Encode Learning",
     links: [
-      { name: "Starter Program", href: "https://highencodelearning.com/programs#starter" },
-      { name: "Pro Cohort", href: "https://highencodelearning.com/programs#pro" },
-      { name: "Team Training", href: "https://highencodelearning.com/programs#team" },
-      { name: "Articles", href: "https://highencodelearning.com/articles" },
+      { name: "Services", href: "https://highencodelearning.com/services" },
+      { name: "Learning Notes", href: "https://highencodelearning.com/learning" },
+      { name: "Demos", href: "https://highencodelearning.com/demos" },
+      { name: "Contact", href: "https://highencodelearning.com/contact" },
     ],
   },
   tools: {
@@ -32,7 +32,7 @@ const footerSections = {
       { name: "LinkedIn", href: "https://linkedin.com/in/davidortiz", external: true },
       { name: "Twitter/X", href: "https://twitter.com/davidortiz", external: true },
       { name: "GitHub", href: "https://github.com/davidortiz", external: true },
-      { name: "Contact", href: "https://cs-learning.me/work-with-me" },
+      { name: "Business Contact", href: "https://highencodelearning.com/contact" },
     ],
   },
 }
@@ -52,14 +52,14 @@ export function UnifiedFooter({ variant = "dark" }: UnifiedFooterProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* Main footer grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-          {/* Consulting */}
+          {/* Personal site */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <AutomationIcon className="h-5 w-5 text-sky-500" />
-              <h3 className="font-semibold">{footerSections.consulting.title}</h3>
+              <BookIcon className="h-5 w-5 text-sky-500" />
+              <h3 className="font-semibold">{footerSections.notebook.title}</h3>
             </div>
             <ul className="space-y-2">
-              {footerSections.consulting.links.map((link) => (
+              {footerSections.notebook.links.map((link) => (
                 <li key={link.name}>
                   <a href={link.href} className={`text-sm ${mutedClass} ${hoverClass} transition-colors`}>
                     {link.name}
@@ -69,14 +69,14 @@ export function UnifiedFooter({ variant = "dark" }: UnifiedFooterProps) {
             </ul>
           </div>
 
-          {/* Learning */}
+          {/* Business */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <BookIcon className="h-5 w-5 text-teal-500" />
-              <h3 className="font-semibold">{footerSections.learning.title}</h3>
+              <AutomationIcon className="h-5 w-5 text-teal-500" />
+              <h3 className="font-semibold">{footerSections.business.title}</h3>
             </div>
             <ul className="space-y-2">
-              {footerSections.learning.links.map((link) => (
+              {footerSections.business.links.map((link) => (
                 <li key={link.name}>
                   <a href={link.href} className={`text-sm ${mutedClass} ${hoverClass} transition-colors`}>
                     {link.name}
@@ -143,7 +143,7 @@ export function UnifiedFooter({ variant = "dark" }: UnifiedFooterProps) {
               </div>
               <div>
                 <p className="font-semibold">David Ortiz</p>
-                <p className={`text-xs ${mutedClass}`}>AI Automation & Education</p>
+                <p className={`text-xs ${mutedClass}`}>Personal notes + systems learning</p>
               </div>
             </div>
 

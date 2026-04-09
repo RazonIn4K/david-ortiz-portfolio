@@ -8,30 +8,30 @@ export function FooterLight() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-[#111827] font-bold text-lg">High Encode Learning</span>
+              <span className="text-[#111827] font-bold text-lg">David Ortiz Personal Site</span>
             </div>
             <p className="text-[#6b7280] text-sm leading-relaxed mb-4">
-              Accelerate your CS & Cybersecurity learning with structured curriculum, real-world labs, and AI tools.
+              Personal notes, experiments, and systems thinking across browsers, APIs, automation, and delivery.
             </p>
             <a
-              href="/programs"
+              href="/#focus"
               className="inline-flex items-center gap-2 text-sm font-medium text-[#3b82f6] hover:text-[#2563eb] transition-colors"
             >
-              View Programs
+              View current focus
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
           </div>
 
-          {/* Programs Column */}
+          {/* Themes Column */}
           <div>
-            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">Programs</h4>
+            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">Themes</h4>
             <ul className="space-y-3">
               {[
-                { icon: CurriculumIcon, label: "Starter Program", href: "/programs#starter" },
-                { icon: LabIcon, label: "Pro Cohort", href: "/programs#pro" },
-                { icon: AICopilotIcon, label: "Team Training", href: "/programs#team" },
+                { icon: CurriculumIcon, label: "Abstraction Layers", href: "/#learning" },
+                { icon: LabIcon, label: "Browser + Runtime", href: "/#focus" },
+                { icon: AICopilotIcon, label: "AI Systems", href: "/#learning" },
               ].map((item) => (
                 <li key={item.label}>
                   <a
@@ -46,13 +46,14 @@ export function FooterLight() {
             </ul>
           </div>
 
-          {/* Tools Column */}
+          {/* Business Column */}
           <div>
-            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">AI Tools</h4>
+            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">Business Site</h4>
             <ul className="space-y-3">
               {[
-                { label: "CSBrainAI", href: "https://csbrain.ai", desc: "Learning Assistant" },
-                { label: "Prompt Defenders", href: "https://prompt-defenders.com", desc: "Security Testing" },
+                { label: "Services", href: "https://highencodelearning.com/services", desc: "Client work" },
+                { label: "Learning Notes", href: "https://highencodelearning.com/learning", desc: "Business layer" },
+                { label: "Demos", href: "https://highencodelearning.com/demos", desc: "Working systems" },
               ].map((item) => (
                 <li key={item.label}>
                   <a
@@ -65,11 +66,6 @@ export function FooterLight() {
                 </li>
               ))}
             </ul>
-
-            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mt-8 mb-4">Consulting</h4>
-            <a href="https://cs-learning.me" className="text-[#6b7280] hover:text-[#3b82f6] transition-colors text-sm">
-              cs-learning.me →
-            </a>
           </div>
 
           {/* Resources Column */}
@@ -77,10 +73,10 @@ export function FooterLight() {
             <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">Resources</h4>
             <ul className="space-y-3">
               {[
-                { label: "Blog", href: "/blog" },
-                { label: "Newsletter", href: "/newsletter" },
-                { label: "Contact", href: "/contact" },
-                { label: "Apply Now", href: "/apply" },
+                { label: "Home", href: "/" },
+                { label: "Design System", href: "/design-system" },
+                { label: "Business Site", href: "https://highencodelearning.com" },
+                { label: "Contact", href: "https://highencodelearning.com/contact" },
               ].map((item) => (
                 <li key={item.label}>
                   <a href={item.href} className="text-[#6b7280] hover:text-[#3b82f6] transition-colors text-sm">
@@ -95,14 +91,14 @@ export function FooterLight() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-[#e5e7eb] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[#9ca3af] text-xs">
-            © {new Date().getFullYear()} High Encode Learning. All rights reserved.
+            © {new Date().getFullYear()} David Ortiz. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-xs text-[#9ca3af]">
-            <a href="/privacy" className="hover:text-[#6b7280] transition-colors">
-              Privacy
+            <a href="https://highencodelearning.com/privacy" className="hover:text-[#6b7280] transition-colors">
+              Business Privacy
             </a>
-            <a href="/terms" className="hover:text-[#6b7280] transition-colors">
-              Terms
+            <a href="https://highencodelearning.com/terms" className="hover:text-[#6b7280] transition-colors">
+              Business Terms
             </a>
           </div>
         </div>

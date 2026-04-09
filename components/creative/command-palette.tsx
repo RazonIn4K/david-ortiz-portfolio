@@ -19,21 +19,21 @@ interface Site {
 const sites: Site[] = [
   {
     id: "consulting",
-    name: "CS-Learning.me",
-    url: "https://cs-learning.me",
+    name: "DavidTiz.com",
+    url: "https://davidtiz.com",
     icon: <Zap className="w-5 h-5" />,
-    description: "AI Automation & Consulting",
+    description: "Personal notes + experiments",
     gradient: "from-teal-400 to-cyan-400",
-    shortcuts: ["Work With Me", "Case Studies", "Projects"],
+    shortcuts: ["Focus", "Learning", "Design System"],
   },
   {
     id: "learning",
     name: "High Encode Learning",
     url: "https://highencodelearning.com",
     icon: <GraduationCap className="w-5 h-5" />,
-    description: "CS & Cybersecurity Education",
+    description: "Business site + services",
     gradient: "from-blue-400 to-indigo-400",
-    shortcuts: ["Programs", "Apply", "Resources"],
+    shortcuts: ["Services", "Demos", "Learning"],
   },
   {
     id: "csbrain",

@@ -18,10 +18,10 @@ export function CrossSiteCta({ variant, context }: CrossSiteCtaProps) {
             </p>
           </div>
           <a
-            href="https://cs-learning.me/work-with-me"
+            href="https://highencodelearning.com/services"
             className="inline-flex items-center gap-2 bg-[#0ea5e9] hover:bg-[#0284c7] text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap"
           >
-            Work With Me
+            Business Site
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>
@@ -29,21 +29,21 @@ export function CrossSiteCta({ variant, context }: CrossSiteCtaProps) {
     )
   }
 
-  // Show on cs-learning.me case studies/pages - matches dark theme
+  // Show on the personal site - matches dark theme
   return (
     <div className="bg-[#0f172a] border border-[#1e293b] rounded-xl p-6 my-8">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <p className="text-[#e2e8f0] font-semibold text-sm mb-1">Want to learn how this works?</p>
           <p className="text-[#94a3b8] text-sm">
-            {context || "Master the fundamentals through our structured programs."}
+            {context || "Follow the personal notes, experiments, and build logs behind the system."}
           </p>
         </div>
         <a
-          href="https://highencodelearning.com/programs"
+          href="https://davidtiz.com/#learning"
           className="inline-flex items-center gap-2 bg-[#2dd4bf] hover:bg-[#14b8a6] text-[#0c1222] px-5 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap"
         >
-          View Programs
+          Open Notes
           <ArrowRight className="w-4 h-4" />
         </a>
       </div>

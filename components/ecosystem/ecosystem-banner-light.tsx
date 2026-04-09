@@ -5,14 +5,14 @@ import { ChevronDown } from "lucide-react"
 
 const ecosystemSites = [
   {
-    name: "Consulting",
-    href: "https://cs-learning.me",
-    description: "AI Automation Services",
+    name: "Personal Site",
+    href: "https://davidtiz.com",
+    description: "Notes + experiments",
   },
   {
-    name: "Learning",
+    name: "Business Site",
     href: "https://highencodelearning.com",
-    description: "CS & Security Education",
+    description: "Services + demos",
   },
   {
     name: "CSBrainAI",

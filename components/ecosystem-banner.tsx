@@ -11,14 +11,14 @@ interface EcosystemLink {
 
 const ecosystemLinks: EcosystemLink[] = [
   {
-    name: "Consulting",
-    href: "https://cs-learning.me",
-    description: "AI automation services",
+    name: "Personal Site",
+    href: "https://davidtiz.com",
+    description: "Notes, experiments, and demos",
   },
   {
-    name: "Learning",
+    name: "Business Site",
     href: "https://highencodelearning.com",
-    description: "CS & Cybersecurity education",
+    description: "Services, demos, and business-facing notes",
   },
   {
     name: "CSBrainAI",

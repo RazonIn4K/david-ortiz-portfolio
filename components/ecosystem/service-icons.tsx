@@ -1,4 +1,4 @@
-// Custom SVG icons matching cs-learning.me's style - tech-focused, clean strokes
+// Custom SVG icons matching the personal-site style - tech-focused, clean strokes
 
 export function AutomationIcon({ className = "w-6 h-6" }: { className?: string }) {
   return (
