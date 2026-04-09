@@ -20,7 +20,7 @@ function hostnameFor(url: string) {
 }
 
 export const personalSiteUrl = normalizeUrl(
-  process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL,
+  process.env.NEXT_PUBLIC_PERSONAL_SITE_URL,
   DEFAULT_PERSONAL_SITE_URL
 )
 
