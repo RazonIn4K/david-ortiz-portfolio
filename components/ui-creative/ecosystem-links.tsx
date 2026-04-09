@@ -2,11 +2,11 @@
 
 import { motion } from "framer-motion"
 import { ExternalLink, Sparkles, Briefcase, Shield, Brain, NotebookPen } from "lucide-react"
-import { businessSiteUrl, personalSiteDomain, personalSiteUrl } from "@/lib/site-config"
+import { businessSiteUrl, personalSitePublicLabel, personalSiteUrl } from "@/lib/site-config"
 
 const ecosystemItems = [
   {
-    name: personalSiteDomain,
+    name: personalSitePublicLabel,
     description: "Personal notes, experiments, and learning-in-public",
     icon: NotebookPen,
     url: personalSiteUrl,

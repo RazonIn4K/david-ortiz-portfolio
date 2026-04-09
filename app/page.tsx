@@ -12,7 +12,7 @@ import { OrbitVisualization } from "@/components/ui-creative/orbit-visualization
 import { AnimatedStats } from "@/components/ui-creative/animated-stats"
 import { ServiceGrid } from "@/components/ui-creative/service-grid"
 import { EcosystemLinks } from "@/components/ui-creative/ecosystem-links"
-import { businessSiteUrl, personalSiteDomain } from "@/lib/site-config"
+import { businessSiteUrl, personalSitePublicLabel } from "@/lib/site-config"
 
 export default function HomePage() {
   return (
@@ -277,7 +277,7 @@ export default function HomePage() {
             <span className="text-[#22d3ee] text-sm font-medium uppercase tracking-wider">The Ecosystem</span>
             <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">How the sites connect</h2>
             <p className="text-white/50 max-w-2xl mx-auto">
-              {personalSiteDomain} is personal and reflective. High Encode Learning is the business-facing layer. The other tools sit between learning, testing, and delivery.
+              The {personalSitePublicLabel} is personal and reflective. High Encode Learning is the business-facing layer. The other tools sit between learning, testing, and delivery.
             </p>
           </motion.div>
 

@@ -4,7 +4,7 @@ import * as React from "react"
 import { motion } from "framer-motion"
 import { Check, Palette, Type, Layers, Zap, Grid3X3, ExternalLink } from "lucide-react"
 import { tokens } from "@/lib/design-system/tokens"
-import { businessSiteDomain, personalSiteDomain } from "@/lib/site-config"
+import { businessSiteDomain, personalSitePublicLabel } from "@/lib/site-config"
 import { siteConfigs, type SiteKey } from "@/lib/design-system/site-configs"
 import { DSButton } from "@/components/design-system/ds-button"
 import { DSCard } from "@/components/design-system/ds-card"
@@ -505,7 +505,7 @@ export default function DesignSystemPage() {
             <span className="text-neutral-600">David Ortiz Design System</span>
           </div>
           <p className="text-sm text-neutral-400">
-            Powering {personalSiteDomain}, {businessSiteDomain}, csbrainai.com, and promptdefenders.com
+            Powering the {personalSitePublicLabel}, {businessSiteDomain}, csbrainai.com, and promptdefenders.com
           </p>
         </div>
       </footer>

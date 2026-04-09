@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { businessSiteUrl, personalSiteDomain, personalSiteUrl } from "@/lib/site-config"
+import { businessSiteUrl, personalSitePublicLabel, personalSiteUrl } from "@/lib/site-config"
 
-const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (${personalSiteDomain}). This site is a personal notebook and ecosystem guide, not the primary sales site.
+const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (${personalSitePublicLabel}). This site is a personal notebook and ecosystem guide, not the primary sales site.
 
 ## What the personal site is for:
 - Personal notes, experiments, demos, and learning-in-public
@@ -113,7 +113,7 @@ function getFallbackResponse(userMessage: string): string {
   }
 
   if (lowerMessage.includes("high encode") || lowerMessage.includes("cs-learning") || lowerMessage.includes("ecosystem")) {
-    return `${personalSiteDomain} is the personal site for notes, experiments, and learning in public. High Encode Learning is the business-facing site for services, demos, and project scoping: ${businessSiteUrl}.`
+    return `${personalSitePublicLabel} is the personal site for notes, experiments, and learning in public. High Encode Learning is the business-facing site for services, demos, and project scoping: ${businessSiteUrl}.`
   }
 
   if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {

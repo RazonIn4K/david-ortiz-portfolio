@@ -1,4 +1,4 @@
-import { businessSiteUrl, personalSiteDomain, personalSiteUrl } from "@/lib/site-config"
+import { businessSiteUrl, personalSitePublicLabel, personalSiteUrl } from "@/lib/site-config"
 
 export type LinkRef = {
   label: string
@@ -25,7 +25,7 @@ export const services: Service[] = [
     bullets: ['Browser runtime', 'Frontend architecture', 'Business-layer decisions'],
     icon: '🧠',
     cta: {
-      label: `Read ${personalSiteDomain}`,
+      label: 'Read the personal site',
       href: personalSiteUrl,
     },
   },
@@ -79,7 +79,7 @@ export const showcaseProjects: Project[] = [
     metrics: ['Business layer', 'Services', 'Demos'],
   },
   {
-    title: personalSiteDomain,
+    title: personalSitePublicLabel,
     description: 'Personal notes, experiments, and the learning-in-public side of the ecosystem.',
     href: personalSiteUrl,
     metrics: ['Personal layer', 'Notes', 'Experiments'],
@@ -113,7 +113,7 @@ export const caseStudies: CaseStudy[] = [
     problem:
       'One site was trying to be a personal notebook, a service page, and a product surface all at once, which made the positioning muddy.',
     solution:
-      `Split the ecosystem clearly: ${personalSiteDomain} for personal notes and High Encode Learning for business-facing services, demos, and scoped work.`,
+      `Split the ecosystem clearly: the ${personalSitePublicLabel} for personal notes and High Encode Learning for business-facing services, demos, and scoped work.`,
     results:
       'The roles of each domain became easier to explain, easier to trust, and easier to maintain without invented marketing claims.',
     stack: ['Next.js', 'Vercel', 'Content strategy', 'System design'],

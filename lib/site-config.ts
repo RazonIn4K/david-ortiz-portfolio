@@ -1,4 +1,4 @@
-const DEFAULT_PERSONAL_SITE_URL = "https://davidortiz.dev"
+const DEFAULT_PERSONAL_SITE_URL = "https://david-ortiz-portfolio-flax.vercel.app"
 const DEFAULT_BUSINESS_SITE_URL = "https://highencodelearning.com"
 
 function normalizeUrl(candidate: string | undefined, fallback: string) {
@@ -26,6 +26,7 @@ export const personalSiteUrl = normalizeUrl(
 
 export const personalSiteDomain = hostnameFor(personalSiteUrl)
 export const personalSiteName = "David Ortiz Personal Site"
+export const personalSitePublicLabel = "David Ortiz personal site"
 
 export const businessSiteUrl = normalizeUrl(
   process.env.NEXT_PUBLIC_BUSINESS_SITE_URL,
