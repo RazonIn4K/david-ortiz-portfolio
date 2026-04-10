@@ -18,7 +18,7 @@ const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (
 - **Prompt Defenders** (promptdefenders.com) - AI security testing and prompt-safety work
 
 ## Guidance:
-- If someone wants to hire David, discuss a project, or ask about business services, direct them to High Encode Learning
+- If someone wants to hire David, discuss a project, or ask about business services, mention the direct contact section on this site first and use High Encode Learning for the formal business-facing path
 - If someone asks what David is learning or building, answer from the perspective of experimentation, notes, demos, and system design
 - Keep answers concise and useful
 - Do not invent pricing or sales promises
@@ -105,7 +105,7 @@ function getFallbackResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase()
 
   if (lowerMessage.includes("hire") || lowerMessage.includes("project") || lowerMessage.includes("service") || lowerMessage.includes("work")) {
-    return `For business services, scoped work, and business conversations, use High Encode Learning: ${businessSiteUrl}. This site is the personal notebook layer.`
+    return `For direct contact, use the contact section on this site. For business services, scoped work, and business conversations, use High Encode Learning: ${businessSiteUrl}.`
   }
 
   if (lowerMessage.includes("learn") || lowerMessage.includes("building") || lowerMessage.includes("studying")) {
@@ -120,5 +120,5 @@ function getFallbackResponse(userMessage: string): string {
     return "Prompt safety, AI system behavior, and security testing are active topics in the ecosystem. Prompt Defenders is the security-focused surface: https://promptdefenders.com."
   }
 
-  return `This site is the personal notebook layer in David Ortiz's ecosystem. Ask about what he is learning, what he is building, or how the ecosystem sites connect. For scoped business work, use High Encode Learning: ${businessSiteUrl}.`
+  return `This site is the personal notebook layer in David Ortiz's ecosystem. Ask about what he is learning, what he is building, or how the ecosystem sites connect. For direct contact, use the contact section on this site, and for scoped business work use High Encode Learning: ${businessSiteUrl}.`
 }

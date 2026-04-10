@@ -1,10 +1,21 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Sparkles, Play, ChevronDown } from "lucide-react"
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  CalendarDays,
+  ChevronDown,
+  ExternalLink,
+  Github,
+  Mail,
+  Play,
+  Sparkles,
+} from "lucide-react"
 import Link from "next/link"
 
 import { AIAssistant } from "@/components/ui-creative/ai-assistant"
+import { FloatingContact } from "@/components/ui-creative/floating-contact"
 import { HexGridBackground } from "@/components/ui-creative/hex-grid-bg"
 import { TerminalHero } from "@/components/ui-creative/terminal-hero"
 import { FloatingDock } from "@/components/ui-creative/floating-dock"
@@ -12,7 +23,37 @@ import { OrbitVisualization } from "@/components/ui-creative/orbit-visualization
 import { AnimatedStats } from "@/components/ui-creative/animated-stats"
 import { ServiceGrid } from "@/components/ui-creative/service-grid"
 import { EcosystemLinks } from "@/components/ui-creative/ecosystem-links"
+import {
+  footerEcosystemLinks,
+  footerPrimaryLinks,
+  followWorkLinks,
+  hireMeLinks,
+  quickReachLinks,
+  type ContactLink,
+} from "@/lib/contact-links"
 import { businessSiteUrl, personalSitePublicLabel } from "@/lib/site-config"
+
+function iconFor(link: ContactLink) {
+  switch (link.id) {
+    case "email":
+      return Mail
+    case "calendly":
+      return CalendarDays
+    case "upwork":
+    case "fiverr":
+    case "high-encode":
+    case "business-inbox":
+      return BriefcaseBusiness
+    case "github":
+      return Github
+    default:
+      return ExternalLink
+  }
+}
+
+function isExternal(href: string) {
+  return href.startsWith("http")
+}
 
 export default function HomePage() {
   return (
@@ -22,6 +63,9 @@ export default function HomePage() {
 
       {/* AI Assistant */}
       <AIAssistant />
+
+      {/* Direct contact launcher */}
+      <FloatingContact />
 
       {/* Floating Dock Navigation */}
       <FloatingDock />
@@ -74,12 +118,10 @@ export default function HomePage() {
             className="flex items-center gap-3"
           >
             <a
-              href={businessSiteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-medium text-sm hover:shadow-lg hover:shadow-[#ff6b6b]/25 transition-shadow"
             >
-              Business Site
+              Contact
               <ArrowRight className="w-4 h-4" />
             </a>
           </motion.div>
@@ -287,42 +329,102 @@ export default function HomePage() {
 
       {/* CTA Section */}
       <section id="contact" className="relative z-10 py-24 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-strong rounded-3xl p-8 md:p-12 text-center glow-teal"
+            className="glass-strong rounded-3xl p-8 md:p-12 glow-teal"
           >
-            <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-              className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center mx-auto mb-8"
-            >
-              <Sparkles className="w-8 h-8 text-[#060a14]" />
-            </motion.div>
+            <div className="mb-10 text-center">
+              <motion.div
+                animate={{ scale: [1, 1.08, 1] }}
+                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee]"
+              >
+                <Sparkles className="h-8 w-8 text-[#060a14]" />
+              </motion.div>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Need the business-facing version of this?</h2>
-            <p className="text-white/50 mb-8 max-w-xl mx-auto">
-              Use High Encode Learning for scoped work, demos, and project conversations. Keep this site for notes,
-              experiments, and the personal layer underneath the work.
-            </p>
+              <span className="inline-flex items-center rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#9ae6db]">
+                Direct contact hub
+              </span>
+              <h2 className="mt-6 text-3xl font-bold md:text-4xl">If this site gets passed around, it should still be easy to reach me</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-white/50">
+                This site stays personal, but contact does not need to be buried. Use the fastest confirmed paths below for
+                follow-up, booking, hiring, or seeing the work that sits behind the notes.
+              </p>
+              <p className="mx-auto mt-3 max-w-xl text-sm text-white/35">
+                English-first, async-friendly, and ready for local business follow-up without forcing people to hunt for the right page.
+              </p>
+            </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="grid gap-6 lg:grid-cols-3">
+              {[
+                {
+                  heading: "Quick reach",
+                  intro: "Best if you want to talk soon or need the cleanest next step.",
+                  links: quickReachLinks,
+                },
+                {
+                  heading: "Hire me",
+                  intro: "Best if you already know you want a scoped project or freelance path.",
+                  links: hireMeLinks,
+                },
+                {
+                  heading: "Follow the work",
+                  intro: "Best if you want to inspect the code, experiments, and ecosystem.",
+                  links: followWorkLinks,
+                },
+              ].map(group => (
+                <div key={group.heading} className="rounded-3xl border border-white/8 bg-white/[0.03] p-6 text-left">
+                  <p className="text-xs uppercase tracking-[0.22em] text-[#22d3ee]">{group.heading}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/50">{group.intro}</p>
+
+                  <div className="mt-6 space-y-3">
+                    {group.links.map(link => {
+                      const Icon = iconFor(link)
+
+                      return (
+                        <a
+                          key={link.id}
+                          href={link.href}
+                          target={isExternal(link.href) ? "_blank" : undefined}
+                          rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+                          className="group flex items-start gap-3 rounded-2xl border border-white/8 bg-[#0b1424]/75 px-4 py-4 transition-colors hover:border-white/20 hover:bg-[#0f1a2f]"
+                        >
+                          <span className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff6b6b] to-[#ff8e8e] text-white shadow-lg shadow-[#ff6b6b]/10">
+                            <Icon className="h-4 w-4" />
+                          </span>
+                          <span className="min-w-0">
+                            <span className="flex items-center gap-2 text-sm font-semibold text-white">
+                              {link.label}
+                              <ArrowRight className="h-4 w-4 text-white/30 transition-transform group-hover:translate-x-0.5" />
+                            </span>
+                            <span className="mt-1 block text-xs leading-relaxed text-white/50">{link.description}</span>
+                          </span>
+                        </a>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-col gap-4 rounded-3xl border border-white/8 bg-[#08101e]/75 px-6 py-5 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-white">Want the formal business-facing version?</p>
+                <p className="mt-1 text-sm text-white/45">
+                  High Encode Learning is still the cleanest place for scoping, demos, and formal project conversations.
+                </p>
+              </div>
               <a
-                href={`${businessSiteUrl}/contact`}
+                href={businessSiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-semibold hover:shadow-xl hover:shadow-[#ff6b6b]/20 transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] px-6 py-3 font-semibold text-[#060a14] transition-transform hover:scale-[1.01]"
               >
                 Visit High Encode Learning
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href={`${businessSiteUrl}/contact`}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl glass border border-white/10 font-medium hover:border-white/30 transition-colors"
-              >
-                Business contact
+                <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           </motion.div>
@@ -331,7 +433,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-white/5 py-12 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-7xl mx-auto grid gap-8 lg:grid-cols-[1.1fr_1fr_1fr_auto] lg:items-start">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center font-bold text-[#060a14]">
               DO
@@ -342,19 +444,41 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-6 text-sm text-white/40">
-            <a href="https://github.com/RazonIn4K" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-            <a href={businessSiteUrl} className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
-              High Encode
-            </a>
-            <a href="https://csbrain.ai" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
-              CSBrainAI
-            </a>
+          <div>
+            <p className="text-xs uppercase tracking-[0.22em] text-white/35">Reach out</p>
+            <div className="mt-3 flex flex-wrap gap-3 text-sm text-white/45">
+              {footerPrimaryLinks.map(link => (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  target={isExternal(link.href) ? "_blank" : undefined}
+                  rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+                  className="hover:text-white transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </div>
 
-          <p className="text-sm text-white/30">© {new Date().getFullYear()} David Ortiz. All rights reserved.</p>
+          <div>
+            <p className="text-xs uppercase tracking-[0.22em] text-white/35">Ecosystem</p>
+            <div className="mt-3 flex flex-wrap gap-3 text-sm text-white/45">
+              {footerEcosystemLinks.map(link => (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  target={isExternal(link.href) ? "_blank" : undefined}
+                  rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+                  className="hover:text-white transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-sm text-white/30 lg:text-right">© {new Date().getFullYear()} David Ortiz. All rights reserved.</p>
         </div>
       </footer>
 

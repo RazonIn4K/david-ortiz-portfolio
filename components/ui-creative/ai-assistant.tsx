@@ -21,7 +21,7 @@ interface QuickAction {
 const quickActions: QuickAction[] = [
   { icon: Zap, label: "What are you building?", query: "What are you currently building and testing?" },
   { icon: BookOpen, label: "How do the sites connect?", query: `How do the ${personalSitePublicLabel} and High Encode Learning connect?` },
-  { icon: Shield, label: "Where should business inquiries go?", query: "Where should someone go if they want to hire you or discuss scoped work?" },
+  { icon: Shield, label: "How can I reach David?", query: "What are the fastest ways to contact David directly from this site?" },
 ]
 
 const generateId = () =>
@@ -32,7 +32,7 @@ const createInitialMessage = (): Message => ({
   id: "welcome-message",
   role: "assistant",
   content:
-    "Hey! I'm your AI guide to David's ecosystem. This site is the personal notebook layer, so ask about what David is learning, building, and how the ecosystem sites connect.",
+    "Hey! I'm your AI guide to David's ecosystem. This site is the personal notebook layer, so ask about what David is learning, building, how the ecosystem sites connect, or how to reach him directly.",
   timestamp: new Date(),
 })
 
@@ -143,7 +143,7 @@ export function AIAssistant() {
         {
           id: generateId(),
           role: "assistant",
-          content: `Sorry, I encountered an error. Please try again. For business inquiries, use High Encode Learning: ${businessSiteUrl}.`,
+          content: `Sorry, I encountered an error. Please try again. For direct contact, use the contact section on this site or High Encode Learning: ${businessSiteUrl}.`,
           timestamp: new Date(),
         },
       ])
