@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { CalendarDays, BriefcaseBusiness, ExternalLink, Mail, MessageCircle } from "lucide-react"
+import { CalendarDays, BriefcaseBusiness, ExternalLink, Facebook, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react"
 
 import { floatingContactLinks, type ContactLink } from "@/lib/contact-links"
 
@@ -14,6 +14,12 @@ function iconFor(link: ContactLink) {
       return CalendarDays
     case "upwork":
       return BriefcaseBusiness
+    case "facebook":
+      return Facebook
+    case "instagram":
+      return Instagram
+    case "linkedin":
+      return Linkedin
     default:
       return ExternalLink
   }
@@ -41,7 +47,7 @@ export function FloatingContact() {
                 <p className="text-xs uppercase tracking-[0.24em] text-[#2dd4bf]">Contact</p>
                 <h3 className="mt-1 text-sm font-semibold text-white">Talk to David directly</h3>
                 <p className="mt-1 text-xs leading-relaxed text-white/50">
-                  Quick paths for follow-up, scheduling, and business conversations.
+                  Quick paths for follow-up, scheduling, social DMs, and business conversations.
                 </p>
               </div>
               <button

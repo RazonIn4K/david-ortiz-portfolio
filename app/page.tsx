@@ -7,7 +7,10 @@ import {
   CalendarDays,
   ChevronDown,
   ExternalLink,
+  Facebook,
   Github,
+  Instagram,
+  Linkedin,
   Mail,
   Play,
   Sparkles,
@@ -44,6 +47,12 @@ function iconFor(link: ContactLink) {
     case "high-encode":
     case "business-inbox":
       return BriefcaseBusiness
+    case "facebook":
+      return Facebook
+    case "instagram":
+      return Instagram
+    case "linkedin":
+      return Linkedin
     case "github":
       return Github
     default:

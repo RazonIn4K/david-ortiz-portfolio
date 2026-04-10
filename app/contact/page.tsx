@@ -1,6 +1,16 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, BriefcaseBusiness, CalendarDays, ExternalLink, Github, Mail } from "lucide-react"
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  CalendarDays,
+  ExternalLink,
+  Facebook,
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+} from "lucide-react"
 
 import { followWorkLinks, hireMeLinks, quickReachLinks, type ContactLink } from "@/lib/contact-links"
 import { businessSiteUrl, personalSitePublicLabel } from "@/lib/site-config"
@@ -22,6 +32,12 @@ function iconFor(link: ContactLink) {
     case "high-encode":
     case "business-inbox":
       return BriefcaseBusiness
+    case "facebook":
+      return Facebook
+    case "instagram":
+      return Instagram
+    case "linkedin":
+      return Linkedin
     case "github":
       return Github
     default:
@@ -62,6 +78,9 @@ export default function ContactPage() {
             {personalSitePublicLabel} stays personal, experimental, and reflective. This page is the shareable contact hub:
             the fastest confirmed ways to email, book time, start a freelance conversation, or move into the
             business-facing layer when it makes sense.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-white/40">
+            WhatsApp is the only missing direct channel right now. Once the phone-based business link is finalized, it can slot in here without changing the rest of the layout.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <span className="rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[#9ae6db]">

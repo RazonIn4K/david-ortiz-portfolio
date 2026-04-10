@@ -21,6 +21,18 @@ export const quickReachLinks: ContactLink[] = [
     description: "Use this if you want to talk live and get into the actual problem quickly.",
   },
   {
+    id: "facebook",
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61581646236939",
+    description: "Fastest social path if someone met me locally and wants to reconnect there.",
+  },
+  {
+    id: "instagram",
+    label: "Instagram",
+    href: "https://www.instagram.com/ra.z.on",
+    description: "Use this if Instagram DM is the easiest way to continue the conversation.",
+  },
+  {
     id: "business-inbox",
     label: "Business inbox",
     href: `${businessSiteUrl}/contact`,
@@ -57,6 +69,12 @@ export const followWorkLinks: ContactLink[] = [
     description: "Code, experiments, repositories, and working implementation history.",
   },
   {
+    id: "linkedin",
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/david-ortiz-210190205/",
+    description: "Professional profile, background, and another clean way to connect.",
+  },
+  {
     id: "csbrainai",
     label: "CSBrainAI",
     href: "https://csbrain.ai",
@@ -73,16 +91,20 @@ export const followWorkLinks: ContactLink[] = [
 export const floatingContactLinks: ContactLink[] = [
   quickReachLinks[0],
   quickReachLinks[1],
+  quickReachLinks[2],
+  quickReachLinks[3],
   hireMeLinks[0],
-  hireMeLinks[2],
 ]
 
 export const footerPrimaryLinks: ContactLink[] = [
   quickReachLinks[0],
   quickReachLinks[1],
+  quickReachLinks[2],
+  quickReachLinks[3],
   hireMeLinks[0],
   hireMeLinks[1],
   followWorkLinks[0],
+  followWorkLinks[1],
 ]
 
 export const footerEcosystemLinks: ContactLink[] = [

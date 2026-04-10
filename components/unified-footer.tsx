@@ -31,6 +31,9 @@ const footerSections = {
     links: [
       { name: "Email", href: "mailto:hello@highencodelearning.com", external: false },
       { name: "Calendly", href: "https://calendly.com/davidinfosec07", external: true },
+      { name: "LinkedIn", href: "https://www.linkedin.com/in/david-ortiz-210190205/", external: true },
+      { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61581646236939", external: true },
+      { name: "Instagram", href: "https://www.instagram.com/ra.z.on", external: true },
       { name: "Upwork", href: "https://www.upwork.com/freelancers/davido174", external: true },
       { name: "Fiverr", href: "https://www.fiverr.com/razonnet", external: true },
       { name: "GitHub", href: "https://github.com/RazonIn4K", external: true },
