@@ -93,10 +93,10 @@ export default function HomePage() {
             transition={{ delay: 0.2 }}
             className="hidden lg:flex items-center gap-8"
           >
-            {["Focus", "Learning", "Business"].map((item) => (
+            {["Focus", "Learning", "Contact"].map((item) => (
               <a
                 key={item}
-                href={item === "Focus" ? "#focus" : item === "Business" ? "#contact" : "#learning"}
+                href={item === "Focus" ? "#focus" : item === "Contact" ? "#contact" : "#learning"}
                 className="text-sm text-white/50 hover:text-white transition-colors relative group"
               >
                 {item}
@@ -356,6 +356,17 @@ export default function HomePage() {
               <p className="mx-auto mt-3 max-w-xl text-sm text-white/35">
                 English-first, async-friendly, and ready for local business follow-up without forcing people to hunt for the right page.
               </p>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+                <span className="rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[#9ae6db]">
+                  English + Español welcome
+                </span>
+                <Link
+                  href="/contact"
+                  className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/60 transition-colors hover:text-white"
+                >
+                  Open shareable contact page
+                </Link>
+              </div>
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">

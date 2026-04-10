@@ -29,10 +29,11 @@ const footerSections = {
   connect: {
     title: "Connect",
     links: [
-      { name: "LinkedIn", href: "https://linkedin.com/in/davidortiz", external: true },
-      { name: "Twitter/X", href: "https://twitter.com/davidortiz", external: true },
-      { name: "GitHub", href: "https://github.com/davidortiz", external: true },
-      { name: "Business Contact", href: "https://highencodelearning.com/contact" },
+      { name: "Email", href: "mailto:hello@highencodelearning.com", external: false },
+      { name: "Calendly", href: "https://calendly.com/davidinfosec07", external: true },
+      { name: "Upwork", href: "https://www.upwork.com/freelancers/davido174", external: true },
+      { name: "Fiverr", href: "https://www.fiverr.com/razonnet", external: true },
+      { name: "GitHub", href: "https://github.com/RazonIn4K", external: true },
     ],
   },
 }

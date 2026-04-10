@@ -59,42 +59,26 @@ To sync secrets to Vercel, set up the Doppler-Vercel integration in the [Doppler
 
 ```
 app/
-  page.tsx                 # Home: section components composed top-to-bottom
-  layout.tsx               # Root layout with Navbar + Footer
+  page.tsx                 # Home: personal notebook + contact hub
+  contact/page.tsx         # Shareable direct-contact page
+  design-system/page.tsx   # Public design-system preview
+  layout.tsx               # Root layout + metadata
   api/chat/route.ts        # AI assistant API (POST only)
-  work-with-me/page.tsx    # Engagement details
-  case-studies/page.tsx    # Deep dive case studies
 
-components/               # Section components imported by pages
-  Hero.tsx                # Above-the-fold CTA
-  ServicesSection.tsx     # 4 service cards
-  AIAssistant.tsx         # Chatbot UI (client component)
-  Navbar.tsx, Footer.tsx  # Layout chrome
+components/                # UI sections, ecosystem pieces, launchers
+  ui-creative/             # Homepage/client-facing components
+  design-system/           # Public design-system preview components
+  ecosystem/               # Shared ecosystem banners/footers/cross-site CTAs
 
 data/
   content.ts              # Centralized content: services[], showcaseProjects[], etc.
                          # Source of truth for site content
 
 lib/
-  constants.ts            # UPWORK_URL and other constants
-
-public/projects/          # Legacy static Tailwind demos (NOT Next.js pages)
-  taskflow-pro/
-  bella-cucina/
-  prime-properties/
-  powerfit-studios/
-  urban-thread/
+  site-config.ts          # Active domains and ecosystem labels
+  contact-links.ts        # Confirmed contact channels and footer/launcher data
+  design-system/          # Shared design-system configs
 ```
-
-### Routing & Rewrites
-
-**Important**: `/projects/:slug` routes serve **static HTML** from `public/projects/`, NOT Next.js pages.
-
-- Next.js rewrites (both `next.config.mjs` and `vercel.json`) map `/projects/:slug` → `/projects/:slug/index.html`
-- These demos are legacy Tailwind sites with independent HTML/CSS/JS
-- Do NOT create Next.js pages under `app/projects/` - the rewrites would conflict
-
-If you need to modify a project demo, edit the static HTML files in `public/projects/:slug/index.html`.
 
 ### AI Assistant (`/api/chat`)
 
@@ -105,16 +89,16 @@ If you need to modify a project demo, edit the static HTML files in `public/proj
 - Request validation: message (required, max 1000 chars), sessionId (required), history (optional array)
 - Returns 429 on rate limit with `retryAfter` seconds
 
-Client component: `components/AIAssistant.tsx` (handles chat UI and state)
+Client component: `components/ui-creative/ai-assistant.tsx` (handles chat UI and state)
 
 ### Content Management
 
-All site content lives in `data/content.ts` as typed exports:
+Most shared site content lives in `data/content.ts` as typed exports:
 - `services: Service[]` - 4 service offerings with bullets, icons, links
 - `showcaseProjects: Project[]` - Demo projects with metrics
 - `caseStudies`, `testimonials`, etc.
 
-When updating site copy, edit `data/content.ts` rather than hardcoding in components.
+Confirmed contact and handoff links live in `lib/contact-links.ts`.
 
 ### Styling
 
@@ -150,13 +134,13 @@ vercel certs issue davidtiz.com www.davidtiz.com
 
 TypeScript `baseUrl: "."` with `@/*` mapping to root:
 ```ts
-import { Hero } from '@/components/Hero';
-import { UPWORK_URL } from '@/lib/constants';
+import { AIAssistant } from '@/components/ui-creative/ai-assistant';
+import { quickReachLinks } from '@/lib/contact-links';
 ```
 
 ## Important Notes
 
-- Do NOT create Next.js pages under `app/projects/` - these routes are handled by static rewrites
-- All external URLs (Upwork, GitHub repos, ShopMatch Pro, Prompt Defenders) are defined in `data/content.ts`
-- When modifying the AI assistant behavior, update the system prompt in `app/api/chat/route.ts:48`
-- The site uses `next-themes` for potential dark mode (imported but not fully implemented)
+- Keep the personal/business split explicit: `davidtiz.com` is personal and reflective, `highencodelearning.com` is the business-facing layer
+- Confirmed contact channels live in `lib/contact-links.ts`; do not invent social links the user has not actually provided
+- Shared ecosystem/design-system components should stay truthful even if they are not used on the homepage
+- When modifying the AI assistant behavior, update the system prompt in `app/api/chat/route.ts`

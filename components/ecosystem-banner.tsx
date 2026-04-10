@@ -16,19 +16,19 @@ const ecosystemLinks: EcosystemLink[] = [
     description: "Notes, experiments, and demos",
   },
   {
-    name: "Business Site",
+    name: "High Encode Learning",
     href: "https://highencodelearning.com",
-    description: "Services, demos, and business-facing notes",
+    description: "Business-facing demos, scoped work, and contact",
   },
   {
     name: "CSBrainAI",
     href: "https://csbrain.ai",
-    description: "AI learning assistant",
+    description: "Retrieval and explanation experiments",
   },
   {
     name: "Prompt Defenders",
     href: "https://prompt-defenders.com",
-    description: "Security testing tool",
+    description: "Prompt-safety and AI security testing",
   },
 ]
 

@@ -21,7 +21,7 @@ export function CrossSiteCta({ variant, context }: CrossSiteCtaProps) {
             href="https://highencodelearning.com/services"
             className="inline-flex items-center gap-2 bg-[#0ea5e9] hover:bg-[#0284c7] text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap"
           >
-            Business Site
+            High Encode Learning
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>

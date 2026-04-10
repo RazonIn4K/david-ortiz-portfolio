@@ -14,23 +14,23 @@ export function FooterDark() {
               <span className="text-[#e2e8f0] font-semibold">David Ortiz</span>
             </div>
             <p className="text-[#64748b] text-sm leading-relaxed mb-4">
-              AI automation consultant helping lean teams ship intelligent workflows without adding headcount.
+              Personal notes, experiments, and direct contact paths across systems thinking, automation, and ecosystem work.
             </p>
             <div className="flex items-center gap-2 text-xs text-[#475569]">
               <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse"></span>
-              Available for projects
+              English + Español welcome
             </div>
           </div>
 
           {/* Services Column */}
           <div>
-            <h4 className="text-[#94a3b8] text-xs font-semibold uppercase tracking-wider mb-4">Services</h4>
+            <h4 className="text-[#94a3b8] text-xs font-semibold uppercase tracking-wider mb-4">Themes</h4>
             <ul className="space-y-3">
               {[
-                { icon: AutomationIcon, label: "AI Automation Agents", href: "/services#automation" },
-                { icon: ChatbotIcon, label: "Custom RAG Chatbots", href: "/services#chatbots" },
-                { icon: SecurityIcon, label: "SaaS Security Audits", href: "/services#security" },
-                { icon: VideoIcon, label: "AI Video & UGC", href: "/services#video" },
+                { icon: AutomationIcon, label: "Abstraction Layers", href: "/#learning" },
+                { icon: ChatbotIcon, label: "Browser + Runtime", href: "/#focus" },
+                { icon: SecurityIcon, label: "AI Systems", href: "/#learning" },
+                { icon: VideoIcon, label: "Contact Paths", href: "/contact" },
               ].map((item) => (
                 <li key={item.label}>
                   <a
@@ -50,9 +50,9 @@ export function FooterDark() {
             <h4 className="text-[#94a3b8] text-xs font-semibold uppercase tracking-wider mb-4">Ecosystem</h4>
             <ul className="space-y-3">
               {[
-                { label: "High Encode Learning", href: "https://highencodelearning.com", desc: "Education" },
-                { label: "CSBrainAI", href: "https://csbrain.ai", desc: "AI Assistant" },
-                { label: "Prompt Defenders", href: "https://prompt-defenders.com", desc: "Security" },
+                { label: "High Encode Learning", href: "https://highencodelearning.com", desc: "Business layer" },
+                { label: "CSBrainAI", href: "https://csbrain.ai", desc: "Retrieval" },
+                { label: "Prompt Defenders", href: "https://prompt-defenders.com", desc: "Safety" },
               ].map((item) => (
                 <li key={item.label}>
                   <a
@@ -69,12 +69,12 @@ export function FooterDark() {
 
           {/* Resources Column */}
           <div>
-            <h4 className="text-[#94a3b8] text-xs font-semibold uppercase tracking-wider mb-4">Resources</h4>
+            <h4 className="text-[#94a3b8] text-xs font-semibold uppercase tracking-wider mb-4">Connect</h4>
             <ul className="space-y-3">
               {[
-                { label: "Case Studies", href: "/case-studies" },
-                { label: "Work With Me", href: "/work-with-me" },
-                { label: "Blog", href: "https://highencodelearning.com/blog" },
+                { label: "Email", href: "mailto:hello@highencodelearning.com" },
+                { label: "Calendly", href: "https://calendly.com/davidinfosec07" },
+                { label: "Upwork", href: "https://www.upwork.com/freelancers/davido174" },
                 { label: "Contact", href: "/contact" },
               ].map((item) => (
                 <li key={item.label}>
@@ -91,13 +91,13 @@ export function FooterDark() {
         <div className="mt-12 pt-8 border-t border-[#1e293b] flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[#475569] text-xs">© {new Date().getFullYear()} David Ortiz. All rights reserved.</p>
           <div className="flex items-center gap-6 text-xs text-[#475569]">
-            <a href="/privacy" className="hover:text-[#94a3b8] transition-colors">
-              Privacy
+            <a href="https://highencodelearning.com/privacy" className="hover:text-[#94a3b8] transition-colors">
+              Business Privacy
             </a>
-            <a href="/terms" className="hover:text-[#94a3b8] transition-colors">
-              Terms
+            <a href="https://highencodelearning.com/terms" className="hover:text-[#94a3b8] transition-colors">
+              Business Terms
             </a>
-            <span>Atlanta, GA</span>
+            <span>Illinois, USA</span>
           </div>
         </div>
       </div>

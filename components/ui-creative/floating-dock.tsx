@@ -14,7 +14,7 @@ const dockItems: DockItem[] = [
   { icon: Home, label: "Home", href: "#" },
   { icon: Zap, label: "Focus", href: "#focus" },
   { icon: BookOpen, label: "Learning", href: "#learning" },
-  { icon: MessageCircle, label: "Business", href: "#contact" },
+  { icon: MessageCircle, label: "Contact", href: "#contact" },
 ]
 
 export function FloatingDock() {

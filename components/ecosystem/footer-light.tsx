@@ -48,11 +48,11 @@ export function FooterLight() {
 
           {/* Business Column */}
           <div>
-            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">Business Site</h4>
+            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">High Encode Learning</h4>
             <ul className="space-y-3">
               {[
-                { label: "Services", href: "https://highencodelearning.com/services", desc: "Client work" },
-                { label: "Learning Notes", href: "https://highencodelearning.com/learning", desc: "Business layer" },
+                { label: "Services", href: "https://highencodelearning.com/services", desc: "Business layer" },
+                { label: "Learning Notes", href: "https://highencodelearning.com/learning", desc: "Public notes" },
                 { label: "Demos", href: "https://highencodelearning.com/demos", desc: "Working systems" },
               ].map((item) => (
                 <li key={item.label}>
@@ -75,7 +75,8 @@ export function FooterLight() {
               {[
                 { label: "Home", href: "/" },
                 { label: "Design System", href: "/design-system" },
-                { label: "Business Site", href: "https://highencodelearning.com" },
+                { label: "Shareable Contact", href: "/contact" },
+                { label: "High Encode Learning", href: "https://highencodelearning.com" },
                 { label: "Contact", href: "https://highencodelearning.com/contact" },
               ].map((item) => (
                 <li key={item.label}>

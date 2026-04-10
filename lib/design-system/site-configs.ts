@@ -64,10 +64,10 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
       blur: "20px",
     },
     uniqueFeatures: [
-      "Live automation dashboard widget",
-      "Terminal-style code blocks",
-      "Particle field interactions",
-      "Glowing neon accents",
+      "Direct contact launcher",
+      "Terminal-style hero",
+      "Dock navigation",
+      "Neon callouts",
     ],
   },
 
@@ -96,10 +96,10 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
       blur: "12px",
     },
     uniqueFeatures: [
-      "Learning path progress tracker",
-      "AI copilot chat widget",
-      "Certificate badge animations",
-      "Checkmark micro-interactions",
+      "Proof-based demos",
+      "Scoped service flows",
+      "Public learning notes",
+      "Contact-ready pages",
     ],
   },
 
@@ -109,7 +109,7 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
   csBrainAI: {
     name: "CSBrain AI",
     domain: "csbrainai.com",
-    tagline: "AI-Powered CS Learning Assistant",
+    tagline: "Retrieval and explanation experiments",
     theme: "dark",
     colors: tokens.colors.sites.csBrainAI,
     gradients: {
@@ -128,10 +128,10 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
       blur: "24px",
     },
     uniqueFeatures: [
-      "Neural network visualization",
-      "AI thinking indicator",
-      "Code explanation overlays",
-      "Brain pulse animations",
+      "Knowledge retrieval demos",
+      "Explanation interfaces",
+      "Grounded answer experiments",
+      "Reasoning visual treatments",
     ],
   },
 
@@ -141,7 +141,7 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
   promptDefenders: {
     name: "Prompt Defenders",
     domain: "promptdefenders.com",
-    tagline: "AI Security Testing Platform",
+    tagline: "Prompt-safety and AI security testing",
     theme: "dark",
     colors: tokens.colors.sites.promptDefenders,
     gradients: {
@@ -160,10 +160,10 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
       blur: "16px",
     },
     uniqueFeatures: [
-      "Threat detection animations",
-      "Shield/defense visualizations",
-      "Attack vector diagrams",
-      "Security score meter",
+      "Threat-model visuals",
+      "Prompt attack patterns",
+      "Safety test surfaces",
+      "Red-team style cues",
     ],
   },
 }

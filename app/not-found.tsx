@@ -34,7 +34,7 @@ export default function NotFound() {
 
         <p className="mt-8 text-white/40 text-sm">
           Looking for something specific?{" "}
-          <Link href="/#contact" className="text-[#2dd4bf] hover:underline">
+          <Link href="/contact" className="text-[#2dd4bf] hover:underline">
             Get in touch
           </Link>
         </p>

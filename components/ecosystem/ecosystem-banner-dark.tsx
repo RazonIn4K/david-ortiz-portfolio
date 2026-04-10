@@ -10,19 +10,19 @@ const ecosystemSites = [
     description: "Notes + experiments",
   },
   {
-    name: "Business Site",
+    name: "High Encode Learning",
     href: "https://highencodelearning.com",
-    description: "Services + demos",
+    description: "Demos + scoped work",
   },
   {
     name: "CSBrainAI",
     href: "https://csbrain.ai",
-    description: "AI Learning Assistant",
+    description: "Retrieval experiments",
   },
   {
     name: "Prompt Defenders",
     href: "https://prompt-defenders.com",
-    description: "Security Testing",
+    description: "Prompt-safety testing",
   },
 ]
 
@@ -41,8 +41,8 @@ export function EcosystemBannerDark({ currentSite = "consulting" }: EcosystemBan
           <span className="text-[#64748b] mr-2">Explore:</span>
           {ecosystemSites.map((site, i) => {
             const isActive =
-              (currentSite === "consulting" && site.name === "Consulting") ||
-              (currentSite === "learning" && site.name === "Learning") ||
+              (currentSite === "consulting" && site.name === "Personal Site") ||
+              (currentSite === "learning" && site.name === "High Encode Learning") ||
               (currentSite === "csbrain" && site.name === "CSBrainAI") ||
               (currentSite === "prompt-defenders" && site.name === "Prompt Defenders")
 
@@ -74,9 +74,9 @@ export function EcosystemBannerDark({ currentSite = "consulting" }: EcosystemBan
               <span className="text-[#64748b]">You&apos;re viewing:</span>{" "}
               <span className="text-[#2dd4bf]">
                 {currentSite === "consulting"
-                  ? "Consulting"
+                  ? "Personal Site"
                   : currentSite === "learning"
-                    ? "Learning"
+                    ? "High Encode Learning"
                     : currentSite === "csbrain"
                       ? "CSBrainAI"
                       : "Prompt Defenders"}

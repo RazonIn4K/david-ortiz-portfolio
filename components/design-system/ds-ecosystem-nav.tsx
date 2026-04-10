@@ -21,8 +21,8 @@ const ecosystemSites = [
   {
     key: "highEncode" as SiteKey,
     icon: BookOpen,
-    label: "Business Site",
-    description: "Services, demos, and scoped work",
+    label: "High Encode",
+    description: "Business-facing demos, contact, and scoped work",
   },
   {
     key: "csBrainAI" as SiteKey,

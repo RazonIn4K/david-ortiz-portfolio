@@ -51,10 +51,12 @@ vercel certs issue davidtiz.com www.davidtiz.com
 ```
 app/
   page.tsx              # Home
-  work-with-me/         # Engagement details
-  case-studies/         # Deep dives
+  contact/page.tsx      # Shareable direct-contact hub
+  design-system/page.tsx
   api/chat/route.ts     # AI assistant endpoint
-components/             # Section components
-data/                   # Content used across sections
-public/projects/        # Legacy Tailwind demos
+components/             # UI sections, launchers, ecosystem components
+data/                   # Shared content used across sections
+lib/
+  site-config.ts        # Active domains and ecosystem labels
+  contact-links.ts      # Confirmed contact channels
 ```
