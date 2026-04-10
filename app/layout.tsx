@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   authors: [{ name: "David Ortiz", url: siteUrl }],
   metadataBase: new URL(siteUrl),
   alternates: {
-    canonical: siteUrl,
+    canonical: "./",
   },
   openGraph: {
     title: siteTitle,
