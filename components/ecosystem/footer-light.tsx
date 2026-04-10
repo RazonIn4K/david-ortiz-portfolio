@@ -1,4 +1,5 @@
 import { CurriculumIcon, LabIcon, AICopilotIcon } from "./service-icons"
+import { footerEcosystemLinks, footerPrimaryLinks } from "@/lib/contact-links"
 
 export function FooterLight() {
   return (
@@ -50,18 +51,14 @@ export function FooterLight() {
           <div>
             <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">High Encode Learning</h4>
             <ul className="space-y-3">
-              {[
-                { label: "Services", href: "https://highencodelearning.com/services", desc: "Business layer" },
-                { label: "Learning Notes", href: "https://highencodelearning.com/learning", desc: "Public notes" },
-                { label: "Demos", href: "https://highencodelearning.com/demos", desc: "Working systems" },
-              ].map((item) => (
+              {footerEcosystemLinks.map((item) => (
                 <li key={item.label}>
                   <a
                     href={item.href}
                     className="flex items-center justify-between text-[#6b7280] hover:text-[#3b82f6] transition-colors text-sm group"
                   >
                     <span>{item.label}</span>
-                    <span className="text-xs text-[#9ca3af] group-hover:text-[#3b82f6]/70">{item.desc}</span>
+                    <span className="text-xs text-[#9ca3af] group-hover:text-[#3b82f6]/70">{item.description}</span>
                   </a>
                 </li>
               ))}
@@ -70,15 +67,9 @@ export function FooterLight() {
 
           {/* Resources Column */}
           <div>
-            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">Resources</h4>
+            <h4 className="text-[#111827] text-xs font-semibold uppercase tracking-wider mb-4">Connect</h4>
             <ul className="space-y-3">
-              {[
-                { label: "Home", href: "/" },
-                { label: "Design System", href: "/design-system" },
-                { label: "Shareable Contact", href: "/contact" },
-                { label: "High Encode Learning", href: "https://highencodelearning.com" },
-                { label: "Contact", href: "https://highencodelearning.com/contact" },
-              ].map((item) => (
+              {footerPrimaryLinks.map((item) => (
                 <li key={item.label}>
                   <a href={item.href} className="text-[#6b7280] hover:text-[#3b82f6] transition-colors text-sm">
                     {item.label}

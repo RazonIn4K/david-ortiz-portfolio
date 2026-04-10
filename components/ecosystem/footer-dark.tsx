@@ -1,4 +1,5 @@
 import { AutomationIcon, ChatbotIcon, SecurityIcon, VideoIcon } from "./service-icons"
+import { footerEcosystemLinks, footerPrimaryLinks } from "@/lib/contact-links"
 
 export function FooterDark() {
   return (
@@ -49,18 +50,14 @@ export function FooterDark() {
           <div>
             <h4 className="text-[#94a3b8] text-xs font-semibold uppercase tracking-wider mb-4">Ecosystem</h4>
             <ul className="space-y-3">
-              {[
-                { label: "High Encode Learning", href: "https://highencodelearning.com", desc: "Business layer" },
-                { label: "CSBrainAI", href: "https://csbrain.ai", desc: "Retrieval" },
-                { label: "Prompt Defenders", href: "https://prompt-defenders.com", desc: "Safety" },
-              ].map((item) => (
+              {footerEcosystemLinks.map((item) => (
                 <li key={item.label}>
                   <a
                     href={item.href}
                     className="flex items-center justify-between text-[#94a3b8] hover:text-[#2dd4bf] transition-colors text-sm group"
                   >
                     <span>{item.label}</span>
-                    <span className="text-xs text-[#475569] group-hover:text-[#2dd4bf]/70">{item.desc}</span>
+                    <span className="text-xs text-[#475569] group-hover:text-[#2dd4bf]/70">{item.description}</span>
                   </a>
                 </li>
               ))}
@@ -71,12 +68,7 @@ export function FooterDark() {
           <div>
             <h4 className="text-[#94a3b8] text-xs font-semibold uppercase tracking-wider mb-4">Connect</h4>
             <ul className="space-y-3">
-              {[
-                { label: "Email", href: "mailto:hello@highencodelearning.com" },
-                { label: "Calendly", href: "https://calendly.com/davidinfosec07" },
-                { label: "Upwork", href: "https://www.upwork.com/freelancers/davido174" },
-                { label: "Contact", href: "/contact" },
-              ].map((item) => (
+              {footerPrimaryLinks.map((item) => (
                 <li key={item.label}>
                   <a href={item.href} className="text-[#94a3b8] hover:text-[#2dd4bf] transition-colors text-sm">
                     {item.label}

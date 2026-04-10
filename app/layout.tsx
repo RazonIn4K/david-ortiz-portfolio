@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { socialProfileLinks } from "@/lib/contact-links";
 import { personalSiteName, personalSiteUrl } from "@/lib/site-config";
 import "./globals.css";
 
@@ -36,6 +37,9 @@ export const metadata: Metadata = {
   creator: "David Ortiz",
   authors: [{ name: "David Ortiz", url: siteUrl }],
   metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     title: siteTitle,
     description: siteDescription,
@@ -75,6 +79,22 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "David Ortiz",
+  url: siteUrl,
+  sameAs: [...socialProfileLinks],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: personalSiteName,
+  url: siteUrl,
+  description: siteDescription,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -83,6 +103,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
         {children}
         <Analytics />
       </body>

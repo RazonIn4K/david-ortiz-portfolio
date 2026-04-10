@@ -7,6 +7,13 @@ export type ContactLink = {
   description: string
 }
 
+export const socialProfileLinks = [
+  "https://github.com/RazonIn4K",
+  "https://www.linkedin.com/in/david-ortiz-210190205/",
+  "https://www.facebook.com/profile.php?id=61581646236939",
+  "https://www.instagram.com/ra.z.on",
+] as const
+
 export const quickReachLinks: ContactLink[] = [
   {
     id: "email",
