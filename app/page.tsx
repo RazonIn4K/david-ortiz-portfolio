@@ -72,9 +72,9 @@ const hernandezHighlights = [
       "Service chips and form fields move visitors toward the right estimate request faster.",
   },
   {
-    title: "Sourced trust proof",
+    title: "Sourced trust signals",
     description:
-      "Real work photos and public review proof give prospects something specific to inspect.",
+      "Real work photos and public review links give visitors something specific to inspect.",
   },
 ];
 
@@ -179,9 +179,9 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
                 className="text-lg md:text-xl text-white/50 mb-10 max-w-lg leading-relaxed"
               >
-                Start with the portfolio if you need proof of work. The rest of
-                this site keeps the build logs, experiments, demos, and notes
-                behind the web systems, automations, and local-business
+                Start with the portfolio if you want to see recent work. The
+                rest of this site keeps the build logs, experiments, demos, and
+                notes behind the web systems, automations, and local-business
                 workflows I ship.
               </motion.p>
 
@@ -369,7 +369,7 @@ export default function HomePage() {
               viewport={{ once: true }}
             >
               <span className="inline-flex items-center rounded-full border border-[#7ac943]/25 bg-[#7ac943]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#b8f28e]">
-                Portfolio proof
+                Portfolio example
               </span>
               <h2 className="mt-6 text-4xl font-bold leading-tight md:text-5xl">
                 Hernandez Landscape is the local-business example to show first
@@ -420,7 +420,7 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#2dd4bf]/25 bg-[#2dd4bf]/10 px-6 py-3 font-semibold text-[#9ae6db] transition-colors hover:border-[#2dd4bf]/45 hover:bg-[#2dd4bf]/15"
                 >
-                  High Encode proof chain
+                  View High Encode work
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </div>

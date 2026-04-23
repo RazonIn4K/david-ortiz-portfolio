@@ -19,7 +19,23 @@ import { businessSiteUrl } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Portfolio | David Ortiz",
   description:
-    "Portfolio proof for David Ortiz, including the Hernandez Landscape website, sourced review proof, and local-business quote flow.",
+    "Portfolio for David Ortiz, including the Hernandez Landscape website, sourced customer review links, and local-business quote flow.",
+  alternates: {
+    canonical: "/portfolio",
+  },
+  openGraph: {
+    title: "Portfolio | David Ortiz",
+    description:
+      "Portfolio for David Ortiz, including the Hernandez Landscape website, sourced customer review links, and local-business quote flow.",
+    url: "/portfolio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Portfolio | David Ortiz",
+    description:
+      "Portfolio for David Ortiz, including the Hernandez Landscape website, sourced customer review links, and local-business quote flow.",
+  },
 };
 
 const highlights = [
@@ -47,25 +63,25 @@ const packageExamples = [
   },
 ];
 
-const proofChain = [
+const referenceLinks = [
   {
-    title: "Direct landscaping proof",
+    title: "Live landscaping website",
     description:
-      "The live Hernandez site is the first link when a contractor wants to inspect same-industry work.",
+      "The Hernandez site lets visitors inspect the finished landscaping example in its live form.",
     href: "https://hernandezlandscapeservices.com",
     icon: MapPin,
   },
   {
-    title: "High Encode work index",
+    title: "High Encode work page",
     description:
-      "Use this when the prospect should see the broader local-business proof page.",
+      "A broader work page with supporting local-business examples and delivery context.",
     href: `${businessSiteUrl}/work`,
     icon: ExternalLink,
   },
   {
-    title: "Full case note",
+    title: "Hernandez case note",
     description:
-      "Shows the thinking behind bilingual copy, service proof, trust signals, and quote capture.",
+      "Detailed breakdown of bilingual copy, service structure, trust signals, and quote capture.",
     href: `${businessSiteUrl}/projects/hernandez-landscape-local-business-site`,
     icon: FileText,
   },
@@ -82,7 +98,7 @@ const stackSignals = [
 
 const liveProofUpdates = [
   {
-    title: "Sourced review proof",
+    title: "Sourced review links",
     description:
       "The Hernandez trust section now references a public review instead of generic placeholder testimonials.",
     icon: Star,
@@ -94,9 +110,9 @@ const liveProofUpdates = [
     icon: MousePointerClick,
   },
   {
-    title: "Cleaner proof chain",
+    title: "Aligned reference links",
     description:
-      "This page, High Encode Work, and the case note now point to the same current live proof.",
+      "This page, the High Encode work page, and the case note now point to the same current live example.",
     icon: Quote,
   },
 ];
@@ -131,7 +147,7 @@ export default function PortfolioPage() {
               Real local-business work, starting with Hernandez Landscape
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/55">
-              This page gives prospects a direct proof point. Hernandez
+              This page gives visitors a direct reference point. Hernandez
               Landscape & Tree Service is a live landscaping website with
               bilingual content, service positioning, project photos, and a
               quote flow built around local customer calls, sourced trust
@@ -231,13 +247,13 @@ export default function PortfolioPage() {
         <section className="grid gap-6 py-16 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="rounded-3xl border border-white/8 bg-[#08101e]/80 p-6 md:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2dd4bf]">
-              Proof chain
+              Reference links
             </p>
             <h2 className="mt-4 text-2xl font-bold md:text-3xl">
-              The right link depends on what the prospect needs to believe.
+              Each link answers a different question about the work.
             </h2>
             <div className="mt-6 grid gap-4">
-              {proofChain.map((item) => {
+              {referenceLinks.map((item) => {
                 const Icon = item.icon;
 
                 return (
@@ -324,8 +340,8 @@ export default function PortfolioPage() {
             <div className="p-6">
               <h2 className="text-lg font-semibold">Sourced trust section</h2>
               <p className="mt-2 text-sm leading-relaxed text-white/50">
-                The testimonial proof now points to a public review source,
-                keeping the sales page credible and easy to defend.
+                The trust section now points to a public review source, keeping
+                the sales page credible and easy to defend.
               </p>
             </div>
           </div>
@@ -360,7 +376,7 @@ export default function PortfolioPage() {
                   Next step
                 </p>
                 <h2 className="mt-3 text-2xl font-bold">
-                  Want this proof turned into a local-business project?
+                  Want something like this for your local business?
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/55">
                   Use High Encode Learning for formal scoping, project
