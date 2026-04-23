@@ -1,6 +1,6 @@
 // =============================================================================
 // DESIGN SYSTEM TOKENS
-// Shared across: davidtiz.com, highencodelearning.com, csbrain.ai, and prompt-defenders.com
+// Shared across: davidtiz.com, highencodelearning.com, csbrain.ai, and prompt-defenders.vercel.app
 // =============================================================================
 
 export const tokens = {

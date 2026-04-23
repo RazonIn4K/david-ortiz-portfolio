@@ -33,7 +33,7 @@ const ecosystemItems = [
     name: "Prompt Defenders",
     description: "AI Security Testing",
     icon: Shield,
-    url: "https://prompt-defenders.com",
+    url: "https://prompt-defenders.vercel.app",
     gradient: "from-orange-500 to-red-500",
     features: ["Prompt injection", "Safety tests", "LLM behavior"],
   },

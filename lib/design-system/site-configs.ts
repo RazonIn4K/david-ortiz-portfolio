@@ -140,7 +140,7 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
   // ---------------------------------------------------------------------------
   promptDefenders: {
     name: "Prompt Defenders",
-    domain: "promptdefenders.com",
+    domain: "prompt-defenders.vercel.app",
     tagline: "Prompt-safety and AI security testing",
     theme: "dark",
     colors: tokens.colors.sites.promptDefenders,

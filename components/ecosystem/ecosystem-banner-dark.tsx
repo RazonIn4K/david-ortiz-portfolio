@@ -21,7 +21,7 @@ const ecosystemSites = [
   },
   {
     name: "Prompt Defenders",
-    href: "https://prompt-defenders.com",
+    href: "https://prompt-defenders.vercel.app",
     description: "Prompt-safety testing",
   },
 ]

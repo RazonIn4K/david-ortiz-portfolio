@@ -23,7 +23,7 @@ const footerSections = {
     title: "Tools",
     links: [
       { name: "CSBrainAI", href: "https://csbrain.ai", external: true },
-      { name: "Prompt Defenders", href: "https://prompt-defenders.com", external: true },
+      { name: "Prompt Defenders", href: "https://prompt-defenders.vercel.app", external: true },
     ],
   },
   connect: {

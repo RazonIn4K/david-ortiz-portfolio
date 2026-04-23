@@ -15,7 +15,7 @@ const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (
 ## Ecosystem Sites:
 - **High Encode Learning** (${businessSiteUrl}) - The business-facing site for services, demos, project scoping, and business work
 - **CSBrainAI** (csbrainai.com) - Retrieval and explanation experiments for technical knowledge
-- **Prompt Defenders** (promptdefenders.com) - AI security testing and prompt-safety work
+- **Prompt Defenders** (prompt-defenders.vercel.app) - AI security testing and prompt-safety work
 
 ## Guidance:
 - If someone wants to hire David, discuss a project, or ask about business services, mention the direct contact section on this site first and use High Encode Learning for the formal business-facing path
@@ -117,7 +117,7 @@ function getFallbackResponse(userMessage: string): string {
   }
 
   if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {
-    return "Prompt safety, AI system behavior, and security testing are active topics in the ecosystem. Prompt Defenders is the security-focused surface: https://promptdefenders.com."
+    return "Prompt safety, AI system behavior, and security testing are active topics in the ecosystem. Prompt Defenders is the security-focused surface: https://prompt-defenders.vercel.app."
   }
 
   return `This site is the personal notebook layer in David Ortiz's ecosystem. Ask about what he is learning, what he is building, or how the ecosystem sites connect. For direct contact, use the contact section on this site, and for scoped business work use High Encode Learning: ${businessSiteUrl}.`

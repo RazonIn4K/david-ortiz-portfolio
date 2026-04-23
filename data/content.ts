@@ -48,7 +48,7 @@ export const services: Service[] = [
     icon: '🛡️',
     cta: {
       label: 'Explore Prompt Defenders',
-      href: 'https://prompt-defenders.com',
+      href: 'https://prompt-defenders.vercel.app',
     },
   },
   {
@@ -93,7 +93,7 @@ export const showcaseProjects: Project[] = [
   {
     title: 'Prompt Defenders',
     description: 'Prompt-safety experiments and red-team style testing for AI workflows.',
-    href: 'https://prompt-defenders.com',
+    href: 'https://prompt-defenders.vercel.app',
     metrics: ['Security', 'Prompt safety', 'Testing'],
   },
 ]
@@ -176,7 +176,7 @@ export const resources: Resource[] = [
   {
     title: 'Prompt Defenders',
     description: 'Prompt-safety experiments and security-focused testing.',
-    href: 'https://prompt-defenders.com',
+    href: 'https://prompt-defenders.vercel.app',
   },
 ]
 

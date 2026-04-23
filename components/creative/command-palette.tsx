@@ -47,7 +47,7 @@ const sites: Site[] = [
   {
     id: "defenders",
     name: "Prompt Defenders",
-    url: "https://prompt-defenders.com",
+    url: "https://prompt-defenders.vercel.app",
     icon: <Shield className="w-5 h-5" />,
     description: "AI Security Testing",
     gradient: "from-orange-400 to-red-400",

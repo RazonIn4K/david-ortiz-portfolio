@@ -505,7 +505,7 @@ export default function DesignSystemPage() {
             <span className="text-neutral-600">David Ortiz Design System</span>
           </div>
           <p className="text-sm text-neutral-400">
-            Powering the {personalSitePublicLabel}, {businessSiteDomain}, csbrainai.com, and promptdefenders.com
+            Powering the {personalSitePublicLabel}, {businessSiteDomain}, csbrainai.com, and prompt-defenders.vercel.app
           </p>
         </div>
       </footer>
