@@ -67,14 +67,14 @@ const hernandezHighlights = [
     description: "English and Spanish paths for a local landscaping audience.",
   },
   {
-    title: "Instant quote flow",
+    title: "Prefilled quote flow",
     description:
-      "Service, property size, and contact details move visitors toward a real estimate.",
+      "Service chips and form fields move visitors toward the right estimate request faster.",
   },
   {
-    title: "Project gallery",
+    title: "Sourced trust proof",
     description:
-      "Real work photos are organized so prospects can quickly judge quality.",
+      "Real work photos and public review proof give prospects something specific to inspect.",
   },
 ];
 
@@ -377,8 +377,8 @@ export default function HomePage() {
               <p className="mt-5 text-lg leading-relaxed text-white/50">
                 This is a real landscaping website build, not a generic mockup.
                 It gives prospects a concrete reference for bilingual messaging,
-                service pages, quote capture, project photos, and trust signals
-                for a local contractor.
+                service pages, prefilled quote capture, project photos, and
+                sourced trust signals for a local contractor.
               </p>
 
               <div className="mt-8 grid gap-4">
@@ -414,6 +414,15 @@ export default function HomePage() {
                   Open portfolio page
                   <ArrowRight className="h-4 w-4" />
                 </Link>
+                <a
+                  href={`${businessSiteUrl}/work`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#2dd4bf]/25 bg-[#2dd4bf]/10 px-6 py-3 font-semibold text-[#9ae6db] transition-colors hover:border-[#2dd4bf]/45 hover:bg-[#2dd4bf]/15"
+                >
+                  High Encode proof chain
+                  <ExternalLink className="h-4 w-4" />
+                </a>
               </div>
             </motion.div>
           </div>

@@ -9,6 +9,9 @@ import {
   FileText,
   Mail,
   MapPin,
+  MousePointerClick,
+  Quote,
+  Star,
 } from "lucide-react";
 
 import { businessSiteUrl } from "@/lib/site-config";
@@ -16,14 +19,14 @@ import { businessSiteUrl } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Portfolio | David Ortiz",
   description:
-    "Portfolio proof for David Ortiz, including the Hernandez Landscape website built for a local landscaping business.",
+    "Portfolio proof for David Ortiz, including the Hernandez Landscape website, sourced review proof, and local-business quote flow.",
 };
 
 const highlights = [
   "Bilingual English and Spanish paths",
-  "Instant estimate and quote capture flow",
+  "Instant estimate and prefilled quote capture flow",
   "Service pages for lawn care, tree service, landscaping, and snow removal",
-  "Project gallery, trust signals, and local service-area content",
+  "Project gallery, sourced public review, and local service-area content",
 ];
 
 const packageExamples = [
@@ -72,8 +75,30 @@ const stackSignals = [
   "HTML, CSS, and JavaScript",
   "Vanilla bilingual i18n",
   "Web3Forms lead capture",
+  "Service-to-quote prefill behavior",
   "Responsive service-card layout",
   "Local SEO and service-area copy",
+];
+
+const liveProofUpdates = [
+  {
+    title: "Sourced review proof",
+    description:
+      "The Hernandez trust section now references a public review instead of generic placeholder testimonials.",
+    icon: Star,
+  },
+  {
+    title: "Better quote intent",
+    description:
+      "Service chips now send visitors into the form with the relevant service already selected.",
+    icon: MousePointerClick,
+  },
+  {
+    title: "Cleaner proof chain",
+    description:
+      "This page, High Encode Work, and the case note now point to the same current live proof.",
+    icon: Quote,
+  },
 ];
 
 export default function PortfolioPage() {
@@ -109,8 +134,8 @@ export default function PortfolioPage() {
               This page gives prospects a direct proof point. Hernandez
               Landscape & Tree Service is a live landscaping website with
               bilingual content, service positioning, project photos, and a
-              quote flow built around local customer calls and estimate
-              requests.
+              quote flow built around local customer calls, sourced trust
+              signals, and estimate requests.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <a
@@ -123,12 +148,12 @@ export default function PortfolioPage() {
                 <ExternalLink className="h-4 w-4" />
               </a>
               <a
-                href="/portfolio/hernandez/hernandez-portfolio-proof-clean.png"
+                href={`${businessSiteUrl}/projects/hernandez-landscape-local-business-site`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 px-6 py-3 font-semibold text-white/75 transition-colors hover:border-white/25 hover:text-white"
               >
-                Open share image
+                Read case note
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>
@@ -144,6 +169,29 @@ export default function PortfolioPage() {
               priority
             />
           </div>
+        </section>
+
+        <section className="grid gap-4 pb-10 md:grid-cols-3">
+          {liveProofUpdates.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <article
+                key={item.title}
+                className="rounded-3xl border border-white/8 bg-white/[0.035] p-6"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#2dd4bf]/10 text-[#2dd4bf]">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h2 className="mt-5 text-lg font-semibold text-white">
+                  {item.title}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-white/50">
+                  {item.description}
+                </p>
+              </article>
+            );
+          })}
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
@@ -244,7 +292,7 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        <section className="grid gap-6 py-16 md:grid-cols-2">
+        <section className="grid gap-6 py-16 lg:grid-cols-3">
           <div className="overflow-hidden rounded-3xl border border-white/8 bg-white/[0.03]">
             <Image
               src="/portfolio/hernandez/landscape-work-hero.jpeg"
@@ -260,6 +308,24 @@ export default function PortfolioPage() {
                 The site uses real work photos instead of generic stock imagery,
                 so prospects can inspect the type of landscaping work the
                 business actually performs.
+              </p>
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-3xl border border-white/8 bg-white/[0.03]">
+            <Image
+              src="/portfolio/hernandez/site-trust-screenshot.png"
+              alt="Sourced customer feedback section from the Hernandez Landscape website"
+              width={1440}
+              height={729}
+              loading="eager"
+              className="aspect-[16/10] w-full object-cover object-top"
+            />
+            <div className="p-6">
+              <h2 className="text-lg font-semibold">Sourced trust section</h2>
+              <p className="mt-2 text-sm leading-relaxed text-white/50">
+                The testimonial proof now points to a public review source,
+                keeping the sales page credible and easy to defend.
               </p>
             </div>
           </div>
