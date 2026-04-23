@@ -94,11 +94,7 @@ export default function HomePage() {
       {/* Header */}
       <header className="relative z-10">
         <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3"
-          >
+          <div className="flex items-center gap-3">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center font-bold text-[#060a14] text-lg">
               DO
             </div>
@@ -106,14 +102,9 @@ export default function HomePage() {
               <span className="font-semibold text-white">David Ortiz</span>
               <p className="text-xs text-white/40">Personal notebook</p>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="hidden lg:flex items-center gap-8"
-          >
+          <div className="hidden lg:flex items-center gap-8">
             {homeNavItems.map((item) => (
               <Link
                 key={item.label}
@@ -124,13 +115,9 @@ export default function HomePage() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-3"
-          >
+          <div className="flex items-center gap-3">
             <a
               href="#contact"
               className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-medium text-sm hover:shadow-lg hover:shadow-[#ff6b6b]/25 transition-shadow"
@@ -138,7 +125,7 @@ export default function HomePage() {
               Contact
               <ArrowRight className="w-4 h-4" />
             </a>
-          </motion.div>
+          </div>
         </nav>
       </header>
 
@@ -148,49 +135,30 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left column - Text */}
             <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8"
-              >
+              <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8">
                 <Sparkles className="w-4 h-4 text-[#2dd4bf]" />
                 <span className="text-sm text-white/60">
                   Portfolio + build notes
                 </span>
                 <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse" />
-              </motion.div>
+              </div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6"
-              >
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6">
                 Documenting{" "}
                 <span className="gradient-text text-glow-teal">AI systems</span>
                 <br />
                 and{" "}
                 <span className="gradient-text-warm">abstraction layers</span>
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-lg md:text-xl text-white/50 mb-10 max-w-lg leading-relaxed"
-              >
+              <p className="text-lg md:text-xl text-white/50 mb-10 max-w-lg leading-relaxed">
                 Start with the portfolio if you want to see recent work. The
                 rest of this site keeps the build logs, experiments, demos, and
                 notes behind the web systems, automations, and local-business
                 workflows I ship.
-              </motion.p>
+              </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-wrap gap-4"
-              >
+              <div className="flex flex-wrap gap-4">
                 <Link
                   href="/portfolio"
                   className="group flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] px-8 py-4 font-semibold text-white transition-all hover:shadow-xl hover:shadow-[#ff6b6b]/20"
@@ -207,38 +175,28 @@ export default function HomePage() {
                   <ExternalLink className="w-4 h-4" />
                   Live Hernandez site
                 </a>
-              </motion.div>
+              </div>
             </div>
 
             {/* Right column - Terminal */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="hidden lg:block"
-            >
+            <div className="hidden lg:block">
               <TerminalHero />
-            </motion.div>
+            </div>
           </div>
 
           {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
-            className="flex justify-center mt-16"
-          >
+          <div className="flex justify-center mt-16">
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               className="flex flex-col items-center gap-2 text-white/30"
-            >
-              <span className="text-xs uppercase tracking-wider">
-                Scroll to explore
-              </span>
-              <ChevronDown className="w-5 h-5" />
-            </motion.div>
-          </motion.div>
+              >
+                <span className="text-xs uppercase tracking-wider">
+                  Scroll to explore
+                </span>
+                <ChevronDown className="w-5 h-5" />
+              </motion.div>
+          </div>
         </div>
       </section>
 
