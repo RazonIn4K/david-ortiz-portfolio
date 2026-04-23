@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -13,19 +13,16 @@ import {
   Linkedin,
   Mail,
   Sparkles,
-} from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-import { AIAssistant } from "@/components/ui-creative/ai-assistant"
-import { FloatingContact } from "@/components/ui-creative/floating-contact"
-import { HexGridBackground } from "@/components/ui-creative/hex-grid-bg"
-import { TerminalHero } from "@/components/ui-creative/terminal-hero"
-import { FloatingDock } from "@/components/ui-creative/floating-dock"
-import { OrbitVisualization } from "@/components/ui-creative/orbit-visualization"
-import { AnimatedStats } from "@/components/ui-creative/animated-stats"
-import { ServiceGrid } from "@/components/ui-creative/service-grid"
-import { EcosystemLinks } from "@/components/ui-creative/ecosystem-links"
+import { HexGridBackground } from "@/components/ui-creative/hex-grid-bg";
+import { TerminalHero } from "@/components/ui-creative/terminal-hero";
+import { OrbitVisualization } from "@/components/ui-creative/orbit-visualization";
+import { AnimatedStats } from "@/components/ui-creative/animated-stats";
+import { ServiceGrid } from "@/components/ui-creative/service-grid";
+import { EcosystemLinks } from "@/components/ui-creative/ecosystem-links";
 import {
   footerEcosystemLinks,
   footerPrimaryLinks,
@@ -33,35 +30,35 @@ import {
   hireMeLinks,
   quickReachLinks,
   type ContactLink,
-} from "@/lib/contact-links"
-import { businessSiteUrl, personalSitePublicLabel } from "@/lib/site-config"
+} from "@/lib/contact-links";
+import { businessSiteUrl, personalSitePublicLabel } from "@/lib/site-config";
 
 function iconFor(link: ContactLink) {
   switch (link.id) {
     case "email":
-      return Mail
+      return Mail;
     case "calendly":
-      return CalendarDays
+      return CalendarDays;
     case "upwork":
     case "fiverr":
     case "high-encode":
     case "business-inbox":
-      return BriefcaseBusiness
+      return BriefcaseBusiness;
     case "facebook":
-      return Facebook
+      return Facebook;
     case "instagram":
-      return Instagram
+      return Instagram;
     case "linkedin":
-      return Linkedin
+      return Linkedin;
     case "github":
-      return Github
+      return Github;
     default:
-      return ExternalLink
+      return ExternalLink;
   }
 }
 
 function isExternal(href: string) {
-  return href.startsWith("http")
+  return href.startsWith("http");
 }
 
 const hernandezHighlights = [
@@ -71,35 +68,28 @@ const hernandezHighlights = [
   },
   {
     title: "Instant quote flow",
-    description: "Service, property size, and contact details move visitors toward a real estimate.",
+    description:
+      "Service, property size, and contact details move visitors toward a real estimate.",
   },
   {
     title: "Project gallery",
-    description: "Real work photos are organized so prospects can quickly judge quality.",
+    description:
+      "Real work photos are organized so prospects can quickly judge quality.",
   },
-]
+];
 
 const homeNavItems = [
   { label: "Focus", href: "#focus" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Learning", href: "#learning" },
   { label: "Contact", href: "#contact" },
-]
+];
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#060a14] text-white overflow-x-hidden">
       {/* Background */}
       <HexGridBackground />
-
-      {/* AI Assistant */}
-      <AIAssistant />
-
-      {/* Direct contact launcher */}
-      <FloatingContact />
-
-      {/* Floating Dock Navigation */}
-      <FloatingDock />
 
       {/* Header */}
       <header className="relative z-10">
@@ -134,13 +124,6 @@ export default function HomePage() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
-            <Link
-              href="/design-system"
-              className="text-sm text-[#2dd4bf] hover:text-white transition-colors relative group"
-            >
-              Design System
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] group-hover:w-full transition-all duration-300" />
-            </Link>
           </motion.div>
 
           <motion.div
@@ -171,7 +154,9 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8"
               >
                 <Sparkles className="w-4 h-4 text-[#2dd4bf]" />
-                <span className="text-sm text-white/60">Portfolio + build notes</span>
+                <span className="text-sm text-white/60">
+                  Portfolio + build notes
+                </span>
                 <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse" />
               </motion.div>
 
@@ -181,9 +166,11 @@ export default function HomePage() {
                 transition={{ delay: 0.1 }}
                 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6"
               >
-                Documenting <span className="gradient-text text-glow-teal">AI systems</span>
+                Documenting{" "}
+                <span className="gradient-text text-glow-teal">AI systems</span>
                 <br />
-                and <span className="gradient-text-warm">abstraction layers</span>
+                and{" "}
+                <span className="gradient-text-warm">abstraction layers</span>
               </motion.h1>
 
               <motion.p
@@ -192,8 +179,10 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
                 className="text-lg md:text-xl text-white/50 mb-10 max-w-lg leading-relaxed"
               >
-                Start with the portfolio if you need proof of work. The rest of this site keeps the build logs,
-                experiments, demos, and notes behind the web systems, automations, and local-business workflows I ship.
+                Start with the portfolio if you need proof of work. The rest of
+                this site keeps the build logs, experiments, demos, and notes
+                behind the web systems, automations, and local-business
+                workflows I ship.
               </motion.p>
 
               <motion.div
@@ -204,7 +193,7 @@ export default function HomePage() {
               >
                 <Link
                   href="/portfolio"
-                  className="group flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-semibold hover:shadow-xl hover:shadow-[#ff6b6b]/20 transition-all glow-coral"
+                  className="group flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] px-8 py-4 font-semibold text-white transition-all hover:shadow-xl hover:shadow-[#ff6b6b]/20"
                 >
                   View portfolio
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -213,7 +202,7 @@ export default function HomePage() {
                   href="https://hernandezlandscapeservices.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-8 py-4 rounded-2xl glass border border-white/10 font-medium hover:border-white/30 transition-colors"
+                  className="glass flex items-center gap-2 rounded-lg border border-white/10 px-8 py-4 font-medium transition-colors hover:border-white/30"
                 >
                   <ExternalLink className="w-4 h-4" />
                   Live Hernandez site
@@ -244,7 +233,9 @@ export default function HomePage() {
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               className="flex flex-col items-center gap-2 text-white/30"
             >
-              <span className="text-xs uppercase tracking-wider">Scroll to explore</span>
+              <span className="text-xs uppercase tracking-wider">
+                Scroll to explore
+              </span>
               <ChevronDown className="w-5 h-5" />
             </motion.div>
           </motion.div>
@@ -288,8 +279,9 @@ export default function HomePage() {
                 transition={{ delay: 0.1 }}
                 className="text-white/50 text-lg leading-relaxed mb-8"
               >
-                I use this section to think through the layers around a web system: browser runtime, frontend UX,
-                APIs, storage, deployment, and the business rules that sit above the code.
+                I use this section to think through the layers around a web
+                system: browser runtime, frontend UX, APIs, storage, deployment,
+                and the business rules that sit above the code.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -298,8 +290,17 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
                 className="flex flex-wrap gap-3"
               >
-                {["Browser", "Frontend", "API", "Infrastructure", "Business Layer"].map((tool) => (
-                  <span key={tool} className="px-4 py-2 rounded-full glass text-sm text-white/70">
+                {[
+                  "Browser",
+                  "Frontend",
+                  "API",
+                  "Infrastructure",
+                  "Business Layer",
+                ].map((tool) => (
+                  <span
+                    key={tool}
+                    className="px-4 py-2 rounded-full glass text-sm text-white/70"
+                  >
                     {tool}
                   </span>
                 ))}
@@ -326,10 +327,15 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="text-[#2dd4bf] text-sm font-medium uppercase tracking-wider">Focus Areas</span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">What I&apos;m building and testing</h2>
+            <span className="text-[#2dd4bf] text-sm font-medium uppercase tracking-wider">
+              Focus Areas
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
+              What I&apos;m building and testing
+            </h2>
             <p className="text-white/50 max-w-2xl mx-auto">
-              These are the themes I keep returning to while I study, prototype, and document how systems behave in the real world.
+              These are the themes I keep returning to while I study, prototype,
+              and document how systems behave in the real world.
             </p>
           </motion.div>
 
@@ -369,15 +375,24 @@ export default function HomePage() {
                 Hernandez Landscape is the local-business example to show first
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-white/50">
-                This is a real landscaping website build, not a generic mockup. It gives prospects a concrete reference
-                for bilingual messaging, service pages, quote capture, project photos, and trust signals for a local contractor.
+                This is a real landscaping website build, not a generic mockup.
+                It gives prospects a concrete reference for bilingual messaging,
+                service pages, quote capture, project photos, and trust signals
+                for a local contractor.
               </p>
 
               <div className="mt-8 grid gap-4">
-                {hernandezHighlights.map(highlight => (
-                  <div key={highlight.title} className="rounded-2xl border border-white/8 bg-white/[0.03] p-5">
-                    <p className="text-sm font-semibold text-white">{highlight.title}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/45">{highlight.description}</p>
+                {hernandezHighlights.map((highlight) => (
+                  <div
+                    key={highlight.title}
+                    className="rounded-2xl border border-white/8 bg-white/[0.03] p-5"
+                  >
+                    <p className="text-sm font-semibold text-white">
+                      {highlight.title}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/45">
+                      {highlight.description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -418,9 +433,12 @@ export default function HomePage() {
                 className="aspect-[16/10] w-full object-cover"
               />
               <div className="p-6">
-                <p className="text-sm font-semibold text-white">Real work imagery</p>
+                <p className="text-sm font-semibold text-white">
+                  Real work imagery
+                </p>
                 <p className="mt-2 text-sm leading-relaxed text-white/45">
-                  The design uses actual project photos so the site feels grounded and specific to the business.
+                  The design uses actual project photos so the site feels
+                  grounded and specific to the business.
                 </p>
               </div>
             </motion.div>
@@ -440,9 +458,12 @@ export default function HomePage() {
                 className="aspect-square w-full object-cover"
               />
               <div className="p-6">
-                <p className="text-sm font-semibold text-white">Outreach-ready collateral</p>
+                <p className="text-sm font-semibold text-white">
+                  Outreach-ready collateral
+                </p>
                 <p className="mt-2 text-sm leading-relaxed text-white/45">
-                  Text is rendered cleanly by the site workflow, avoiding distorted AI lettering in sales images.
+                  Text is rendered cleanly by the site workflow, avoiding
+                  distorted AI lettering in sales images.
                 </p>
               </div>
             </motion.div>
@@ -459,10 +480,16 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="text-[#22d3ee] text-sm font-medium uppercase tracking-wider">The Ecosystem</span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">How the sites connect</h2>
+            <span className="text-[#22d3ee] text-sm font-medium uppercase tracking-wider">
+              The Ecosystem
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
+              How the sites connect
+            </h2>
             <p className="text-white/50 max-w-2xl mx-auto">
-              The {personalSitePublicLabel} is personal and reflective. High Encode Learning is the business-facing layer. The other tools sit between learning, testing, and delivery.
+              The {personalSitePublicLabel} is personal and reflective. High
+              Encode Learning is the business-facing layer. The other tools sit
+              between learning, testing, and delivery.
             </p>
           </motion.div>
 
@@ -491,13 +518,18 @@ export default function HomePage() {
               <span className="inline-flex items-center rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#9ae6db]">
                 Direct contact hub
               </span>
-              <h2 className="mt-6 text-3xl font-bold md:text-4xl">If this site gets passed around, it should still be easy to reach me</h2>
+              <h2 className="mt-6 text-3xl font-bold md:text-4xl">
+                If this site gets passed around, it should still be easy to
+                reach me
+              </h2>
               <p className="mx-auto mt-4 max-w-2xl text-white/50">
-                This site stays personal, but contact does not need to be buried. Use the fastest confirmed paths below for
-                follow-up, booking, hiring, or seeing the work that sits behind the notes.
+                This site stays personal, but contact does not need to be
+                buried. Use the fastest confirmed paths below for follow-up,
+                booking, hiring, or seeing the work that sits behind the notes.
               </p>
               <p className="mx-auto mt-3 max-w-xl text-sm text-white/35">
-                English-first, async-friendly, and ready for local business follow-up without forcing people to hunt for the right page.
+                English-first, async-friendly, and ready for local business
+                follow-up without forcing people to hunt for the right page.
               </p>
               <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
                 <span className="rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[#9ae6db]">
@@ -516,34 +548,48 @@ export default function HomePage() {
               {[
                 {
                   heading: "Quick reach",
-                  intro: "Best if you want to talk soon or need the cleanest next step.",
+                  intro:
+                    "Best if you want to talk soon or need the cleanest next step.",
                   links: quickReachLinks,
                 },
                 {
                   heading: "Hire me",
-                  intro: "Best if you already know you want a scoped project or freelance path.",
+                  intro:
+                    "Best if you already know you want a scoped project or freelance path.",
                   links: hireMeLinks,
                 },
                 {
                   heading: "Follow the work",
-                  intro: "Best if you want to inspect the code, experiments, and ecosystem.",
+                  intro:
+                    "Best if you want to inspect the code, experiments, and ecosystem.",
                   links: followWorkLinks,
                 },
-              ].map(group => (
-                <div key={group.heading} className="rounded-3xl border border-white/8 bg-white/[0.03] p-6 text-left">
-                  <p className="text-xs uppercase tracking-[0.22em] text-[#22d3ee]">{group.heading}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-white/50">{group.intro}</p>
+              ].map((group) => (
+                <div
+                  key={group.heading}
+                  className="rounded-3xl border border-white/8 bg-white/[0.03] p-6 text-left"
+                >
+                  <p className="text-xs uppercase tracking-[0.22em] text-[#22d3ee]">
+                    {group.heading}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/50">
+                    {group.intro}
+                  </p>
 
                   <div className="mt-6 space-y-3">
-                    {group.links.map(link => {
-                      const Icon = iconFor(link)
+                    {group.links.map((link) => {
+                      const Icon = iconFor(link);
 
                       return (
                         <a
                           key={link.id}
                           href={link.href}
                           target={isExternal(link.href) ? "_blank" : undefined}
-                          rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+                          rel={
+                            isExternal(link.href)
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
                           className="group flex items-start gap-3 rounded-2xl border border-white/8 bg-[#0b1424]/75 px-4 py-4 transition-colors hover:border-white/20 hover:bg-[#0f1a2f]"
                         >
                           <span className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff6b6b] to-[#ff8e8e] text-white shadow-lg shadow-[#ff6b6b]/10">
@@ -554,10 +600,12 @@ export default function HomePage() {
                               {link.label}
                               <ArrowRight className="h-4 w-4 text-white/30 transition-transform group-hover:translate-x-0.5" />
                             </span>
-                            <span className="mt-1 block text-xs leading-relaxed text-white/50">{link.description}</span>
+                            <span className="mt-1 block text-xs leading-relaxed text-white/50">
+                              {link.description}
+                            </span>
                           </span>
                         </a>
-                      )
+                      );
                     })}
                   </div>
                 </div>
@@ -566,9 +614,12 @@ export default function HomePage() {
 
             <div className="mt-8 flex flex-col gap-4 rounded-3xl border border-white/8 bg-[#08101e]/75 px-6 py-5 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="text-sm font-semibold text-white">Want the formal business-facing version?</p>
+                <p className="text-sm font-semibold text-white">
+                  Want the formal business-facing version?
+                </p>
                 <p className="mt-1 text-sm text-white/45">
-                  High Encode Learning is still the cleanest place for scoping, demos, and formal project conversations.
+                  High Encode Learning is still the cleanest place for scoping,
+                  demos, and formal project conversations.
                 </p>
               </div>
               <a
@@ -594,19 +645,25 @@ export default function HomePage() {
             </div>
             <div>
               <p className="font-semibold">David Ortiz</p>
-              <p className="text-xs text-white/40">Personal notebook and experiment layer</p>
+              <p className="text-xs text-white/40">
+                Personal notebook and experiment layer
+              </p>
             </div>
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.22em] text-white/35">Reach out</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-white/35">
+              Reach out
+            </p>
             <div className="mt-3 flex flex-wrap gap-3 text-sm text-white/45">
-              {footerPrimaryLinks.map(link => (
+              {footerPrimaryLinks.map((link) => (
                 <a
                   key={link.id}
                   href={link.href}
                   target={isExternal(link.href) ? "_blank" : undefined}
-                  rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+                  rel={
+                    isExternal(link.href) ? "noopener noreferrer" : undefined
+                  }
                   className="hover:text-white transition-colors"
                 >
                   {link.label}
@@ -616,14 +673,18 @@ export default function HomePage() {
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.22em] text-white/35">Ecosystem</p>
+            <p className="text-xs uppercase tracking-[0.22em] text-white/35">
+              Ecosystem
+            </p>
             <div className="mt-3 flex flex-wrap gap-3 text-sm text-white/45">
-              {footerEcosystemLinks.map(link => (
+              {footerEcosystemLinks.map((link) => (
                 <a
                   key={link.id}
                   href={link.href}
                   target={isExternal(link.href) ? "_blank" : undefined}
-                  rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+                  rel={
+                    isExternal(link.href) ? "noopener noreferrer" : undefined
+                  }
                   className="hover:text-white transition-colors"
                 >
                   {link.label}
@@ -632,12 +693,14 @@ export default function HomePage() {
             </div>
           </div>
 
-          <p className="text-sm text-white/30 lg:text-right">© {new Date().getFullYear()} David Ortiz. All rights reserved.</p>
+          <p className="text-sm text-white/30 lg:text-right">
+            © {new Date().getFullYear()} David Ortiz. All rights reserved.
+          </p>
         </div>
       </footer>
 
       {/* Bottom spacer for dock */}
       <div className="h-24" />
     </div>
-  )
+  );
 }
