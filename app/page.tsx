@@ -12,9 +12,9 @@ import {
   Instagram,
   Linkedin,
   Mail,
-  Play,
   Sparkles,
 } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 import { AIAssistant } from "@/components/ui-creative/ai-assistant"
@@ -64,6 +64,28 @@ function isExternal(href: string) {
   return href.startsWith("http")
 }
 
+const hernandezHighlights = [
+  {
+    title: "Bilingual website",
+    description: "English and Spanish paths for a local landscaping audience.",
+  },
+  {
+    title: "Instant quote flow",
+    description: "Service, property size, and contact details move visitors toward a real estimate.",
+  },
+  {
+    title: "Project gallery",
+    description: "Real work photos are organized so prospects can quickly judge quality.",
+  },
+]
+
+const homeNavItems = [
+  { label: "Focus", href: "#focus" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Learning", href: "#learning" },
+  { label: "Contact", href: "#contact" },
+]
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#060a14] text-white overflow-x-hidden">
@@ -102,15 +124,15 @@ export default function HomePage() {
             transition={{ delay: 0.2 }}
             className="hidden lg:flex items-center gap-8"
           >
-            {["Focus", "Learning", "Contact"].map((item) => (
-              <a
-                key={item}
-                href={item === "Focus" ? "#focus" : item === "Contact" ? "#contact" : "#learning"}
+            {homeNavItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
                 className="text-sm text-white/50 hover:text-white transition-colors relative group"
               >
-                {item}
+                {item.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] group-hover:w-full transition-all duration-300" />
-              </a>
+              </Link>
             ))}
             <Link
               href="/design-system"
@@ -149,7 +171,7 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8"
               >
                 <Sparkles className="w-4 h-4 text-[#2dd4bf]" />
-                <span className="text-sm text-white/60">Personal Notes + Experiments</span>
+                <span className="text-sm text-white/60">Portfolio + build notes</span>
                 <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse" />
               </motion.div>
 
@@ -170,9 +192,8 @@ export default function HomePage() {
                 transition={{ delay: 0.2 }}
                 className="text-lg md:text-xl text-white/50 mb-10 max-w-lg leading-relaxed"
               >
-                This is the personal side of my ecosystem: build logs, experiments, demos, and notes on how browsers,
-                apps, APIs, automation, and business systems fit together. If you need the business-facing layer, go to{" "}
-                <span className="text-white/80">High Encode Learning</span>.
+                Start with the portfolio if you need proof of work. The rest of this site keeps the build logs,
+                experiments, demos, and notes behind the web systems, automations, and local-business workflows I ship.
               </motion.p>
 
               <motion.div
@@ -181,21 +202,21 @@ export default function HomePage() {
                 transition={{ delay: 0.3 }}
                 className="flex flex-wrap gap-4"
               >
-                <a
-                  href="#learning"
+                <Link
+                  href="/portfolio"
                   className="group flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-semibold hover:shadow-xl hover:shadow-[#ff6b6b]/20 transition-all glow-coral"
                 >
-                  What I&apos;m learning
+                  View portfolio
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
                 <a
-                  href={businessSiteUrl}
+                  href="https://hernandezlandscapeservices.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-8 py-4 rounded-2xl glass border border-white/10 font-medium hover:border-white/30 transition-colors"
                 >
-                  <Play className="w-4 h-4" />
-                  Go to business site
+                  <ExternalLink className="w-4 h-4" />
+                  Live Hernandez site
                 </a>
               </motion.div>
             </div>
@@ -313,6 +334,119 @@ export default function HomePage() {
           </motion.div>
 
           <ServiceGrid />
+        </div>
+      </section>
+
+      {/* Portfolio Proof Section */}
+      <section id="portfolio" className="relative z-10 py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="rounded-3xl border border-white/8 bg-[#08101e]/80 p-4 shadow-2xl shadow-black/30"
+            >
+              <Image
+                src="/portfolio/hernandez/site-screenshot.png"
+                alt="Hernandez Landscape website design screenshot"
+                width={1440}
+                height={1000}
+                className="h-auto w-full rounded-2xl border border-white/10"
+                priority={false}
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <span className="inline-flex items-center rounded-full border border-[#7ac943]/25 bg-[#7ac943]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#b8f28e]">
+                Portfolio proof
+              </span>
+              <h2 className="mt-6 text-4xl font-bold leading-tight md:text-5xl">
+                Hernandez Landscape is the local-business example to show first
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-white/50">
+                This is a real landscaping website build, not a generic mockup. It gives prospects a concrete reference
+                for bilingual messaging, service pages, quote capture, project photos, and trust signals for a local contractor.
+              </p>
+
+              <div className="mt-8 grid gap-4">
+                {hernandezHighlights.map(highlight => (
+                  <div key={highlight.title} className="rounded-2xl border border-white/8 bg-white/[0.03] p-5">
+                    <p className="text-sm font-semibold text-white">{highlight.title}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/45">{highlight.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <a
+                  href="https://hernandezlandscapeservices.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#7ac943] to-[#2dd4bf] px-6 py-3 font-semibold text-[#06140e] transition-transform hover:scale-[1.01]"
+                >
+                  View Hernandez site
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+                <Link
+                  href="/portfolio"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 px-6 py-3 font-semibold text-white/75 transition-colors hover:border-white/25 hover:text-white"
+                >
+                  Open portfolio page
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="overflow-hidden rounded-3xl border border-white/8 bg-white/[0.03]"
+            >
+              <Image
+                src="/portfolio/hernandez/landscape-work-hero.jpeg"
+                alt="Hernandez Landscape real project photo"
+                width={1600}
+                height={1000}
+                className="aspect-[16/10] w-full object-cover"
+              />
+              <div className="p-6">
+                <p className="text-sm font-semibold text-white">Real work imagery</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/45">
+                  The design uses actual project photos so the site feels grounded and specific to the business.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
+              className="overflow-hidden rounded-3xl border border-white/8 bg-white/[0.03]"
+            >
+              <Image
+                src="/portfolio/hernandez/sergio-landscaping-marketing-clean.png"
+                alt="Clean marketing visual for landscaping and snow removal outreach"
+                width={1080}
+                height={1080}
+                className="aspect-square w-full object-cover"
+              />
+              <div className="p-6">
+                <p className="text-sm font-semibold text-white">Outreach-ready collateral</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/45">
+                  Text is rendered cleanly by the site workflow, avoiding distorted AI lettering in sales images.
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
