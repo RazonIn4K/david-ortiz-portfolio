@@ -59,7 +59,7 @@ export const services: Service[] = [
     icon: '📚',
     cta: {
       label: 'See CSBrainAI',
-      href: 'https://csbrain.ai',
+      href: 'https://csbrainai.vercel.app',
     },
   },
 ]
@@ -87,7 +87,7 @@ export const showcaseProjects: Project[] = [
   {
     title: 'CSBrainAI',
     description: 'Retrieval and explanation experiments focused on grounded technical knowledge.',
-    href: 'https://csbrain.ai',
+    href: 'https://csbrainai.vercel.app',
     metrics: ['RAG', 'Explanation', 'Knowledge'],
   },
   {
