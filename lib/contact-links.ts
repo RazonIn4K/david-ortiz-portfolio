@@ -84,7 +84,7 @@ export const followWorkLinks: ContactLink[] = [
   {
     id: "csbrainai",
     label: "CSBrainAI",
-    href: "https://csbrain.ai",
+    href: "https://csbrainai.vercel.app",
     description: "Retrieval and explanation experiments around technical knowledge delivery.",
   },
   {

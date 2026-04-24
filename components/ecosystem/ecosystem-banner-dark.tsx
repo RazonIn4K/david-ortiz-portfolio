@@ -16,7 +16,7 @@ const ecosystemSites = [
   },
   {
     name: "CSBrainAI",
-    href: "https://csbrain.ai",
+    href: "https://csbrainai.vercel.app",
     description: "Retrieval experiments",
   },
   {

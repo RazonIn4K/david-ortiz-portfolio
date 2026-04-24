@@ -38,7 +38,7 @@ const sites: Site[] = [
   {
     id: "csbrain",
     name: "CSBrainAI",
-    url: "https://csbrain.ai",
+    url: "https://csbrainai.vercel.app",
     icon: <Brain className="w-5 h-5" />,
     description: "AI Learning Assistant",
     gradient: "from-purple-400 to-pink-400",

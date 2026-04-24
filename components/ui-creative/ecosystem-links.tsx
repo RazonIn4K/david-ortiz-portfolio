@@ -25,7 +25,7 @@ const ecosystemItems = [
     name: "CSBrainAI",
     description: "Retrieval and explanation experiments",
     icon: Brain,
-    url: "https://csbrain.ai",
+    url: "https://csbrainai.vercel.app",
     gradient: "from-purple-500 to-pink-500",
     features: ["Grounded answers", "Knowledge interfaces", "Explanation quality"],
   },
