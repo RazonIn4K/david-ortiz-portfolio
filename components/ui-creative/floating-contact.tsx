@@ -6,13 +6,15 @@ import {
   CalendarDays,
   BriefcaseBusiness,
   ExternalLink,
-  Facebook,
-  Instagram,
-  Linkedin,
   Mail,
   MessageCircle,
 } from "lucide-react";
 
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedinIcon,
+} from "@/components/icons/brand-icons";
 import { floatingContactLinks, type ContactLink } from "@/lib/contact-links";
 
 function iconFor(link: ContactLink) {
@@ -24,11 +26,11 @@ function iconFor(link: ContactLink) {
     case "upwork":
       return BriefcaseBusiness;
     case "facebook":
-      return Facebook;
+      return FacebookIcon;
     case "instagram":
-      return Instagram;
+      return InstagramIcon;
     case "linkedin":
-      return Linkedin;
+      return LinkedinIcon;
     default:
       return ExternalLink;
   }

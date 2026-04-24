@@ -5,13 +5,15 @@ import {
   BriefcaseBusiness,
   CalendarDays,
   ExternalLink,
-  Facebook,
-  Github,
-  Instagram,
-  Linkedin,
   Mail,
 } from "lucide-react"
 
+import {
+  FacebookIcon,
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+} from "@/components/icons/brand-icons"
 import { followWorkLinks, hireMeLinks, quickReachLinks, type ContactLink } from "@/lib/contact-links"
 import { businessSiteUrl, personalSitePublicLabel } from "@/lib/site-config"
 
@@ -33,13 +35,13 @@ function iconFor(link: ContactLink) {
     case "business-inbox":
       return BriefcaseBusiness
     case "facebook":
-      return Facebook
+      return FacebookIcon
     case "instagram":
-      return Instagram
+      return InstagramIcon
     case "linkedin":
-      return Linkedin
+      return LinkedinIcon
     case "github":
-      return Github
+      return GithubIcon
     default:
       return ExternalLink
   }
