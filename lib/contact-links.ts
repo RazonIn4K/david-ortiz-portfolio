@@ -116,6 +116,6 @@ export const footerPrimaryLinks: ContactLink[] = [
 
 export const footerEcosystemLinks: ContactLink[] = [
   hireMeLinks[2],
-  followWorkLinks[1],
   followWorkLinks[2],
+  followWorkLinks[3],
 ]
