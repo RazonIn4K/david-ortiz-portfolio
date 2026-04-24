@@ -7,16 +7,18 @@ import {
   CalendarDays,
   ChevronDown,
   ExternalLink,
-  Facebook,
-  Github,
-  Instagram,
-  Linkedin,
   Mail,
   Sparkles,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import {
+  FacebookIcon,
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+} from "@/components/icons/brand-icons";
 import { HexGridBackground } from "@/components/ui-creative/hex-grid-bg";
 import { TerminalHero } from "@/components/ui-creative/terminal-hero";
 import { OrbitVisualization } from "@/components/ui-creative/orbit-visualization";
@@ -45,13 +47,13 @@ function iconFor(link: ContactLink) {
     case "business-inbox":
       return BriefcaseBusiness;
     case "facebook":
-      return Facebook;
+      return FacebookIcon;
     case "instagram":
-      return Instagram;
+      return InstagramIcon;
     case "linkedin":
-      return Linkedin;
+      return LinkedinIcon;
     case "github":
-      return Github;
+      return GithubIcon;
     default:
       return ExternalLink;
   }
