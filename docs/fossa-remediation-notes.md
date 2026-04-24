@@ -1,13 +1,13 @@
 # FOSSA Remediation Notes
 
-Latest reviewed PR commit: `fa0bac9425daf92152256fc8638f31344b42878f`
+Latest reviewed PR commit: `ab6ef4d09130035299b2ac0a3f4354c50a868c52`
 
 ## Current Status
 
 - Vercel preview: passing
 - FOSSA Security Analysis: passing
-- FOSSA Dependency Quality: failing
-- FOSSA License Compliance: failing
+- FOSSA Dependency Quality: addressed with project-scoped FOSSA exceptions
+- FOSSA License Compliance: addressed with project-scoped FOSSA exceptions
 
 The PR reduced the public FOSSA scan from `60` issues and `553` dependencies on `main` to `28` issues and `433` dependencies on the latest branch scan.
 
@@ -41,12 +41,17 @@ These are the remaining packages with licenses that commonly trigger FOSSA polic
 
 ## Required FOSSA-Side Actions
 
-The remaining failures need FOSSA maintainer access:
+Completed on April 24, 2026 with FOSSA maintainer access:
 
-1. Open the latest FOSSA scan for the PR commit.
-2. Review the active License Compliance issues.
-3. Ignore or approve dev-only and optional framework/tooling dependencies where appropriate.
-4. Re-run the FOSSA policy scan.
+1. Reviewed the latest FOSSA scan for the PR commit.
+2. Applied project-scoped ignores for 12 Dependency Quality issues from transitive dev-tooling packages pinned by the current Next/ESLint stack.
+3. Applied project-scoped ignores for 16 License Compliance review items:
+   - `next@16.2.4` `CC-BY-SA-4.0` from the bundled Glob logo notice in `dist/compiled/glob/LICENSE`.
+   - `next@16.2.4` `MPL-2.0` from bundled `@vercel/og` license text.
+   - `LGPL-3.0-or-later` findings from optional Sharp/libvips native image optimization packages brought in by `next`/`sharp`.
+4. Confirmed the FOSSA scan summary reports `Issues 0` and `License scan passed` for the reviewed commit.
+
+These exceptions are project-scoped and should be revisited when upstream Next, ESLint, or Sharp dependency ranges change.
 
 Relevant FOSSA docs:
 
