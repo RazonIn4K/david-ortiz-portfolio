@@ -14,7 +14,7 @@ const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (
 
 ## Ecosystem Sites:
 - **High Encode Learning** (${businessSiteUrl}) - The business-facing site for services, demos, project scoping, and business work
-- **CSBrainAI** (csbrainai.com) - Retrieval and explanation experiments for technical knowledge
+- **CSBrainAI** (csbrainai.vercel.app) - Retrieval and explanation experiments for technical knowledge
 - **Prompt Defenders** (prompt-defenders.vercel.app) - AI security testing and prompt-safety work
 
 ## Guidance:

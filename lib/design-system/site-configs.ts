@@ -108,7 +108,7 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
   // ---------------------------------------------------------------------------
   csBrainAI: {
     name: "CSBrain AI",
-    domain: "csbrainai.com",
+    domain: "csbrainai.vercel.app",
     tagline: "Retrieval and explanation experiments",
     theme: "dark",
     colors: tokens.colors.sites.csBrainAI,

@@ -22,7 +22,7 @@ const ecosystemLinks: EcosystemLink[] = [
   },
   {
     name: "CSBrainAI",
-    href: "https://csbrain.ai",
+    href: "https://csbrainai.vercel.app",
     description: "Retrieval and explanation experiments",
   },
   {
