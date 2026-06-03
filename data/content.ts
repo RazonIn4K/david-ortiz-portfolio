@@ -19,18 +19,18 @@ export const services: Service[] = [
   {
     title: 'Abstraction Layers',
     description:
-      'Notes and examples that connect browser behavior, frontend structure, backend boundaries, infrastructure, and business decisions.',
+      'Plain-language notes on the layers I keep tripping over: browsers, frontend code, APIs, infrastructure, and business rules.',
     bullets: ['Browser runtime', 'Frontend architecture', 'Business-layer decisions'],
     icon: '🧠',
     cta: {
       label: 'Read the personal site',
-      href: 'https://cs-learning.me',
+      href: 'https://davidtiz.com',
     },
   },
   {
     title: 'Automation Experiments',
     description:
-      'Small proofs, working demos, and experiments around MCP workflows, orchestration, and safer operator layers.',
+      'Small proofs and workflow tests around MCP, orchestration, guardrails, and the handoffs that make automation useful.',
     bullets: ['MCP flows', 'Guardrails', 'Workflow design'],
     icon: '⚙️',
     cta: {
@@ -41,23 +41,12 @@ export const services: Service[] = [
   {
     title: 'Prompt Safety',
     description:
-      'Ongoing study of prompt injection, misuse resistance, and how AI systems fail when the boundaries are weak.',
+      'Notes on prompt injection, misuse resistance, and the weird ways AI tools fail when boundaries are fuzzy.',
     bullets: ['Prompt defense', 'Attack surfaces', 'Safer delivery'],
     icon: '🛡️',
     cta: {
       label: 'Explore Prompt Defenders',
-      href: 'https://prompt-defenders.com',
-    },
-  },
-  {
-    title: 'Knowledge Delivery',
-    description:
-      'Experiments in retrieval, explanation quality, and how to turn raw notes into something another person can actually use.',
-    bullets: ['RAG patterns', 'Grounded answers', 'Knowledge interfaces'],
-    icon: '📚',
-    cta: {
-      label: 'See CSBrainAI',
-      href: 'https://csbrain.ai',
+      href: 'https://prompt-defenders.vercel.app',
     },
   },
 ]
@@ -71,27 +60,21 @@ export type Project = {
 
 export const showcaseProjects: Project[] = [
   {
-    title: 'High Encode Learning',
-    description: 'Business-facing services, demos, and scoped work tied back to actual experiments and notes.',
+    title: 'HighEncode',
+    description: 'The business site for local-business websites, cleanup work, demos, and scoped implementation.',
     href: 'https://highencodelearning.com',
     metrics: ['Business layer', 'Services', 'Demos'],
   },
   {
-    title: 'cs-learning.me',
-    description: 'Personal notes, experiments, and the learning-in-public side of the ecosystem.',
-    href: 'https://cs-learning.me',
+    title: 'davidtiz.com',
+    description: 'The rough notebook: notes, experiments, and the learning-in-public side.',
+    href: 'https://davidtiz.com',
     metrics: ['Personal layer', 'Notes', 'Experiments'],
-  },
-  {
-    title: 'CSBrainAI',
-    description: 'Retrieval and explanation experiments focused on grounded technical knowledge.',
-    href: 'https://csbrain.ai',
-    metrics: ['RAG', 'Explanation', 'Knowledge'],
   },
   {
     title: 'Prompt Defenders',
     description: 'Prompt-safety experiments and red-team style testing for AI workflows.',
-    href: 'https://prompt-defenders.com',
+    href: 'https://prompt-defenders.vercel.app',
     metrics: ['Security', 'Prompt safety', 'Testing'],
   },
 ]
@@ -111,13 +94,13 @@ export const caseStudies: CaseStudy[] = [
     problem:
       'One site was trying to be a personal notebook, a service page, and a product surface all at once, which made the positioning muddy.',
     solution:
-      'Split the ecosystem clearly: cs-learning.me for personal notes and High Encode Learning for business-facing services, demos, and scoped work.',
+      'Split the ecosystem clearly: davidtiz.com for personal notes and HighEncode for business-facing services, demos, and scoped work.',
     results:
       'The roles of each domain became easier to explain, easier to trust, and easier to maintain without invented marketing claims.',
     stack: ['Next.js', 'Vercel', 'Content strategy', 'System design'],
     links: [
       { label: 'Business-facing site', href: 'https://highencodelearning.com' },
-      { label: 'Personal site', href: 'https://cs-learning.me' },
+      { label: 'Personal site', href: 'https://davidtiz.com' },
     ],
   },
   {
@@ -130,7 +113,7 @@ export const caseStudies: CaseStudy[] = [
       'The result was a real operator-layer demo instead of a theoretical pitch, along with clearer scope boundaries for future delivery work.',
     stack: ['AdLoop', 'Google Ads API', 'GA4', 'MCP', 'Claude workflows'],
     links: [
-      { label: 'High Encode Learning', href: 'https://highencodelearning.com' },
+      { label: 'HighEncode', href: 'https://highencodelearning.com' },
     ],
   },
   {
@@ -162,7 +145,7 @@ export type Resource = {
 
 export const resources: Resource[] = [
   {
-    title: 'High Encode Learning',
+    title: 'HighEncode',
     description: 'Business-facing services, demos, and project scoping.',
     href: 'https://highencodelearning.com',
   },
@@ -174,7 +157,7 @@ export const resources: Resource[] = [
   {
     title: 'Prompt Defenders',
     description: 'Prompt-safety experiments and security-focused testing.',
-    href: 'https://prompt-defenders.com',
+    href: 'https://prompt-defenders.vercel.app',
   },
 ]
 

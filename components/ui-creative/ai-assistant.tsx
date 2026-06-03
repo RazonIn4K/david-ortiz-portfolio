@@ -19,8 +19,8 @@ interface QuickAction {
 
 const quickActions: QuickAction[] = [
   { icon: Zap, label: "What are you building?", query: "What are you currently building and testing?" },
-  { icon: BookOpen, label: "How do the sites connect?", query: "How do cs-learning.me and highencodelearning.com connect?" },
-  { icon: Shield, label: "Where should business inquiries go?", query: "Where should someone go if they want to hire you or discuss scoped work?" },
+  { icon: BookOpen, label: "How do the sites connect?", query: "How do davidtiz.com and highencodelearning.com connect?" },
+  { icon: Shield, label: "Where should business work go?", query: "Where should someone go if they want to hire you or discuss scoped work?" },
 ]
 
 const generateId = () =>
@@ -31,7 +31,7 @@ const createInitialMessage = (): Message => ({
   id: "welcome-message",
   role: "assistant",
   content:
-    "Hey! I'm your AI guide to David's ecosystem. This site is the personal notebook layer, so ask about what David is learning, building, and how the ecosystem sites connect.",
+    "Hey. I can route questions around David's ecosystem: personal notes here, business work at HighEncode, RAG proof at CSBrainAI, and AI safety work at Prompt Defenders.",
   timestamp: new Date(),
 })
 
@@ -142,7 +142,7 @@ export function AIAssistant() {
         {
           id: generateId(),
           role: "assistant",
-          content: "Sorry, I encountered an error. Please try again. For business inquiries, use High Encode Learning: https://highencodelearning.com.",
+          content: "Sorry, the assistant hit an error. For business inquiries, use HighEncode: https://highencodelearning.com.",
           timestamp: new Date(),
         },
       ])
@@ -210,18 +210,22 @@ export function AIAssistant() {
         aria-label="Open AI Assistant chat"
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className={`fixed bottom-6 right-6 z-50 ${isOpen ? "hidden" : "flex"} focus:outline-none focus:ring-2 focus:ring-[#2dd4bf] focus:ring-offset-2 focus:ring-offset-[#060a14] rounded-full`}
+        className={`dtz-ai-trigger ${isOpen ? "hidden" : "flex"} focus:outline-none focus:ring-2 focus:ring-[#2dd4bf] focus:ring-offset-2 focus:ring-offset-[#060a14] rounded-full`}
         whileHover={motionVariants.button.hover}
         whileTap={motionVariants.button.tap}
       >
         <div className="relative">
           {/* Pulse rings - hidden from screen readers */}
-          <span className="absolute inset-0 rounded-full bg-[#2dd4bf] animate-pulse-ring" aria-hidden="true" />
-          <span
-            className="absolute inset-0 rounded-full bg-[#2dd4bf] animate-pulse-ring"
-            style={{ animationDelay: "0.5s" }}
-            aria-hidden="true"
-          />
+          {!prefersReducedMotion ? (
+            <>
+              <span className="absolute inset-0 rounded-full bg-[#2dd4bf] animate-pulse-ring" aria-hidden="true" />
+              <span
+                className="absolute inset-0 rounded-full bg-[#2dd4bf] animate-pulse-ring"
+                style={{ animationDelay: "0.5s" }}
+                aria-hidden="true"
+              />
+            </>
+          ) : null}
 
           {/* Main button */}
           <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center shadow-lg glow-teal">
@@ -248,7 +252,9 @@ export function AIAssistant() {
             {...motionVariants.panel}
             transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", damping: 25, stiffness: 300 }}
             className={`fixed z-50 ${
-              isExpanded ? "inset-4 md:inset-8" : "bottom-6 right-6 w-[380px] h-[600px] max-h-[80vh]"
+              isExpanded
+                ? "inset-3 md:inset-8"
+                : "inset-x-3 bottom-3 h-[min(620px,calc(100vh-1.5rem))] md:inset-auto md:bottom-6 md:right-6 md:h-[600px] md:max-h-[80vh] md:w-[380px]"
             }`}
           >
             <div className="w-full h-full glass-strong rounded-2xl overflow-hidden flex flex-col shadow-2xl">
@@ -260,7 +266,7 @@ export function AIAssistant() {
                   </div>
                   <div>
                     <h2 id="chat-title" className="font-semibold text-white">AI Assistant</h2>
-                    <p className="text-xs text-[#2dd4bf]">Always here to help</p>
+                    <p className="text-xs text-[#7cf7e7]">Routes questions to the right surface</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -349,7 +355,7 @@ export function AIAssistant() {
               {/* Quick Actions */}
               {messages.length <= 2 && (
                 <div className="px-4 py-2 border-t border-white/5">
-                  <p className="text-xs text-white/40 mb-2" id="quick-actions-label">Quick actions</p>
+                  <p className="text-xs text-white/75 mb-2" id="quick-actions-label">Quick actions</p>
                   <div className="flex flex-wrap gap-2" role="group" aria-labelledby="quick-actions-label">
                     {quickActions.map((action) => (
                       <button
@@ -377,10 +383,10 @@ export function AIAssistant() {
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask me anything..."
+                    placeholder="Ask about the work lanes..."
                     disabled={isTyping}
                     aria-describedby={error ? "chat-error" : undefined}
-                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#2dd4bf]/50 focus:ring-2 focus:ring-[#2dd4bf]/20 transition-colors disabled:opacity-50"
+                    className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/70 focus:outline-none focus:border-[#2dd4bf]/50 focus:ring-2 focus:ring-[#2dd4bf]/20 transition-colors disabled:opacity-50"
                   />
                   <motion.button
                     type="submit"
