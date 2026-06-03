@@ -62,7 +62,7 @@ export const baseKeyframes = {
 
 // Site-specific keyframes
 export const siteKeyframes = {
-  // DAVIDTIZ.COM specific
+  // CS-LEARNING.ME specific
   csLearning: {
     scanLine: {
       "0%": { transform: "translateY(-100%)" },
@@ -96,6 +96,24 @@ export const siteKeyframes = {
     cardFloat: {
       "0%, 100%": { transform: "translateY(0) rotateX(0)" },
       "50%": { transform: "translateY(-10px) rotateX(2deg)" },
+    },
+  },
+
+  // CSBRAINAI specific
+  csBrainAI: {
+    synapsePulse: {
+      "0%": { opacity: 0.2, transform: "scale(1)" },
+      "50%": { opacity: 1, transform: "scale(1.5)" },
+      "100%": { opacity: 0.2, transform: "scale(1)" },
+    },
+    nodeConnect: {
+      "0%": { strokeDashoffset: 100, opacity: 0 },
+      "50%": { opacity: 1 },
+      "100%": { strokeDashoffset: 0, opacity: 0.5 },
+    },
+    brainWave: {
+      "0%, 100%": { transform: "scaleY(1)" },
+      "50%": { transform: "scaleY(1.3)" },
     },
   },
 

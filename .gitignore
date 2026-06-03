@@ -77,5 +77,9 @@ temp/
 .vercel
 .env*.local
 
+# Codex/Claude local worktree artifacts
+.claude/worktrees/
+.claude/settings.local.json
+
 # Snyk Security Extension - AI Rules (auto-generated)
 .windsurf/rules/snyk_rules.md

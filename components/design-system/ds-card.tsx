@@ -6,13 +6,7 @@ import { cn } from "@/lib/utils"
 import type { SiteKey } from "@/lib/design-system/site-configs"
 import { siteConfigs } from "@/lib/design-system/site-configs"
 
-// Omit drag-related props that conflict with Framer Motion
-type DivHTMLProps = Omit<
-  React.HTMLAttributes<HTMLDivElement>,
-  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
->
-
-interface DSCardProps extends DivHTMLProps {
+interface DSCardProps extends React.HTMLAttributes<HTMLDivElement> {
   site: SiteKey
   variant?: "default" | "glass" | "elevated" | "bordered"
   hover?: boolean

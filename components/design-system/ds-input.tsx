@@ -26,7 +26,7 @@ export function DSInput({ site, label, error, icon, className, ...props }: DSInp
       <div className="relative">
         {icon && (
           <div
-            className={cn("absolute left-4 top-1/2 -translate-y-1/2", isDark ? "text-white/75" : "text-neutral-700")}
+            className={cn("absolute left-4 top-1/2 -translate-y-1/2", isDark ? "text-white/40" : "text-neutral-400")}
           >
             {icon}
           </div>
@@ -37,8 +37,8 @@ export function DSInput({ site, label, error, icon, className, ...props }: DSInp
             "focus:outline-none focus:ring-2",
             icon && "pl-11",
             isDark
-              ? "bg-white/5 border border-white/10 text-white placeholder:text-white/70 focus:border-transparent"
-              : "bg-neutral-50 border border-neutral-200 text-neutral-900 placeholder:text-neutral-700 focus:border-transparent",
+              ? "bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:border-transparent"
+              : "bg-neutral-50 border border-neutral-200 text-neutral-900 placeholder:text-neutral-400 focus:border-transparent",
             error && "border-red-500 focus:ring-red-500/30",
             className,
           )}

@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, ExternalLink, Sparkles, BookOpen, Shield } from "lucide-react"
+import { ChevronDown, ExternalLink, Sparkles, BookOpen, Brain, Shield } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { SiteKey } from "@/lib/design-system/site-configs"
 import { siteConfigs } from "@/lib/design-system/site-configs"
@@ -26,9 +26,9 @@ const ecosystemSites = [
   },
   {
     key: "csBrainAI" as SiteKey,
-    icon: BookOpen,
-    label: "CSBrainAI",
-    description: "Private RAG assistant demo",
+    icon: Brain,
+    label: "CSBrain AI",
+    description: "Retrieval and explanation experiments",
   },
   {
     key: "promptDefenders" as SiteKey,
@@ -49,7 +49,7 @@ export function DSEcosystemNav({ currentSite }: DSEcosystemNavProps) {
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex min-h-11 items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+          "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors",
           isDark
             ? "bg-white/5 hover:bg-white/10 text-white/70"
             : "bg-neutral-100 hover:bg-neutral-200 text-neutral-600",
@@ -98,7 +98,7 @@ export function DSEcosystemNav({ currentSite }: DSEcosystemNavProps) {
                     target={isCurrent ? undefined : "_blank"}
                     rel="noopener noreferrer"
                     className={cn(
-                      "flex min-h-16 items-center gap-4 rounded-lg p-3 transition-colors group",
+                      "flex items-center gap-4 p-3 rounded-xl transition-colors group",
                       isDark ? "hover:bg-white/5" : "hover:bg-neutral-50",
                       isCurrent && (isDark ? "bg-white/5" : "bg-neutral-50"),
                     )}
@@ -127,13 +127,13 @@ export function DSEcosystemNav({ currentSite }: DSEcosystemNavProps) {
                           </span>
                         )}
                       </div>
-                      <p className={cn("text-sm", isDark ? "text-white/75" : "text-neutral-700")}>{site.description}</p>
+                      <p className={cn("text-sm", isDark ? "text-white/50" : "text-neutral-500")}>{site.description}</p>
                     </div>
                     {!isCurrent && (
                       <ExternalLink
                         className={cn(
                           "w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity",
-                          isDark ? "text-white/70" : "text-neutral-700",
+                          isDark ? "text-white/30" : "text-neutral-400",
                         )}
                       />
                     )}

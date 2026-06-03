@@ -13,80 +13,51 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-const siteUrl = "https://davidtiz.com";
-const siteTitle = "David Ortiz | Personal hub for builds, notes, and systems work";
+const siteUrl = "https://cs-learning.me";
+const siteTitle = "David Ortiz | Personal notes on AI systems and abstraction layers";
 const siteDescription =
-  "Personal hub for David Ortiz: current builds, casual notes, HighEncode routing, AI tooling experiments, and web systems work.";
+  "Personal site for experiments, notes, demos, and learning-in-public across automation, web systems, AI tooling, and abstraction layers.";
 
 export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
   keywords: [
-    "David Ortiz",
-    "HighEncode",
-    "personal portfolio",
+    "abstraction layers",
+    "browser behavior",
+    "frontend and backend",
     "web systems",
-    "automation notes",
-    "AI tooling experiments",
-    "systems design",
-    "local business websites",
+    "ai tooling notes",
+    "learning in public",
+    "system design",
+    "automation experiments",
   ],
   applicationName: "David Ortiz Personal Site",
   creator: "David Ortiz",
   authors: [{ name: "David Ortiz", url: siteUrl }],
   metadataBase: new URL(siteUrl),
-  manifest: "/site.webmanifest",
   openGraph: {
     title: siteTitle,
     description: siteDescription,
     url: siteUrl,
-    siteName: "David Ortiz",
+    siteName: "David Ortiz Personal Site",
     type: "website",
-    images: [
-      {
-        url: "/visuals/david-og-card.png",
-        width: 1200,
-        height: 630,
-        alt: "Generated David Ortiz portfolio workbench image",
-      },
-    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: siteTitle,
     description: siteDescription,
-    images: ["/visuals/david-og-card.png"],
   },
   icons: {
     icon: [
       {
-        url: "/favicon.ico",
-        sizes: "any",
-      },
-      {
-        url: "/favicon-16x16.png",
-        sizes: "16x16",
-        type: "image/png",
-      },
-      {
-        url: "/favicon-32x32.png",
+        url: "/icon-light-32x32.png",
         sizes: "32x32",
-        type: "image/png",
+        media: "(prefers-color-scheme: light)",
       },
       {
-        url: "/favicon-48x48.png",
-        sizes: "48x48",
-        type: "image/png",
-      },
-      {
-        url: "/icon-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-      {
-        url: "/icon-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
+        url: "/icon-dark-32x32.png",
+        sizes: "32x32",
+        media: "(prefers-color-scheme: dark)",
       },
       {
         url: "/icon.svg",
@@ -99,7 +70,7 @@ export const metadata: Metadata = {
         sizes: "180x180",
       },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/icon-light-32x32.png",
   },
 };
 
@@ -111,11 +82,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased">
-        <a className="skip-link" href="#main-content">
-          Skip to main content
-        </a>
-        <main id="main-content">{children}</main>
-        {process.env.VERCEL === "1" && process.env.VERCEL_URL ? <Analytics /> : null}
+        {children}
+        <Analytics />
       </body>
     </html>
   );

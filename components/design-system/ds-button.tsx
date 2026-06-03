@@ -6,13 +6,7 @@ import { cn } from "@/lib/utils"
 import type { SiteKey } from "@/lib/design-system/site-configs"
 import { siteConfigs } from "@/lib/design-system/site-configs"
 
-// Omit drag-related props that conflict with Framer Motion
-type ButtonHTMLProps = Omit<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
->
-
-interface DSButtonProps extends ButtonHTMLProps {
+interface DSButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   site: SiteKey
   variant?: "primary" | "secondary" | "ghost" | "outline"
   size?: "sm" | "md" | "lg"

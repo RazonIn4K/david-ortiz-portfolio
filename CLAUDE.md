@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-Next.js 16 portfolio site for David Ortiz's AI Automation Studio built with React 19 and Tailwind CSS 4. The site showcases AI automation services with a sleek dark cyberpunk aesthetic, interactive animations, and an AI concierge assistant.
+Next.js 14 portfolio site for David Ortiz's AI automation studio. The site showcases AI automation services (chatbots, scraping, AI security) with an OpenRouter-powered AI concierge, case studies, and legacy Tailwind demo projects served via rewrites.
 
 **Production**: `cs-learning.me` (apex domain preferred, www redirects to apex)
 **Vercel Project**: `david-ortiz-portfolio` (team: razs-projects-29d4f2e6)
@@ -27,178 +27,136 @@ doppler run -- npm run dev
 doppler run -- npm run build
 ```
 
-## Architecture
-
-### Tech Stack
-- **Framework**: Next.js 16 with App Router
-- **UI**: React 19, Tailwind CSS 4, Framer Motion
-- **Fonts**: Geist Sans & Geist Mono (via `next/font`)
-- **Analytics**: Vercel Analytics
-- **Deployment**: Vercel
-
-### Project Structure
-
-```
-app/
-  layout.tsx              # Root layout with fonts and metadata
-  page.tsx                # Home page (single page app)
-  globals.css             # Global styles, animations, CSS variables
-  error.tsx               # Page-level error boundary
-  global-error.tsx        # App-level error boundary (full crash recovery)
-  not-found.tsx           # Custom 404 page
-  design-system/
-    page.tsx              # Design system showcase page
-    error.tsx             # Design system error boundary
-
-components/
-  design-system/          # Theamed components for multi-site ecosystem
-    ds-button.tsx         # Site-aware button variants
-    ds-card.tsx           # Site-aware card variants
-    ds-badge.tsx          # Site-aware badge variants
-    ds-input.tsx          # Site-aware input component
-    ds-icon-set.tsx       # Custom icon components
-    ds-ecosystem-nav.tsx  # Ecosystem navigation component
-  ui-creative/            # Creative UI components used on main page
-    ai-assistant.tsx      # Floating AI chatbot assistant
-    animated-stats.tsx    # Animated statistics display
-    ecosystem-links.tsx   # Links to ecosystem sites
-    floating-dock.tsx     # Floating navigation dock
-    hex-grid-bg.tsx       # Hexagonal grid background
-    holographic-card.tsx  # Holographic effect card
-    orbit-visualization.tsx # Orbiting tools visualization
-    service-grid.tsx      # Services grid layout
-    terminal-hero.tsx     # Terminal-style hero animation
-
-data/
-  content.ts              # Centralized content: services, projects, testimonials
-
-lib/
-  utils.ts                # Utility functions (cn helper)
-  design-system/
-    tokens.ts             # Design tokens (colors, typography, spacing)
-    site-configs.ts       # Per-site configuration for ecosystem
-    animations.ts         # Animation utilities
-
-public/
-  projects/               # Legacy static Tailwind demo sites
-    taskflow-pro/
-    bella-cucina/
-    prime-properties/
-    powerfit-studios/
-
-types/
-  chat.ts                 # TypeScript types for chat functionality
-```
-
-### Key Pages
-
-- **`/`** - Main portfolio page with hero, services, ecosystem links, and contact CTA
-- **`/design-system`** - Interactive design system documentation for the multi-site ecosystem
-
-### Home Page Sections
-
-The home page (`app/page.tsx`) is a client component featuring:
-1. **HexGridBackground** - Animated hexagonal pattern background
-2. **AIAssistant** - Floating AI chatbot (bottom-right)
-3. **FloatingDock** - Fixed navigation dock
-4. **Header/Nav** - Logo and navigation links
-5. **Hero Section** - Headlines with TerminalHero animation
-6. **Stats Section** - AnimatedStats with counters
-7. **Ecosystem Section** - OrbitVisualization showing tool integrations
-8. **Services Section** - ServiceGrid with HolographicCards
-9. **Learning Section** - EcosystemLinks to related sites
-10. **CTA Section** - Call to action for booking
-11. **Footer** - Simple footer with links
-
-### AI Assistant
-
-The AI assistant (`components/ui-creative/ai-assistant.tsx`) provides:
-- Floating trigger button with pulse animation
-- Expandable chat panel
-- Quick action buttons for common queries
-- Simulated intelligent responses based on keywords
-- Typing indicator animation
-
-**Note**: Currently uses client-side simulated responses. Can be extended to use a real API endpoint.
-
-### Design System
-
-The design system supports multiple sites in the ecosystem:
-- **cs-learning.me** - Main portfolio (teal/dark theme)
-- **highencodelearning.com** - Education platform (blue/light theme)
-- **csbrainai.com** - AI learning tool (purple/dark theme)
-- **promptdefenders.com** - Security tool (red/dark theme)
-
-Components accept a `site` prop to automatically apply the correct theme.
-
-### Styling
-
-- **Theme**: Dark cyberpunk with teal (#2dd4bf), cyan (#22d3ee), coral (#ff6b6b), and purple (#a78bfa) accents
-- **Glass effects**: `.glass` and `.glass-strong` classes for backdrop blur
-- **Glow effects**: `.glow-teal`, `.glow-coral`, `.glow-purple` for box shadows
-- **Gradient text**: `.gradient-text` and `.gradient-text-warm` for colorful text
-- **Animations**: Float, pulse-ring, scan-line, glitch, data-flow, hexagon-pulse, shimmer, morph
-
-### CSS Variables (globals.css)
-
-Brand colors:
-- `--cs-navy`: #060a14 (background)
-- `--cs-teal`: #2dd4bf
-- `--cs-cyan`: #22d3ee
-- `--cs-coral`: #ff6b6b
-- `--cs-purple`: #a78bfa
-
-## Deployment
-
-```bash
-# Deploy to production (requires Vercel CLI)
-vercel --prod
-```
-
-The site auto-deploys from the main branch via Vercel's GitHub integration.
-
-## Path Aliases
-
-TypeScript `baseUrl: "."` with `@/*` mapping to root:
-```ts
-import { AIAssistant } from '@/components/ui-creative/ai-assistant';
-import { tokens } from '@/lib/design-system/tokens';
-```
-
 ## Secret Management (Doppler)
 
 This project uses Doppler CLI for secrets management. The Doppler project is `david-ortiz-portfolio`.
 
 **First-time setup:**
 ```bash
-doppler login
-doppler setup --project david-ortiz-portfolio --config dev --no-interactive
+doppler login                                          # Authenticate with Doppler (one-time)
+doppler setup --project david-ortiz-portfolio --config dev --no-interactive  # Configure for dev
 ```
 
+**Working with secrets:**
+```bash
+doppler secrets                                        # List all secrets
+doppler secrets set KEY="value"                        # Add/update a secret
+doppler run -- npm run dev                            # Run dev server with Doppler secrets
+doppler run -- npm run build                          # Build with Doppler secrets
+```
+
+**Vercel Integration:**
+To sync secrets to Vercel, set up the Doppler-Vercel integration in the [Doppler Dashboard](https://dashboard.doppler.com) under Integrations. This will automatically sync secrets from Doppler to Vercel on every change.
+
 **Required secrets:**
-- `OPENROUTER_API_KEY` - For AI integrations (optional)
-- `SITE_URL` - Production URL
+- `OPENROUTER_API_KEY` - Powers the AI concierge (get from [OpenRouter](https://openrouter.ai))
+- `SITE_URL` - Used for OpenRouter HTTP-Referer header (defaults to cs-learning.me)
+- `OPENROUTER_PRIMARY_MODEL` - Optional override for AI model (defaults to fallback chain: openrouter/sherlock-dash-alpha → openrouter/sherlock-think-alpha → nvidia/nemotron-nano-9b-v2:free → z-ai/glm-4.5-air:free)
 
-## Accessibility Features
+## Architecture
 
-- **ARIA labels**: All interactive elements have proper aria-label attributes
-- **Keyboard navigation**: Full keyboard support with focus-visible rings
-- **Reduced motion**: All components respect `prefers-reduced-motion` preference
-- **Screen reader support**: Live regions for dynamic content (chat messages, loading states)
-- **Semantic HTML**: Proper heading hierarchy and landmark elements
+### Project Structure
 
-## Error Handling
+```
+app/
+  page.tsx                 # Home: section components composed top-to-bottom
+  layout.tsx               # Root layout with Navbar + Footer
+  api/chat/route.ts        # AI assistant API (POST only)
+  work-with-me/page.tsx    # Engagement details
+  case-studies/page.tsx    # Deep dive case studies
 
-The site implements comprehensive error boundaries:
-- `app/error.tsx` - Catches page-level errors with "Try again" and "Go home" options
-- `app/global-error.tsx` - Catches app-level crashes, includes its own HTML/body for recovery
-- `app/not-found.tsx` - Branded 404 page with navigation options
-- `app/design-system/error.tsx` - Specific error boundary for design system page
+components/               # Section components imported by pages
+  Hero.tsx                # Above-the-fold CTA
+  ServicesSection.tsx     # 4 service cards
+  AIAssistant.tsx         # Chatbot UI (client component)
+  Navbar.tsx, Footer.tsx  # Layout chrome
+
+data/
+  content.ts              # Centralized content: services[], showcaseProjects[], etc.
+                         # Source of truth for site content
+
+lib/
+  constants.ts            # UPWORK_URL and other constants
+
+public/projects/          # Legacy static Tailwind demos (NOT Next.js pages)
+  taskflow-pro/
+  bella-cucina/
+  prime-properties/
+  powerfit-studios/
+  urban-thread/
+```
+
+### Routing & Rewrites
+
+**Important**: `/projects/:slug` routes serve **static HTML** from `public/projects/`, NOT Next.js pages.
+
+- Next.js rewrites (both `next.config.mjs` and `vercel.json`) map `/projects/:slug` → `/projects/:slug/index.html`
+- These demos are legacy Tailwind sites with independent HTML/CSS/JS
+- Do NOT create Next.js pages under `app/projects/` - the rewrites would conflict
+
+If you need to modify a project demo, edit the static HTML files in `public/projects/:slug/index.html`.
+
+### AI Assistant (`/api/chat`)
+
+- **POST-only** endpoint with session-based rate limiting (10 req/min per sessionId)
+- Integrates with OpenRouter API (configured via env vars)
+- Maintains last 5 messages of history for context
+- System prompt: AI concierge for David's automation studio (< 150 tokens)
+- Request validation: message (required, max 1000 chars), sessionId (required), history (optional array)
+- Returns 429 on rate limit with `retryAfter` seconds
+
+Client component: `components/AIAssistant.tsx` (handles chat UI and state)
+
+### Content Management
+
+All site content lives in `data/content.ts` as typed exports:
+- `services: Service[]` - 4 service offerings with bullets, icons, links
+- `showcaseProjects: Project[]` - Demo projects with metrics
+- `caseStudies`, `testimonials`, etc.
+
+When updating site copy, edit `data/content.ts` rather than hardcoding in components.
+
+### Styling
+
+- **Tailwind CSS** with custom theme extension in `tailwind.config.ts`
+- Custom colors: `ink`, `slate`, `accent`, `teal`
+- Custom background: `bg-grid-light` (radial gradient)
+- Typography plugin: `@tailwindcss/typography` for prose content
+- Uses Inter font from `next/font/google`
+
+### Performance
+
+- Framer Motion imports are optimized via Next.js experimental `optimizePackageImports`
+- All components use `clsx` for conditional className logic
+- Client components (AIAssistant) are clearly marked with `'use client'`
+
+## Deployment
+
+```bash
+# Deploy to production (requires Vercel CLI)
+vercel --prod
+
+# Manual alias setup (if needed)
+vercel alias set david-ortiz-portfolio-<latest>.vercel.app cs-learning.me
+vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.cs-learning.me
+vercel certs issue cs-learning.me www.cs-learning.me
+```
+
+**DNS Configuration**:
+- @ → 76.76.21.21 (A record)
+- www → cname.vercel-dns-017.com (CNAME)
+
+## Path Aliases
+
+TypeScript `baseUrl: "."` with `@/*` mapping to root:
+```ts
+import { Hero } from '@/components/Hero';
+import { UPWORK_URL } from '@/lib/constants';
+```
 
 ## Important Notes
 
-- The site is a single-page app with anchor navigation (`#services`, `#learning`, `#contact`)
-- Static project demos in `public/projects/` are legacy Tailwind sites, not Next.js pages
-- All animations use Framer Motion for smooth 60fps performance
-- The design system page showcases components for the entire ecosystem of sites
-- HexGridBackground uses throttled mouse tracking for performance optimization
+- Do NOT create Next.js pages under `app/projects/` - these routes are handled by static rewrites
+- All external URLs (Upwork, GitHub repos, ShopMatch Pro, Prompt Defenders) are defined in `data/content.ts`
+- When modifying the AI assistant behavior, update the system prompt in `app/api/chat/route.ts:48`
+- The site uses `next-themes` for potential dark mode (imported but not fully implemented)

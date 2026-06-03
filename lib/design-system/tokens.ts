@@ -1,6 +1,6 @@
 // =============================================================================
 // DESIGN SYSTEM TOKENS
-// Shared across: davidtiz.com, highencodelearning.com, csbrainai.vercel.app, and prompt-defenders.vercel.app
+// Shared across: cs-learning.me, highencodelearning.com, csbrainai.com, promptdefenders.com
 // =============================================================================
 
 export const tokens = {
@@ -36,11 +36,11 @@ export const tokens = {
         bgLight: "#f8fafc",
       },
       csBrainAI: {
-        primary: "#20c7b6",
-        secondary: "#f2a93b",
-        accent: "#7dd3fc",
-        bg: "#0a1016",
-        bgLight: "#111923",
+        primary: "#a78bfa", // Purple
+        secondary: "#7c3aed", // Violet
+        accent: "#c4b5fd", // Light purple
+        bg: "#0f0a1a",
+        bgLight: "#1a1025",
       },
       promptDefenders: {
         primary: "#ef4444", // Red

@@ -33,13 +33,13 @@ export function FloatingDock() {
   const navAnimation = useMemo(() => {
     if (prefersReducedMotion) {
       return {
-        initial: false,
+        initial: { opacity: 0 },
         animate: { opacity: 1 },
         transition: { duration: 0.2 } as Transition
       }
     }
     return {
-      initial: false,
+      initial: { y: 100, opacity: 0 },
       animate: { y: 0, opacity: 1 },
       transition: { delay: 0.5, type: "spring", stiffness: 100 } as Transition
     }

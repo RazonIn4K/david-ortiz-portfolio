@@ -1,9 +1,50 @@
 <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <title>David Ortiz DO favicon mark</title>
-  <rect x="10" y="10" width="160" height="160" rx="28" fill="#00585D"/>
-  <rect x="18" y="18" width="144" height="144" rx="22" stroke="#7CF7E7" stroke-width="8"/>
-  <path d="M50 53H76C93.7 53 106 65.7 106 90C106 114.3 93.7 127 76 127H50V53ZM68 69V111H76C83.7 111 88 103.7 88 90C88 76.3 83.7 69 76 69H68Z" fill="#F4FFFB"/>
-  <path d="M116 53C134 53 146 67.6 146 90C146 112.4 134 127 116 127C98 127 86 112.4 86 90C86 67.6 98 53 116 53ZM116 69C108.4 69 104 77.1 104 90C104 102.9 108.4 111 116 111C123.6 111 128 102.9 128 90C128 77.1 123.6 69 116 69Z" fill="#F4FFFB"/>
-  <circle cx="46" cy="46" r="8" fill="#FFCF6C"/>
-  <circle cx="134" cy="134" r="8" fill="#FF9B86"/>
+  <!-- Neural Brain logo for David Ortiz's personal notebook and ecosystem site -->
+  <g transform="translate(90, 85)">
+    <!-- Brain outline connections -->
+    <!-- Top arc -->
+    <line x1="-45" y1="-30" x2="-20" y2="-45" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-20" y1="-45" x2="15" y2="-45" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="15" y1="-45" x2="40" y2="-30" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Right side -->
+    <line x1="40" y1="-30" x2="50" y2="0" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="50" y1="0" x2="40" y2="25" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Bottom -->
+    <line x1="40" y1="25" x2="10" y2="35" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="10" y1="35" x2="-25" y2="25" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Left side -->
+    <line x1="-25" y1="25" x2="-45" y2="0" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-45" y1="0" x2="-45" y2="-30" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Internal connections -->
+    <line x1="-20" y1="-45" x2="-20" y2="-10" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="15" y1="-45" x2="15" y2="-10" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-45" y1="0" x2="-20" y2="-10" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-20" y1="-10" x2="15" y2="-10" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="15" y1="-10" x2="50" y2="0" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="-20" y1="-10" x2="-25" y2="25" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="15" y1="-10" x2="40" y2="25" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Brain stem -->
+    <line x1="10" y1="35" x2="25" y2="55" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+    <line x1="25" y1="55" x2="35" y2="70" stroke="#0D9488" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Node circles -->
+    <circle cx="-45" cy="-30" r="10" fill="#0D9488"/>
+    <circle cx="-20" cy="-45" r="10" fill="#0D9488"/>
+    <circle cx="15" cy="-45" r="10" fill="#0D9488"/>
+    <circle cx="40" cy="-30" r="10" fill="#0D9488"/>
+    <circle cx="50" cy="0" r="10" fill="#0D9488"/>
+    <circle cx="40" cy="25" r="10" fill="#0D9488"/>
+    <circle cx="10" cy="35" r="8" fill="#0D9488"/>
+    <circle cx="-25" cy="25" r="10" fill="#0D9488"/>
+    <circle cx="-45" cy="0" r="10" fill="#0D9488"/>
+    <circle cx="-20" cy="-10" r="8" fill="#0D9488"/>
+    <circle cx="15" cy="-10" r="8" fill="#0D9488"/>
+    <circle cx="25" cy="55" r="7" fill="#0D9488"/>
+    <circle cx="35" cy="70" r="6" fill="#0D9488"/>
+  </g>
 </svg>
