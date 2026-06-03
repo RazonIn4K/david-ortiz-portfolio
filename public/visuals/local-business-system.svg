@@ -1,0 +1,25 @@
+<svg width="900" height="640" viewBox="0 0 900 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Local business system illustration</title>
+  <rect width="900" height="640" rx="28" fill="#08201D"/>
+  <rect x="66" y="70" width="768" height="500" rx="28" fill="#F5FFFA"/>
+  <rect x="66" y="70" width="768" height="74" rx="28" fill="#DDEFEA"/>
+  <circle cx="112" cy="108" r="10" fill="#C94A3E"/>
+  <circle cx="146" cy="108" r="10" fill="#D49A22"/>
+  <circle cx="180" cy="108" r="10" fill="#006D70"/>
+  <rect x="118" y="190" width="250" height="40" rx="12" fill="#006D70"/>
+  <rect x="118" y="252" width="324" height="18" rx="9" fill="#526B65"/>
+  <rect x="118" y="288" width="274" height="18" rx="9" fill="#8BA09B"/>
+  <rect x="118" y="346" width="164" height="54" rx="14" fill="#C94A3E"/>
+  <rect x="118" y="426" width="250" height="72" rx="18" fill="#E5F4EF"/>
+  <rect x="466" y="190" width="252" height="310" rx="22" fill="#102D29"/>
+  <path d="M514 250H670" stroke="#78F4E4" stroke-width="18" stroke-linecap="round"/>
+  <path d="M514 304H628" stroke="#F3B242" stroke-width="16" stroke-linecap="round"/>
+  <path d="M514 358H678" stroke="#BBD4CE" stroke-width="14" stroke-linecap="round"/>
+  <rect x="514" y="416" width="130" height="44" rx="12" fill="#78F4E4"/>
+  <path d="M334 373C424 336 434 303 466 264" stroke="#006D70" stroke-width="10" stroke-linecap="round" stroke-dasharray="16 18"/>
+  <path d="M718 345C777 353 803 388 803 438C803 492 766 526 704 526" stroke="#C94A3E" stroke-width="10" stroke-linecap="round" stroke-dasharray="16 18"/>
+  <circle cx="334" cy="373" r="18" fill="#006D70"/>
+  <circle cx="466" cy="264" r="18" fill="#006D70"/>
+  <circle cx="704" cy="526" r="18" fill="#C94A3E"/>
+  <circle cx="718" cy="345" r="18" fill="#C94A3E"/>
+</svg>

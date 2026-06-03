@@ -19,45 +19,34 @@ export const services: Service[] = [
   {
     title: 'Abstraction Layers',
     description:
-      'Notes and examples that connect browser behavior, frontend structure, backend boundaries, infrastructure, and business decisions.',
+      'Plain-language notes on the layers I keep working with: browser behavior, frontend design, APIs, infrastructure, and handoff logic.',
     bullets: ['Browser runtime', 'Frontend architecture', 'Business-layer decisions'],
     icon: '🧠',
     cta: {
       label: 'Read the personal site',
-      href: 'https://cs-learning.me',
+      href: 'https://davidtiz.com',
     },
   },
   {
     title: 'Automation Experiments',
     description:
-      'Small proofs, working demos, and experiments around MCP workflows, orchestration, and safer operator layers.',
+      'Small proofs and workflow tests around MCP, orchestration, guardrails, and the handoffs that make automation useful.',
     bullets: ['MCP flows', 'Guardrails', 'Workflow design'],
     icon: '⚙️',
     cta: {
-      label: 'Visit High Encode',
-      href: 'https://highencodelearning.com/services',
+      label: 'See project notes',
+      href: '/#work',
     },
   },
   {
     title: 'Prompt Safety',
     description:
-      'Ongoing study of prompt injection, misuse resistance, and how AI systems fail when the boundaries are weak.',
+      'Notes on prompt injection, misuse resistance, and the practical failure modes that show up in AI-assisted workflows.',
     bullets: ['Prompt defense', 'Attack surfaces', 'Safer delivery'],
     icon: '🛡️',
     cta: {
-      label: 'Explore Prompt Defenders',
-      href: 'https://prompt-defenders.com',
-    },
-  },
-  {
-    title: 'Knowledge Delivery',
-    description:
-      'Experiments in retrieval, explanation quality, and how to turn raw notes into something another person can actually use.',
-    bullets: ['RAG patterns', 'Grounded answers', 'Knowledge interfaces'],
-    icon: '📚',
-    cta: {
-      label: 'See CSBrainAI',
-      href: 'https://csbrain.ai',
+      label: 'Read the security notes',
+      href: '/#notes',
     },
   },
 ]
@@ -71,28 +60,22 @@ export type Project = {
 
 export const showcaseProjects: Project[] = [
   {
-    title: 'High Encode Learning',
-    description: 'Business-facing services, demos, and scoped work tied back to actual experiments and notes.',
-    href: 'https://highencodelearning.com',
-    metrics: ['Business layer', 'Services', 'Demos'],
+    title: 'Local Business Websites',
+    description: 'Operational websites for small businesses with clear service pages, forms, and bilingual onboarding.',
+    href: 'https://davidtiz.com/#work',
+    metrics: ['Builds', 'Forms', 'Hand-off docs'],
   },
   {
-    title: 'cs-learning.me',
-    description: 'Personal notes, experiments, and the learning-in-public side of the ecosystem.',
-    href: 'https://cs-learning.me',
+    title: 'davidtiz.com',
+    description: 'The personal notebook: project notes, experiments, and operational learnings.',
+    href: 'https://davidtiz.com',
     metrics: ['Personal layer', 'Notes', 'Experiments'],
   },
   {
-    title: 'CSBrainAI',
-    description: 'Retrieval and explanation experiments focused on grounded technical knowledge.',
-    href: 'https://csbrain.ai',
-    metrics: ['RAG', 'Explanation', 'Knowledge'],
-  },
-  {
-    title: 'Prompt Defenders',
-    description: 'Prompt-safety experiments and red-team style testing for AI workflows.',
-    href: 'https://prompt-defenders.com',
-    metrics: ['Security', 'Prompt safety', 'Testing'],
+    title: 'RAG Knowledge Notes',
+    description: 'Prototype systems for retrieval, cited answers, and safer question answering over local notes.',
+    href: '/#work',
+    metrics: ['RAG', 'Citations', 'Testing'],
   },
 ]
 
@@ -107,31 +90,27 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    title: 'Separating the personal and business layers',
+    title: 'Separating the portfolio and operations layers',
     problem:
-      'One site was trying to be a personal notebook, a service page, and a product surface all at once, which made the positioning muddy.',
+      'One page was trying to be a showcase, a service page, and a proof surface all at once, which made the position muddy.',
     solution:
-      'Split the ecosystem clearly: cs-learning.me for personal notes and High Encode Learning for business-facing services, demos, and scoped work.',
+      'Reframe the site around a single portfolio: selected work, operating style, stack, and a direct contact path.',
     results:
-      'The roles of each domain became easier to explain, easier to trust, and easier to maintain without invented marketing claims.',
+      'The site became easier to navigate, easier to explain, and easier to keep honest about what was actually delivered.',
     stack: ['Next.js', 'Vercel', 'Content strategy', 'System design'],
     links: [
-      { label: 'Business-facing site', href: 'https://highencodelearning.com' },
-      { label: 'Personal site', href: 'https://cs-learning.me' },
+      { label: 'Personal site', href: 'https://davidtiz.com' },
     ],
   },
   {
-    title: 'AdLoop MCP proof environment',
+    title: 'AI workflow proof environment',
     problem:
       'A Google Ads + GA4 MCP proof needed to move from repo research to a working, verified environment.',
     solution:
       'Stand up OAuth, connect the MCC and client account, test read paths, and document what the tool can really do versus what still needs custom workflow design.',
     results:
-      'The result was a real operator-layer demo instead of a theoretical pitch, along with clearer scope boundaries for future delivery work.',
+      'The result was a practical operator-layer demo with documented constraints and cleaner handoff notes for future iterations.',
     stack: ['AdLoop', 'Google Ads API', 'GA4', 'MCP', 'Claude workflows'],
-    links: [
-      { label: 'High Encode Learning', href: 'https://highencodelearning.com' },
-    ],
   },
   {
     title: 'Browser video handling as a systems lesson',
@@ -162,19 +141,19 @@ export type Resource = {
 
 export const resources: Resource[] = [
   {
-    title: 'High Encode Learning',
-    description: 'Business-facing services, demos, and project scoping.',
-    href: 'https://highencodelearning.com',
+    title: 'Selected builds',
+    description: 'Practical examples and rough project notes that shape the portfolio.',
+    href: 'https://davidtiz.com/#work',
   },
   {
-    title: 'Learning Notes',
-    description: 'High Encode’s public notes on abstraction layers, browser behavior, and system design.',
-    href: 'https://highencodelearning.com/learning',
+    title: 'Learning notes',
+    description: 'Notes on abstraction layers, browser behavior, and system design.',
+    href: '/#notes',
   },
   {
-    title: 'Prompt Defenders',
-    description: 'Prompt-safety experiments and security-focused testing.',
-    href: 'https://prompt-defenders.com',
+    title: 'Prompt safety',
+    description: 'AI safety notes and prompt engineering checks for practical systems.',
+    href: '/#notes',
   },
 ]
 
@@ -193,14 +172,28 @@ export const processSteps = [
   },
   {
     title: 'Explain',
-    description: 'Turn the findings into notes, decisions, and cleaner boundaries between the personal and business sites.',
+    description: 'Turn the findings into notes, decisions, and clearer handoff paths.',
   },
 ]
 
 export const chatConfig = {
-  title: 'ECOSYSTEM GUIDE',
-  subtitle: 'Ask about the site split, current learning threads, or where business inquiries belong',
-  placeholder: 'Ask about abstraction layers, experiments, or the ecosystem...',
+  title: 'PORTFOLIO GUIDE',
+  subtitle: 'Ask about the work, current experiments, or how he approaches projects',
+  placeholder: 'Ask about projects, automation workflows, or how David works.',
   welcomeMessage:
-    "Hi! This site is the personal notebook layer. Ask about what David is learning, how the sites connect, or where the business-facing work lives.",
+    "Hi! This is David's personal portfolio. Ask about what he's building, how he works, or what he's exploring next.",
 }
+
+// Centralized contact details. A public business number/email is not a secret;
+// keep these here (not in .env) so links stay consistent across the site.
+export const contact = {
+  whatsappNumber: '17792124220', // country code + number, no symbols (for wa.me)
+  whatsappDisplay: '(779) 212-4220',
+  phone: '+17792124220', // for tel: links
+  email: 'hello@davidtiz.com',
+  github: 'https://github.com/RazonIn4K',
+}
+
+export const whatsappHref = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(
+  'Hola David, vi tu portafolio',
+)}`

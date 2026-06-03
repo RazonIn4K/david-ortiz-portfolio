@@ -1,162 +1,84 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working with code in this repository.
 
 ## Project Overview
 
-Next.js 14 portfolio site for David Ortiz's AI automation studio. The site showcases AI automation services (chatbots, scraping, AI security) with an OpenRouter-powered AI concierge, case studies, and legacy Tailwind demo projects served via rewrites.
+Personal portfolio site for David Ortiz, built with Next.js 16 (App Router), React 19, and Tailwind CSS 4, deployed on Vercel. It is a single-page site that presents David as a builder/operator: selected work, how he works, his stack, current learning notes, and a clear contact path.
 
-**Production**: `cs-learning.me` (apex domain preferred, www redirects to apex)
+It is NOT an "ecosystem router" or an agency site. Do not reframe it around HighEncode, CSBrainAI, Prompt Defenders, or a multi-site ecosystem. Outside projects may appear only as ordinary portfolio examples, never as the organizing structure.
+
+**Production**: `davidtiz.com`
 **Vercel Project**: `david-ortiz-portfolio` (team: razs-projects-29d4f2e6)
 
 ## Development Commands
 
 ```bash
-# Development
-npm run dev              # Start dev server (localhost:3000)
+npm run dev      # Start dev server (localhost:3000)
+npm run build    # Production build
+npm run start    # Run production server locally
+npm run lint     # Run ESLint
 
-# Build & Production
-npm run build            # Production build
-npm run start            # Run production server locally
-
-# Code Quality
-npm run lint             # Run ESLint
-
-# With Doppler (secrets management)
+# With Doppler (secrets)
 doppler run -- npm run dev
-doppler run -- npm run build
 ```
 
-## Secret Management (Doppler)
+## Tech Stack
+- Framework: Next.js 16 (App Router)
+- UI: React 19, Tailwind CSS 4, Framer Motion
+- Fonts: Geist Sans & Geist Mono (`next/font`)
+- Analytics: Vercel Analytics
+- Deployment: Vercel
 
-This project uses Doppler CLI for secrets management. The Doppler project is `david-ortiz-portfolio`.
-
-**First-time setup:**
-```bash
-doppler login                                          # Authenticate with Doppler (one-time)
-doppler setup --project david-ortiz-portfolio --config dev --no-interactive  # Configure for dev
-```
-
-**Working with secrets:**
-```bash
-doppler secrets                                        # List all secrets
-doppler secrets set KEY="value"                        # Add/update a secret
-doppler run -- npm run dev                            # Run dev server with Doppler secrets
-doppler run -- npm run build                          # Build with Doppler secrets
-```
-
-**Vercel Integration:**
-To sync secrets to Vercel, set up the Doppler-Vercel integration in the [Doppler Dashboard](https://dashboard.doppler.com) under Integrations. This will automatically sync secrets from Doppler to Vercel on every change.
-
-**Required secrets:**
-- `OPENROUTER_API_KEY` - Powers the AI concierge (get from [OpenRouter](https://openrouter.ai))
-- `SITE_URL` - Used for OpenRouter HTTP-Referer header (defaults to cs-learning.me)
-- `OPENROUTER_PRIMARY_MODEL` - Optional override for AI model (defaults to fallback chain: openrouter/sherlock-dash-alpha → openrouter/sherlock-think-alpha → nvidia/nemotron-nano-9b-v2:free → z-ai/glm-4.5-air:free)
-
-## Architecture
-
-### Project Structure
+## Structure
 
 ```
 app/
-  page.tsx                 # Home: section components composed top-to-bottom
-  layout.tsx               # Root layout with Navbar + Footer
-  api/chat/route.ts        # AI assistant API (POST only)
-  work-with-me/page.tsx    # Engagement details
-  case-studies/page.tsx    # Deep dive case studies
-
-components/               # Section components imported by pages
-  Hero.tsx                # Above-the-fold CTA
-  ServicesSection.tsx     # 4 service cards
-  AIAssistant.tsx         # Chatbot UI (client component)
-  Navbar.tsx, Footer.tsx  # Layout chrome
-
-data/
-  content.ts              # Centralized content: services[], showcaseProjects[], etc.
-                         # Source of truth for site content
-
-lib/
-  constants.ts            # UPWORK_URL and other constants
-
-public/projects/          # Legacy static Tailwind demos (NOT Next.js pages)
-  taskflow-pro/
-  bella-cucina/
-  prime-properties/
-  powerfit-studios/
-  urban-thread/
+  page.tsx          # Home — single-page personal portfolio (client component, dtz-* classes)
+  layout.tsx        # Root layout, fonts, metadata
+  globals.css       # Global styles + dtz-* design system (light/dark themes)
+  error.tsx         # Page-level error boundary
+  global-error.tsx  # App-level error boundary
+  not-found.tsx     # Custom 404
+  design-system/    # Design system showcase page (separate from homepage)
+  api/chat/route.ts # AI chat endpoint (NOT used by the homepage)
+components/
+  design-system/    # Reusable site-aware components
+  ui-creative/
+    ai-assistant.tsx # Floating assistant — NOT imported by the homepage anymore
+data/content.ts     # Shared content + centralized contact (`contact`, `whatsappHref`)
+lib/                # Utilities and design tokens
+public/visuals/     # Hero/workbench images and SVGs
 ```
 
-### Routing & Rewrites
+## Homepage sections (`app/page.tsx`)
+1. Header — brand, nav (Start / Work / About / Notes / Contact), light/dark toggle
+2. Hero — positioning + CTAs (See selected work, Message me on WhatsApp)
+3. Selected Work — category cards (local business sites, AI workflow, RAG, automation, prompt safety)
+4. About / Operating Style — how David works
+5. Stack — tools he reaches for
+6. Notes / Current Focus — what he's working on now
+7. Contact — WhatsApp-first (WhatsApp, phone, email)
+8. Footer — WhatsApp · Email · GitHub
 
-**Important**: `/projects/:slug` routes serve **static HTML** from `public/projects/`, NOT Next.js pages.
+## Design / Styling
+- Uses custom `dtz-*` classes defined in `app/globals.css`. Keep this design language: accessible, personal, light/dark, grounded. Not cyberpunk/agency.
+- Theme is stored in `localStorage` under `davidtiz-theme` and also honors `?theme=` and `prefers-color-scheme`.
 
-- Next.js rewrites (both `next.config.mjs` and `vercel.json`) map `/projects/:slug` → `/projects/:slug/index.html`
-- These demos are legacy Tailwind sites with independent HTML/CSS/JS
-- Do NOT create Next.js pages under `app/projects/` - the rewrites would conflict
+## Contact details
+- Centralized in `data/content.ts` → `contact` (whatsappNumber, phone, email, github) and `whatsappHref`.
+- These are public business details, NOT secrets. Never move them into `.env`.
 
-If you need to modify a project demo, edit the static HTML files in `public/projects/:slug/index.html`.
-
-### AI Assistant (`/api/chat`)
-
-- **POST-only** endpoint with session-based rate limiting (10 req/min per sessionId)
-- Integrates with OpenRouter API (configured via env vars)
-- Maintains last 5 messages of history for context
-- System prompt: AI concierge for David's automation studio (< 150 tokens)
-- Request validation: message (required, max 1000 chars), sessionId (required), history (optional array)
-- Returns 429 on rate limit with `retryAfter` seconds
-
-Client component: `components/AIAssistant.tsx` (handles chat UI and state)
-
-### Content Management
-
-All site content lives in `data/content.ts` as typed exports:
-- `services: Service[]` - 4 service offerings with bullets, icons, links
-- `showcaseProjects: Project[]` - Demo projects with metrics
-- `caseStudies`, `testimonials`, etc.
-
-When updating site copy, edit `data/content.ts` rather than hardcoding in components.
-
-### Styling
-
-- **Tailwind CSS** with custom theme extension in `tailwind.config.ts`
-- Custom colors: `ink`, `slate`, `accent`, `teal`
-- Custom background: `bg-grid-light` (radial gradient)
-- Typography plugin: `@tailwindcss/typography` for prose content
-- Uses Inter font from `next/font/google`
-
-### Performance
-
-- Framer Motion imports are optimized via Next.js experimental `optimizePackageImports`
-- All components use `clsx` for conditional className logic
-- Client components (AIAssistant) are clearly marked with `'use client'`
-
-## Deployment
-
-```bash
-# Deploy to production (requires Vercel CLI)
-vercel --prod
-
-# Manual alias setup (if needed)
-vercel alias set david-ortiz-portfolio-<latest>.vercel.app cs-learning.me
-vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.cs-learning.me
-vercel certs issue cs-learning.me www.cs-learning.me
-```
-
-**DNS Configuration**:
-- @ → 76.76.21.21 (A record)
-- www → cname.vercel-dns-017.com (CNAME)
+## Constraints for future edits
+- Do not touch secrets (`.env.local`, `.env.production`, Doppler).
+- Do not invent clients, testimonials, revenue, certifications, job titles, or years of experience.
+- Keep tone plain and honest; avoid agency-brochure language.
 
 ## Path Aliases
+TypeScript `baseUrl: "."` with `@/*` mapping to root, e.g. `import { contact } from "@/data/content"`.
 
-TypeScript `baseUrl: "."` with `@/*` mapping to root:
-```ts
-import { Hero } from '@/components/Hero';
-import { UPWORK_URL } from '@/lib/constants';
+## Deployment
+```bash
+vercel --prod
 ```
-
-## Important Notes
-
-- Do NOT create Next.js pages under `app/projects/` - these routes are handled by static rewrites
-- All external URLs (Upwork, GitHub repos, ShopMatch Pro, Prompt Defenders) are defined in `data/content.ts`
-- When modifying the AI assistant behavior, update the system prompt in `app/api/chat/route.ts:48`
-- The site uses `next-themes` for potential dark mode (imported but not fully implemented)
+Auto-deploys from the connected branch via Vercel's GitHub integration.

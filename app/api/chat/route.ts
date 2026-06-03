@@ -1,27 +1,25 @@
 import { NextRequest, NextResponse } from "next/server"
+import { contact } from "@/data/content"
 
-const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (cs-learning.me). This site is a personal notebook and ecosystem guide, not the primary sales site.
+const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (davidtiz.com). This site is a personal notebook and portfolio, not a sales page.
 
-## What cs-learning.me is for:
-- Personal notes, experiments, demos, and learning-in-public
+## What davidtiz.com is for:
+- Personal notes, selected work, experiments, and learning-in-public
 - Explaining abstraction layers across browsers, apps, APIs, infrastructure, and business systems
-- Helping visitors understand how David's ecosystem fits together
+- Helping visitors understand what David builds and how he approaches projects
 
-## What cs-learning.me is NOT for:
-- It is not the main place for closing scoped work or presenting formal offers
+## What davidtiz.com is NOT for:
+- It is not the primary project sales page
 - Do not present it like a course platform or education business
-
-## Ecosystem Sites:
-- **High Encode Learning** (highencodelearning.com) - The business-facing site for services, demos, project scoping, and business work
-- **CSBrainAI** (csbrainai.com) - Retrieval and explanation experiments for technical knowledge
-- **Prompt Defenders** (promptdefenders.com) - AI security testing and prompt-safety work
+- Do not route every question toward external services
 
 ## Guidance:
-- If someone wants to hire David, discuss a project, or ask about business services, direct them to High Encode Learning
-- If someone asks what David is learning or building, answer from the perspective of experimentation, notes, demos, and system design
-- Keep answers concise and useful
+- If someone asks what David is learning or building, answer from the perspective of experimentation, notes, and system design
+- Keep answers casual, concise, and useful
+- Default to 2-4 short sentences
 - Do not invent pricing or sales promises
-- Use bullet points for lists when helpful`
+- Avoid formal sales language
+- Avoid markdown unless the user asks for a list`
 
 interface ChatMessage {
   role: "user" | "assistant" | "system"
@@ -40,6 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     const apiKey = process.env.OPENROUTER_API_KEY
+    const model = process.env.OPENROUTER_MODEL || "google/gemini-3.1-flash-lite"
 
     if (!apiKey) {
       console.error("OPENROUTER_API_KEY not configured")
@@ -59,14 +58,18 @@ export async function POST(request: NextRequest) {
       headers: {
         "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": process.env.SITE_URL || "https://cs-learning.me",
+        "HTTP-Referer": process.env.SITE_URL || "https://davidtiz.com",
         "X-Title": "David Ortiz AI Assistant"
       },
       body: JSON.stringify({
-        model: "anthropic/claude-3.5-haiku",
+        model,
         messages: apiMessages,
-        max_tokens: 500,
-        temperature: 0.7,
+        max_tokens: 220,
+        temperature: 0.35,
+        provider: {
+          sort: "price",
+          allow_fallbacks: true,
+        },
       })
     })
 
@@ -104,20 +107,20 @@ function getFallbackResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase()
 
   if (lowerMessage.includes("hire") || lowerMessage.includes("project") || lowerMessage.includes("service") || lowerMessage.includes("work")) {
-    return "For business services, scoped work, and business conversations, use High Encode Learning: https://highencodelearning.com. This site is the personal notebook layer."
+    return "This site is the personal portfolio and notes layer. If you want to start a scoped project, contact David directly at " + contact.email + "."
   }
 
   if (lowerMessage.includes("learn") || lowerMessage.includes("building") || lowerMessage.includes("studying")) {
-    return "Right now the focus is on abstraction layers, browser behavior, automation systems, AI tooling, prompt safety, and how personal notes connect to business-facing delivery."
+    return "Right now the focus is on abstraction layers, browser behavior, automation systems, AI tooling, and prompt safety. You can see current work in the selected work and notes sections."
   }
 
-  if (lowerMessage.includes("high encode") || lowerMessage.includes("cs-learning") || lowerMessage.includes("ecosystem")) {
-    return "cs-learning.me is the personal site for notes, experiments, and learning in public. highencodelearning.com is the business-facing site for services, demos, and project scoping."
+  if (lowerMessage.includes("contact") || lowerMessage.includes("email") || lowerMessage.includes("whatsapp") || lowerMessage.includes("phone")) {
+    return `Use the contact section at ${contact.email} or the WhatsApp link on the page.`
   }
 
   if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {
-    return "Prompt safety, AI system behavior, and security testing are active topics in the ecosystem. Prompt Defenders is the security-focused surface: https://promptdefenders.com."
+    return "Prompt safety, AI system behavior, and reliability testing are active topics across current work. He keeps notes on what worked, what failed, and what needs tightening."
   }
 
-  return "This site is the personal notebook layer in David Ortiz's ecosystem. Ask about what he is learning, what he is building, or how the ecosystem sites connect. For scoped business work, use High Encode Learning: https://highencodelearning.com."
+  return "Ask about what David is learning, what he is building, or how he approaches project handoffs. If you're ready to start a conversation, use the Contact section."
 }

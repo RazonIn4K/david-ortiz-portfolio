@@ -1,6 +1,6 @@
-# David Ortiz — AI Automation Portfolio
+# David Ortiz — Personal Portfolio
 
-Next.js 14 + Tailwind rebuild focused on AI automation, chatbots, scraping, and AI security services. Includes dedicated Work With Me and Case Studies pages, live web-design demos under `/projects`, and an AI concierge powered by OpenRouter.
+Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents selected work, current learning threads, practical web systems, AI-assisted workflow experiments, and contact information. It is a single-page site with anchor navigation (`#work`, `#about`, `#notes`, `#contact`).
 
 ## Getting Started
 
@@ -15,46 +15,41 @@ npm run dev
 
 ## Secret management (Doppler)
 
-The repo uses Doppler for secrets. Install Doppler CLI, then:
+The repo uses Doppler for secrets. Install the Doppler CLI, then:
 
 ```bash
-doppler setup         # authenticate once
-doppler secrets set OPENROUTER_API_KEY
-
+doppler setup
 doppler run -- npm run dev
 ```
 
-Vercel pulls secrets from Doppler at build time.
+Do not commit secrets. Public contact details (business phone, email) live in `data/content.ts`, not in env files.
 
 ## Deployment
 
-The repo is linked to the Vercel project `david-ortiz-portfolio` (team `razs-projects-29d4f2e6`).
+Linked to the Vercel project `david-ortiz-portfolio` (team `razs-projects-29d4f2e6`).
 
 - Production deploy: `vercel --prod`
-- Domains: `cs-learning.me` (apex) and `www.cs-learning.me`
-  - @ → 76.76.21.21 (A record)
-  - www → cname.vercel-dns-017.com (CNAME)
-
-Alias commands (when needed):
-```bash
-vercel alias set david-ortiz-portfolio-<latest>.vercel.app cs-learning.me
-vercel alias set david-ortiz-portfolio-<latest>.vercel.app www.cs-learning.me
-vercel certs issue cs-learning.me www.cs-learning.me
-```
-
-### Monitoring
-
-`.github/workflows/check-project-routes.yml` runs hourly and curls each `/projects/<slug>/` URL on `https://cs-learning.me`. The workflow fails (and alerts) if any route stops returning `200`. Add new slugs to `PROJECT_URLS` whenever more demos ship.
+- Domain: `davidtiz.com`
 
 ## Structure
 
 ```
 app/
-  page.tsx              # Home
-  work-with-me/         # Engagement details
-  case-studies/         # Deep dives
-  api/chat/route.ts     # AI assistant endpoint
-components/             # Section components
-data/                   # Content used across sections
-public/projects/        # Legacy Tailwind demos
+  page.tsx          # Home — single-page personal portfolio (dtz-* design)
+  layout.tsx        # Root layout, fonts, metadata
+  globals.css       # Global styles + dtz-* design system, light/dark
+  error.tsx         # Page-level error boundary
+  global-error.tsx  # App-level error boundary
+  not-found.tsx     # Custom 404
+  design-system/    # Design system showcase page
+  api/chat/route.ts # AI chat endpoint (not used by the homepage)
+components/         # Section + design-system components
+data/content.ts     # Shared content + centralized contact details
+lib/                # Utilities and design tokens
+public/             # Images, visuals, legacy demos
 ```
+
+## Notes
+
+- The homepage is a personal portfolio, not a router to other sites.
+- Contact is WhatsApp-first (see `data/content.ts` → `contact` / `whatsappHref`), with phone and email as backups.
