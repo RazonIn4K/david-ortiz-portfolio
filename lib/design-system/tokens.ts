@@ -1,6 +1,6 @@
 // =============================================================================
 // DESIGN SYSTEM TOKENS
-// Shared across: cs-learning.me, highencodelearning.com, csbrainai.com, promptdefenders.com
+// Shared across portfolio themes in this codebase
 // =============================================================================
 
 export const tokens = {
@@ -21,28 +21,28 @@ export const tokens = {
 
     // Site-specific accent colors
     sites: {
-      csLearning: {
+      teal: {
         primary: "#2dd4bf", // Teal
         secondary: "#ff6b6b", // Coral
         accent: "#22d3ee", // Cyan
         bg: "#060a14",
         bgLight: "#0d1424",
       },
-      highEncode: {
+      blue: {
         primary: "#3b82f6", // Blue
         secondary: "#1d4ed8", // Darker blue
         accent: "#60a5fa", // Light blue
         bg: "#ffffff",
         bgLight: "#f8fafc",
       },
-      csBrainAI: {
-        primary: "#a78bfa", // Purple
-        secondary: "#7c3aed", // Violet
-        accent: "#c4b5fd", // Light purple
-        bg: "#0f0a1a",
-        bgLight: "#1a1025",
+      violet: {
+        primary: "#20c7b6",
+        secondary: "#f2a93b",
+        accent: "#7dd3fc",
+        bg: "#0a1016",
+        bgLight: "#111923",
       },
-      promptDefenders: {
+      crimson: {
         primary: "#ef4444", // Red
         secondary: "#dc2626", // Darker red
         accent: "#22c55e", // Green (shield)

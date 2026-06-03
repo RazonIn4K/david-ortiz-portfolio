@@ -1,53 +1,45 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ExternalLink, Sparkles, Briefcase, Shield, Brain, NotebookPen } from "lucide-react"
+import { ExternalLink, Sparkles, Briefcase, Shield, NotebookPen } from "lucide-react"
 
-const ecosystemItems = [
+const portfolioItems = [
   {
-    name: "cs-learning.me",
+    name: "davidtiz.com",
     description: "Personal notes, experiments, and learning-in-public",
     icon: NotebookPen,
-    url: "https://cs-learning.me",
+    url: "https://davidtiz.com",
     gradient: "from-teal-500 to-cyan-600",
     features: ["Personal Voice", "Build Logs", "Abstraction Notes"],
   },
   {
-    name: "High Encode Learning",
-    description: "Business-facing demos, scoping, and implementation notes",
+    name: "Local Business Work",
+    description: "Selected local-business sites, quote paths, and owner handoff flows",
     icon: Briefcase,
-    url: "https://highencodelearning.com",
+    url: "https://davidtiz.com/#work",
     gradient: "from-blue-500 to-indigo-600",
-    features: ["Services", "Demos", "Scoped work"],
+    features: ["Local SEO", "Quote Forms", "Clean handoff"],
   },
   {
-    name: "CSBrainAI",
-    description: "Retrieval and explanation experiments",
-    icon: Brain,
-    url: "https://csbrain.ai",
-    gradient: "from-purple-500 to-pink-500",
-    features: ["Grounded answers", "Knowledge interfaces", "Explanation quality"],
-  },
-  {
-    name: "Prompt Defenders",
-    description: "AI Security Testing",
+    name: "Safety Notes",
+    description: "AI safety experiments and prompt-robustness notes",
     icon: Shield,
-    url: "https://prompt-defenders.com",
+    url: "https://davidtiz.com/#notes",
     gradient: "from-orange-500 to-red-500",
-    features: ["Prompt injection", "Safety tests", "LLM behavior"],
+    features: ["Prompt injection", "Safety checks", "Boundary tests"],
   },
 ]
 
-export function EcosystemLinks() {
+export function PortfolioLinks() {
   return (
-    <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-      {ecosystemItems.map((item, i) => (
+      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+      {portfolioItems.map((item, i) => (
         <motion.a
           key={i}
           href={item.url}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.1 }}
@@ -62,17 +54,17 @@ export function EcosystemLinks() {
               >
                 <item.icon className="w-6 h-6 text-white" />
               </div>
-              <ExternalLink className="w-4 h-4 text-white/30 group-hover:text-white/70 transition-colors" />
+              <ExternalLink className="w-4 h-4 text-white/70 group-hover:text-white/70 transition-colors" />
             </div>
 
             {/* Content */}
             <h3 className="text-lg font-semibold text-white mb-1">{item.name}</h3>
-            <p className="text-white/50 text-sm mb-4">{item.description}</p>
+            <p className="text-white/75 text-sm mb-4">{item.description}</p>
 
             {/* Features */}
             <div className="space-y-2">
               {item.features.map((feature) => (
-                <div key={feature} className="flex items-center gap-2 text-xs text-white/40">
+                <div key={feature} className="flex items-center gap-2 text-xs text-white/75">
                   <Sparkles className="w-3 h-3 text-[#2dd4bf]" />
                   {feature}
                 </div>

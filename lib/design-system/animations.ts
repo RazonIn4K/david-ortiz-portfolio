@@ -62,8 +62,8 @@ export const baseKeyframes = {
 
 // Site-specific keyframes
 export const siteKeyframes = {
-  // CS-LEARNING.ME specific
-  csLearning: {
+  // DAVIDTIZ.COM specific
+  teal: {
     scanLine: {
       "0%": { transform: "translateY(-100%)" },
       "100%": { transform: "translateY(100vh)" },
@@ -84,7 +84,7 @@ export const siteKeyframes = {
   },
 
   // HIGH ENCODE specific
-  highEncode: {
+  blue: {
     checkmarkDraw: {
       "0%": { strokeDashoffset: 100 },
       "100%": { strokeDashoffset: 0 },
@@ -99,26 +99,8 @@ export const siteKeyframes = {
     },
   },
 
-  // CSBRAINAI specific
-  csBrainAI: {
-    synapsePulse: {
-      "0%": { opacity: 0.2, transform: "scale(1)" },
-      "50%": { opacity: 1, transform: "scale(1.5)" },
-      "100%": { opacity: 0.2, transform: "scale(1)" },
-    },
-    nodeConnect: {
-      "0%": { strokeDashoffset: 100, opacity: 0 },
-      "50%": { opacity: 1 },
-      "100%": { strokeDashoffset: 0, opacity: 0.5 },
-    },
-    brainWave: {
-      "0%, 100%": { transform: "scaleY(1)" },
-      "50%": { transform: "scaleY(1.3)" },
-    },
-  },
-
   // PROMPT DEFENDERS specific
-  promptDefenders: {
+  crimson: {
     radarSweep: {
       "0%": { transform: "rotate(0deg)" },
       "100%": { transform: "rotate(360deg)" },

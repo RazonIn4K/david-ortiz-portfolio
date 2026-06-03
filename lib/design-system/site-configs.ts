@@ -5,7 +5,7 @@
 
 import { tokens } from "./tokens"
 
-export type SiteKey = "csLearning" | "highEncode" | "csBrainAI" | "promptDefenders"
+export type SiteKey = "teal" | "blue" | "violet" | "crimson"
 
 export interface SiteConfig {
   name: string
@@ -39,14 +39,14 @@ export interface SiteConfig {
 
 export const siteConfigs: Record<SiteKey, SiteConfig> = {
   // ---------------------------------------------------------------------------
-  // CS-LEARNING.ME - Dark cyber tech aesthetic
+  // DAVIDTIZ.COM - Dark personal-notes aesthetic
   // ---------------------------------------------------------------------------
-  csLearning: {
+  teal: {
     name: "David Ortiz",
-    domain: "cs-learning.me",
-    tagline: "AI Automation Specialist",
+    domain: "davidtiz.com",
+    tagline: "Personal notes and systems work",
     theme: "dark",
-    colors: tokens.colors.sites.csLearning,
+    colors: tokens.colors.sites.teal,
     gradients: {
       primary: "linear-gradient(135deg, #2dd4bf 0%, #22d3ee 100%)",
       secondary: "linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%)",
@@ -71,14 +71,14 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
   },
 
   // ---------------------------------------------------------------------------
-  // HIGHENCODELEARNING.COM - Clean educational light theme
+  // PORTFOLIO WORK - Local-business delivery theme
   // ---------------------------------------------------------------------------
-  highEncode: {
-    name: "High Encode Learning",
-    domain: "highencodelearning.com",
-    tagline: "CS & Cybersecurity Education",
+  blue: {
+    name: "Local Business Work",
+    domain: "davidtiz.com",
+    tagline: "Local-business websites and workflow cleanup",
     theme: "light",
-    colors: tokens.colors.sites.highEncode,
+    colors: tokens.colors.sites.blue,
     gradients: {
       primary: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)",
       secondary: "linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)",
@@ -95,54 +95,54 @@ export const siteConfigs: Record<SiteKey, SiteConfig> = {
       blur: "12px",
     },
     uniqueFeatures: [
-      "Learning path progress tracker",
-      "AI copilot chat widget",
-      "Certificate badge animations",
-      "Checkmark micro-interactions",
+      "Local-service proof sections",
+      "Quote-path and follow-up cards",
+      "Bilingual service-page patterns",
+      "Owner handoff micro-interactions",
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // CSBRAINAI.COM - Neural/AI purple theme
+  // KNOWLEDGE WORKBENCH - Private RAG assistant proof asset
   // ---------------------------------------------------------------------------
-  csBrainAI: {
-    name: "CSBrain AI",
-    domain: "csbrainai.com",
-    tagline: "AI-Powered CS Learning Assistant",
+  violet: {
+    name: "Knowledge Workbench",
+    domain: "davidtiz.com",
+    tagline: "Private RAG assistant with citations",
     theme: "dark",
-    colors: tokens.colors.sites.csBrainAI,
+    colors: tokens.colors.sites.violet,
     gradients: {
-      primary: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
-      secondary: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%)",
-      text: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #7c3aed 100%)",
+      primary: "linear-gradient(135deg, #20c7b6 0%, #7dd3fc 100%)",
+      secondary: "linear-gradient(135deg, #f2a93b 0%, #fb923c 100%)",
+      text: "linear-gradient(135deg, #20c7b6 0%, #7dd3fc 60%, #f2a93b 100%)",
     },
     animations: {
-      hero: "neuralNetwork", // Animated neural network nodes
-      hover: "pulseGlow", // Pulsing glow effect
-      background: "synapseFire", // Synapse firing animations
+      hero: "retrievalFlow",
+      hover: "citationLift",
+      background: "vectorGrid",
     },
     glassEffect: {
-      bg: "rgba(26, 16, 37, 0.85)",
-      border: "rgba(167, 139, 250, 0.2)",
-      blur: "24px",
+      bg: "rgba(17, 25, 35, 0.82)",
+      border: "rgba(32, 199, 182, 0.18)",
+      blur: "18px",
     },
     uniqueFeatures: [
-      "Neural network visualization",
-      "AI thinking indicator",
-      "Code explanation overlays",
-      "Brain pulse animations",
+      "Cited answer interface",
+      "Supabase pgvector retrieval",
+      "Hash-only query telemetry",
+      "Validation and rate-limit states",
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // PROMPTDEFENDERS.COM - Security-focused red/green theme
+  // SAFETY RESEARCH - Security-focused red/green theme
   // ---------------------------------------------------------------------------
-  promptDefenders: {
-    name: "Prompt Defenders",
-    domain: "promptdefenders.com",
+  crimson: {
+    name: "Safety Research",
+    domain: "davidtiz.com",
     tagline: "AI Security Testing Platform",
     theme: "dark",
-    colors: tokens.colors.sites.promptDefenders,
+    colors: tokens.colors.sites.crimson,
     gradients: {
       primary: "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
       secondary: "linear-gradient(135deg, #22c55e 0%, #16a34a 100%)",
