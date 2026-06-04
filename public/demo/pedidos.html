@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabores de DeKalb — Pedidos en línea (DEMO)</title>
+<style>
+  :root{
+    --terra:#C8553D;
+    --terra-dk:#A8402B;
+    --cream:#FFF6EC;
+    --pink:#E8806E;
+    --green:#3E7C59;
+    --ink:#2B2018;
+    --muted:#7a6a5d;
+    --card:#ffffff;
+    --shadow:0 6px 22px rgba(43,32,24,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.45;padding-bottom:120px;
+  }
+  .wrap{max-width:480px;margin:0 auto;background:var(--cream)}
+  /* Header */
+  header{
+    background:linear-gradient(135deg,var(--terra),var(--pink));
+    color:#fff;padding:26px 20px 22px;text-align:center;position:relative;overflow:hidden;
+  }
+  header::after{content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle at 18% 30%,rgba(255,255,255,.18) 0 8px,transparent 9px),
+                     radial-gradient(circle at 80% 20%,rgba(255,255,255,.12) 0 6px,transparent 7px),
+                     radial-gradient(circle at 60% 80%,rgba(255,255,255,.10) 0 10px,transparent 11px);
+    pointer-events:none}
+  .logo{font-size:34px;line-height:1}
+  header h1{font-size:25px;font-weight:800;letter-spacing:.3px;margin-top:8px}
+  header p{font-size:14px;opacity:.95;margin-top:4px}
+  .badges{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+  .badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);
+    padding:5px 11px;border-radius:999px;font-size:12px;font-weight:600;backdrop-filter:blur(4px)}
+  /* Info bar */
+  .info{display:flex;gap:8px;padding:12px 16px;background:#fff;border-bottom:1px solid #f0e4d6;
+    font-size:12.5px;color:var(--muted);justify-content:center;flex-wrap:wrap}
+  .info b{color:var(--ink)}
+  /* Section title */
+  .sec{padding:20px 16px 6px;font-size:13px;font-weight:800;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--terra-dk)}
+  /* Menu item */
+  .item{display:flex;align-items:center;gap:13px;background:var(--card);margin:9px 13px;
+    padding:13px;border-radius:16px;box-shadow:var(--shadow)}
+  .thumb{width:62px;height:62px;border-radius:13px;flex:0 0 62px;display:grid;place-items:center;
+    font-size:30px;background:#fbe9df}
+  .thumb.g{background:#e4f0e8}
+  .thumb.p{background:#fbe2dc}
+  .meta{flex:1;min-width:0}
+  .meta h3{font-size:15.5px;font-weight:700}
+  .meta .desc{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .meta .price{font-size:14px;font-weight:800;color:var(--green);margin-top:4px}
+  /* Stepper */
+  .step{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+  .step button{width:32px;height:32px;border-radius:50%;border:none;font-size:19px;font-weight:700;
+    background:var(--cream);color:var(--terra-dk);cursor:pointer;display:grid;place-items:center;
+    border:1.5px solid #eddfce;transition:.15s}
+  .step button:active{transform:scale(.9)}
+  .step .add{background:var(--terra);color:#fff;border-color:var(--terra)}
+  .qty{min-width:18px;text-align:center;font-weight:800;font-size:15px}
+  /* Order type */
+  .otype{display:flex;gap:8px;padding:6px 14px 2px}
+  .otype label{flex:1;text-align:center;padding:11px;border-radius:13px;border:1.5px solid #eaddcb;
+    background:#fff;font-size:13.5px;font-weight:700;color:var(--muted);cursor:pointer}
+  .otype input{display:none}
+  .otype input:checked + span{color:var(--terra-dk)}
+  .otype label:has(input:checked){border-color:var(--terra);background:#fff3ec;color:var(--terra-dk)}
+  /* Cart bar */
+  .cartbar{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;
+    background:#fff;border-top:1px solid #eee;box-shadow:0 -6px 22px rgba(0,0,0,.10);
+    padding:12px 14px calc(12px + env(safe-area-inset-bottom));z-index:20}
+  .wa{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+    background:#25D366;color:#fff;border:none;border-radius:15px;padding:15px;font-size:16px;
+    font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(37,211,102,.4)}
+  .wa:disabled{background:#c7cdc9;box-shadow:none}
+  .wa small{font-weight:600;opacity:.9;font-size:12px}
+  .summary{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);
+    margin-bottom:9px;padding:0 3px}
+  .summary b{color:var(--ink);font-size:15px}
+  /* demo ribbon */
+  .ribbon{background:var(--ink);color:#ffd9a8;text-align:center;font-size:11.5px;
+    padding:7px 12px;letter-spacing:.4px}
+  footer{padding:24px 18px 30px;text-align:center;color:var(--muted);font-size:12.5px}
+  footer .cta{margin-top:10px;display:inline-block;background:var(--terra);color:#fff;
+    text-decoration:none;padding:11px 18px;border-radius:12px;font-weight:700;font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="ribbon">★ PÁGINA DE DEMOSTRACIÓN · Así se vería tu negocio · DEMO PAGE ★</div>
+
+  <header>
+    <div class="logo">🌮</div>
+    <h1>Sabores de DeKalb</h1>
+    <p>Tamales, antojitos y aguas frescas hechos en casa</p>
+    <div class="badges">
+      <span class="badge">📍 DeKalb, IL</span>
+      <span class="badge">🚚 Entrega local</span>
+      <span class="badge">⭐ Hecho por encargo</span>
+    </div>
+  </header>
+
+  <div class="info">
+    <span><b>Pedidos:</b> mar–dom</span>·
+    <span><b>Listos:</b> mismo día</span>·
+    <span><b>Pago:</b> efectivo / Zelle / Cash App</span>
+  </div>
+
+  <div class="sec">¿Cómo lo quieres?</div>
+  <div class="otype">
+    <label><input type="radio" name="otype" value="Recoger" checked><span>🏠 Recoger</span></label>
+    <label><input type="radio" name="otype" value="Entrega a domicilio"><span>🚚 Entrega</span></label>
+  </div>
+
+  <div class="sec">🫔 Tamales (docena)</div>
+  <div id="menu"></div>
+
+  <div class="cartbar">
+    <div class="summary">
+      <span id="count">0 artículos</span>
+      <b id="total">$0.00</b>
+    </div>
+    <button class="wa" id="order" disabled onclick="sendOrder()">
+      <span style="font-size:20px">🟢</span>
+      <span>Ordenar por WhatsApp <small id="hint">(agrega algo)</small></span>
+    </button>
+  </div>
+
+  <footer>
+    Esta es una página de demostración creada como ejemplo.<br>
+    ¿Quieres una así para tu negocio? Recibe tus pedidos directo a tu teléfono, sin comisiones.
+    <br><a class="cta" href="https://wa.me/17792124220?text=Hola%20David%2C%20vi%20el%20demo%20de%20pedidos%20y%20quiero%20una%20p%C3%A1gina%20as%C3%AD%20para%20mi%20negocio">Quiero una página así →</a>
+  </footer>
+</div>
+
+<script>
+  // Demo orders land on David's WhatsApp so prospects see the real flow.
+  const VENDOR_PHONE = "17792124220";
+  const BUSINESS = "Sabores de DeKalb";
+
+  const menu = [
+    {id:'t1', name:'Tamales de puerco en salsa roja', desc:'Docena · masa suave, salsa casera', price:18, emoji:'🫔', cls:''},
+    {id:'t2', name:'Tamales de pollo en salsa verde', desc:'Docena · pollo deshebrado', price:18, emoji:'🌶️', cls:'g'},
+    {id:'t3', name:'Tamales de rajas con queso', desc:'Docena · vegetariano', price:17, emoji:'🧀', cls:'p'},
+    {id:'a1', name:'Agua fresca de horchata', desc:'Galón · canela y vainilla', price:12, emoji:'🥤', cls:'p'},
+    {id:'a2', name:'Agua fresca de jamaica', desc:'Galón · natural, no muy dulce', price:12, emoji:'🍹', cls:''},
+    {id:'p1', name:'Pan dulce surtido', desc:'6 piezas · conchas y orejas', price:9, emoji:'🥐', cls:'g'},
+  ];
+
+  const qty = {};
+  menu.forEach(m => qty[m.id] = 0);
+
+  const menuEl = document.getElementById('menu');
+  menu.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `
+      <div class="thumb ${m.cls}">${m.emoji}</div>
+      <div class="meta">
+        <h3>${m.name}</h3>
+        <div class="desc">${m.desc}</div>
+        <div class="price">$${m.price.toFixed(2)}</div>
+      </div>
+      <div class="step">
+        <button onclick="bump('${m.id}',-1)" aria-label="menos">−</button>
+        <span class="qty" id="q-${m.id}">0</span>
+        <button class="add" onclick="bump('${m.id}',1)" aria-label="mas">+</button>
+      </div>`;
+    menuEl.appendChild(el);
+  });
+
+  function bump(id, d){
+    qty[id] = Math.max(0, qty[id] + d);
+    document.getElementById('q-'+id).textContent = qty[id];
+    render();
+  }
+
+  function totals(){
+    let count=0, total=0;
+    menu.forEach(m => { count += qty[m.id]; total += qty[m.id]*m.price; });
+    return {count, total};
+  }
+
+  function render(){
+    const {count, total} = totals();
+    document.getElementById('count').textContent = count + (count===1?' artículo':' artículos');
+    document.getElementById('total').textContent = '$'+total.toFixed(2);
+    const btn = document.getElementById('order');
+    btn.disabled = count===0;
+    document.getElementById('hint').textContent = count===0 ? '(agrega algo)' : '('+count+' art.)';
+  }
+
+  function sendOrder(){
+    const {count, total} = totals();
+    if(count===0) return;
+    const otype = document.querySelector('input[name="otype"]:checked').value;
+    let lines = [`¡Hola ${BUSINESS}! Quiero hacer un pedido:`,''];
+    menu.forEach(m => { if(qty[m.id]>0) lines.push(`• ${qty[m.id]}x ${m.name} — $${(qty[m.id]*m.price).toFixed(2)}`); });
+    lines.push('', `Total: $${total.toFixed(2)}`, `Tipo: ${otype}`, '', 'Mi nombre: ', 'Hora que lo necesito: ');
+    const msg = encodeURIComponent(lines.join('\n'));
+    window.open(`https://wa.me/${VENDOR_PHONE}?text=${msg}`, '_blank');
+  }
+
+  render();
+</script>
+</body>
+</html>
