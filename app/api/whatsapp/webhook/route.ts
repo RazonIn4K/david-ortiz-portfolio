@@ -5,6 +5,8 @@ export const runtime = "nodejs"
 
 const VERIFY_TOKEN = process.env.WHATSAPP_WEBHOOK_VERIFY_TOKEN
 const APP_SECRET = process.env.WHATSAPP_APP_SECRET
+const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL
+const N8N_FORWARD_SECRET = process.env.N8N_FORWARD_SECRET
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
@@ -60,10 +62,46 @@ export async function POST(request: NextRequest) {
       changeCount,
     })
 
+    await forwardToN8n(rawBody)
+
     return NextResponse.json({ received: true })
   } catch (error) {
     console.error("Invalid WhatsApp webhook payload", error)
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 })
+  }
+}
+
+async function forwardToN8n(rawBody: string) {
+  if (!N8N_WEBHOOK_URL) {
+    return
+  }
+
+  if (!N8N_FORWARD_SECRET) {
+    console.error("N8N_WEBHOOK_URL is configured but N8N_FORWARD_SECRET is missing")
+    return
+  }
+
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 1500)
+
+  try {
+    const response = await fetch(N8N_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-forward-secret": N8N_FORWARD_SECRET,
+      },
+      body: rawBody,
+      signal: controller.signal,
+    })
+
+    if (!response.ok) {
+      console.error("n8n WhatsApp forward failed", { status: response.status })
+    }
+  } catch (error) {
+    console.error("n8n WhatsApp forward error", error)
+  } finally {
+    clearTimeout(timeout)
   }
 }
 
