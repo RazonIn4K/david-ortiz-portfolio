@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { contact } from "@/data/content";
 import { paymentLinks } from "@/data/payment-links";
+import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link";
 
 export const metadata: Metadata = {
   title: "Pagos | David Ortiz",
@@ -35,12 +36,12 @@ export default function PayPage() {
             English available. This page is Spanish-first because most local leads are Spanish speakers.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a
+            <ProtectedWhatsAppLink
               href="/contact/whatsapp?intent=localSite"
               className="rounded-full bg-[#16a34a] px-5 py-3 text-sm font-black text-white shadow-lg shadow-green-900/10"
             >
               Preguntar por WhatsApp
-            </a>
+            </ProtectedWhatsAppLink>
             <Link
               href="/demo/pedidos.html"
               className="rounded-full border border-[#d7c3ad] px-5 py-3 text-sm font-black text-[#3f2a1f]"

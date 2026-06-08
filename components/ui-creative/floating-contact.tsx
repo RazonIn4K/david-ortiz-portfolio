@@ -16,6 +16,7 @@ import {
   LinkedinIcon,
 } from "@/components/icons/brand-icons";
 import { floatingContactLinks, type ContactLink } from "@/lib/contact-links";
+import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link";
 
 function iconFor(link: ContactLink) {
   switch (link.id) {
@@ -81,7 +82,27 @@ export function FloatingContact() {
               {floatingContactLinks.map((link) => {
                 const Icon = iconFor(link);
 
-                return (
+                return link.id === "whatsapp" ? (
+                  <ProtectedWhatsAppLink
+                    key={link.id}
+                    href={link.href}
+                    target={isExternal(link.href) ? "_blank" : undefined}
+                    rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+                    className="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/[0.04] px-4 py-3 transition-colors hover:border-white/20 hover:bg-white/[0.08]"
+                  >
+                    <span className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] text-[#060a14]">
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold text-white">
+                        {link.label}
+                      </span>
+                      <span className="mt-1 block text-xs leading-relaxed text-white/55">
+                        {link.description}
+                      </span>
+                    </span>
+                  </ProtectedWhatsAppLink>
+                ) : (
                   <a
                     key={link.id}
                     href={link.href}

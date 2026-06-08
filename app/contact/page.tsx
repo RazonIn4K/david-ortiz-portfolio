@@ -23,6 +23,7 @@ import {
 } from "@/lib/contact-links"
 import { personalSitePublicLabel } from "@/lib/site-config"
 import { whatsappHref } from "@/data/content"
+import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
 
 export const metadata: Metadata = {
   title: "Contact | David Ortiz",
@@ -113,7 +114,26 @@ export default function ContactPage() {
                 {group.links.map(link => {
                   const Icon = iconFor(link)
 
-                  return (
+                  return link.id === "whatsapp" ? (
+                    <ProtectedWhatsAppLink
+                      key={link.id}
+                      href={link.href}
+                      target={isExternal(link.href) ? "_blank" : undefined}
+                      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+                      className="group flex items-start gap-3 rounded-2xl border border-white/8 bg-[#0b1424]/75 px-4 py-4 transition-colors hover:border-white/20 hover:bg-[#0f1a2f]"
+                    >
+                      <span className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff6b6b] to-[#ff8e8e] text-white shadow-lg shadow-[#ff6b6b]/10">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="flex items-center gap-2 text-sm font-semibold text-white">
+                          {link.label}
+                          <ArrowRight className="h-4 w-4 text-white/30 transition-transform group-hover:translate-x-0.5" />
+                        </span>
+                        <span className="mt-1 block text-xs leading-relaxed text-white/50">{link.description}</span>
+                      </span>
+                    </ProtectedWhatsAppLink>
+                  ) : (
                     <a
                       key={link.id}
                       href={link.href}
@@ -145,7 +165,7 @@ export default function ContactPage() {
             I keep the first message short on purpose. If this is a real project, send scope and timeline so I can
             respond quickly with realistic next steps.
           </p>
-          <a
+          <ProtectedWhatsAppLink
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
@@ -153,7 +173,7 @@ export default function ContactPage() {
           >
             Start a project on WhatsApp
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </ProtectedWhatsAppLink>
         </div>
       </div>
     </main>

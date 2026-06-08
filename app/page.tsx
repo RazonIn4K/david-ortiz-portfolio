@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { GithubIcon } from "@/components/icons/brand-icons"
+import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
 import { contact, whatsappHref } from "@/data/content"
 import {
   ArrowUpRight,
@@ -249,10 +250,15 @@ export default function HomePage() {
               See selected work
               <ArrowUpRight aria-hidden="true" />
             </a>
-            <a className="dtz-button secondary" href={whatsappHref} target="_blank" rel="noreferrer">
+            <ProtectedWhatsAppLink
+              className="dtz-button secondary"
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+            >
               Message me on WhatsApp
               <MessageCircle aria-hidden="true" />
-            </a>
+            </ProtectedWhatsAppLink>
           </div>
         </motion.div>
 
@@ -467,14 +473,24 @@ export default function HomePage() {
             </ul>
           </div>
           <div className="dtz-contact-actions">
-            <a className="dtz-button primary" href={whatsappHref} target="_blank" rel="noreferrer">
+            <ProtectedWhatsAppLink
+              className="dtz-button primary"
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+            >
               Message me on WhatsApp
               <MessageCircle aria-hidden="true" />
-            </a>
-            <a className="dtz-button secondary" href="/contact/whatsapp?intent=callback" target="_blank" rel="noreferrer">
+            </ProtectedWhatsAppLink>
+            <ProtectedWhatsAppLink
+              className="dtz-button secondary"
+              href="/contact/whatsapp?intent=callback"
+              target="_blank"
+              rel="noreferrer"
+            >
               Request a call-back
               <MessageCircle aria-hidden="true" />
-            </a>
+            </ProtectedWhatsAppLink>
             <a className="dtz-button secondary" href={`mailto:${contact.email}`}>
               {contact.email}
               <Mail aria-hidden="true" />
@@ -490,9 +506,9 @@ export default function HomePage() {
       <footer className="dtz-footer">
         <span>David Ortiz</span>
         <span className="dtz-footer-links">
-          <a href={whatsappHref} target="_blank" rel="noreferrer">
+          <ProtectedWhatsAppLink href={whatsappHref} target="_blank" rel="noreferrer">
             WhatsApp
-          </a>
+          </ProtectedWhatsAppLink>
           <a href={`mailto:${contact.email}`}>Email</a>
           <a href={contact.github} target="_blank" rel="noreferrer">
             GitHub

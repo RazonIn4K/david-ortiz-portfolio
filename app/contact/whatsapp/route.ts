@@ -29,6 +29,8 @@ const suspiciousTextPatterns = [
 
 const repeatedWordPattern = /\b([A-Za-zÀ-ÿ']{2,})\b(?:\s+\1){2,}/i
 
+const contactChallengeCookieName = "dzt-contact-challenge"
+const contactChallengeWindowMs = 10 * 60_000
 const rateBuckets = new Map<string, number[]>()
 const bucketWindowMs = 60_000
 const burstLimit = 6
@@ -45,6 +47,60 @@ function getClientIp(request: NextRequest) {
   if (forwardedFor) return forwardedFor.split(",")[0]?.trim() ?? "unknown"
 
   return request.headers.get("x-real-ip") ?? "unknown"
+}
+
+type ChallengeValidation = {
+  valid: boolean
+  reason?: string
+}
+
+function parseChallengeValue(value: string | null) {
+  if (!value) return null
+
+  const [token, issuedAtRaw] = value.split(".")
+  if (!token || !issuedAtRaw) return null
+
+  const issuedAt = Number.parseInt(issuedAtRaw, 10)
+  if (!Number.isFinite(issuedAt) || issuedAt <= 0) return null
+
+  return { token, issuedAt }
+}
+
+function validateContactChallenge(request: NextRequest): ChallengeValidation {
+  const challengeFromQuery = parseChallengeValue(request.nextUrl.searchParams.get("challenge"))
+  if (!challengeFromQuery) {
+    return {
+      valid: false,
+      reason: "missing-contact-challenge",
+    }
+  }
+
+  const challengeCookie = parseChallengeValue(
+    request.cookies.get(contactChallengeCookieName)?.value ?? null
+  )
+  if (!challengeCookie) {
+    return {
+      valid: false,
+      reason: "missing-contact-challenge-cookie",
+    }
+  }
+
+  if (challengeCookie.token !== challengeFromQuery.token) {
+    return {
+      valid: false,
+      reason: "contact-challenge-mismatch",
+    }
+  }
+
+  const age = Date.now() - challengeFromQuery.issuedAt
+  if (age < 0 || age > contactChallengeWindowMs) {
+    return {
+      valid: false,
+      reason: "contact-challenge-expired",
+    }
+  }
+
+  return { valid: true }
 }
 
 function scoreRequest(request: NextRequest, text: string): ScoredRequest {
@@ -72,6 +128,12 @@ function scoreRequest(request: NextRequest, text: string): ScoredRequest {
   if (secFetchSite === "cross-site" || secFetchSite === "none") {
     score += 1
     reasons.push("cross-site-fetch")
+  }
+
+  const challenge = validateContactChallenge(request)
+  if (!challenge.valid) {
+    score += 2
+    reasons.push(challenge.reason)
   }
 
   if (text.length > 900) {
@@ -106,7 +168,7 @@ function scoreRequest(request: NextRequest, text: string): ScoredRequest {
     reasons.push("ip-burst-limit")
   }
 
-  return { blocked: score >= 5, reasons }
+  return { blocked: score >= 6, reasons }
 }
 
 function stripPotentialSpamText(message: string) {
