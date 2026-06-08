@@ -8,6 +8,7 @@ This is the recommended path for protecting David's public phone number while ke
 - The homepage WhatsApp CTA now points to `/contact/whatsapp`, a local redirect route that adds the real `wa.me` number server-side.
 - The redirect route sends `X-Robots-Tag: noindex,nofollow` so it is not treated as a page to index.
 - The contact section now explains the screened-contact approach instead of presenting the phone number as an open public target.
+- The contact route currently applies a scored anti-abuse check (user agent checks, referrer presence, burst-rate window, and suspicious content patterns), sanitizes outbound message text, and returns a 403 blocked response with anti-bot headers when risk is high.
 
 This does not make the number impossible to discover. It reduces passive scraping from static homepage HTML and gives us a server route where stronger checks can be added later.
 
@@ -26,10 +27,16 @@ Use a screened WhatsApp intake bot, not a fully autonomous sales bot.
 
 ## Suggested filters
 
-- Block empty, one-word, repeated, or link-heavy messages.
-- Soft-score messages that mention crypto, unsolicited SEO, loans, adult content, or mass outreach.
-- Prioritize messages that include a business name, project type, current link, budget range, or preferred language.
-- Keep `intent` filtering on `/contact/whatsapp` and reject obvious automation-flood templates.
+- Implemented: block/reject when the score crosses threshold (current threshold: 5+), including:
+  - missing/short user-agent
+  - bot-like automation headers
+  - missing referrer / cross-site fetch
+  - long text
+  - short custom messages with insufficient context
+  - repeated word pattern typical in spam generators
+  - link-heavy/spam-like message patterns
+  - burst traffic from the same IP (60s window)
+- Keep `intent` filtering on `/contact/whatsapp` and reject automation-flood templates.
 - Add a cooldown per sender before sending any automated reply.
 - Keep a manual blocklist and allowlist.
 - Store only the minimum useful lead data and keep deletion handling aligned with the privacy page.
