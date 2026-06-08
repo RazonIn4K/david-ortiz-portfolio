@@ -6,6 +6,7 @@ import {
   CalendarDays,
   ExternalLink,
   Mail,
+  MessageCircle,
 } from "lucide-react"
 
 import {
@@ -14,13 +15,19 @@ import {
   InstagramIcon,
   LinkedinIcon,
 } from "@/components/icons/brand-icons"
-import { followWorkLinks, hireMeLinks, quickReachLinks, type ContactLink } from "@/lib/contact-links"
-import { businessSiteUrl, personalSitePublicLabel } from "@/lib/site-config"
+import {
+  followWorkLinks,
+  hireMeLinks,
+  quickReachLinks,
+  type ContactLink,
+} from "@/lib/contact-links"
+import { personalSitePublicLabel } from "@/lib/site-config"
+import { whatsappHref } from "@/data/content"
 
 export const metadata: Metadata = {
   title: "Contact | David Ortiz",
   description:
-    "Direct contact hub for David Ortiz. Email, booking, freelance platforms, and links into the rest of the ecosystem.",
+    "Direct contact hub for David Ortiz. Email, booking, and direct work-intake paths.",
 }
 
 function iconFor(link: ContactLink) {
@@ -40,6 +47,8 @@ function iconFor(link: ContactLink) {
       return InstagramIcon
     case "linkedin":
       return LinkedinIcon
+    case "whatsapp":
+      return MessageCircle
     case "github":
       return GithubIcon
     default:
@@ -65,7 +74,8 @@ export default function ContactPage() {
     },
     {
       heading: "Follow the work",
-      intro: "Best if you want to inspect the actual code, experiments, and ecosystem around the work.",
+      intro:
+        "Best if you want to inspect the actual code, experiments, and project follow-through.",
       links: followWorkLinks,
     },
   ]
@@ -78,11 +88,7 @@ export default function ContactPage() {
           <h1 className="mt-4 text-4xl font-bold md:text-5xl">A direct path to David, without making people guess</h1>
           <p className="mt-5 text-lg leading-relaxed text-white/55">
             {personalSitePublicLabel} stays personal, experimental, and reflective. This page is the shareable contact hub:
-            the fastest confirmed ways to email, book time, start a freelance conversation, or move into the
-            business-facing layer when it makes sense.
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-white/40">
-            WhatsApp is the only missing direct channel right now. Once the phone-based business link is finalized, it can slot in here without changing the rest of the layout.
+            the fastest confirmed ways to email, book time, start a freelance conversation, or move into a scoped business discussion.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <span className="rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[#9ae6db]">
@@ -134,18 +140,18 @@ export default function ContactPage() {
         </div>
 
         <div className="mt-8 rounded-3xl border border-white/8 bg-[#08101e]/75 px-6 py-5">
-          <p className="text-sm font-semibold text-white">Need the formal business-facing layer?</p>
+          <p className="text-sm font-semibold text-white">Prefer a structured intake?</p>
           <p className="mt-2 text-sm text-white/45">
-            High Encode Learning is still the clearest place for scoped work, demos, proposals, and business-side
-            conversations. Use this personal site for notes, experiments, and direct human reach.
+            I keep the first message short on purpose. If this is a real project, send scope and timeline so I can
+            respond quickly with realistic next steps.
           </p>
           <a
-            href={businessSiteUrl}
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] px-5 py-3 font-semibold text-[#060a14] transition-transform hover:scale-[1.01]"
           >
-            Visit High Encode Learning
+            Start a project on WhatsApp
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>

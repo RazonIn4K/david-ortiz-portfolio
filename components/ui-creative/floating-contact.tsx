@@ -31,6 +31,8 @@ function iconFor(link: ContactLink) {
       return InstagramIcon;
     case "linkedin":
       return LinkedinIcon;
+    case "whatsapp":
+      return MessageCircle;
     default:
       return ExternalLink;
   }
