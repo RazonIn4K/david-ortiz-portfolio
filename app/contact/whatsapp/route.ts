@@ -63,7 +63,7 @@ function parseChallengeValue(value: string | null) {
   const issuedAt = Number.parseInt(issuedAtRaw, 10)
   if (!Number.isFinite(issuedAt) || issuedAt <= 0) return null
 
-  return { token, issuedAt }
+  return { token, issuedAt: issuedAt * 1000 }
 }
 
 function validateContactChallenge(request: NextRequest): ChallengeValidation {
@@ -132,8 +132,10 @@ function scoreRequest(request: NextRequest, text: string): ScoredRequest {
 
   const challenge = validateContactChallenge(request)
   if (!challenge.valid) {
-    score += 2
-    reasons.push(challenge.reason)
+    return {
+      blocked: true,
+      reasons: [challenge.reason ?? "contact-challenge-required"],
+    }
   }
 
   if (text.length > 900) {
