@@ -36,6 +36,7 @@
 
 - [ ] `npm run lint`
 - [ ] `npm run build`
+- [ ] If dependency files changed: dependency and FOSSA scan checklist completed
 - [ ] Manual smoke test on key pages (`/`, `/design-system`)
 
 ### Content & Links (if applicable)

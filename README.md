@@ -67,3 +67,10 @@ If this still gets noisy:
 
 - Keep one clear human handoff before any final commitments.
 - Add a separate disposable number/business forwarding line for broad campaigns if needed.
+
+## Dependency and supply-chain checks
+
+If you touch dependencies or `.fossa.yml`, follow the documented scan workflow before merge:
+
+- `docs/fossa-scan-playbook.md`
+- `docs/fossa-remediation-notes.md`
