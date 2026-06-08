@@ -53,3 +53,17 @@ public/             # Images, visuals, legacy demos
 
 - The homepage is a personal portfolio, not a router to other sites.
 - Contact is WhatsApp-first (see `data/content.ts` → `contact` / `whatsappHref`), with phone and email as backups.
+
+## Contact protection
+
+This repo keeps the public phone number behind a one-step screened redirect:
+
+- Public buttons point to `/contact/whatsapp`.
+- `/contact/whatsapp` adds `wa.me/<number>?text=...` server-side.
+- A short-lived `dzt-contact-challenge` token/cookie handshake is enforced before redirect.
+- The route includes bot-detection scoring and returns `403` with anti-abuse headers when the handshake or risk checks fail.
+
+If this still gets noisy:
+
+- Keep one clear human handoff before any final commitments.
+- Add a separate disposable number/business forwarding line for broad campaigns if needed.
