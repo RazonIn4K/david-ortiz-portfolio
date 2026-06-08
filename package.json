@@ -75,6 +75,7 @@
     "typescript": "^5"
   },
   "overrides": {
-    "postcss": "8.5.14"
+    "postcss": "8.5.14",
+    "brace-expansion": "2.1.1"
   }
 }
