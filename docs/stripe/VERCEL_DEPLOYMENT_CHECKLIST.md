@@ -24,7 +24,7 @@ Step-by-step checklist for deploying Stripe webhook integration to Vercel.
 - [ ] Stripe account in correct mode (test for staging, live for production)
 - [ ] Webhook endpoint URL determined:
   - Staging: `https://your-preview-url.vercel.app/api/stripe-webhook`
-  - Production: `https://cs-learning.me/api/stripe-webhook`
+  - Production: `https://davidtiz.com/api/stripe-webhook`
 
 ## Deployment Steps
 
@@ -100,7 +100,7 @@ Expected response:
 2. Click "Add endpoint"
 
 3. Enter endpoint URL:
-   - **Production:** `https://cs-learning.me/api/stripe-webhook`
+   - **Production:** `https://davidtiz.com/api/stripe-webhook`
    - **Staging:** `https://your-staging-url.vercel.app/api/stripe-webhook`
 
 4. Select events to send:
@@ -162,7 +162,7 @@ vercel --prod
 
 ```bash
 # Production health check
-curl https://cs-learning.me/api/stripe-webhook
+curl https://davidtiz.com/api/stripe-webhook
 
 # Should return configured: true
 ```
@@ -192,7 +192,7 @@ curl https://cs-learning.me/api/stripe-webhook
 
 1. **Create Live Webhook Endpoint**
    - Go to Stripe Dashboard (live mode - no `/test/` in URL)
-   - Add endpoint: `https://cs-learning.me/api/stripe-webhook`
+   - Add endpoint: `https://davidtiz.com/api/stripe-webhook`
    - Select same events as test
 
 2. **Update Environment Variables**
@@ -303,5 +303,5 @@ vercel env rm STRIPE_WEBHOOK_SECRET production
 ---
 
 **Last Updated:** _Date_
-**Deployed To:** cs-learning.me
+**Deployed To:** davidtiz.com
 **Vercel Project:** david-ortiz-portfolio

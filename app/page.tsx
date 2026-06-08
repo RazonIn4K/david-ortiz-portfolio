@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
+import { GithubIcon } from "@/components/icons/brand-icons"
 import { contact, whatsappHref } from "@/data/content"
 import {
   ArrowUpRight,
@@ -13,7 +14,6 @@ import {
   Code2,
   Compass,
   FileText,
-  Github,
   Globe,
   Mail,
   MessageCircle,
@@ -481,7 +481,7 @@ export default function HomePage() {
             </a>
             <a className="dtz-button secondary" href={contact.github} target="_blank" rel="noreferrer">
               GitHub
-              <Github aria-hidden="true" />
+              <GithubIcon aria-hidden="true" />
             </a>
           </div>
         </div>

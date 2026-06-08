@@ -30,7 +30,7 @@ NC='\033[0m' # No Color
 # Configuration
 LOCAL_URL="http://localhost:3000"
 STAGING_URL="${STAGING_URL:-}"
-PRODUCTION_URL="https://cs-learning.me"
+PRODUCTION_URL="https://davidtiz.com"
 WEBHOOK_PATH="/api/stripe-webhook"
 
 # Helper functions
@@ -304,7 +304,7 @@ Before going live, verify the following match between test and live:
 
 [ ] Webhook endpoint URL is correct
     - Test: https://your-staging-url.vercel.app/api/stripe-webhook
-    - Live: https://cs-learning.me/api/stripe-webhook
+    - Live: https://davidtiz.com/api/stripe-webhook
 
 [ ] All required events are selected:
     - checkout.session.completed
