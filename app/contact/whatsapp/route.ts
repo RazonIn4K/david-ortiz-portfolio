@@ -34,6 +34,27 @@ const contactChallengeWindowMs = 10 * 60_000
 const rateBuckets = new Map<string, number[]>()
 const bucketWindowMs = 60_000
 const burstLimit = 6
+const usedChallenges = new Map<string, number>()
+const usedChallengeWindowMs = 2 * 60_000
+
+function cleanupUsedChallenges(now: number) {
+  for (const [token, expiresAt] of usedChallenges.entries()) {
+    if (expiresAt <= now) {
+      usedChallenges.delete(token)
+    }
+  }
+}
+
+function hasChallengeBeenUsed(token: string, now: number) {
+  cleanupUsedChallenges(now)
+
+  return usedChallenges.get(token) !== undefined
+}
+
+function trackUsedChallenge(token: string, now: number) {
+  usedChallenges.set(token, now + usedChallengeWindowMs)
+  cleanupUsedChallenges(now)
+}
 
 function isIntent(value: string | null): value is Intent {
   return Boolean(value && value in intentMessages)
@@ -52,6 +73,7 @@ function getClientIp(request: NextRequest) {
 type ChallengeValidation = {
   valid: boolean
   reason?: string
+  token?: string
 }
 
 function parseChallengeValue(value: string | null) {
@@ -62,8 +84,10 @@ function parseChallengeValue(value: string | null) {
 
   const issuedAt = Number.parseInt(issuedAtRaw, 10)
   if (!Number.isFinite(issuedAt) || issuedAt <= 0) return null
+  const issuedAtMs =
+    issuedAtRaw.length >= 13 ? issuedAt : issuedAt * 1000
 
-  return { token, issuedAt }
+  return { token, issuedAt: issuedAtMs }
 }
 
 function validateContactChallenge(request: NextRequest): ChallengeValidation {
@@ -100,7 +124,10 @@ function validateContactChallenge(request: NextRequest): ChallengeValidation {
     }
   }
 
-  return { valid: true }
+  return {
+    valid: true,
+    token: challengeFromQuery.token,
+  }
 }
 
 function scoreRequest(request: NextRequest, text: string): ScoredRequest {
@@ -132,8 +159,18 @@ function scoreRequest(request: NextRequest, text: string): ScoredRequest {
 
   const challenge = validateContactChallenge(request)
   if (!challenge.valid) {
-    score += 2
-    reasons.push(challenge.reason)
+    return {
+      blocked: true,
+      reasons: [challenge.reason ?? "contact-challenge-required"],
+    }
+  }
+
+  const now = Date.now()
+  if (hasChallengeBeenUsed(challenge.token!, now)) {
+    return {
+      blocked: true,
+      reasons: ["contact-challenge-replay"],
+    }
   }
 
   if (text.length > 900) {
@@ -156,7 +193,6 @@ function scoreRequest(request: NextRequest, text: string): ScoredRequest {
     reasons.push("suspicious-message-pattern")
   }
 
-  const now = Date.now()
   const ip = getClientIp(request)
   const events = rateBuckets.get(ip) ?? []
   const activeEvents = events.filter((ts) => ts > now - bucketWindowMs)
@@ -199,6 +235,14 @@ function blockedContactResponse(reasons: string[]) {
   return response
 }
 
+function markChallengeCookieConsumed(response: NextResponse, request: NextRequest) {
+  const secure = request.nextUrl.protocol === "https:" ? "; Secure" : ""
+  response.headers.append(
+    "Set-Cookie",
+    `${contactChallengeCookieName}=; Path=${CONTACT_PATH}; Max-Age=0; SameSite=Lax${secure}`
+  )
+}
+
 export function GET(request: NextRequest) {
   const intent = request.nextUrl.searchParams.get("intent")
   const safeIntent: Intent = isIntent(intent) ? intent : "portfolio"
@@ -219,6 +263,12 @@ export function GET(request: NextRequest) {
   target.searchParams.set("text", message)
 
   const response = NextResponse.redirect(target, 302)
+  const challenge = parseChallengeValue(request.nextUrl.searchParams.get("challenge"))
+  if (challenge?.token) {
+    trackUsedChallenge(challenge.token, Date.now())
+  }
+
+  markChallengeCookieConsumed(response, request)
   response.headers.set("Cache-Control", "no-store")
   response.headers.set("X-Robots-Tag", "noindex,nofollow")
 

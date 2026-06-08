@@ -1,0 +1,39 @@
+version: 3
+
+project:
+  name: david-ortiz-portfolio
+  team: default
+  policy: default
+  link: https://github.com/RazonIn4K/david-ortiz-portfolio
+
+targets:
+  only:
+    - type: npm
+      path: .
+
+ignore:
+  - type: license
+    locator: npm+next$16.2.7
+    licenses:
+      - CC-BY-SA-4.0
+      - MPL-2.0
+    reason: |
+      CC-BY-SA-4.0 and MPL-2.0 are flagged from Next.js internal artifacts.
+      `dist/compiled/glob/LICENSE` includes a logo license and `dist/compiled/@vercel/og`
+      includes MPL text. These are not runtime-modified distributables in this app.
+      The app uses Next.js as a dependency and does not redistribute those assets
+      as separate business logic.
+
+  - type: license
+    locator: npm+@vercel/og$0.11.1
+    licenses:
+      - MPL-2.0
+    reason: |
+      Dedicated guardrail for the Next.js bundled `@vercel/og` package declaration that
+      currently carries MPL-2.0 text. The package is consumed transitively through Next
+      and is not modified in this repository.
+
+comments:
+  licensing_strategy: |
+    Keep production dependencies as-is while documenting non-blocking findings
+    and re-running FOSSA scans after policy-level reviews.
