@@ -77,7 +77,7 @@ export function OrbitVisualization() {
                 <item.icon className="w-5 h-5" style={{ color: item.color }} />
               </div>
               <motion.div
-                initial={{ opacity: 0 }}
+                initial={false}
                 whileHover={{ opacity: 1 }}
                 className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap"
                 style={{ color: item.color }}

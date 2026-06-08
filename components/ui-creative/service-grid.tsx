@@ -49,7 +49,7 @@ export function ServiceGrid() {
       {services.map((service, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: i * 0.1 }}
@@ -66,7 +66,7 @@ export function ServiceGrid() {
               {/* Content */}
               <div>
                 <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
-                <p className="text-white/50 text-sm leading-relaxed">{service.description}</p>
+                <p className="text-white/75 text-sm leading-relaxed">{service.description}</p>
               </div>
 
               {/* Tags */}

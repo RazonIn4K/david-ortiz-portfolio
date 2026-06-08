@@ -16,9 +16,15 @@ export const socialProfileLinks = [
 
 export const quickReachLinks: ContactLink[] = [
   {
+    id: "whatsapp",
+    label: "WhatsApp",
+    href: "/contact/whatsapp?intent=portfolio",
+    description: "Start with a screened, context-first message that keeps the phone out of public pages.",
+  },
+  {
     id: "email",
     label: "Email",
-    href: "mailto:hello@highencodelearning.com",
+    href: "mailto:hello@davidtiz.com",
     description: "Best async path for introductions, follow-up, and project questions.",
   },
   {
@@ -43,7 +49,8 @@ export const quickReachLinks: ContactLink[] = [
     id: "business-inbox",
     label: "Business inbox",
     href: `${businessSiteUrl}/contact`,
-    description: "Go straight to the business-facing contact flow on High Encode Learning.",
+    description:
+      "Go straight to the business-facing contact flow on the services-facing layer.",
   },
 ]
 
@@ -62,9 +69,9 @@ export const hireMeLinks: ContactLink[] = [
   },
   {
     id: "high-encode",
-    label: "High Encode Learning",
+    label: "Services hub",
     href: businessSiteUrl,
-    description: "Business-facing demos, services, and project scoping live there.",
+    description: "Business-facing intake and scoped-service context.",
   },
 ]
 

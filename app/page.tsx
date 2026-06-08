@@ -1,675 +1,520 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
+import Image from "next/image"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import { motion, useReducedMotion } from "framer-motion"
+import { GithubIcon } from "@/components/icons/brand-icons"
+import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
+import { contact, whatsappHref } from "@/data/content"
 import {
-  ArrowRight,
-  BriefcaseBusiness,
-  CalendarDays,
-  ChevronDown,
-  ExternalLink,
+  ArrowUpRight,
+  BookOpen,
+  CheckCircle2,
+  ClipboardCheck,
+  Code2,
+  Compass,
+  FileText,
+  Globe,
   Mail,
+  MessageCircle,
+  Moon,
+  ShieldCheck,
   Sparkles,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+  Sun,
+  Workflow,
+  Wrench,
+} from "lucide-react"
 
-import {
-  FacebookIcon,
-  GithubIcon,
-  InstagramIcon,
-  LinkedinIcon,
-} from "@/components/icons/brand-icons";
-import { HexGridBackground } from "@/components/ui-creative/hex-grid-bg";
-import { TerminalHero } from "@/components/ui-creative/terminal-hero";
-import { OrbitVisualization } from "@/components/ui-creative/orbit-visualization";
-import { AnimatedStats } from "@/components/ui-creative/animated-stats";
-import { ServiceGrid } from "@/components/ui-creative/service-grid";
-import { EcosystemLinks } from "@/components/ui-creative/ecosystem-links";
-import {
-  footerEcosystemLinks,
-  footerPrimaryLinks,
-  followWorkLinks,
-  hireMeLinks,
-  quickReachLinks,
-  type ContactLink,
-} from "@/lib/contact-links";
-import { businessSiteUrl, personalSitePublicLabel } from "@/lib/site-config";
-
-function iconFor(link: ContactLink) {
-  switch (link.id) {
-    case "email":
-      return Mail;
-    case "calendly":
-      return CalendarDays;
-    case "upwork":
-    case "fiverr":
-    case "high-encode":
-    case "business-inbox":
-      return BriefcaseBusiness;
-    case "facebook":
-      return FacebookIcon;
-    case "instagram":
-      return InstagramIcon;
-    case "linkedin":
-      return LinkedinIcon;
-    case "github":
-      return GithubIcon;
-    default:
-      return ExternalLink;
-  }
-}
-
-function isExternal(href: string) {
-  return href.startsWith("http");
-}
-
-const hernandezHighlights = [
-  {
-    title: "Bilingual website",
-    description: "English and Spanish paths for a local landscaping audience.",
-  },
-  {
-    title: "Prefilled quote flow",
-    description:
-      "Service chips and form fields move visitors toward the right estimate request faster.",
-  },
-  {
-    title: "Sourced trust signals",
-    description:
-      "Real work photos and public review links give visitors something specific to inspect.",
-  },
-];
-
-const homeNavItems = [
-  { label: "Focus", href: "#focus" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Learning", href: "#learning" },
+const navItems = [
+  { label: "Start", href: "#start" },
+  { label: "Work", href: "#work" },
+  { label: "Process", href: "#process" },
+  { label: "Stack", href: "#stack" },
+  { label: "Notes", href: "#notes" },
   { label: "Contact", href: "#contact" },
-];
+]
+
+const proofSignals = [
+  "DeKalb, IL and remote",
+  "Screened contact path",
+  "English or Spanish",
+  "Built with Next.js on Vercel",
+]
+
+const workAreas = [
+  {
+    label: "Web",
+    title: "Local Business Sites",
+    body: "Focused websites for small businesses: clear services, simple contact paths, bilingual-friendly copy, DNS/deploy setup, and handoff notes an owner can use.",
+    image: "/visuals/local-business-system.svg",
+    icon: Globe,
+    tags: ["Next.js", "Forms", "Local SEO", "Handoff"],
+  },
+  {
+    label: "Systems",
+    title: "AI-Assisted Workflows",
+    body: "Practical workflows that split research, implementation, review, QA, and documentation into visible steps instead of hiding everything inside one prompt.",
+    image: "/visuals/systems-routing.svg",
+    icon: Workflow,
+    tags: ["Codex", "Claude", "Browser QA", "Runbooks"],
+  },
+  {
+    label: "Knowledge",
+    title: "RAG and Notes Tools",
+    body: "Experiments around retrieval, cited answers, local notes, and the habit of checking the actual source before treating a generated answer as true.",
+    image: "/visuals/notes-map.svg",
+    icon: BookOpen,
+    tags: ["RAG", "Search", "Citations", "Obsidian"],
+  },
+  {
+    label: "Ops",
+    title: "Automation and Cleanup",
+    body: "Small automations for intake, follow-up, project cleanup, and deployment checks, with the maintenance path documented before the work is considered done.",
+    image: "/visuals/project-board.svg",
+    icon: Wrench,
+    tags: ["n8n", "APIs", "Scripts", "QA"],
+  },
+  {
+    label: "Safety",
+    title: "Prompt Safety Learning",
+    body: "Ongoing study of AI guardrails, prompt injection, misuse boundaries, and the practical checks needed before an AI-powered workflow should be trusted.",
+    image: "/visuals/ai-guardrails.svg",
+    icon: ShieldCheck,
+    tags: ["Guardrails", "Testing", "Scope", "Review"],
+  },
+]
+
+const processSteps = [
+  {
+    title: "Start With The Real Surface",
+    body: "I look at the repo, browser, files, deployment, or workflow first so the work starts from evidence instead of labels.",
+    icon: Compass,
+  },
+  {
+    title: "Map The Useful Version",
+    body: "I separate facts, assumptions, and open questions, then turn the mess into a small buildable scope.",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Build In Working Passes",
+    body: "I prefer a working first version, then tighten copy, layout, routes, contact paths, and edge cases from there.",
+    icon: Code2,
+  },
+  {
+    title: "Verify And Hand Off",
+    body: "I run the checks that matter, document what changed, and leave the next person with a clear continuation path.",
+    icon: FileText,
+  },
+]
+
+const stackGroups = [
+  {
+    title: "Frontend",
+    items: ["Next.js", "React", "Tailwind CSS", "Accessible UI"],
+  },
+  {
+    title: "Deployment",
+    items: ["Vercel", "Netlify", "DNS setup", "Production QA"],
+  },
+  {
+    title: "Automation",
+    items: ["n8n", "APIs", "Shell scripts", "Operational notes"],
+  },
+  {
+    title: "AI Workflow",
+    items: ["Codex", "Claude Code", "Grok", "Perplexity", "Obsidian"],
+  },
+]
+
+const currentFocus = [
+  "Cleaner local-business websites with quote, order, or contact flows that do not feel overbuilt.",
+  "Repeatable AI-assisted delivery: research, implementation, review, browser QA, and a written handoff.",
+  "Security-aware AI workflow habits, especially prompt injection, tool boundaries, and validation.",
+  "Better notes that preserve what worked, what failed, and what should happen in the next session.",
+]
+
+const contactGuardrails = [
+  "Public links start with project context instead of a bare phone number.",
+  "A future WhatsApp/n8n screener can label spam, ask one clarifying question, and keep human approval on replies.",
+  "Direct calls should happen after context, not as the first public CTA bots can scrape.",
+]
+
+function useSiteTheme() {
+  const [theme, setTheme] = useState<"light" | "dark">("light")
+
+  useEffect(() => {
+    const requestedTheme = new URLSearchParams(window.location.search).get("theme")
+    let nextTheme: "light" | "dark" | null = null
+
+    if (requestedTheme === "light" || requestedTheme === "dark") {
+      nextTheme = requestedTheme
+      window.localStorage.setItem("davidtiz-theme", requestedTheme)
+    } else {
+      const savedTheme = window.localStorage.getItem("davidtiz-theme")
+      if (savedTheme === "light" || savedTheme === "dark") {
+        nextTheme = savedTheme
+      } else if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) {
+        nextTheme = "dark"
+      }
+    }
+
+    if (!nextTheme) return
+
+    const frame = window.requestAnimationFrame(() => setTheme(nextTheme))
+    return () => window.cancelAnimationFrame(frame)
+  }, [])
+
+  const updateTheme = (nextTheme: "light" | "dark") => {
+    setTheme(nextTheme)
+    window.localStorage.setItem("davidtiz-theme", nextTheme)
+  }
+
+  return { theme, updateTheme }
+}
 
 export default function HomePage() {
+  const { theme, updateTheme } = useSiteTheme()
+  const shouldReduceMotion = useReducedMotion()
+
   return (
-    <div className="min-h-screen bg-[#060a14] text-white overflow-x-hidden">
-      {/* Background */}
-      <HexGridBackground />
-
-      {/* Header */}
-      <header className="relative z-10">
-        <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center font-bold text-[#060a14] text-lg">
+    <div className={`dtz-site dtz-${theme}`}>
+      <header className="dtz-header">
+        <nav className="dtz-nav" aria-label="Primary navigation">
+          <Link className="dtz-brand" href="#start" aria-label="David Ortiz home">
+            <span className="dtz-mark" aria-hidden="true">
               DO
-            </div>
-            <div>
-              <span className="font-semibold text-white">David Ortiz</span>
-              <p className="text-xs text-white/40">Personal notebook</p>
-            </div>
-          </div>
+            </span>
+            <span>
+              <strong>David Ortiz</strong>
+              <small>builder/operator portfolio</small>
+            </span>
+          </Link>
 
-          <div className="hidden lg:flex items-center gap-8">
-            {homeNavItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-sm text-white/50 hover:text-white transition-colors relative group"
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] group-hover:w-full transition-all duration-300" />
-              </Link>
+          <ul className="dtz-nav-list">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a href={item.href}>{item.label}</a>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          <div className="flex items-center gap-3">
-            <a
-              href="#contact"
-              className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] text-white font-medium text-sm hover:shadow-lg hover:shadow-[#ff6b6b]/25 transition-shadow"
-            >
-              Contact
-              <ArrowRight className="w-4 h-4" />
-            </a>
+          <div className="dtz-actions">
+            <fieldset className="dtz-theme" aria-label="Color theme">
+              <legend className="sr-only">Color theme</legend>
+              {([
+                { value: "light", label: "Light", icon: Sun },
+                { value: "dark", label: "Dark", icon: Moon },
+              ] as const).map((option) => {
+                const Icon = option.icon
+                const selected = theme === option.value
+
+                return (
+                  <label key={option.value} className={selected ? "is-selected" : ""}>
+                    <input
+                      type="radio"
+                      name="davidtiz-theme"
+                      value={option.value}
+                      checked={selected}
+                      onChange={() => updateTheme(option.value)}
+                    />
+                    <Icon aria-hidden="true" />
+                    <span>{option.label}</span>
+                  </label>
+                )
+              })}
+            </fieldset>
           </div>
         </nav>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative z-10 pt-12 pb-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left column - Text */}
+      <section id="start" className="dtz-hero dtz-overhaul-hero" aria-labelledby="hero-title">
+        <motion.div
+          className="dtz-hero-copy"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
+          <p className="dtz-kicker">
+            <Sparkles aria-hidden="true" />
+            Practical websites, automation, and AI workflow notes
+          </p>
+          <h1 id="hero-title">I turn messy ideas into working web systems.</h1>
+          <p className="dtz-lede">
+            I&apos;m David Ortiz. I build practical sites, workflow prototypes, and clear handoff notes for projects
+            where the real value is getting the system working and understandable.
+          </p>
+
+          <div className="dtz-hero-actions" aria-label="Primary actions">
+            <a className="dtz-button primary" href="#work">
+              See selected work
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+            <ProtectedWhatsAppLink
+              className="dtz-button secondary"
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Message me on WhatsApp
+              <MessageCircle aria-hidden="true" />
+            </ProtectedWhatsAppLink>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="dtz-hero-visual dtz-overhaul-visual"
+          aria-label="Visual portfolio workbench"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+        >
+          <div className="dtz-workbench-frame">
+            <Image
+              src="/visuals/generated-workbench.webp"
+              alt="Desk scene with a laptop, notebook, and project cards representing a builder's workbench."
+              width={1536}
+              height={1024}
+              priority
+            />
+          </div>
+
+          <div className="dtz-hero-note">
+            <span>How this page should read</span>
+            <strong>Personal, useful, and specific.</strong>
+            <p>No inflated claims. No agency wrapper. Just what I build, how I work, and how to reach me.</p>
+          </div>
+
+          <div className="dtz-stack-card dtz-hero-stack">
+            <span>Current lanes</span>
             <div>
-              <div className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-8">
-                <Sparkles className="w-4 h-4 text-[#2dd4bf]" />
-                <span className="text-sm text-white/60">
-                  Portfolio + build notes
-                </span>
-                <span className="w-2 h-2 rounded-full bg-[#2dd4bf] animate-pulse" />
-              </div>
-
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6">
-                Documenting{" "}
-                <span className="gradient-text text-glow-teal">AI systems</span>
-                <br />
-                and{" "}
-                <span className="gradient-text-warm">abstraction layers</span>
-              </h1>
-
-              <p className="text-lg md:text-xl text-white/50 mb-10 max-w-lg leading-relaxed">
-                Start with the portfolio if you want to see recent work. The
-                rest of this site keeps the build logs, experiments, demos, and
-                notes behind the web systems, automations, and local-business
-                workflows I ship.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/portfolio"
-                  className="group flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] px-8 py-4 font-semibold text-white transition-all hover:shadow-xl hover:shadow-[#ff6b6b]/20"
-                >
-                  View portfolio
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <a
-                  href="https://hernandezlandscapeservices.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass flex items-center gap-2 rounded-lg border border-white/10 px-8 py-4 font-medium transition-colors hover:border-white/30"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Live Hernandez site
-                </a>
-              </div>
-            </div>
-
-            {/* Right column - Terminal */}
-            <div className="hidden lg:block">
-              <TerminalHero />
-            </div>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="flex justify-center mt-16">
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-              className="flex flex-col items-center gap-2 text-white/30"
-              >
-                <span className="text-xs uppercase tracking-wider">
-                  Scroll to explore
-                </span>
-                <ChevronDown className="w-5 h-5" />
-              </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="relative z-10 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <AnimatedStats />
-        </div>
-      </section>
-
-      {/* How It Works - Orbit Visualization */}
-      <section className="relative z-10 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <motion.span
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-[#2dd4bf] text-sm font-medium uppercase tracking-wider"
-              >
-                The Ecosystem
-              </motion.span>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-bold mt-4 mb-6"
-              >
-                A working system is more than
-                <br />
-                <span className="gradient-text">frontend vs backend</span>
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-white/50 text-lg leading-relaxed mb-8"
-              >
-                I use this section to think through the layers around a web
-                system: browser runtime, frontend UX, APIs, storage, deployment,
-                and the business rules that sit above the code.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="flex flex-wrap gap-3"
-              >
-                {[
-                  "Browser",
-                  "Frontend",
-                  "API",
-                  "Infrastructure",
-                  "Business Layer",
-                ].map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-4 py-2 rounded-full glass text-sm text-white/70"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </motion.div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-            >
-              <OrbitVisualization />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Focus Section */}
-      <section id="focus" className="relative z-10 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="text-[#2dd4bf] text-sm font-medium uppercase tracking-wider">
-              Focus Areas
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-              What I&apos;m building and testing
-            </h2>
-            <p className="text-white/50 max-w-2xl mx-auto">
-              These are the themes I keep returning to while I study, prototype,
-              and document how systems behave in the real world.
-            </p>
-          </motion.div>
-
-          <ServiceGrid />
-        </div>
-      </section>
-
-      {/* Portfolio Proof Section */}
-      <section id="portfolio" className="relative z-10 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="rounded-3xl border border-white/8 bg-[#08101e]/80 p-4 shadow-2xl shadow-black/30"
-            >
-              <Image
-                src="/portfolio/hernandez/site-screenshot.png"
-                alt="Hernandez Landscape website design screenshot"
-                width={1440}
-                height={1000}
-                className="h-auto w-full rounded-2xl border border-white/10"
-                priority={false}
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <span className="inline-flex items-center rounded-full border border-[#7ac943]/25 bg-[#7ac943]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#b8f28e]">
-                Portfolio example
-              </span>
-              <h2 className="mt-6 text-4xl font-bold leading-tight md:text-5xl">
-                Hernandez Landscape is the local-business example to show first
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-white/50">
-                This is a real landscaping website build, not a generic mockup.
-                It gives prospects a concrete reference for bilingual messaging,
-                service pages, prefilled quote capture, project photos, and
-                sourced trust signals for a local contractor.
-              </p>
-
-              <div className="mt-8 grid gap-4">
-                {hernandezHighlights.map((highlight) => (
-                  <div
-                    key={highlight.title}
-                    className="rounded-2xl border border-white/8 bg-white/[0.03] p-5"
-                  >
-                    <p className="text-sm font-semibold text-white">
-                      {highlight.title}
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/45">
-                      {highlight.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="https://hernandezlandscapeservices.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#7ac943] to-[#2dd4bf] px-6 py-3 font-semibold text-[#06140e] transition-transform hover:scale-[1.01]"
-                >
-                  View Hernandez site
-                  <ExternalLink className="h-4 w-4" />
-                </a>
-                <Link
-                  href="/portfolio"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 px-6 py-3 font-semibold text-white/75 transition-colors hover:border-white/25 hover:text-white"
-                >
-                  Open portfolio page
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <a
-                  href={`${businessSiteUrl}/work`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#2dd4bf]/25 bg-[#2dd4bf]/10 px-6 py-3 font-semibold text-[#9ae6db] transition-colors hover:border-[#2dd4bf]/45 hover:bg-[#2dd4bf]/15"
-                >
-                  View High Encode work
-                  <ExternalLink className="h-4 w-4" />
-                </a>
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="overflow-hidden rounded-3xl border border-white/8 bg-white/[0.03]"
-            >
-              <Image
-                src="/portfolio/hernandez/landscape-work-hero.jpeg"
-                alt="Hernandez Landscape real project photo"
-                width={1600}
-                height={1000}
-                className="aspect-[16/10] w-full object-cover"
-              />
-              <div className="p-6">
-                <p className="text-sm font-semibold text-white">
-                  Real work imagery
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-white/45">
-                  The design uses actual project photos so the site feels
-                  grounded and specific to the business.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.08 }}
-              className="overflow-hidden rounded-3xl border border-white/8 bg-white/[0.03]"
-            >
-              <Image
-                src="/portfolio/hernandez/sergio-landscaping-marketing-clean.png"
-                alt="Clean marketing visual for landscaping and snow removal outreach"
-                width={1080}
-                height={1080}
-                className="aspect-square w-full object-cover"
-              />
-              <div className="p-6">
-                <p className="text-sm font-semibold text-white">
-                  Outreach-ready collateral
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-white/45">
-                  Text is rendered cleanly by the site workflow, avoiding
-                  distorted AI lettering in sales images.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Ecosystem Section */}
-      <section id="learning" className="relative z-10 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="text-[#22d3ee] text-sm font-medium uppercase tracking-wider">
-              The Ecosystem
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-              How the sites connect
-            </h2>
-            <p className="text-white/50 max-w-2xl mx-auto">
-              The {personalSitePublicLabel} is personal and reflective. High
-              Encode Learning is the business-facing layer. The other tools sit
-              between learning, testing, and delivery.
-            </p>
-          </motion.div>
-
-          <EcosystemLinks />
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section id="contact" className="relative z-10 py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-strong rounded-3xl p-8 md:p-12 glow-teal"
-          >
-            <div className="mb-10 text-center">
-              <motion.div
-                animate={{ scale: [1, 1.08, 1] }}
-                transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                className="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee]"
-              >
-                <Sparkles className="h-8 w-8 text-[#060a14]" />
-              </motion.div>
-
-              <span className="inline-flex items-center rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs uppercase tracking-[0.22em] text-[#9ae6db]">
-                Direct contact hub
-              </span>
-              <h2 className="mt-6 text-3xl font-bold md:text-4xl">
-                If this site gets passed around, it should still be easy to
-                reach me
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-white/50">
-                This site stays personal, but contact does not need to be
-                buried. Use the fastest confirmed paths below for follow-up,
-                booking, hiring, or seeing the work that sits behind the notes.
-              </p>
-              <p className="mx-auto mt-3 max-w-xl text-sm text-white/35">
-                English-first, async-friendly, and ready for local business
-                follow-up without forcing people to hunt for the right page.
-              </p>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-                <span className="rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[#9ae6db]">
-                  English + Español welcome
-                </span>
-                <Link
-                  href="/contact"
-                  className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/60 transition-colors hover:text-white"
-                >
-                  Open shareable contact page
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid gap-6 lg:grid-cols-3">
-              {[
-                {
-                  heading: "Quick reach",
-                  intro:
-                    "Best if you want to talk soon or need the cleanest next step.",
-                  links: quickReachLinks,
-                },
-                {
-                  heading: "Hire me",
-                  intro:
-                    "Best if you already know you want a scoped project or freelance path.",
-                  links: hireMeLinks,
-                },
-                {
-                  heading: "Follow the work",
-                  intro:
-                    "Best if you want to inspect the code, experiments, and ecosystem.",
-                  links: followWorkLinks,
-                },
-              ].map((group) => (
-                <div
-                  key={group.heading}
-                  className="rounded-3xl border border-white/8 bg-white/[0.03] p-6 text-left"
-                >
-                  <p className="text-xs uppercase tracking-[0.22em] text-[#22d3ee]">
-                    {group.heading}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-white/50">
-                    {group.intro}
-                  </p>
-
-                  <div className="mt-6 space-y-3">
-                    {group.links.map((link) => {
-                      const Icon = iconFor(link);
-
-                      return (
-                        <a
-                          key={link.id}
-                          href={link.href}
-                          target={isExternal(link.href) ? "_blank" : undefined}
-                          rel={
-                            isExternal(link.href)
-                              ? "noopener noreferrer"
-                              : undefined
-                          }
-                          className="group flex items-start gap-3 rounded-2xl border border-white/8 bg-[#0b1424]/75 px-4 py-4 transition-colors hover:border-white/20 hover:bg-[#0f1a2f]"
-                        >
-                          <span className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff6b6b] to-[#ff8e8e] text-white shadow-lg shadow-[#ff6b6b]/10">
-                            <Icon className="h-4 w-4" />
-                          </span>
-                          <span className="min-w-0">
-                            <span className="flex items-center gap-2 text-sm font-semibold text-white">
-                              {link.label}
-                              <ArrowRight className="h-4 w-4 text-white/30 transition-transform group-hover:translate-x-0.5" />
-                            </span>
-                            <span className="mt-1 block text-xs leading-relaxed text-white/50">
-                              {link.description}
-                            </span>
-                          </span>
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 flex flex-col gap-4 rounded-3xl border border-white/8 bg-[#08101e]/75 px-6 py-5 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="text-sm font-semibold text-white">
-                  Want the formal business-facing version?
-                </p>
-                <p className="mt-1 text-sm text-white/45">
-                  High Encode Learning is still the cleanest place for scoping,
-                  demos, and formal project conversations.
-                </p>
-              </div>
-              <a
-                href={businessSiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] px-6 py-3 font-semibold text-[#060a14] transition-transform hover:scale-[1.01]"
-              >
-                Visit High Encode Learning
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-white/5 py-12 px-6">
-        <div className="max-w-7xl mx-auto grid gap-8 lg:grid-cols-[1.1fr_1fr_1fr_auto] lg:items-start">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2dd4bf] to-[#22d3ee] flex items-center justify-center font-bold text-[#060a14]">
-              DO
+              <strong>Local sites</strong>
+              <small>forms, copy, deploys</small>
             </div>
             <div>
-              <p className="font-semibold">David Ortiz</p>
-              <p className="text-xs text-white/40">
-                Personal notebook and experiment layer
-              </p>
+              <strong>AI workflow</strong>
+              <small>research to QA</small>
+            </div>
+            <div>
+              <strong>Automation</strong>
+              <small>small, documented systems</small>
             </div>
           </div>
+        </motion.div>
+      </section>
 
-          <div>
-            <p className="text-xs uppercase tracking-[0.22em] text-white/35">
-              Reach out
-            </p>
-            <div className="mt-3 flex flex-wrap gap-3 text-sm text-white/45">
-              {footerPrimaryLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.href}
-                  target={isExternal(link.href) ? "_blank" : undefined}
-                  rel={
-                    isExternal(link.href) ? "noopener noreferrer" : undefined
-                  }
-                  className="hover:text-white transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
+      <section className="dtz-band dtz-summary-band" aria-labelledby="summary-title">
+        <div>
+          <p className="dtz-section-label">Quick read</p>
+          <h2 id="summary-title">A portfolio for the work I actually do.</h2>
+        </div>
+        <div className="dtz-summary-copy">
+          <p>
+            This site is the front door for selected builds, current learning, and practical collaboration. Outside
+            projects can show up as examples, but the organizing idea is simple: David Ortiz, the work, and a direct
+            path to contact.
+          </p>
+          <ul className="dtz-signal-list" aria-label="Portfolio signals">
+            {proofSignals.map((signal) => (
+              <li key={signal}>
+                <CheckCircle2 aria-hidden="true" />
+                {signal}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-          <div>
-            <p className="text-xs uppercase tracking-[0.22em] text-white/35">
-              Ecosystem
-            </p>
-            <div className="mt-3 flex flex-wrap gap-3 text-sm text-white/45">
-              {footerEcosystemLinks.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.href}
-                  target={isExternal(link.href) ? "_blank" : undefined}
-                  rel={
-                    isExternal(link.href) ? "noopener noreferrer" : undefined
-                  }
-                  className="hover:text-white transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <p className="text-sm text-white/30 lg:text-right">
-            © {new Date().getFullYear()} David Ortiz. All rights reserved.
+      <section id="work" className="dtz-section" aria-labelledby="work-title">
+        <div className="dtz-section-heading">
+          <p className="dtz-section-label">Selected work</p>
+          <h2 id="work-title">Five lanes I keep returning to.</h2>
+          <p>
+            These are portfolio categories, not inflated case studies. Each one points to the kind of systems I can
+            build, test, and explain clearly.
           </p>
         </div>
-      </footer>
 
-      {/* Bottom spacer for dock */}
-      <div className="h-24" />
+        <div className="dtz-work-grid">
+          {workAreas.map((item, index) => {
+            const Icon = item.icon
+
+            return (
+              <motion.article
+                className="dtz-work-card"
+                key={item.title}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.04 }}
+              >
+                <div className="dtz-work-media">
+                  <Image src={item.image} alt="" width={900} height={640} />
+                </div>
+                <div className="dtz-work-copy">
+                  <div className="dtz-work-label">
+                    <span>{item.label}</span>
+                    <Icon aria-hidden="true" />
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                  <ul className="dtz-tag-list" aria-label={`${item.title} tools and themes`}>
+                    {item.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.article>
+            )
+          })}
+        </div>
+      </section>
+
+      <section id="process" className="dtz-section" aria-labelledby="process-title">
+        <div className="dtz-section-heading">
+          <p className="dtz-section-label">Process</p>
+          <h2 id="process-title">How I keep projects grounded.</h2>
+          <p>
+            The common thread is verification. I would rather inspect the actual surface and make a smaller honest
+            improvement than write a big plan that never reaches the browser.
+          </p>
+        </div>
+
+        <div className="dtz-process-grid">
+          {processSteps.map((step, index) => {
+            const Icon = step.icon
+
+            return (
+              <article className="dtz-process-card" key={step.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <Icon aria-hidden="true" />
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </article>
+            )
+          })}
+        </div>
+      </section>
+
+      <section id="stack" className="dtz-section dtz-stack-section" aria-labelledby="stack-title">
+        <div className="dtz-section-heading">
+          <p className="dtz-section-label">Stack</p>
+          <h2 id="stack-title">Tools I reach for when the job fits.</h2>
+          <p>
+            The stack changes by project, but the goal stays the same: ship something understandable, verify it, and
+            leave the maintenance path visible.
+          </p>
+        </div>
+
+        <div className="dtz-stack-grid">
+          {stackGroups.map((group) => (
+            <article className="dtz-stack-group" key={group.title}>
+              <h3>{group.title}</h3>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="notes" className="dtz-section dtz-notes-section" aria-labelledby="notes-title">
+        <div className="dtz-notes-layout">
+          <div>
+            <p className="dtz-section-label">Current focus</p>
+            <h2 id="notes-title">What I&apos;m paying attention to right now.</h2>
+            <p>
+              This is the living part of the portfolio: fewer broad claims, more notes about what is being built,
+              tested, and tightened.
+            </p>
+          </div>
+
+          <div className="dtz-notes-panel">
+            <Image src="/visuals/generated-lanes.webp" alt="" width={1774} height={887} />
+            <ul className="dtz-check-list">
+              {currentFocus.map((line) => (
+                <li key={line}>
+                  <CheckCircle2 aria-hidden="true" />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="dtz-contact dtz-overhaul-contact" aria-labelledby="contact-title">
+        <div>
+          <p className="dtz-section-label">Contact</p>
+          <h2 id="contact-title">Send the rough version.</h2>
+          <p>
+            You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
+            and what would make the next step useful. I keep the public contact path screened so the phone number is not
+            treated like an open spam target.
+          </p>
+        </div>
+
+        <div className="dtz-contact-panel">
+          <div className="dtz-contact-card">
+            <span>Best first message</span>
+            <p>What are you trying to build or fix, and what is the current state?</p>
+          </div>
+          <div className="dtz-contact-card dtz-contact-guard">
+            <span>Phone spam guard</span>
+            <ul>
+              {contactGuardrails.map((item) => (
+                <li key={item}>
+                  <ShieldCheck aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="dtz-contact-actions">
+            <ProtectedWhatsAppLink
+              className="dtz-button primary"
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Message me on WhatsApp
+              <MessageCircle aria-hidden="true" />
+            </ProtectedWhatsAppLink>
+            <ProtectedWhatsAppLink
+              className="dtz-button secondary"
+              href="/contact/whatsapp?intent=callback"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Request a call-back
+              <MessageCircle aria-hidden="true" />
+            </ProtectedWhatsAppLink>
+            <a className="dtz-button secondary" href={`mailto:${contact.email}`}>
+              {contact.email}
+              <Mail aria-hidden="true" />
+            </a>
+            <a className="dtz-button secondary" href={contact.github} target="_blank" rel="noreferrer">
+              GitHub
+              <GithubIcon aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer className="dtz-footer">
+        <span>David Ortiz</span>
+        <span className="dtz-footer-links">
+          <ProtectedWhatsAppLink href={whatsappHref} target="_blank" rel="noreferrer">
+            WhatsApp
+          </ProtectedWhatsAppLink>
+          <a href={`mailto:${contact.email}`}>Email</a>
+          <a href={contact.github} target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        </span>
+      </footer>
     </div>
-  );
+  )
 }

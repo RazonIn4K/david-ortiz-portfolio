@@ -1,0 +1,56 @@
+<svg width="1400" height="820" viewBox="0 0 1400 820" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">David Ortiz ecosystem layer map</title>
+  <desc id="desc">A diagram showing David's personal hub, HighEncode, CSBrainAI, Prompt Defenders, and the shared infrastructure layers that connect them.</desc>
+  <rect width="1400" height="820" rx="40" fill="#0B1220"/>
+  <rect x="36" y="36" width="1328" height="748" rx="32" fill="#F8FAFC"/>
+  <text x="88" y="108" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="800">Ecosystem map</text>
+  <text x="88" y="148" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="21">Each public surface has one job. Shared infrastructure sits underneath.</text>
+
+  <g stroke="#94A3B8" stroke-width="3" stroke-linecap="round" opacity=".72">
+    <path d="M700 206V614"/>
+    <path d="M318 324H1082"/>
+    <path d="M318 498H1082"/>
+    <path d="M380 324L700 498L1020 324"/>
+    <path d="M380 498L700 324L1020 498"/>
+  </g>
+
+  <g>
+    <rect x="515" y="188" width="370" height="118" rx="22" fill="#0F172A"/>
+    <text x="548" y="235" fill="#E2E8F0" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="800">davidtiz.com</text>
+    <text x="548" y="268" fill="#A7F3D0" font-family="Inter, Arial, sans-serif" font-size="16">Personal hub and routing layer</text>
+  </g>
+
+  <g>
+    <rect x="124" y="276" width="330" height="132" rx="22" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+    <text x="156" y="326" fill="#075985" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800">HighEncode</text>
+    <text x="156" y="360" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="16">Local business sites, quote flow,</text>
+    <text x="156" y="384" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="16">bilingual pages, owner handoff</text>
+  </g>
+
+  <g>
+    <rect x="946" y="276" width="330" height="132" rx="22" fill="#DCFCE7" stroke="#0F766E" stroke-width="2"/>
+    <text x="978" y="326" fill="#115E59" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800">CSBrainAI</text>
+    <text x="978" y="360" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="16">Private RAG proof with citations,</text>
+    <text x="978" y="384" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="16">Supabase vectors, hashed metadata</text>
+  </g>
+
+  <g>
+    <rect x="124" y="452" width="330" height="132" rx="22" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
+    <text x="156" y="502" fill="#92400E" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800">Prompt Defenders</text>
+    <text x="156" y="536" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="16">Prompt-risk scanner, rule pack,</text>
+    <text x="156" y="560" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="16">OpenRouter review, hashed inputs</text>
+  </g>
+
+  <g>
+    <rect x="946" y="452" width="330" height="132" rx="22" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+    <text x="978" y="502" fill="#5B21B6" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="800">GitHub + notes</text>
+    <text x="978" y="536" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="16">Build trail, repo evidence,</text>
+    <text x="978" y="560" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="16">implementation history</text>
+  </g>
+
+  <g>
+    <rect x="196" y="642" width="1008" height="88" rx="22" fill="#111827"/>
+    <text x="232" y="680" fill="#E5E7EB" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800">Shared infrastructure</text>
+    <text x="232" y="708" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="16">Vercel deploys, Doppler secrets, Upstash Redis, Supabase pgvector, OpenRouter, Sentry/Datadog, browser-verified flows</text>
+  </g>
+</svg>

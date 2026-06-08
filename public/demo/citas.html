@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo de citas por WhatsApp - Studio Luna</title>
+<style>
+
+:root{
+  --ink:#261b13;
+  --muted:#735f4e;
+  --cream:#fff7ea;
+  --paper:#fffdf8;
+  --line:#eadbc7;
+  --shadow:0 22px 70px rgba(52,31,17,.16);
+  --soft:0 10px 32px rgba(52,31,17,.10);
+  --green:#137a4d;
+  --red:#c64b35;
+  --blue:#245fa8;
+  --pink:#c92d78;
+  --gold:#d99a28;
+  --brown:#704528;
+  --wa:#25d366;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:#f3dfc5;max-width:100%;overflow-x:hidden}
+body{
+  min-height:100vh;
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 12% 12%,rgba(198,75,53,.18),transparent 26%),
+    radial-gradient(circle at 88% 6%,rgba(19,122,77,.15),transparent 28%),
+    linear-gradient(135deg,#fff9ef 0%,#f4dfc4 100%);
+  line-height:1.45;
+  padding-bottom:120px;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:.42;
+  background-image:
+    linear-gradient(90deg,rgba(112,69,40,.07) 1px,transparent 1px),
+    linear-gradient(rgba(112,69,40,.06) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+a{color:inherit}
+.wrap{width:100vw;max-width:min(560px,100vw);margin:0 auto;min-height:100vh;background:rgba(255,247,234,.74);backdrop-filter:blur(8px);overflow:hidden}
+.ribbon{background:var(--ink);color:#ffd7a6;text-align:center;font-size:11.5px;font-weight:900;letter-spacing:.45px;text-transform:uppercase;padding:9px 14px;white-space:normal;overflow-wrap:anywhere}
+.hero{position:relative;overflow:hidden;max-width:100vw;color:white;padding:30px 20px 25px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.hero::before{content:"";position:absolute;inset:-55px;background:
+  radial-gradient(circle at 22% 18%,rgba(255,255,255,.24) 0 8px,transparent 9px),
+  radial-gradient(circle at 76% 14%,rgba(255,255,255,.16) 0 7px,transparent 8px),
+  radial-gradient(circle at 55% 88%,rgba(255,255,255,.13) 0 13px,transparent 14px)}
+.hero>*{position:relative}.kicker{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.38);border-radius:999px;padding:7px 11px;font-size:11.5px;font-weight:950;letter-spacing:.5px;text-transform:uppercase}.kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,8.2vw,42px);line-height:1.02;letter-spacing:-1.1px;margin:17px 0 10px;overflow-wrap:break-word}.hero p{font-size:15.8px;font-weight:700;opacity:.96;max-width:440px;overflow-wrap:break-word}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.chip{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.17);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:850;max-width:100%;overflow-wrap:anywhere}
+.nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px;background:#fff;border-bottom:1px solid var(--line)}.nav a{text-align:center;text-decoration:none;border:1px solid var(--line);border-radius:14px;padding:10px 6px;font-size:12.5px;font-weight:850;color:var(--muted);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.nav a.active{color:var(--accent);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,#fff)}
+.bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:12px 14px;background:#fffaf4;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted);overflow:hidden}.bar b{color:var(--ink)}.bar span{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.section{padding:22px 16px 8px}.label{font-size:12px;font-weight:950;letter-spacing:1.45px;text-transform:uppercase;color:var(--accent)}.lead{font-size:15px;color:var(--muted);margin-top:6px}.card{max-width:calc(100vw - 26px);background:rgba(255,253,248,.97);border:1px solid var(--line);border-radius:24px;box-shadow:var(--soft);padding:16px;margin:11px 13px}.card h2{font-family:Georgia,"Times New Roman",serif;font-size:24px;line-height:1.05;margin-bottom:8px}.card p{font-size:14px;color:var(--muted)}
+.links{max-width:calc(100vw - 26px);display:grid;gap:12px;margin:12px 13px}.demo-link{display:block;min-width:0;overflow:hidden;text-decoration:none;background:rgba(255,253,248,.98);border:1px solid var(--line);border-radius:23px;box-shadow:var(--soft);padding:17px}.demo-link b{display:block;font-size:18px}.demo-link span{display:block;margin-top:4px;color:var(--muted);font-size:13.5px;overflow-wrap:break-word}.demo-link em{display:inline-flex;margin-top:12px;color:var(--accent);font-style:normal;font-weight:950}
+.item{max-width:calc(100vw - 26px);display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--soft);padding:13px;margin:10px 13px}.thumb{width:64px;height:64px;flex:0 0 64px;border-radius:17px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 13%,#fff);font-size:30px}.meta{flex:1;min-width:0}.meta h3{font-size:16px;line-height:1.18;overflow-wrap:break-word}.desc{font-size:12.8px;color:var(--muted);margin-top:3px;overflow-wrap:break-word}.price{font-weight:950;color:var(--accent);margin-top:4px}.step{display:flex;align-items:center;gap:8px}.step button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:var(--cream);color:var(--accent);font-size:20px;font-weight:950;cursor:pointer}.step .add{background:var(--accent);border-color:var(--accent);color:#fff}.qty{font-weight:950;min-width:18px;text-align:center}
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:7px 13px}.choice{display:block;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:12px;text-align:center;font-size:13.5px;font-weight:850;color:var(--muted);cursor:pointer;min-width:0;overflow-wrap:anywhere}.choice input{display:none}.choice:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,#fff);color:var(--accent)}
+.field{margin:10px 0}.field label{display:block;margin:0 0 6px 2px;color:var(--muted);font-size:11.5px;font-weight:950;letter-spacing:.5px;text-transform:uppercase}.field input,.field textarea,.field select{width:100%;border:1.5px solid var(--line);border-radius:15px;background:#fff;padding:13px 14px;color:var(--ink);font-size:15px;outline:none}.field textarea{min-height:96px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 13%,transparent)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.proof{display:grid;gap:9px}.proof div{display:flex;gap:10px;font-size:13.6px;color:var(--ink)}.dot{width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--accent);flex:0 0 9px}.demo-note{font-size:12.7px;color:var(--muted);padding:0 16px 8px}.cartbar{position:fixed;width:100vw;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;background:#fff;border-top:1px solid var(--line);box-shadow:0 -9px 32px rgba(0,0,0,.12);padding:12px 14px calc(12px + env(safe-area-inset-bottom));z-index:50}.summary{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;padding:0 3px;font-size:13px;color:var(--muted)}.summary b{font-size:16px;color:var(--ink)}.wa{width:100%;border:0;border-radius:17px;padding:15px;background:var(--wa);color:#073d1d;font-size:16px;font-weight:950;box-shadow:0 8px 22px rgba(37,211,102,.34);cursor:pointer}.wa:disabled{background:#cbd1cc;color:#647069;box-shadow:none}.footer{padding:27px 18px 34px;text-align:center;color:var(--muted);font-size:13px}.footer a{display:inline-block;margin-top:11px;background:var(--accent);color:#fff;text-decoration:none;font-weight:950;padding:12px 16px;border-radius:14px}
+@media(min-width:760px){body{padding:30px 0 60px;overflow-x:auto}.wrap{width:100%;max-width:560px}.cartbar{width:100%;}.wrap{border-radius:32px;overflow:hidden;box-shadow:var(--shadow)}.cartbar{border-radius:22px 22px 0 0}.hero{padding:38px 30px 32px}h1{font-size:44px}.section{padding-left:22px;padding-right:22px}}
+
+:root{--accent:#c92d78;--accent2:#c64b35;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="ribbon">Página de demostración · No es cliente real · Ejemplo para citas</div>
+  <section class="hero">
+    <span class="kicker">Belleza / citas / fotos</span>
+    <h1>Studio Luna</h1>
+    <p>Servicios por cita con fotos, horarios preferidos y mensaje listo para reservar por WhatsApp.</p>
+    <div class="chips"><span class="chip">Citas</span><span class="chip">Fotos</span><span class="chip">WhatsApp directo</span></div>
+  </section>
+
+    <nav class="nav" aria-label="Demos">
+      <a class="" href="/demo/pedidos.html">Pedidos</a>
+      <a class="" href="/demo/servicios.html">Servicios</a>
+      <a class="active" href="/demo/citas.html">Citas</a>
+    </nav>
+  <div class="bar"><span><b>Ejemplo:</b> uñas / belleza</span><span><b>También:</b> fotos / maquillaje</span></div>
+  <div class="section"><div class="label">Escoge servicio</div><p class="lead">La persona manda lo necesario para confirmar disponibilidad.</p></div>
+  <div class="choices"><label class="choice"><input type="radio" name="service" value="Uñas" checked>Uñas</label><label class="choice"><input type="radio" name="service" value="Maquillaje">Maquillaje</label><label class="choice"><input type="radio" name="service" value="Fotos">Fotos</label><label class="choice"><input type="radio" name="service" value="Consulta">Consulta</label></div>
+  <div class="card"><div class="field"><label>Nombre</label><input id="name" placeholder="Tu nombre"></div><div class="grid2"><div class="field"><label>Día preferido</label><select id="day"><option>Entre semana</option><option>Sábado</option><option>Domingo</option><option>Cualquier día</option></select></div><div class="field"><label>Hora</label><select id="time"><option>Mañana</option><option>Tarde</option><option>Noche</option><option>Flexible</option></select></div></div><div class="field"><label>Notas</label><textarea id="notes" placeholder="Ejemplo: quiero algo sencillo, puedo mandar foto de referencia."></textarea></div></div>
+  <div class="card proof"><div><span class="dot"></span><span>La persona manda servicio, día y hora preferida en un solo mensaje.</span></div><div><span class="dot"></span><span>Tú confirmas disponibilidad directamente en WhatsApp.</span></div><div><span class="dot"></span><span>Sirve para citas, fotos, belleza, clases o consultas.</span></div></div>
+  <div class="cartbar"><div class="summary"><span>Demo de cita</span><b>WhatsApp</b></div><button class="wa" onclick="sendBooking()">Reservar por WhatsApp</button></div>
+  <div class="footer">¿Quieres una página así para tus citas?<br><a href="/contact/whatsapp?intent=localSite">Hablar con David</a></div>
+</div>
+<script>
+function val(id){return document.getElementById(id).value.trim();}
+function sendBooking(){const service=document.querySelector('input[name="service"]:checked').value;let lines=['Hola David, estoy probando el demo de citas. Así llegaría una solicitud de reserva:',''];lines.push('Servicio: '+service);lines.push('Nombre: '+(val('name')||' '));lines.push('Día preferido: '+document.getElementById('day').value);lines.push('Hora preferida: '+document.getElementById('time').value);lines.push('Notas: '+(val('notes')||' '));window.open(`/contact/whatsapp?text=${encodeURIComponent(lines.join('\\n'))}`,'_blank');}
+</script>
+
+</body>
+</html>

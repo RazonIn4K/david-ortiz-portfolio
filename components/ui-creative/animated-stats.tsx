@@ -23,7 +23,7 @@ export function AnimatedStats() {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40 }}
+      initial={false}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8 }}
       className="grid grid-cols-2 md:grid-cols-4 gap-6"
@@ -31,7 +31,7 @@ export function AnimatedStats() {
       {stats.map((stat, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={false}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: i * 0.1 }}
           className="relative group"
@@ -46,7 +46,7 @@ export function AnimatedStats() {
             <div className="text-xl md:text-2xl font-bold mb-2" style={{ color: stat.color }}>
               {stat.label}
             </div>
-            <p className="text-white/50 text-sm leading-relaxed">{stat.detail}</p>
+            <p className="text-white/75 text-sm leading-relaxed">{stat.detail}</p>
           </div>
         </motion.div>
       ))}

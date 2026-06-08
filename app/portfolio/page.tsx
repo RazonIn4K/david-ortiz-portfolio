@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 
 import { businessSiteUrl } from "@/lib/site-config";
+import { contact } from "@/data/content";
 
 export const metadata: Metadata = {
   title: "Portfolio | David Ortiz",
@@ -72,7 +73,7 @@ const referenceLinks = [
     icon: MapPin,
   },
   {
-    title: "High Encode work page",
+    title: "Services and work page",
     description:
       "A broader work page with supporting local-business examples and delivery context.",
     href: `${businessSiteUrl}/work`,
@@ -112,7 +113,7 @@ const liveProofUpdates = [
   {
     title: "Aligned reference links",
     description:
-      "This page, the High Encode work page, and the case note now point to the same current live example.",
+      "This page, the services page, and the case note now point to the same current live example.",
     icon: Quote,
   },
 ];
@@ -130,7 +131,7 @@ export default function PortfolioPage() {
             Back to home
           </Link>
           <a
-            href="mailto:hello@highencodelearning.com"
+            href={`mailto:${contact.email}`}
             className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#ff6b6b] to-[#ff8e8e] px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-[#ff6b6b]/10"
           >
             <Mail className="h-4 w-4" />
@@ -379,8 +380,8 @@ export default function PortfolioPage() {
                   Want something like this for your local business?
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/55">
-                  Use High Encode Learning for formal scoping, project
-                  questions, and local-business delivery.
+                  Use the services-facing contact flow for formal scoping,
+                  project questions, and local-business delivery.
                 </p>
               </div>
               <a
