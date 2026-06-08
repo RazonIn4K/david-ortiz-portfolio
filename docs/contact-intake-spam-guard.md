@@ -10,6 +10,7 @@ This is the recommended path for protecting David's public WhatsApp number while
 - The contact section now explains the screened-contact approach instead of presenting the raw contact number as an open public target.
 - The contact route now requires a strict challenge handshake (issued token + matching cookie), then applies scored abuse checks (user-agent checks, referrer presence, burst-rate window, and suspicious content patterns), sanitizes outbound message text, and returns a `403` blocked response with anti-bot headers when validation fails.
 - The challenge parser accepts both old-second and new-millisecond issued-at values so the route remains compatible with mixed client token formats.
+- Successful challenge validation is single-use: each generated challenge token is invalidated after one successful redirect to reduce replay by scrapers.
 
 ## Current behavior in code
 
@@ -22,6 +23,7 @@ This is the recommended path for protecting David's public WhatsApp number while
    - cookie exists and matches token,
    - challenge age is within the 10-minute window.
 5. If any check fails, the route responds with `403` and includes `X-Contact-Guard` reason metadata for diagnostics.
+6. On valid use, the route marks the token as consumed and clears the scoped challenge cookie.
 
 This does not make the number impossible to discover. It reduces passive scraping from static homepage HTML and gives us a server route where stronger checks can be added later.
 
