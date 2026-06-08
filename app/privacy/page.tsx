@@ -1,3 +1,4 @@
+import Link from "next/link"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -79,7 +80,7 @@ export default function PrivacyPage() {
       </p>
 
       <p>
-        <a href="/">&larr; Back to davidtiz.com</a>
+        <Link href="/">&larr; Back to davidtiz.com</Link>
       </p>
     </main>
   )
