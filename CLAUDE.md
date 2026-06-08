@@ -74,7 +74,7 @@ public/visuals/     # Hero/workbench images and SVGs
 - Theme is stored in `localStorage` under `davidtiz-theme` and also honors `?theme=` and `prefers-color-scheme`.
 
 ## Contact details
-- Centralized in `data/content.ts` → `contact` (whatsappNumber, phone, email, github) and `whatsappHref`.
+- Centralized in `data/content.ts` → `contact` (whatsappNumber, email, github) and `whatsappHref`.
 - These are public business details, NOT secrets. Never move them into `.env`.
 
 ## Constraints for future edits

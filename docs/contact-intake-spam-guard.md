@@ -1,13 +1,13 @@
 # Contact Intake Spam Guard
 
-This is the recommended path for protecting David's public phone number while keeping the site easy to contact.
+This is the recommended path for protecting David's public WhatsApp number while keeping the site easy to contact.
 
 ## What changed now
 
-- The homepage no longer shows a direct call/text phone button.
+- The homepage no longer shows a direct phone/text call button.
 - The homepage WhatsApp CTA now points to `/contact/whatsapp`, a local redirect route that adds the real `wa.me` number server-side.
 - The redirect route sends `X-Robots-Tag: noindex,nofollow` so it is not treated as a page to index.
-- The contact section now explains the screened-contact approach instead of presenting the phone number as an open public target.
+- The contact section now explains the screened-contact approach instead of presenting the raw contact number as an open public target.
 - The contact route now requires a strict challenge handshake (issued token + matching cookie), then applies scored abuse checks (user-agent checks, referrer presence, burst-rate window, and suspicious content patterns), sanitizes outbound message text, and returns a `403` blocked response with anti-bot headers when validation fails.
 - The challenge parser accepts both old-second and new-millisecond issued-at values so the route remains compatible with mixed client token formats.
 

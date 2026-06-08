@@ -22,7 +22,7 @@ doppler setup
 doppler run -- npm run dev
 ```
 
-Do not commit secrets. Public contact details (business phone, email) live in `data/content.ts`, not in env files.
+Do not commit secrets. Public contact details (WhatsApp number and email) live in `data/content.ts`, not in env files.
 
 ## Deployment
 
@@ -52,11 +52,11 @@ public/             # Images, visuals, legacy demos
 ## Notes
 
 - The homepage is a personal portfolio, not a router to other sites.
-- Contact is WhatsApp-first (see `data/content.ts` → `contact` / `whatsappHref`), with phone and email as backups.
+- Contact is WhatsApp-first (see `data/content.ts` → `contact` / `whatsappHref`), with email as the fallback backup.
 
 ## Contact protection
 
-This repo keeps the public phone number behind a one-step screened redirect:
+This repo keeps the public WhatsApp path behind a one-step screened redirect:
 
 - Public buttons point to `/contact/whatsapp`.
 - `/contact/whatsapp` adds `wa.me/<number>?text=...` server-side.
