@@ -187,13 +187,11 @@ export const chatConfig = {
 // Centralized contact details. A public business number/email is not a secret;
 // keep these here (not in .env) so links stay consistent across the site.
 export const contact = {
-  whatsappNumber: '17792124220', // country code + number, no symbols (for wa.me)
+  whatsappNumber: '17792124220', // country code + number, used by the screened WhatsApp redirect
   whatsappDisplay: '(779) 212-4220',
-  phone: '+17792124220', // for tel: links
+  phone: '+17792124220', // public business phone; prefer screened contact links in public UI
   email: 'hello@davidtiz.com',
   github: 'https://github.com/RazonIn4K',
 }
 
-export const whatsappHref = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(
-  'Hola David, vi tu portafolio',
-)}`
+export const whatsappHref = '/contact/whatsapp?intent=portfolio'

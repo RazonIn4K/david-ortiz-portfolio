@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { contact, whatsappHref } from "@/data/content"
@@ -9,11 +9,15 @@ import {
   ArrowUpRight,
   BookOpen,
   CheckCircle2,
+  ClipboardCheck,
+  Code2,
+  Compass,
+  FileText,
+  Github,
   Globe,
   Mail,
   MessageCircle,
   Moon,
-  Phone,
   ShieldCheck,
   Sparkles,
   Sun,
@@ -24,70 +28,119 @@ import {
 const navItems = [
   { label: "Start", href: "#start" },
   { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
+  { label: "Process", href: "#process" },
+  { label: "Stack", href: "#stack" },
   { label: "Notes", href: "#notes" },
   { label: "Contact", href: "#contact" },
 ]
 
-const selectedWork = [
+const proofSignals = [
+  "DeKalb, IL and remote",
+  "Screened contact path",
+  "English or Spanish",
+  "Built with Next.js on Vercel",
+]
+
+const workAreas = [
   {
-    label: "Local business websites",
-    title: "Local Business Websites",
-    body: "Static and Next.js sites for small businesses with clear service pages, quote/order forms, bilingual copy, DNS setup, and a clean deploy handoff. Stack: Next.js · Vercel · Netlify · Forms · Local SEO.",
+    label: "Web",
+    title: "Local Business Sites",
+    body: "Focused websites for small businesses: clear services, simple contact paths, bilingual-friendly copy, DNS/deploy setup, and handoff notes an owner can use.",
+    image: "/visuals/local-business-system.svg",
     icon: Globe,
+    tags: ["Next.js", "Forms", "Local SEO", "Handoff"],
   },
   {
-    label: "AI workflow",
-    title: "AI Workflow Orchestration",
-    body: "Using multiple AI tools intentionally: research, implementation, review, browser QA, and documentation as separate steps instead of one giant prompt. Stack: Claude Code · Codex · Grok · Perplexity · Obsidian.",
+    label: "Systems",
+    title: "AI-Assisted Workflows",
+    body: "Practical workflows that split research, implementation, review, QA, and documentation into visible steps instead of hiding everything inside one prompt.",
+    image: "/visuals/systems-routing.svg",
     icon: Workflow,
+    tags: ["Codex", "Claude", "Browser QA", "Runbooks"],
   },
   {
-    label: "Knowledge tools",
-    title: "RAG / Knowledge Tools",
-    body: "Prototypes for retrieval, cited answers, note search, and safer ways to ask questions over local knowledge bases. Stack: RAG · Search · Citations · Validation.",
+    label: "Knowledge",
+    title: "RAG and Notes Tools",
+    body: "Experiments around retrieval, cited answers, local notes, and the habit of checking the actual source before treating a generated answer as true.",
+    image: "/visuals/notes-map.svg",
     icon: BookOpen,
+    tags: ["RAG", "Search", "Citations", "Obsidian"],
   },
   {
-    label: "Automation & ops",
-    title: "Automation and Ops",
-    body: "Small automations for intake, follow-up, deployment, and project cleanup, built to stay understandable for the person who has to maintain them. Stack: n8n · APIs · Workflows · Documentation.",
+    label: "Ops",
+    title: "Automation and Cleanup",
+    body: "Small automations for intake, follow-up, project cleanup, and deployment checks, with the maintenance path documented before the work is considered done.",
+    image: "/visuals/project-board.svg",
     icon: Wrench,
+    tags: ["n8n", "APIs", "Scripts", "QA"],
   },
   {
-    label: "Prompt safety",
-    title: "Security Learning / Prompt Safety",
-    body: "Ongoing notes and experiments around AI guardrails, prompt injection, misuse resistance, and security boundaries. Stack: AI safety · Prompt injection · Guardrails · Testing.",
+    label: "Safety",
+    title: "Prompt Safety Learning",
+    body: "Ongoing study of AI guardrails, prompt injection, misuse boundaries, and the practical checks needed before an AI-powered workflow should be trusted.",
+    image: "/visuals/ai-guardrails.svg",
     icon: ShieldCheck,
+    tags: ["Guardrails", "Testing", "Scope", "Review"],
   },
 ]
 
-const operatingStyle = [
-  "Start with the real surface: the repo, the browser, the files, or the business process.",
-  "Separate facts, assumptions, and guesses instead of blending them together.",
-  "Use AI tools for specific jobs instead of asking every model the same question.",
-  "Prefer small, working systems over oversized plans.",
-  "Document decisions so the next pass is easier.",
+const processSteps = [
+  {
+    title: "Start With The Real Surface",
+    body: "I look at the repo, browser, files, deployment, or workflow first so the work starts from evidence instead of labels.",
+    icon: Compass,
+  },
+  {
+    title: "Map The Useful Version",
+    body: "I separate facts, assumptions, and open questions, then turn the mess into a small buildable scope.",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Build In Working Passes",
+    body: "I prefer a working first version, then tighten copy, layout, routes, contact paths, and edge cases from there.",
+    icon: Code2,
+  },
+  {
+    title: "Verify And Hand Off",
+    body: "I run the checks that matter, document what changed, and leave the next person with a clear continuation path.",
+    icon: FileText,
+  },
 ]
 
-const stack = [
-  "Frontend — Next.js, React, Tailwind, static sites",
-  "Deployment — Vercel, Netlify, DNS setup",
-  "Automation — n8n, APIs, scripts",
-  "AI workflow — Claude Code, Codex, Grok, Perplexity, Obsidian",
-  "Learning & security — RAG, prompt safety, validation, documentation",
+const stackGroups = [
+  {
+    title: "Frontend",
+    items: ["Next.js", "React", "Tailwind CSS", "Accessible UI"],
+  },
+  {
+    title: "Deployment",
+    items: ["Vercel", "Netlify", "DNS setup", "Production QA"],
+  },
+  {
+    title: "Automation",
+    items: ["n8n", "APIs", "Shell scripts", "Operational notes"],
+  },
+  {
+    title: "AI Workflow",
+    items: ["Codex", "Claude Code", "Grok", "Perplexity", "Obsidian"],
+  },
 ]
 
 const currentFocus = [
-  "Building cleaner local-business websites with quote/order flows and owner-friendly handoff.",
-  "Turning AI-assisted work into repeatable project systems.",
-  "Studying web infrastructure, security boundaries, and AI workflow reliability.",
-  "Writing down what worked, what failed, and what I would do differently.",
+  "Cleaner local-business websites with quote, order, or contact flows that do not feel overbuilt.",
+  "Repeatable AI-assisted delivery: research, implementation, review, browser QA, and a written handoff.",
+  "Security-aware AI workflow habits, especially prompt injection, tool boundaries, and validation.",
+  "Better notes that preserve what worked, what failed, and what should happen in the next session.",
 ]
 
-export default function HomePage() {
+const contactGuardrails = [
+  "Public links start with project context instead of a bare phone number.",
+  "A future WhatsApp/n8n screener can label spam, ask one clarifying question, and keep human approval on replies.",
+  "Direct calls should happen after context, not as the first public CTA bots can scrape.",
+]
+
+function useSiteTheme() {
   const [theme, setTheme] = useState<"light" | "dark">("light")
-  const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
     const requestedTheme = new URLSearchParams(window.location.search).get("theme")
@@ -116,6 +169,13 @@ export default function HomePage() {
     window.localStorage.setItem("davidtiz-theme", nextTheme)
   }
 
+  return { theme, updateTheme }
+}
+
+export default function HomePage() {
+  const { theme, updateTheme } = useSiteTheme()
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <div className={`dtz-site dtz-${theme}`}>
       <header className="dtz-header">
@@ -126,7 +186,7 @@ export default function HomePage() {
             </span>
             <span>
               <strong>David Ortiz</strong>
-              <small>personal portfolio</small>
+              <small>builder/operator portfolio</small>
             </span>
           </Link>
 
@@ -167,35 +227,42 @@ export default function HomePage() {
         </nav>
       </header>
 
-      <section id="start" className="dtz-hero" aria-labelledby="hero-title">
-        <motion.div className="dtz-hero-copy" initial={false}>
+      <section id="start" className="dtz-hero dtz-overhaul-hero" aria-labelledby="hero-title">
+        <motion.div
+          className="dtz-hero-copy"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
           <p className="dtz-kicker">
             <Sparkles aria-hidden="true" />
-            Personal portfolio · Builds · Notes · Experiments
+            Practical websites, automation, and AI workflow notes
           </p>
-          <h1 id="hero-title">I build practical web systems and AI-assisted workflows.</h1>
+          <h1 id="hero-title">I turn messy ideas into working web systems.</h1>
           <p className="dtz-lede">
-            I&apos;m David Ortiz. I use code, automation, and structured notes to turn messy ideas into working
-            websites, tools, and repeatable systems.
+            I&apos;m David Ortiz. I build practical sites, workflow prototypes, and clear handoff notes for projects
+            where the real value is getting the system working and understandable.
           </p>
+
           <div className="dtz-hero-actions" aria-label="Primary actions">
             <a className="dtz-button primary" href="#work">
               See selected work
               <ArrowUpRight aria-hidden="true" />
             </a>
-            <a
-              className="dtz-button secondary"
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a className="dtz-button secondary" href={whatsappHref} target="_blank" rel="noreferrer">
               Message me on WhatsApp
               <MessageCircle aria-hidden="true" />
             </a>
           </div>
         </motion.div>
 
-        <motion.div className="dtz-hero-visual" aria-label="Visual portfolio workbench" initial={false}>
+        <motion.div
+          className="dtz-hero-visual dtz-overhaul-visual"
+          aria-label="Visual portfolio workbench"
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+        >
           <div className="dtz-workbench-frame">
             <Image
               src="/visuals/generated-workbench.webp"
@@ -206,137 +273,215 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="dtz-logo-tile">
-            <Image src="/logo-v1.png" alt="David Ortiz circuit logo mark." width={1024} height={1024} />
-            <div>
-              <span>Mark</span>
-              <strong>DO / systems</strong>
-            </div>
+          <div className="dtz-hero-note">
+            <span>How this page should read</span>
+            <strong>Personal, useful, and specific.</strong>
+            <p>No inflated claims. No agency wrapper. Just what I build, how I work, and how to reach me.</p>
           </div>
 
-          <div className="dtz-stack-card">
-            <span>What I build</span>
+          <div className="dtz-stack-card dtz-hero-stack">
+            <span>Current lanes</span>
             <div>
-              <strong>Websites</strong>
-              <small>local business</small>
-            </div>
-            <div>
-              <strong>Automation</strong>
-              <small>n8n, APIs</small>
+              <strong>Local sites</strong>
+              <small>forms, copy, deploys</small>
             </div>
             <div>
               <strong>AI workflow</strong>
-              <small>Claude, Codex</small>
+              <small>research to QA</small>
             </div>
             <div>
-              <strong>Notes</strong>
-              <small>learning log</small>
+              <strong>Automation</strong>
+              <small>small, documented systems</small>
             </div>
           </div>
         </motion.div>
       </section>
 
+      <section className="dtz-band dtz-summary-band" aria-labelledby="summary-title">
+        <div>
+          <p className="dtz-section-label">Quick read</p>
+          <h2 id="summary-title">A portfolio for the work I actually do.</h2>
+        </div>
+        <div className="dtz-summary-copy">
+          <p>
+            This site is the front door for selected builds, current learning, and practical collaboration. Outside
+            projects can show up as examples, but the organizing idea is simple: David Ortiz, the work, and a direct
+            path to contact.
+          </p>
+          <ul className="dtz-signal-list" aria-label="Portfolio signals">
+            {proofSignals.map((signal) => (
+              <li key={signal}>
+                <CheckCircle2 aria-hidden="true" />
+                {signal}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section id="work" className="dtz-section" aria-labelledby="work-title">
         <div className="dtz-section-heading">
           <p className="dtz-section-label">Selected work</p>
-          <h2 id="work-title">What I build, and how I think about it.</h2>
-          <p>A few areas I keep working in, shown as categories of real builds and experiments.</p>
+          <h2 id="work-title">Five lanes I keep returning to.</h2>
+          <p>
+            These are portfolio categories, not inflated case studies. Each one points to the kind of systems I can
+            build, test, and explain clearly.
+          </p>
         </div>
 
-        <div className="dtz-proof-grid">
-          {selectedWork.map((item, index) => {
+        <div className="dtz-work-grid">
+          {workAreas.map((item, index) => {
             const Icon = item.icon
 
             return (
               <motion.article
-                className="dtz-proof"
+                className="dtz-work-card"
                 key={item.title}
                 initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
                 whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.05 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.04 }}
               >
-                <span>{item.label}</span>
-                <Icon aria-hidden="true" />
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
+                <div className="dtz-work-media">
+                  <Image src={item.image} alt="" width={900} height={640} />
+                </div>
+                <div className="dtz-work-copy">
+                  <div className="dtz-work-label">
+                    <span>{item.label}</span>
+                    <Icon aria-hidden="true" />
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                  <ul className="dtz-tag-list" aria-label={`${item.title} tools and themes`}>
+                    {item.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                </div>
               </motion.article>
             )
           })}
         </div>
       </section>
 
-      <section id="about" className="dtz-section" aria-labelledby="about-title">
+      <section id="process" className="dtz-section" aria-labelledby="process-title">
         <div className="dtz-section-heading">
-          <p className="dtz-section-label">How I work</p>
-          <h2 id="about-title">I care about the handoff as much as the build.</h2>
+          <p className="dtz-section-label">Process</p>
+          <h2 id="process-title">How I keep projects grounded.</h2>
+          <p>
+            The common thread is verification. I would rather inspect the actual surface and make a smaller honest
+            improvement than write a big plan that never reaches the browser.
+          </p>
         </div>
 
-        <ul className="dtz-check-list">
-          {operatingStyle.map((line) => (
-            <li key={line}>
-              <CheckCircle2 aria-hidden="true" />
-              <span>{line}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="dtz-process-grid">
+          {processSteps.map((step, index) => {
+            const Icon = step.icon
+
+            return (
+              <article className="dtz-process-card" key={step.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <Icon aria-hidden="true" />
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </article>
+            )
+          })}
+        </div>
       </section>
 
-      <section className="dtz-section" aria-labelledby="stack-title">
+      <section id="stack" className="dtz-section dtz-stack-section" aria-labelledby="stack-title">
         <div className="dtz-section-heading">
           <p className="dtz-section-label">Stack</p>
-          <h2 id="stack-title">The tools I reach for.</h2>
+          <h2 id="stack-title">Tools I reach for when the job fits.</h2>
+          <p>
+            The stack changes by project, but the goal stays the same: ship something understandable, verify it, and
+            leave the maintenance path visible.
+          </p>
         </div>
 
-        <ul className="dtz-check-list">
-          {stack.map((line) => (
-            <li key={line}>
-              <Wrench aria-hidden="true" />
-              <span>{line}</span>
-            </li>
+        <div className="dtz-stack-grid">
+          {stackGroups.map((group) => (
+            <article className="dtz-stack-group" key={group.title}>
+              <h3>{group.title}</h3>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
           ))}
-        </ul>
-      </section>
-
-      <section id="notes" className="dtz-section" aria-labelledby="notes-title">
-        <div className="dtz-section-heading">
-          <p className="dtz-section-label">Current focus</p>
-          <h2 id="notes-title">What I&apos;m paying attention to right now.</h2>
-          <p>Fewer claims, more useful notes. This is what I&apos;m actively working on and learning.</p>
         </div>
-
-        <ul className="dtz-check-list">
-          {currentFocus.map((line) => (
-            <li key={line}>
-              <CheckCircle2 aria-hidden="true" />
-              <span>{line}</span>
-            </li>
-          ))}
-        </ul>
       </section>
 
-      <section id="contact" className="dtz-contact" aria-labelledby="contact-title">
+      <section id="notes" className="dtz-section dtz-notes-section" aria-labelledby="notes-title">
+        <div className="dtz-notes-layout">
+          <div>
+            <p className="dtz-section-label">Current focus</p>
+            <h2 id="notes-title">What I&apos;m paying attention to right now.</h2>
+            <p>
+              This is the living part of the portfolio: fewer broad claims, more notes about what is being built,
+              tested, and tightened.
+            </p>
+          </div>
+
+          <div className="dtz-notes-panel">
+            <Image src="/visuals/generated-lanes.webp" alt="" width={1774} height={887} />
+            <ul className="dtz-check-list">
+              {currentFocus.map((line) => (
+                <li key={line}>
+                  <CheckCircle2 aria-hidden="true" />
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="dtz-contact dtz-overhaul-contact" aria-labelledby="contact-title">
         <div>
           <p className="dtz-section-label">Contact</p>
           <h2 id="contact-title">Send the rough version.</h2>
           <p>
-            If you have a project, question, or messy idea, send the plain version. I care more about understanding the
-            real problem than making it sound polished too early.
+            You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
+            and what would make the next step useful. I keep the public contact path screened so the phone number is not
+            treated like an open spam target.
           </p>
         </div>
+
         <div className="dtz-contact-panel">
+          <div className="dtz-contact-card">
+            <span>Best first message</span>
+            <p>What are you trying to build or fix, and what is the current state?</p>
+          </div>
+          <div className="dtz-contact-card dtz-contact-guard">
+            <span>Phone spam guard</span>
+            <ul>
+              {contactGuardrails.map((item) => (
+                <li key={item}>
+                  <ShieldCheck aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div className="dtz-contact-actions">
             <a className="dtz-button primary" href={whatsappHref} target="_blank" rel="noreferrer">
               Message me on WhatsApp
               <MessageCircle aria-hidden="true" />
             </a>
-            <a className="dtz-button secondary" href={`tel:${contact.phone}`}>
-              Call or text {contact.whatsappDisplay}
-              <Phone aria-hidden="true" />
+            <a className="dtz-button secondary" href="/contact/whatsapp?intent=callback" target="_blank" rel="noreferrer">
+              Request a call-back
+              <MessageCircle aria-hidden="true" />
             </a>
             <a className="dtz-button secondary" href={`mailto:${contact.email}`}>
               {contact.email}
               <Mail aria-hidden="true" />
+            </a>
+            <a className="dtz-button secondary" href={contact.github} target="_blank" rel="noreferrer">
+              GitHub
+              <Github aria-hidden="true" />
             </a>
           </div>
         </div>

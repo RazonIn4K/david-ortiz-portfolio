@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demo de pedidos por WhatsApp - Sabores de DeKalb</title>
+<title>Demo de citas por WhatsApp - Studio Luna</title>
 <style>
 
 :root{
@@ -68,57 +68,36 @@ h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(28px,8.2vw,42px);
 .field{margin:10px 0}.field label{display:block;margin:0 0 6px 2px;color:var(--muted);font-size:11.5px;font-weight:950;letter-spacing:.5px;text-transform:uppercase}.field input,.field textarea,.field select{width:100%;border:1.5px solid var(--line);border-radius:15px;background:#fff;padding:13px 14px;color:var(--ink);font-size:15px;outline:none}.field textarea{min-height:96px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 13%,transparent)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.proof{display:grid;gap:9px}.proof div{display:flex;gap:10px;font-size:13.6px;color:var(--ink)}.dot{width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--accent);flex:0 0 9px}.demo-note{font-size:12.7px;color:var(--muted);padding:0 16px 8px}.cartbar{position:fixed;width:100vw;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;background:#fff;border-top:1px solid var(--line);box-shadow:0 -9px 32px rgba(0,0,0,.12);padding:12px 14px calc(12px + env(safe-area-inset-bottom));z-index:50}.summary{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;padding:0 3px;font-size:13px;color:var(--muted)}.summary b{font-size:16px;color:var(--ink)}.wa{width:100%;border:0;border-radius:17px;padding:15px;background:var(--wa);color:#073d1d;font-size:16px;font-weight:950;box-shadow:0 8px 22px rgba(37,211,102,.34);cursor:pointer}.wa:disabled{background:#cbd1cc;color:#647069;box-shadow:none}.footer{padding:27px 18px 34px;text-align:center;color:var(--muted);font-size:13px}.footer a{display:inline-block;margin-top:11px;background:var(--accent);color:#fff;text-decoration:none;font-weight:950;padding:12px 16px;border-radius:14px}
 @media(min-width:760px){body{padding:30px 0 60px;overflow-x:auto}.wrap{width:100%;max-width:560px}.cartbar{width:100%;}.wrap{border-radius:32px;overflow:hidden;box-shadow:var(--shadow)}.cartbar{border-radius:22px 22px 0 0}.hero{padding:38px 30px 32px}h1{font-size:44px}.section{padding-left:22px;padding-right:22px}}
 
-:root{--accent:#c64b35;--accent2:#e27b63;}
+:root{--accent:#c92d78;--accent2:#c64b35;}
 </style>
 </head>
 <body>
 
 <div class="wrap">
-  <div class="ribbon">Página de demostración · No es cliente real · Así se vería un negocio</div>
+  <div class="ribbon">Página de demostración · No es cliente real · Ejemplo para citas</div>
   <section class="hero">
-    <span class="kicker">Comida / productos</span>
-    <h1>Sabores de DeKalb</h1>
-    <p>Tamales, antojitos y aguas frescas por encargo. La persona escoge productos y el pedido llega directo a WhatsApp.</p>
-    <div class="chips"><span class="chip">Entrega local</span><span class="chip">Por encargo</span><span class="chip">Pedido por WhatsApp</span></div>
+    <span class="kicker">Belleza / citas / fotos</span>
+    <h1>Studio Luna</h1>
+    <p>Servicios por cita con fotos, horarios preferidos y mensaje listo para reservar por WhatsApp.</p>
+    <div class="chips"><span class="chip">Citas</span><span class="chip">Fotos</span><span class="chip">WhatsApp directo</span></div>
   </section>
 
     <nav class="nav" aria-label="Demos">
-      <a class="active" href="/demo/pedidos.html">Pedidos</a>
+      <a class="" href="/demo/pedidos.html">Pedidos</a>
       <a class="" href="/demo/servicios.html">Servicios</a>
-      <a class="" href="/demo/citas.html">Citas</a>
+      <a class="active" href="/demo/citas.html">Citas</a>
     </nav>
-  <div class="bar"><span><b>Pedidos:</b> mar-dom</span><span><b>Listos:</b> mismo día</span><span><b>Pago:</b> efectivo / Zelle / Cash App</span></div>
-  <div class="section"><div class="label">¿Cómo lo quieres?</div></div>
-  <div class="choices"><label class="choice"><input type="radio" name="otype" value="Recoger" checked>Recoger</label><label class="choice"><input type="radio" name="otype" value="Entrega local">Entrega local</label></div>
-  <div class="section"><div class="label">Menú de ejemplo</div><p class="lead">Toca + para armar un pedido de muestra.</p></div>
-  <div id="menu">
-    <div class="item"><div class="thumb">T</div><div class="meta"><h3>Tamales de puerco en salsa roja</h3><div class="desc">Docena - salsa casera</div><div class="price">$18.00</div></div><div class="step"><button onclick="bump('t1',-1)" aria-label="menos">-</button><span class="qty" id="q-t1">0</span><button class="add" onclick="bump('t1',1)" aria-label="mas">+</button></div></div>
-    <div class="item"><div class="thumb">P</div><div class="meta"><h3>Tamales de pollo en salsa verde</h3><div class="desc">Docena - pollo deshebrado</div><div class="price">$18.00</div></div><div class="step"><button onclick="bump('t2',-1)" aria-label="menos">-</button><span class="qty" id="q-t2">0</span><button class="add" onclick="bump('t2',1)" aria-label="mas">+</button></div></div>
-    <div class="item"><div class="thumb">R</div><div class="meta"><h3>Rajas con queso</h3><div class="desc">Docena - vegetariano</div><div class="price">$17.00</div></div><div class="step"><button onclick="bump('t3',-1)" aria-label="menos">-</button><span class="qty" id="q-t3">0</span><button class="add" onclick="bump('t3',1)" aria-label="mas">+</button></div></div>
-    <div class="item"><div class="thumb">H</div><div class="meta"><h3>Agua fresca de horchata</h3><div class="desc">Galón - canela y vainilla</div><div class="price">$12.00</div></div><div class="step"><button onclick="bump('a1',-1)" aria-label="menos">-</button><span class="qty" id="q-a1">0</span><button class="add" onclick="bump('a1',1)" aria-label="mas">+</button></div></div>
-    <div class="item"><div class="thumb">J</div><div class="meta"><h3>Agua fresca de jamaica</h3><div class="desc">Galón - natural</div><div class="price">$12.00</div></div><div class="step"><button onclick="bump('a2',-1)" aria-label="menos">-</button><span class="qty" id="q-a2">0</span><button class="add" onclick="bump('a2',1)" aria-label="mas">+</button></div></div>
-    <div class="item"><div class="thumb">P</div><div class="meta"><h3>Pan dulce surtido</h3><div class="desc">6 piezas - conchas y orejas</div><div class="price">$9.00</div></div><div class="step"><button onclick="bump('p1',-1)" aria-label="menos">-</button><span class="qty" id="q-p1">0</span><button class="add" onclick="bump('p1',1)" aria-label="mas">+</button></div></div>
-  </div>
-  <div class="card proof"><div><span class="dot"></span><span>El cliente no tiene que escribir todo manualmente.</span></div><div><span class="dot"></span><span>El mensaje llega con productos, total y tipo de entrega.</span></div><div><span class="dot"></span><span>También sirve para postres, snacks, bebidas o productos por encargo.</span></div></div>
-  <div class="cartbar"><div class="summary"><span id="count">0 artículos</span><b id="total">$0.00</b></div><button class="wa" id="order" disabled onclick="sendOrder()">Ordenar por WhatsApp <span id="hint">(agrega algo)</span></button></div>
-  <div class="footer">Esta es una página de demostración creada como ejemplo.<br>¿Quieres una así para tu negocio?<br><a href="/contact/whatsapp?intent=localSite">Quiero una página así</a></div>
+  <div class="bar"><span><b>Ejemplo:</b> uñas / belleza</span><span><b>También:</b> fotos / maquillaje</span></div>
+  <div class="section"><div class="label">Escoge servicio</div><p class="lead">La persona manda lo necesario para confirmar disponibilidad.</p></div>
+  <div class="choices"><label class="choice"><input type="radio" name="service" value="Uñas" checked>Uñas</label><label class="choice"><input type="radio" name="service" value="Maquillaje">Maquillaje</label><label class="choice"><input type="radio" name="service" value="Fotos">Fotos</label><label class="choice"><input type="radio" name="service" value="Consulta">Consulta</label></div>
+  <div class="card"><div class="field"><label>Nombre</label><input id="name" placeholder="Tu nombre"></div><div class="grid2"><div class="field"><label>Día preferido</label><select id="day"><option>Entre semana</option><option>Sábado</option><option>Domingo</option><option>Cualquier día</option></select></div><div class="field"><label>Hora</label><select id="time"><option>Mañana</option><option>Tarde</option><option>Noche</option><option>Flexible</option></select></div></div><div class="field"><label>Notas</label><textarea id="notes" placeholder="Ejemplo: quiero algo sencillo, puedo mandar foto de referencia."></textarea></div></div>
+  <div class="card proof"><div><span class="dot"></span><span>La persona manda servicio, día y hora preferida en un solo mensaje.</span></div><div><span class="dot"></span><span>Tú confirmas disponibilidad directamente en WhatsApp.</span></div><div><span class="dot"></span><span>Sirve para citas, fotos, belleza, clases o consultas.</span></div></div>
+  <div class="cartbar"><div class="summary"><span>Demo de cita</span><b>WhatsApp</b></div><button class="wa" onclick="sendBooking()">Reservar por WhatsApp</button></div>
+  <div class="footer">¿Quieres una página así para tus citas?<br><a href="/contact/whatsapp?intent=localSite">Hablar con David</a></div>
 </div>
 <script>
-const BUSINESS='Sabores de DeKalb';
-const menu=[
-  {id:'t1',name:'Tamales de puerco en salsa roja',desc:'Docena - salsa casera',price:18,emoji:'T'},
-  {id:'t2',name:'Tamales de pollo en salsa verde',desc:'Docena - pollo deshebrado',price:18,emoji:'P'},
-  {id:'t3',name:'Rajas con queso',desc:'Docena - vegetariano',price:17,emoji:'R'},
-  {id:'a1',name:'Agua fresca de horchata',desc:'Galón - canela y vainilla',price:12,emoji:'H'},
-  {id:'a2',name:'Agua fresca de jamaica',desc:'Galón - natural',price:12,emoji:'J'},
-  {id:'p1',name:'Pan dulce surtido',desc:'6 piezas - conchas y orejas',price:9,emoji:'P'}
-];
-const qty={}; menu.forEach(m=>qty[m.id]=0);
-function bump(id,d){qty[id]=Math.max(0,qty[id]+d);document.getElementById('q-'+id).textContent=qty[id];render();}
-function totals(){let count=0,total=0;menu.forEach(m=>{count+=qty[m.id];total+=qty[m.id]*m.price;});return {count,total};}
-function render(){const {count,total}=totals();document.getElementById('count').textContent=count+(count===1?' artículo':' artículos');document.getElementById('total').textContent='$'+total.toFixed(2);document.getElementById('order').disabled=count===0;document.getElementById('hint').textContent=count===0?'(agrega algo)':'('+count+' art.)';}
-function sendOrder(){const {count,total}=totals();if(!count)return;const otype=document.querySelector('input[name="otype"]:checked').value;let lines=[`Hola David, estoy probando el demo de pedidos. Así llegaría un pedido para ${BUSINESS}:`,''];menu.forEach(m=>{if(qty[m.id]>0)lines.push(`- ${qty[m.id]}x ${m.name} - $${(qty[m.id]*m.price).toFixed(2)}`);});lines.push('',`Total: $${total.toFixed(2)}`,`Tipo: ${otype}`,'','Mi nombre:','Hora que lo necesito:');window.open(`/contact/whatsapp?text=${encodeURIComponent(lines.join('\\n'))}`,'_blank');}
-render();
+function val(id){return document.getElementById(id).value.trim();}
+function sendBooking(){const service=document.querySelector('input[name="service"]:checked').value;let lines=['Hola David, estoy probando el demo de citas. Así llegaría una solicitud de reserva:',''];lines.push('Servicio: '+service);lines.push('Nombre: '+(val('name')||' '));lines.push('Día preferido: '+document.getElementById('day').value);lines.push('Hora preferida: '+document.getElementById('time').value);lines.push('Notas: '+(val('notes')||' '));window.open(`/contact/whatsapp?text=${encodeURIComponent(lines.join('\\n'))}`,'_blank');}
 </script>
 
 </body>

@@ -1,0 +1,54 @@
+# Contact Intake Spam Guard
+
+This is the recommended path for protecting David's public phone number while keeping the site easy to contact.
+
+## What changed now
+
+- The homepage no longer shows a direct call/text phone button.
+- The homepage WhatsApp CTA now points to `/contact/whatsapp`, a local redirect route that adds the real `wa.me` number server-side.
+- The redirect route sends `X-Robots-Tag: noindex,nofollow` so it is not treated as a page to index.
+- The contact section now explains the screened-contact approach instead of presenting the phone number as an open public target.
+
+This does not make the number impossible to discover. It reduces passive scraping from static homepage HTML and gives us a server route where stronger checks can be added later.
+
+## Recommended bot path
+
+Use a screened WhatsApp intake bot, not a fully autonomous sales bot.
+
+1. Keep WhatsApp as the first public contact path.
+2. Require a structured first message with project context.
+3. Receive incoming WhatsApp Business Platform webhooks through the existing signed route at `/api/whatsapp/webhook`.
+4. Forward verified events to n8n.
+5. In n8n, label the lead as `real`, `needs-info`, `spam`, or `blocked`.
+6. Let the bot ask at most one clarifying question for missing context.
+7. Keep all final replies, quotes, payment links, and commitments human-approved.
+
+## Suggested filters
+
+- Block empty, one-word, repeated, or link-heavy messages.
+- Soft-score messages that mention crypto, unsolicited SEO, loans, adult content, or mass outreach.
+- Prioritize messages that include a business name, project type, current link, budget range, or preferred language.
+- Add a cooldown per sender before sending any automated reply.
+- Keep a manual blocklist and allowlist.
+- Store only the minimum useful lead data and keep deletion handling aligned with the privacy page.
+
+## Better than a public phone button
+
+For spam control, the best order is:
+
+1. WhatsApp CTA with a prefilled project-context message.
+2. Email as a backup.
+3. Call-back request after context is provided.
+4. Direct phone number only in trusted follow-up, not as the first visible CTA.
+
+## Implementation notes
+
+- The repo already verifies Meta webhook signatures with `x-hub-signature-256`.
+- Do not add a homepage AI chat widget as the spam filter unless `/api/chat` has rate limiting and abuse controls.
+- If calls become a real spam problem, use a separate business line or forwarding number so the personal number is not the public surface.
+- Do not auto-send payment links or project commitments from the bot.
+
+## References
+
+- Meta WhatsApp Cloud API docs: https://developers.facebook.com/docs/whatsapp/cloud-api/
+- Meta/WhatsApp Node SDK webhook signature note: https://whatsapp.github.io/WhatsApp-Nodejs-SDK/api-reference/types/webhookCallbackFunction/
