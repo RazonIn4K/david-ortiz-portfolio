@@ -62,8 +62,10 @@ function parseChallengeValue(value: string | null) {
 
   const issuedAt = Number.parseInt(issuedAtRaw, 10)
   if (!Number.isFinite(issuedAt) || issuedAt <= 0) return null
+  const issuedAtMs =
+    issuedAtRaw.length >= 13 ? issuedAt : issuedAt * 1000
 
-  return { token, issuedAt: issuedAt * 1000 }
+  return { token, issuedAt: issuedAtMs }
 }
 
 function validateContactChallenge(request: NextRequest): ChallengeValidation {
