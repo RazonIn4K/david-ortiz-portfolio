@@ -7,6 +7,9 @@ export type ContactLink = {
 
 export const socialProfileLinks = [
   "https://github.com/RazonIn4K",
+  "https://www.youtube.com/@razonlab",
+  "https://www.twitch.tv/razonlab",
+  "https://x.com/Razonapp",
   "https://www.linkedin.com/in/david-ortiz-210190205/",
   "https://www.facebook.com/profile.php?id=61581646236939",
   "https://www.instagram.com/ra.z.on",
@@ -61,6 +64,24 @@ export const hireMeLinks: ContactLink[] = [
 ]
 
 export const followWorkLinks: ContactLink[] = [
+  {
+    id: "youtube",
+    label: "YouTube — Razon Live Lab",
+    href: "https://www.youtube.com/@razonlab",
+    description: "AI security explainers, live build VODs, and stream highlights from the lab.",
+  },
+  {
+    id: "twitch",
+    label: "Twitch",
+    href: "https://www.twitch.tv/razonlab",
+    description: "Live deep-work blocks and sanitized build sessions, in real time.",
+  },
+  {
+    id: "x",
+    label: "X",
+    href: "https://x.com/Razonapp",
+    description: "Clips, AI security takes, and go-live announcements.",
+  },
   {
     id: "github",
     label: "GitHub",
