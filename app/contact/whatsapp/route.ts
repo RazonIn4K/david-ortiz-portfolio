@@ -30,6 +30,10 @@ const suspiciousTextPatterns = [
 const repeatedWordPattern = /\b([A-Za-zÀ-ÿ']{2,})\b(?:\s+\1){2,}/i
 
 const contactChallengeCookieName = "dzt-contact-challenge"
+// Must match the Path used by ProtectedWhatsAppLink when it SETS the cookie
+// (components/contact/protected-whatsapp-link.tsx) so the Max-Age=0 clear below
+// actually targets the same cookie. A mismatch silently fails to clear it.
+const CONTACT_PATH = "/contact/whatsapp"
 const contactChallengeWindowMs = 10 * 60_000
 const rateBuckets = new Map<string, number[]>()
 const bucketWindowMs = 60_000
