@@ -51,6 +51,7 @@ const workAreas = [
     image: "/visuals/local-business-system.svg",
     icon: Globe,
     tags: ["Next.js", "Forms", "Local SEO", "Handoff"],
+    cta: { label: "See live demos (pedidos, citas, servicios)", href: "/demo" },
   },
   {
     label: "Systems",
@@ -364,6 +365,12 @@ export default function HomePage() {
                       <li key={tag}>{tag}</li>
                     ))}
                   </ul>
+                  {"cta" in item && item.cta ? (
+                    <a className="dtz-card-link" href={item.cta.href}>
+                      {item.cta.label}
+                      <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  ) : null}
                 </div>
               </motion.article>
             )
