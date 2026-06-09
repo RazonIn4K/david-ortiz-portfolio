@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   }
 
   const code = payload.loginResponse?.authResponse?.code
-  const codeReceived = typeof code === "string"
+  const codeReceived = typeof code === "string" && code.trim().length > 0
   const extracted = extractEmbeddedSignupIds(payload.sessionInfo)
 
   console.info("WhatsApp coexistence embedded signup callback recorded", {
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
   } else if (!codeReceived) {
     tokenExchange = { attempted: false, reason: "No authorization code in the callback payload." }
   } else {
-    const result = await exchangeCoexistenceCode(code)
+    const result = await exchangeCoexistenceCode(code.trim())
 
     if (result.ok) {
       console.info("WhatsApp coexistence token exchange succeeded", {
@@ -125,7 +125,7 @@ export async function GET(request: NextRequest) {
   }
 
   console.info("WhatsApp coexistence embedded signup GET callback recorded", {
-    codeReceived: typeof code === "string" && code.length > 0,
+    codeReceived: typeof code === "string" && code.trim().length > 0,
   })
 
   return renderCallbackPage("Authorization code received", [
