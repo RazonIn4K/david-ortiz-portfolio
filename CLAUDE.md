@@ -43,11 +43,11 @@ app/
   design-system/    # Design system showcase page (separate from homepage)
   api/chat/route.ts # AI chat endpoint (NOT used by the homepage)
 components/
-  design-system/    # Reusable site-aware components
-  ui-creative/
-    ai-assistant.tsx # Floating assistant — NOT imported by the homepage anymore
+  contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact + /pay)
+  icons/            # brand-icons (used by homepage + /contact)
+  design-system/    # ds-* components — reachable ONLY via the /design-system showcase route
 data/content.ts     # Shared content + centralized contact (`contact`, `whatsappHref`)
-lib/                # Utilities and design tokens
+lib/                # Utilities, site config, design tokens
 public/visuals/     # Hero/workbench images and SVGs
 ```
 
