@@ -1,43 +1,49 @@
 # FOSSA Remediation Notes
 
-Latest reviewed PR commit: `458d829`
+Latest reviewed PR commit: `11c6fa2`
 
 ## Current Status
 
 - Vercel preview: passing
 - FOSSA Security Analysis: passing
-- FOSSA Dependency Quality: active (major-version refresh for Next remains outstanding)
-- FOSSA License Compliance: active (scan-level ignore entries now tracked in `.fossa.yml`)
+- FOSSA Dependency Quality: active (manual review remains for `next` major-version drift)
+- FOSSA License Compliance: active (non-blocking licenses are documented and tracked in `.fossa.yml`)
 
-The previous branch-level pass reduced the public FOSSA scan from `60` issues and `553` dependencies on `main` to `28` issues and `433` dependencies on the prior branch scan.
+## Known Scanner State
 
-Latest scan snapshot includes two new high-signal findings:
+- `next@16.2.7` shows artifact license matches:
+  - `CC-BY-SA-4.0` (`next/dist/compiled/glob/LICENSE`)
+  - `MPL-2.0` (`next/dist/compiled/@vercel/og/package.json`)
+- `brace-expansion` appears as transitive at `2.1.1` via transitive `@typescript-eslint`/`eslint` chains.
+- FOSSA policy still flags `next` as older than current upstream.
 
-- `next@16.2.7` flagged with `CC-BY-SA-4.0` from `next/dist/compiled/glob/LICENSE`.
-- `next@16.2.7` flagged with `MPL-2.0` from `dist/compiled/@vercel/og/package.json`.
+These findings are tracked as non-blocking in `.fossa.yml` while we preserve stack stability.
 
-These are now documented and guarded in `.fossa.yml` so they do not block dependency work while we keep the current Next.js stack stable.
+## Recent Repo-Side Work
 
-## Repo-Side Work Completed
-
-- Added `.fossa.yml` with project-level license scan ignore rules for:
-  - `next@16.2.7` (`CC-BY-SA-4.0`, `MPL-2.0`) artifact findings.
-  - `@vercel/og@0.11.1` (`MPL-2.0`) artifact findings.
-- Updated `@types/node` to `^25.9.2` to remove the direct version-age warning (`22.19.20` -> `25.9.2`).
-- Kept `next` and ESLint stack versions stable to avoid framework/compile regressions.
-- Kept a short-lived phone contact hardening route as the first public contact path; no direct `tel:`/`wa.me` link exposure.
+- Added/kept `.fossa.yml` ignore entries for the Next.js internal license findings:
+  - `next@16.2.7` (`CC-BY-SA-4.0`, `MPL-2.0`)
+  - `@vercel/og@0.11.1` (`MPL-2.0`)
+- Upgraded `@types/node` to `^25.9.2` (the direct dependency age warning at `22.19.20` is no longer active).
+- Kept the phone-contact hardening path as the first public contact mechanism; no bare `tel:` or direct `wa.me` links are rendered on public pages.
 - Verified:
   - `npm run lint`
   - `npm run build`
 
-## Remaining Known Findings / Non-Blocking Items
+## Future Scan Controls
 
-- `@types/node` in direct dependency list is now current (resolved).
-- `brace-expansion` still appears at `2.1.1` through `@types`/ESLint transitive chains; a clean migration to a newer major requires a broader toolchain bump.
-- `next` direct dependency is still behind upstream major releases; no safe in-repo upgrade path identified without broad testing.
+- Before any dependency update PR, refresh the local dependency scan context and compare this file with the live FOSSA scan.
+- If a previously ignored issue disappears or changes locator/version, update `.fossa.yml` first and then verify the scan.
+- Treat any new dependency issue that is not covered by this document as blocking until reviewed.
+- A full dependency jump plan (including `next` and `eslint` stack refresh risk) is tracked in `docs/fossa-scan-playbook.md`.
 
 ## Relevant FOSSA References
 
-- Ignoring a Dependency: https://docs.fossa.com/docs/ignoring-a-dependency
-- Reviewing Licensing Issues: https://docs.fossa.com/docs/reviewing-licensing-issues
-- Ignoring Open Source Package Issues: https://docs.fossa.com/docs/ignoring-open-source-package-issues
+- [Ignoring a Dependency](https://docs.fossa.com/docs/ignoring-a-dependency)
+- [Reviewing Licensing Issues](https://docs.fossa.com/docs/reviewing-licensing-issues)
+- [Ignoring Open Source Package Issues](https://docs.fossa.com/docs/ignoring-open-source-package-issues)
+
+## Out-of-Date Item Check (Quick)
+
+- `next@16.2.7` is intentionally held stable until a broader framework upgrade is scheduled.
+- `brace-expansion@2.1.1` is transitive and currently accepted for this project’s current lint/toolchain matrix.

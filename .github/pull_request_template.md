@@ -36,7 +36,8 @@
 
 - [ ] `npm run lint`
 - [ ] `npm run build`
-- [ ] Manual smoke test on key pages (`/`, `/design-system`)
+- [ ] If dependency files changed: dependency and FOSSA scan checklist completed
+- [ ] Manual smoke test on key pages (`/`, `/contact`, `/portfolio`, `/pay`)
 
 ### Content & Links (if applicable)
 
@@ -48,7 +49,7 @@
 
 - [ ] Prompt/behavior updates tested end-to-end
 - [ ] Rate limiting still enforced
-- [ ] Env vars checked: `OPENROUTER_API_KEY`, `SITE_URL`, `OPENROUTER_PRIMARY_MODEL`
+- [ ] Env vars checked: `OPENROUTER_API_KEY`, `SITE_URL`, `OPENROUTER_MODELS` / `OPENROUTER_MODEL`
 
 ### Assets & Branding (if applicable)
 

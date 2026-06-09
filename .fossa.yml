@@ -23,6 +23,7 @@ ignore:
       includes MPL text. These are not runtime-modified distributables in this app.
       The app uses Next.js as a dependency and does not redistribute those assets
       as separate business logic.
+      If `next` is upgraded, verify and update this locator before merging.
 
   - type: license
     locator: npm+@vercel/og$0.11.1
