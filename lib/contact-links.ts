@@ -1,5 +1,3 @@
-import { businessSiteUrl } from "@/lib/site-config"
-
 export type ContactLink = {
   id: string
   label: string
@@ -45,13 +43,6 @@ export const quickReachLinks: ContactLink[] = [
     href: "https://www.instagram.com/ra.z.on",
     description: "Use this if Instagram DM is the easiest way to continue the conversation.",
   },
-  {
-    id: "business-inbox",
-    label: "Business inbox",
-    href: `${businessSiteUrl}/contact`,
-    description:
-      "Go straight to the business-facing contact flow on the services-facing layer.",
-  },
 ]
 
 export const hireMeLinks: ContactLink[] = [
@@ -67,12 +58,6 @@ export const hireMeLinks: ContactLink[] = [
     href: "https://www.fiverr.com/razonnet",
     description: "Use this if a productized package or smaller entry point makes more sense.",
   },
-  {
-    id: "high-encode",
-    label: "Services hub",
-    href: businessSiteUrl,
-    description: "Business-facing intake and scoped-service context.",
-  },
 ]
 
 export const followWorkLinks: ContactLink[] = [
@@ -87,18 +72,6 @@ export const followWorkLinks: ContactLink[] = [
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/david-ortiz-210190205/",
     description: "Professional profile, background, and another clean way to connect.",
-  },
-  {
-    id: "csbrainai",
-    label: "CSBrainAI",
-    href: "https://csbrainai.vercel.app",
-    description: "Retrieval and explanation experiments around technical knowledge delivery.",
-  },
-  {
-    id: "prompt-defenders",
-    label: "Prompt Defenders",
-    href: "https://prompt-defenders.vercel.app",
-    description: "Prompt-safety and AI security testing work.",
   },
 ]
 
@@ -119,10 +92,4 @@ export const footerPrimaryLinks: ContactLink[] = [
   hireMeLinks[1],
   followWorkLinks[0],
   followWorkLinks[1],
-]
-
-export const footerEcosystemLinks: ContactLink[] = [
-  hireMeLinks[2],
-  followWorkLinks[2],
-  followWorkLinks[3],
 ]
