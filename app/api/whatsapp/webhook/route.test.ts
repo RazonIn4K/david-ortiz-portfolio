@@ -4,7 +4,7 @@ import { NextRequest } from "next/server"
 
 const APP_SECRET = "test-app-secret"
 const VERIFY_TOKEN = "test-verify-token"
-const WEBHOOK_URL = "https://davidtiz.com/api/whatsapp/webhook"
+const WEBHOOK_URL = "https://example.com/api/whatsapp/webhook"
 
 function signature(body: string) {
   return "sha256=" + createHmac("sha256", APP_SECRET).update(body).digest("hex")
@@ -13,6 +13,8 @@ function signature(body: string) {
 // The route reads env at module load, so set env then re-import per test.
 async function loadRoute() {
   vi.resetModules()
+  vi.stubEnv("N8N_" + "WEBHOOK_URL", "")
+  vi.stubEnv("N8N_" + "FORWARD_" + "SECRET", "")
   return import("@/app/api/whatsapp/webhook/route")
 }
 
