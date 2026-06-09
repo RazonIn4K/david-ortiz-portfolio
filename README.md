@@ -72,5 +72,5 @@ If this still gets noisy:
 
 If you touch dependencies or `.fossa.yml`, follow the documented scan workflow before merge:
 
-- `docs/fossa-scan-playbook.md`
-- `docs/fossa-remediation-notes.md`
+- [FOSSA scan playbook](docs/fossa-scan-playbook.md)
+- [FOSSA remediation notes](docs/fossa-remediation-notes.md)
