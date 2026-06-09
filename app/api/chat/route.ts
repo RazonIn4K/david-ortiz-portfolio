@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { contact } from "@/data/content"
+import { incrementWindow } from "@/lib/abuse-store"
 
 const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (davidtiz.com). This site is a personal notebook and portfolio, not a sales page.
 
@@ -27,11 +28,10 @@ interface ChatMessage {
 }
 
 // --- Rate limiting -----------------------------------------------------------
-// Per-IP sliding window. In-memory (per serverless instance, resets on cold
-// start) so it is best-effort, not a hard global guarantee — but it caps the
-// obvious abuse case (one client hammering the endpoint and billing the key).
+// Per-IP fixed window via lib/abuse-store: shared across instances when a
+// REST Redis (Vercel KV / Upstash) is configured, in-memory per instance
+// otherwise. Caps the abuse case of one client billing the OpenRouter key.
 const CHAT_RATE_LIMIT = { windowMs: 60_000, maxRequests: 15 }
-const chatRateBuckets = new Map<string, number[]>()
 
 function getClientIp(request: NextRequest) {
   return (
@@ -42,18 +42,11 @@ function getClientIp(request: NextRequest) {
   )
 }
 
-function rateLimit(ip: string) {
-  const now = Date.now()
-  const windowStart = now - CHAT_RATE_LIMIT.windowMs
-  const recent = (chatRateBuckets.get(ip) ?? []).filter((t) => t > windowStart)
-  if (recent.length >= CHAT_RATE_LIMIT.maxRequests) {
-    return {
-      allowed: false as const,
-      retryAfter: Math.ceil((recent[0] + CHAT_RATE_LIMIT.windowMs - now) / 1000),
-    }
+async function rateLimit(ip: string) {
+  const { count, retryAfterSeconds } = await incrementWindow(`chat:rate:${ip}`, CHAT_RATE_LIMIT.windowMs)
+  if (count > CHAT_RATE_LIMIT.maxRequests) {
+    return { allowed: false as const, retryAfter: retryAfterSeconds }
   }
-  recent.push(now)
-  chatRateBuckets.set(ip, recent)
   return { allowed: true as const }
 }
 
@@ -89,7 +82,7 @@ function isChatMessage(value: unknown): value is ChatMessage {
 export async function POST(request: NextRequest) {
   try {
     // Reject the cheap way first, before parsing or calling OpenRouter.
-    const limit = rateLimit(getClientIp(request))
+    const limit = await rateLimit(getClientIp(request))
     if (!limit.allowed) {
       return NextResponse.json(
         { error: "Too many requests", retryAfter: limit.retryAfter },

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { contact } from "@/data/content"
+import { hasTokenBeenUsed, incrementWindow, markTokenUsed } from "@/lib/abuse-store"
 
 const intentMessages = {
   portfolio: "Hola David, vi tu portafolio",
@@ -35,30 +36,9 @@ const contactChallengeCookieName = "dzt-contact-challenge"
 // actually targets the same cookie. A mismatch silently fails to clear it.
 const CONTACT_PATH = "/contact/whatsapp"
 const contactChallengeWindowMs = 10 * 60_000
-const rateBuckets = new Map<string, number[]>()
 const bucketWindowMs = 60_000
 const burstLimit = 6
-const usedChallenges = new Map<string, number>()
 const usedChallengeWindowMs = 2 * 60_000
-
-function cleanupUsedChallenges(now: number) {
-  for (const [token, expiresAt] of usedChallenges.entries()) {
-    if (expiresAt <= now) {
-      usedChallenges.delete(token)
-    }
-  }
-}
-
-function hasChallengeBeenUsed(token: string, now: number) {
-  cleanupUsedChallenges(now)
-
-  return usedChallenges.get(token) !== undefined
-}
-
-function trackUsedChallenge(token: string, now: number) {
-  usedChallenges.set(token, now + usedChallengeWindowMs)
-  cleanupUsedChallenges(now)
-}
 
 function isIntent(value: string | null): value is Intent {
   return Boolean(value && value in intentMessages)
@@ -134,7 +114,7 @@ function validateContactChallenge(request: NextRequest): ChallengeValidation {
   }
 }
 
-function scoreRequest(request: NextRequest, text: string): ScoredRequest {
+async function scoreRequest(request: NextRequest, text: string): Promise<ScoredRequest> {
   const userAgent = request.headers.get("user-agent") ?? ""
   const reasons: string[] = []
   let score = 0
@@ -169,8 +149,7 @@ function scoreRequest(request: NextRequest, text: string): ScoredRequest {
     }
   }
 
-  const now = Date.now()
-  if (hasChallengeBeenUsed(challenge.token!, now)) {
+  if (await hasTokenBeenUsed(`wa:${challenge.token!}`)) {
     return {
       blocked: true,
       reasons: ["contact-challenge-replay"],
@@ -198,12 +177,9 @@ function scoreRequest(request: NextRequest, text: string): ScoredRequest {
   }
 
   const ip = getClientIp(request)
-  const events = rateBuckets.get(ip) ?? []
-  const activeEvents = events.filter((ts) => ts > now - bucketWindowMs)
-  activeEvents.push(now)
-  rateBuckets.set(ip, activeEvents)
+  const { count } = await incrementWindow(`wa:burst:${ip}`, bucketWindowMs)
 
-  if (activeEvents.length > burstLimit) {
+  if (count > burstLimit) {
     score += 3
     reasons.push("ip-burst-limit")
   }
@@ -247,13 +223,13 @@ function markChallengeCookieConsumed(response: NextResponse, request: NextReques
   )
 }
 
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   const intent = request.nextUrl.searchParams.get("intent")
   const safeIntent: Intent = isIntent(intent) ? intent : "portfolio"
   const customText = request.nextUrl.searchParams.get("text")?.trim()
   const baseMessage = customText && customText.length > 0 ? customText : intentMessages[safeIntent]
   const message = stripPotentialSpamText(baseMessage)
-  const risk = scoreRequest(request, message)
+  const risk = await scoreRequest(request, message)
 
   if (risk.blocked) {
     const reasonPayload = risk.reasons.length ? risk.reasons.join(",") : "no-reason"
@@ -269,7 +245,7 @@ export function GET(request: NextRequest) {
   const response = NextResponse.redirect(target, 302)
   const challenge = parseChallengeValue(request.nextUrl.searchParams.get("challenge"))
   if (challenge?.token) {
-    trackUsedChallenge(challenge.token, Date.now())
+    await markTokenUsed(`wa:${challenge.token}`, usedChallengeWindowMs)
   }
 
   markChallengeCookieConsumed(response, request)
