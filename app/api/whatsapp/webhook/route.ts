@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from "node:crypto"
+import { createHmac, randomUUID, timingSafeEqual } from "node:crypto"
 import { NextRequest, NextResponse } from "next/server"
 
 export const runtime = "nodejs"
@@ -56,13 +56,15 @@ export async function POST(request: NextRequest) {
         }, 0)
       : 0
 
+    const correlationId = randomUUID()
     console.info("WhatsApp webhook received", {
+      correlationId,
       object: payload.object,
       entryCount,
       changeCount,
     })
 
-    await forwardToN8n(rawBody)
+    await forwardToN8n(rawBody, correlationId)
 
     return NextResponse.json({ received: true })
   } catch (error) {
@@ -71,18 +73,28 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function forwardToN8n(rawBody: string) {
+const N8N_FORWARD_TIMEOUT_MS = 1500
+
+// Forwards the raw Meta payload to n8n and logs the OUTCOME only: status,
+// duration, a correlation id (also sent on to n8n for cross-system tracing),
+// and a failure reason. Never logs the payload body, request headers, the
+// target URL, or secrets, so the logs stay privacy-safe.
+async function forwardToN8n(rawBody: string, correlationId: string) {
   if (!N8N_WEBHOOK_URL) {
     return
   }
 
   if (!N8N_FORWARD_SECRET) {
-    console.error("N8N_WEBHOOK_URL is configured but N8N_FORWARD_SECRET is missing")
+    console.error("n8n WhatsApp forward skipped", {
+      correlationId,
+      reason: "missing-N8N_FORWARD_SECRET",
+    })
     return
   }
 
   const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 1500)
+  const timeout = setTimeout(() => controller.abort(), N8N_FORWARD_TIMEOUT_MS)
+  const startedAt = Date.now()
 
   try {
     const response = await fetch(N8N_WEBHOOK_URL, {
@@ -90,16 +102,38 @@ async function forwardToN8n(rawBody: string) {
       headers: {
         "Content-Type": "application/json",
         "x-forward-secret": N8N_FORWARD_SECRET,
+        "x-correlation-id": correlationId,
       },
       body: rawBody,
       signal: controller.signal,
     })
 
-    if (!response.ok) {
-      console.error("n8n WhatsApp forward failed", { status: response.status })
+    const durationMs = Date.now() - startedAt
+    await response.body?.cancel()
+
+    if (response.ok) {
+      console.info("n8n WhatsApp forward ok", {
+        correlationId,
+        status: response.status,
+        durationMs,
+      })
+    } else {
+      console.error("n8n WhatsApp forward failed", {
+        correlationId,
+        status: response.status,
+        durationMs,
+        reason: "non-2xx-response",
+      })
     }
   } catch (error) {
-    console.error("n8n WhatsApp forward error", error)
+    const durationMs = Date.now() - startedAt
+    const reason =
+      error instanceof Error && error.name === "AbortError" ? "timeout" : "network-error"
+    console.error("n8n WhatsApp forward error", {
+      correlationId,
+      durationMs,
+      reason,
+    })
   } finally {
     clearTimeout(timeout)
   }
