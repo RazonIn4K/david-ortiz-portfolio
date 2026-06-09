@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest"
 import { NextRequest } from "next/server"
 
-const URL = "https://davidtiz.com/api/chat"
+const URL = "https://example.com/api/chat"
 const validBody = { messages: [{ role: "user", content: "hi" }] }
 
 function post(body: unknown, headers: Record<string, string> = {}) {
@@ -30,17 +30,15 @@ describe("POST /api/chat — validation (rejects before any model call)", () => 
   })
 
   it("400 when messages is missing or empty", async () => {
-    const a = await loadRoute()
-    expect((await a.POST(post({}))).status).toBe(400)
-    const b = await loadRoute()
-    expect((await b.POST(post({ messages: [] }))).status).toBe(400)
+    const { POST } = await loadRoute()
+    expect((await POST(post({}))).status).toBe(400)
+    expect((await POST(post({ messages: [] }))).status).toBe(400)
   })
 
   it("400 when a message has an invalid role or non-string content", async () => {
-    const a = await loadRoute()
-    expect((await a.POST(post({ messages: [{ role: "bot", content: "x" }] }))).status).toBe(400)
-    const b = await loadRoute()
-    expect((await b.POST(post({ messages: [{ role: "user", content: 123 }] }))).status).toBe(400)
+    const { POST } = await loadRoute()
+    expect((await POST(post({ messages: [{ role: "bot", content: "x" }] }))).status).toBe(400)
+    expect((await POST(post({ messages: [{ role: "user", content: 123 }] }))).status).toBe(400)
   })
 
   it("400 over the message-count cap (50)", async () => {
