@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import {
   getCoexistencePublicConfig,
   getMissingCoexistenceConfig,
+  isTokenExchangeEnabled,
   isValidCoexistenceAdminKey,
   redactIdentifier,
 } from "@/lib/meta-embedded-signup"
@@ -20,6 +21,7 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({
     configured: missing.length === 0,
+    tokenExchangeEnabled: isTokenExchangeEnabled(),
     currentOfficialLane: {
       phoneNumberId: redactIdentifier(process.env.WHATSAPP_PHONE_NUMBER_ID),
       wabaId: redactIdentifier(process.env.WHATSAPP_BUSINESS_ACCOUNT_ID),

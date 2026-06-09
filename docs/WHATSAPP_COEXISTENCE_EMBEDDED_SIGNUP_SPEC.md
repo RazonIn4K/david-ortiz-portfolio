@@ -123,7 +123,7 @@ Build a private operator-only signup launcher and callback handler.
 
 Do not expose `WHATSAPP_ACCESS_TOKEN` or `WHATSAPP_APP_SECRET` to client code.
 
-The first implementation is intentionally record-only. It does not exchange the returned OAuth code for a token. Add server-side token exchange only after the UI proves this is coexistence and `779` remains active in the WhatsApp Business app.
+The callback is record-only by default. Server-side token exchange is implemented but gated behind `META_EMBEDDED_SIGNUP_ALLOW_TOKEN_EXCHANGE=true` (default off). Enable the flag only for a deliberate launcher run, after the UI proves this is coexistence and `779` remains active in the WhatsApp Business app. On success the business token is returned once in the launcher's callback panel for the manual env update below; it is never logged and production is never updated automatically.
 
 ### Launcher route behavior
 
