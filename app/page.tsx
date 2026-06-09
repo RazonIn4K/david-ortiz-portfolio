@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { GithubIcon } from "@/components/icons/brand-icons"
 import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
+import { AIAssistant } from "@/components/ai-assistant"
 import { contact, whatsappHref } from "@/data/content"
 import {
   ArrowUpRight,
@@ -515,6 +516,8 @@ export default function HomePage() {
           </a>
         </span>
       </footer>
+
+      <AIAssistant />
     </div>
   )
 }
