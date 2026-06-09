@@ -6,7 +6,7 @@ Goal: keep dependency scans predictable, keep useful findings reviewable, and av
 
 - `next@16.2.7`
   - `CC-BY-SA-4.0` in `next/dist/compiled/glob/LICENSE`
-  - `MPL-2.0` in `dist/compiled/@vercel/og/package.json`
+  - `MPL-2.0` in `next/dist/compiled/@vercel/og/package.json`
   - Tracked in `.fossa.yml` as non-blocking
 - `brace-expansion@2.1.1`
   - Transitive via `@typescript-eslint`/`eslint`
