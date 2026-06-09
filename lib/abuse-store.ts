@@ -41,7 +41,10 @@ async function redisPipeline(config: RedisConfig, commands: RedisCommand[]): Pro
       signal: controller.signal,
     })
 
-    if (!response.ok) return null
+    if (!response.ok) {
+      await response.body?.cancel()
+      return null
+    }
 
     const data = (await response.json()) as { result?: unknown; error?: string }[]
     if (!Array.isArray(data) || data.some((entry) => entry.error)) return null
@@ -59,8 +62,15 @@ async function redisPipeline(config: RedisConfig, commands: RedisCommand[]): Pro
 type MemoryWindow = { count: number; resetAt: number }
 const memoryWindows = new Map<string, MemoryWindow>()
 
+function memoryCleanupWindows(now: number) {
+  for (const [key, window] of memoryWindows.entries()) {
+    if (window.resetAt <= now) memoryWindows.delete(key)
+  }
+}
+
 function memoryIncrementWindow(key: string, windowMs: number) {
   const now = Date.now()
+  memoryCleanupWindows(now)
   const existing = memoryWindows.get(key)
 
   if (!existing || existing.resetAt <= now) {
