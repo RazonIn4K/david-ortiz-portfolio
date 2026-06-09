@@ -13,7 +13,7 @@ Latest reviewed PR commit: `11c6fa2`
 
 - `next@16.2.7` shows artifact license matches:
   - `CC-BY-SA-4.0` (`next/dist/compiled/glob/LICENSE`)
-  - `MPL-2.0` (`dist/compiled/@vercel/og/package.json`)
+  - `MPL-2.0` (`next/dist/compiled/@vercel/og/package.json`)
 - `brace-expansion` appears as transitive at `2.1.1` via transitive `@typescript-eslint`/`eslint` chains.
 - FOSSA policy still flags `next` as older than current upstream.
 
