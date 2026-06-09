@@ -16,17 +16,19 @@ const CHALLENGE_TTL_SECONDS = 10 * 60
 // failure mode on the expiry check.
 export function GET(request: NextRequest) {
   const token = `${randomBytes(16).toString("hex")}.${Date.now()}`
-  const secure = request.nextUrl.protocol === "https:" ? "; Secure" : ""
 
   const response = NextResponse.json(
     { token, expiresIn: CHALLENGE_TTL_SECONDS },
     { headers: { "Cache-Control": "no-store" } },
   )
 
-  response.headers.append(
-    "Set-Cookie",
-    `${CHALLENGE_COOKIE_NAME}=${token}; Path=${CHALLENGE_COOKIE_PATH}; Max-Age=${CHALLENGE_TTL_SECONDS}; SameSite=Lax; HttpOnly${secure}`,
-  )
+  response.cookies.set(CHALLENGE_COOKIE_NAME, token, {
+    path: CHALLENGE_COOKIE_PATH,
+    maxAge: CHALLENGE_TTL_SECONDS,
+    sameSite: "lax",
+    httpOnly: true,
+    secure: request.nextUrl.protocol === "https:",
+  })
 
   return response
 }
