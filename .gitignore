@@ -70,7 +70,8 @@ build/
 lighthouse-*.json
 .playwright-mcp/
 test-reports/
-verification/        # ad-hoc Playwright screenshot scripts + output (kept local, not versioned)
+# ad-hoc Playwright screenshot scripts + output (kept local, not versioned)
+verification/
 
 # Temporary files
 tmp/
