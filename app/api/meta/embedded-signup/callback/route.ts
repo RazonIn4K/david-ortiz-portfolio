@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
-import { verifyCoexistenceSignupState } from "@/lib/meta-embedded-signup"
+import {
+  exchangeCoexistenceCode,
+  isTokenExchangeEnabled,
+  redactIdentifier,
+  verifyCoexistenceSignupState,
+} from "@/lib/meta-embedded-signup"
 
 export const runtime = "nodejs"
 
@@ -24,7 +29,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid or expired state" }, { status: 401 })
   }
 
-  const codeReceived = typeof payload.loginResponse?.authResponse?.code === "string"
+  const code = payload.loginResponse?.authResponse?.code
+  const codeReceived = typeof code === "string" && code.trim().length > 0
   const extracted = extractEmbeddedSignupIds(payload.sessionInfo)
 
   console.info("WhatsApp coexistence embedded signup callback recorded", {
@@ -34,9 +40,59 @@ export async function POST(request: NextRequest) {
     wabaId: extracted.wabaId,
   })
 
+  // Server-side token exchange, gated by a default-off env flag. The signed
+  // state above already proves this request came from the admin-key-gated
+  // launcher, and the token is returned ONCE in this operator-facing response
+  // (the launcher renders it for the manual Doppler/Vercel env update). It is
+  // never logged and nothing in production is updated automatically.
+  let tokenExchange:
+    | { attempted: false; reason: string }
+    | { attempted: true; ok: false; error: string }
+    | {
+        attempted: true
+        ok: true
+        accessToken: string
+        tokenType: string | null
+        expiresIn: number | null
+        storeWith: string
+      }
+
+  if (!isTokenExchangeEnabled()) {
+    tokenExchange = {
+      attempted: false,
+      reason:
+        "Token exchange is disabled. Set META_EMBEDDED_SIGNUP_ALLOW_TOKEN_EXCHANGE=true to enable it for a deliberate launcher run.",
+    }
+  } else if (!codeReceived) {
+    tokenExchange = { attempted: false, reason: "No authorization code in the callback payload." }
+  } else {
+    const result = await exchangeCoexistenceCode(code.trim())
+
+    if (result.ok) {
+      console.info("WhatsApp coexistence token exchange succeeded", {
+        expiresIn: result.expiresIn,
+        tokenPreview: redactIdentifier(result.accessToken),
+        tokenType: result.tokenType,
+      })
+      tokenExchange = {
+        attempted: true,
+        ok: true,
+        accessToken: result.accessToken,
+        tokenType: result.tokenType,
+        expiresIn: result.expiresIn,
+        storeWith:
+          "Shown once. Store manually: doppler secrets set WHATSAPP_ACCESS_TOKEN --project david-ortiz-portfolio. Do not commit it anywhere.",
+      }
+    } else {
+      console.error("WhatsApp coexistence token exchange failed", { error: result.error })
+      tokenExchange = { attempted: true, ok: false, error: result.error }
+    }
+  }
+
   return NextResponse.json({
     codeReceived,
     extracted,
+    tokenExchange,
     nextStep:
       "Do not update production IDs until 779 is confirmed to remain active in the WhatsApp Business app.",
     recorded: true,
@@ -69,7 +125,7 @@ export async function GET(request: NextRequest) {
   }
 
   console.info("WhatsApp coexistence embedded signup GET callback recorded", {
-    codeReceived: typeof code === "string" && code.length > 0,
+    codeReceived: typeof code === "string" && code.trim().length > 0,
   })
 
   return renderCallbackPage("Authorization code received", [
