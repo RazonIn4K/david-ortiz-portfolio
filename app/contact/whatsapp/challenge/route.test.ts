@@ -18,7 +18,7 @@ describe("GET /contact/whatsapp/challenge", () => {
     expect(setCookie).toContain("Path=/contact/whatsapp")
     // Cookie attribute values are case-insensitive; Next's cookie serializer
     // emits `SameSite=lax` while a raw header would say `SameSite=Lax`.
-    expect(setCookie.toLowerCase()).toContain("samesite=lax")
+    expect(setCookie).toMatch(/samesite=lax/i)
   })
 
   it("marks the token response no-store so tokens are never cached", () => {
