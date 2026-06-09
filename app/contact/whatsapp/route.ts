@@ -243,7 +243,7 @@ function markChallengeCookieConsumed(response: NextResponse, request: NextReques
   const secure = request.nextUrl.protocol === "https:" ? "; Secure" : ""
   response.headers.append(
     "Set-Cookie",
-    `${contactChallengeCookieName}=; Path=${CONTACT_PATH}; Max-Age=0; SameSite=Lax${secure}`
+    `${contactChallengeCookieName}=; Path=${CONTACT_PATH}; Max-Age=0; SameSite=Lax; HttpOnly${secure}`
   )
 }
 

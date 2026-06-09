@@ -3,31 +3,40 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react"
 import { useEffect, useState } from "react"
 
-const CHALLENGE_COOKIE_NAME = "dzt-contact-challenge"
-const CHALLENGE_TTL_SECONDS = 10 * 60
 const CONTACT_PATH = "/contact/whatsapp"
+const CHALLENGE_ENDPOINT = "/contact/whatsapp/challenge"
+
+// One challenge per page load, shared across every link instance. The server
+// issues a single HttpOnly cookie, so all links must echo the SAME token for
+// the cookie/query match to succeed — sharing the promise both avoids N
+// redundant requests and prevents instances from overwriting each other's
+// cookie (only the last writer would otherwise have matched).
+let sharedChallenge: Promise<string | null> | null = null
+
+function requestChallenge(): Promise<string | null> {
+  if (!sharedChallenge) {
+    sharedChallenge = fetch(CHALLENGE_ENDPOINT, {
+      method: "GET",
+      credentials: "same-origin",
+      headers: { accept: "application/json" },
+    })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => (typeof data?.token === "string" ? data.token : null))
+      .catch(() => null)
+  }
+  return sharedChallenge
+}
 
 type ProtectedWhatsAppLinkProps = {
   href: string
   children: ReactNode
 } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "children">
 
-function randomHex(length: number) {
-  const bytes = new Uint8Array(length)
-  crypto.getRandomValues(bytes)
-  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("")
-}
-
 function addChallenge(href: string, challenge: string) {
   const url = new URL(href, window.location.origin)
   url.searchParams.delete("challenge")
   url.searchParams.set("challenge", challenge)
   return `${url.pathname}${url.search}${url.hash}`
-}
-
-function setChallengeCookie(challenge: string) {
-  const secure = window.location.protocol === "https:" ? "; Secure" : ""
-  document.cookie = `${CHALLENGE_COOKIE_NAME}=${encodeURIComponent(challenge)}; Path=${CONTACT_PATH}; Max-Age=${CHALLENGE_TTL_SECONDS}; SameSite=Lax${secure}`
 }
 
 export function ProtectedWhatsAppLink({
@@ -38,20 +47,19 @@ export function ProtectedWhatsAppLink({
   const [finalHref, setFinalHref] = useState(href)
 
   useEffect(() => {
-  if (!href.startsWith(CONTACT_PATH)) {
+    if (!href.startsWith(CONTACT_PATH)) {
       return
     }
 
-    const token = `${randomHex(16)}.${Date.now()}`
-    const nextHref = addChallenge(href, token)
-
-    const timer = window.setTimeout(() => {
-      setChallengeCookie(token)
-      setFinalHref(nextHref)
-    }, 0)
+    let active = true
+    requestChallenge().then((token) => {
+      if (active && token) {
+        setFinalHref(addChallenge(href, token))
+      }
+    })
 
     return () => {
-      window.clearTimeout(timer)
+      active = false
     }
   }, [href])
 
