@@ -109,6 +109,7 @@ async function forwardToN8n(rawBody: string, correlationId: string) {
     })
 
     const durationMs = Date.now() - startedAt
+    await response.body?.cancel()
 
     if (response.ok) {
       console.info("n8n WhatsApp forward ok", {
