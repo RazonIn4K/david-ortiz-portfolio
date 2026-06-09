@@ -40,14 +40,12 @@ app/
   error.tsx         # Page-level error boundary
   global-error.tsx  # App-level error boundary
   not-found.tsx     # Custom 404
-  design-system/    # Design system showcase page (separate from homepage)
   api/chat/route.ts # AI chat endpoint (NOT used by the homepage)
 components/
   contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact + /pay)
   icons/            # brand-icons (used by homepage + /contact)
-  design-system/    # ds-* components — reachable ONLY via the /design-system showcase route
 data/content.ts     # Shared content + centralized contact (`contact`, `whatsappHref`)
-lib/                # Utilities, site config, design tokens
+lib/                # Utilities + site config (site-config, contact-links, meta-embedded-signup, utils)
 public/visuals/     # Hero/workbench images and SVGs
 ```
 
