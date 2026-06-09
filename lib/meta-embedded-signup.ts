@@ -114,21 +114,21 @@ export async function exchangeCoexistenceCode(code: string): Promise<Coexistence
     return { ok: false, error: "missing-app-credentials" }
   }
 
-  const graphVersion = process.env.META_GRAPH_VERSION ?? DEFAULT_GRAPH_VERSION
-  const url = new URL(`https://graph.facebook.com/${graphVersion}/oauth/access_token`)
-  url.searchParams.set("client_id", appId)
-  url.searchParams.set("client_secret", appSecret)
-  url.searchParams.set("code", code)
-
-  const redirectUri = process.env.META_EMBEDDED_SIGNUP_REDIRECT_URI
-  if (redirectUri) {
-    url.searchParams.set("redirect_uri", redirectUri)
-  }
-
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), TOKEN_EXCHANGE_TIMEOUT_MS)
 
   try {
+    const graphVersion = process.env.META_GRAPH_VERSION ?? DEFAULT_GRAPH_VERSION
+    const url = new URL(`https://graph.facebook.com/${graphVersion}/oauth/access_token`)
+    url.searchParams.set("client_id", appId)
+    url.searchParams.set("client_secret", appSecret)
+    url.searchParams.set("code", code)
+
+    const redirectUri = process.env.META_EMBEDDED_SIGNUP_REDIRECT_URI
+    if (redirectUri) {
+      url.searchParams.set("redirect_uri", redirectUri)
+    }
+
     const response = await fetch(url, { signal: controller.signal })
     const data = (await response.json().catch(() => null)) as {
       access_token?: unknown
