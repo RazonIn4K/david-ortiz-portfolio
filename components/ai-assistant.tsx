@@ -29,6 +29,20 @@ export function AIAssistant() {
     if (open) inputRef.current?.focus()
   }, [open])
 
+  // Close the panel on Escape for keyboard and screen-reader users.
+  useEffect(() => {
+    if (!open) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [open])
+
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
     const trimmed = input.trim()
@@ -46,7 +60,7 @@ export function AIAssistant() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: next }),
       })
-      const data = await response.json().catch(() => ({}))
+      const data = (await response.json().catch(() => ({}))) || {}
 
       if (response.status === 429) {
         setError(`Easy there — too many messages. Try again in ${data.retryAfter ?? "a few"}s.`)
