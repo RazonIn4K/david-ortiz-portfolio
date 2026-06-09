@@ -77,6 +77,15 @@ function getModelChain(): string[] {
 const MAX_MESSAGES = 50
 const MAX_TOTAL_CHARS = 8000
 
+function isChatMessage(value: unknown): value is ChatMessage {
+  if (!value || typeof value !== "object") return false
+  const message = value as Partial<ChatMessage>
+  return (
+    typeof message.content === "string" &&
+    (message.role === "user" || message.role === "assistant" || message.role === "system")
+  )
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Reject the cheap way first, before parsing or calling OpenRouter.
@@ -88,18 +97,27 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { messages } = (await request.json()) as { messages: ChatMessage[] }
+    let payload: unknown
+    try {
+      payload = await request.json()
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 })
+    }
 
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    const messagesValue =
+      payload && typeof payload === "object" ? (payload as { messages?: unknown }).messages : undefined
+
+    if (!Array.isArray(messagesValue) || messagesValue.length === 0) {
       return NextResponse.json({ error: "Messages array is required" }, { status: 400 })
     }
+    if (!messagesValue.every(isChatMessage)) {
+      return NextResponse.json({ error: "Invalid messages format" }, { status: 400 })
+    }
+    const messages = messagesValue as ChatMessage[]
     if (messages.length > MAX_MESSAGES) {
       return NextResponse.json({ error: "Too many messages" }, { status: 400 })
     }
-    const totalChars = messages.reduce(
-      (n, m) => n + (typeof m?.content === "string" ? m.content.length : 0),
-      0,
-    )
+    const totalChars = messages.reduce((n, m) => n + m.content.length, 0)
     if (totalChars > MAX_TOTAL_CHARS) {
       return NextResponse.json({ error: "Message content too long" }, { status: 400 })
     }
