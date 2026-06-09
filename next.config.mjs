@@ -9,6 +9,17 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async rewrites() {
+    return [
+      // Clean URL for the static local-business demo hub in public/demo/.
+      // Sub-pages (pedidos/servicios/citas) keep their .html paths, which the
+      // hub's own nav already uses.
+      {
+        source: '/demo',
+        destination: '/demo/index.html',
+      },
+    ]
+  },
 }
 
 export default nextConfig
