@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
 const highlights = [
   "Bilingual English and Spanish paths",
-  "Instant estimate and prefilled quote capture flow",
+  "Instant estimator that pre-fills the full quote request — address, owner confirmation, callback time, service, and estimate range — into the lead form",
   "Service pages for lawn care, tree service, landscaping, and snow removal",
   "Project gallery, sourced public review, and local service-area content",
 ];
@@ -93,7 +93,7 @@ const stackSignals = [
   "HTML, CSS, and JavaScript",
   "Vanilla bilingual i18n",
   "Web3Forms lead capture",
-  "Service-to-quote prefill behavior",
+  "Estimator and service-to-quote prefill",
   "Responsive service-card layout",
   "Local SEO and service-area copy",
 ];
@@ -106,9 +106,9 @@ const liveProofUpdates = [
     icon: Star,
   },
   {
-    title: "Better quote intent",
+    title: "Estimate-to-form handoff",
     description:
-      "Service chips now send visitors into the form with the relevant service already selected.",
+      "After the instant estimate, a Send My Estimate Request button now pre-fills the quote form with the address, owner confirmation, callback time, service, and estimate summary, in English and Spanish.",
     icon: MousePointerClick,
   },
   {
@@ -172,7 +172,8 @@ export default function PortfolioPage() {
                 Landscape & Tree Service is a live landscaping website with
                 bilingual content, service positioning, project photos, and a
                 quote flow built around local customer calls, sourced trust
-                signals, and estimate requests.
+                signals, and estimate requests that carry straight into the
+                contact form.
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <a
