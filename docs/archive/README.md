@@ -15,3 +15,7 @@ Archived 2026-06-10:
 - `ECOSYSTEM-LAYERS-SUMMARY-2026-05-10.md`
 - `ECOSYSTEM-CONTINUATION-FULL-WORK-LOG-2026-05-10.md`
 - `PUBLIC-ECOSYSTEM-SHIP-LOG-2026-05-10.md`
+- `VERIFICATION_REPORT-2026-05-09.md` — point-in-time verification snapshot;
+  it predates the June 2026 hardening/design stack (it still references the
+  removed `/design-system` route). Current verification lives in CI plus the
+  scheduled uptime check.
