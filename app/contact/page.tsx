@@ -24,6 +24,7 @@ import {
 import { personalSitePublicLabel } from "@/lib/site-config"
 import { whatsappHref } from "@/data/content"
 import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
+import { ThemeShell } from "@/components/theme-shell"
 
 export const metadata: Metadata = {
   title: "Contact | David Ortiz",
@@ -32,33 +33,93 @@ export const metadata: Metadata = {
 }
 
 function iconFor(link: ContactLink) {
+  const props = { className: "h-4 w-4", "aria-hidden": true } as const
   switch (link.id) {
     case "email":
-      return Mail
+      return <Mail {...props} />
     case "calendly":
-      return CalendarDays
+      return <CalendarDays {...props} />
     case "upwork":
     case "fiverr":
     case "high-encode":
     case "business-inbox":
-      return BriefcaseBusiness
+      return <BriefcaseBusiness {...props} />
     case "facebook":
-      return FacebookIcon
+      return <FacebookIcon {...props} />
     case "instagram":
-      return InstagramIcon
+      return <InstagramIcon {...props} />
     case "linkedin":
-      return LinkedinIcon
+      return <LinkedinIcon {...props} />
     case "whatsapp":
-      return MessageCircle
+      return <MessageCircle {...props} />
     case "github":
-      return GithubIcon
+      return <GithubIcon {...props} />
     default:
-      return ExternalLink
+      return <ExternalLink {...props} />
   }
 }
 
 function isExternal(href: string) {
   return href.startsWith("http")
+}
+
+const tileClass =
+  "group flex items-start gap-3 rounded-2xl border px-4 py-4 transition-colors"
+const tileStyle = {
+  borderColor: "var(--dtz-border)",
+  background: "var(--dtz-panel-2)",
+} as const
+const iconChipStyle = {
+  background: "var(--dtz-accent-soft)",
+  color: "var(--dtz-accent)",
+} as const
+
+function ContactTile({ link }: { link: ContactLink }) {
+  const body = (
+    <>
+      <span
+        className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
+        style={iconChipStyle}
+      >
+        {iconFor(link)}
+      </span>
+      <span className="min-w-0">
+        <span className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--dtz-fg)" }}>
+          {link.label}
+          <ArrowRight
+            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+            style={{ color: "var(--dtz-subtle)" }}
+            aria-hidden="true"
+          />
+        </span>
+        <span className="mt-1 block text-xs leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
+          {link.description}
+        </span>
+      </span>
+    </>
+  )
+
+  return link.id === "whatsapp" ? (
+    <ProtectedWhatsAppLink
+      href={link.href}
+      target={isExternal(link.href) ? "_blank" : undefined}
+      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+      className={tileClass}
+      style={tileStyle}
+    >
+      {body}
+    </ProtectedWhatsAppLink>
+  ) : (
+    <a
+      href={link.href}
+      target={isExternal(link.href) ? "_blank" : undefined}
+      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+      className={tileClass}
+      style={tileStyle}
+    >
+      {body}
+    </a>
+  )
 }
 
 export default function ContactPage() {
@@ -82,100 +143,84 @@ export default function ContactPage() {
   ]
 
   return (
-    <main className="min-h-screen bg-[#060a14] px-6 py-20 text-white">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 max-w-3xl">
-          <p className="text-xs uppercase tracking-[0.24em] text-[#2dd4bf]">Contact</p>
-          <h1 className="mt-4 text-4xl font-bold md:text-5xl">A direct path to David, without making people guess</h1>
-          <p className="mt-5 text-lg leading-relaxed text-white/55">
-            {personalSitePublicLabel} stays personal, experimental, and reflective. This page is the shareable contact hub:
-            the fastest confirmed ways to email, book time, start a freelance conversation, or move into a scoped business discussion.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <span className="rounded-full border border-[#2dd4bf]/20 bg-[#2dd4bf]/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-[#9ae6db]">
-              English + Español welcome
-            </span>
-            <Link
-              href="/"
-              className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/60 transition-colors hover:text-white"
+    <ThemeShell>
+      <main className="min-h-screen px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 max-w-3xl">
+            <p className="dtz-section-label">Contact</p>
+            <h1 className="mt-4 text-4xl font-bold md:text-5xl">
+              A direct path to David, without making people guess
+            </h1>
+            <p className="mt-5 text-lg leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
+              {personalSitePublicLabel} stays personal, experimental, and reflective. This page is the shareable contact hub:
+              the fastest confirmed ways to email, book time, start a freelance conversation, or move into a scoped business discussion.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <span
+                className="rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.18em]"
+                style={{
+                  borderColor: "var(--dtz-border)",
+                  background: "var(--dtz-accent-soft)",
+                  color: "var(--dtz-accent)",
+                }}
+              >
+                English + Español welcome
+              </span>
+              <Link
+                href="/"
+                className="rounded-full border px-4 py-2 text-sm transition-colors"
+                style={{ borderColor: "var(--dtz-border)", color: "var(--dtz-muted)" }}
+              >
+                Back to home
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            {groups.map(group => (
+              <section
+                key={group.heading}
+                className="rounded-3xl border p-6"
+                style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
+              >
+                <p className="dtz-section-label">{group.heading}</p>
+                <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
+                  {group.intro}
+                </p>
+
+                <div className="mt-6 space-y-3">
+                  {group.links.map(link => (
+                    <ContactTile key={link.id} link={link} />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <div
+            className="mt-8 rounded-3xl border px-6 py-5"
+            style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
+          >
+            <p className="text-sm font-semibold" style={{ color: "var(--dtz-fg)" }}>
+              Prefer a structured intake?
+            </p>
+            <p className="mt-2 text-sm" style={{ color: "var(--dtz-muted)" }}>
+              I keep the first message short on purpose. If this is a real project, send scope and timeline so I can
+              respond quickly with realistic next steps.
+            </p>
+            <ProtectedWhatsAppLink
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-2xl px-5 py-3 font-semibold transition-transform hover:scale-[1.01]"
+              style={{ background: "var(--dtz-accent)", color: "var(--dtz-on-accent)" }}
             >
-              Back to home
-            </Link>
+              Start a project on WhatsApp
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </ProtectedWhatsAppLink>
           </div>
         </div>
-
-        <div className="grid gap-6 lg:grid-cols-3">
-          {groups.map(group => (
-            <section key={group.heading} className="rounded-3xl border border-white/8 bg-white/[0.03] p-6">
-              <p className="text-xs uppercase tracking-[0.22em] text-[#22d3ee]">{group.heading}</p>
-              <p className="mt-3 text-sm leading-relaxed text-white/50">{group.intro}</p>
-
-              <div className="mt-6 space-y-3">
-                {group.links.map(link => {
-                  const Icon = iconFor(link)
-
-                  return link.id === "whatsapp" ? (
-                    <ProtectedWhatsAppLink
-                      key={link.id}
-                      href={link.href}
-                      target={isExternal(link.href) ? "_blank" : undefined}
-                      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-                      className="group flex items-start gap-3 rounded-2xl border border-white/8 bg-[#0b1424]/75 px-4 py-4 transition-colors hover:border-white/20 hover:bg-[#0f1a2f]"
-                    >
-                      <span className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff6b6b] to-[#ff8e8e] text-white shadow-lg shadow-[#ff6b6b]/10">
-                        <Icon className="h-4 w-4" />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="flex items-center gap-2 text-sm font-semibold text-white">
-                          {link.label}
-                          <ArrowRight className="h-4 w-4 text-white/30 transition-transform group-hover:translate-x-0.5" />
-                        </span>
-                        <span className="mt-1 block text-xs leading-relaxed text-white/50">{link.description}</span>
-                      </span>
-                    </ProtectedWhatsAppLink>
-                  ) : (
-                    <a
-                      key={link.id}
-                      href={link.href}
-                      target={isExternal(link.href) ? "_blank" : undefined}
-                      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-                      className="group flex items-start gap-3 rounded-2xl border border-white/8 bg-[#0b1424]/75 px-4 py-4 transition-colors hover:border-white/20 hover:bg-[#0f1a2f]"
-                    >
-                      <span className="mt-0.5 flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff6b6b] to-[#ff8e8e] text-white shadow-lg shadow-[#ff6b6b]/10">
-                        <Icon className="h-4 w-4" />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="flex items-center gap-2 text-sm font-semibold text-white">
-                          {link.label}
-                          <ArrowRight className="h-4 w-4 text-white/30 transition-transform group-hover:translate-x-0.5" />
-                        </span>
-                        <span className="mt-1 block text-xs leading-relaxed text-white/50">{link.description}</span>
-                      </span>
-                    </a>
-                  )
-                })}
-              </div>
-            </section>
-          ))}
-        </div>
-
-        <div className="mt-8 rounded-3xl border border-white/8 bg-[#08101e]/75 px-6 py-5">
-          <p className="text-sm font-semibold text-white">Prefer a structured intake?</p>
-          <p className="mt-2 text-sm text-white/45">
-            I keep the first message short on purpose. If this is a real project, send scope and timeline so I can
-            respond quickly with realistic next steps.
-          </p>
-          <ProtectedWhatsAppLink
-            href={whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] px-5 py-3 font-semibold text-[#060a14] transition-transform hover:scale-[1.01]"
-          >
-            Start a project on WhatsApp
-            <ArrowRight className="h-4 w-4" />
-          </ProtectedWhatsAppLink>
-        </div>
-      </div>
-    </main>
+      </main>
+    </ThemeShell>
   )
 }

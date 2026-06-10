@@ -1,44 +1,59 @@
 import Link from "next/link"
+import { ThemeShell } from "@/components/theme-shell"
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#060a14] px-4">
-      <div className="glass rounded-2xl p-8 max-w-md text-center">
-        <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[#2dd4bf]/20 flex items-center justify-center">
-          <span className="text-4xl font-bold gradient-text">404</span>
-        </div>
-
-        <h1 className="text-2xl font-bold text-white mb-2">
-          Page not found
-        </h1>
-
-        <p className="text-white/60 mb-6">
-          The page you&apos;re looking for doesn&apos;t exist or has been moved.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link
-            href="/"
-            className="px-6 py-3 bg-gradient-to-r from-[#2dd4bf] to-[#22d3ee] text-[#060a14] font-semibold rounded-xl hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-[#2dd4bf] focus:ring-offset-2 focus:ring-offset-[#060a14]"
+    <ThemeShell>
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div
+          className="rounded-3xl border p-8 max-w-md text-center"
+          style={{
+            borderColor: "var(--dtz-border)",
+            background: "var(--dtz-panel)",
+            boxShadow: "var(--dtz-shadow)",
+          }}
+        >
+          <div
+            className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center"
+            style={{ background: "var(--dtz-accent-soft)" }}
           >
-            Go home
-          </Link>
+            <span className="text-4xl font-bold" style={{ color: "var(--dtz-accent)" }}>
+              404
+            </span>
+          </div>
 
-          <Link
-            href="/#focus"
-            className="px-6 py-3 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/5 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-[#060a14]"
-          >
-            View focus areas
-          </Link>
+          <h1 className="text-2xl font-bold mb-2">Page not found</h1>
+
+          <p className="mb-6" style={{ color: "var(--dtz-muted)" }}>
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              href="/"
+              className="px-6 py-3 font-semibold rounded-xl transition-opacity hover:opacity-90"
+              style={{ background: "var(--dtz-accent)", color: "var(--dtz-on-accent)" }}
+            >
+              Go home
+            </Link>
+
+            <Link
+              href="/#notes"
+              className="px-6 py-3 border font-semibold rounded-xl transition-colors"
+              style={{ borderColor: "var(--dtz-border)", color: "var(--dtz-muted)" }}
+            >
+              Current focus
+            </Link>
+          </div>
+
+          <p className="mt-8 text-sm" style={{ color: "var(--dtz-muted)" }}>
+            Looking for something specific?{" "}
+            <Link href="/#contact" className="hover:underline" style={{ color: "var(--dtz-accent)" }}>
+              Get in touch
+            </Link>
+          </p>
         </div>
-
-        <p className="mt-8 text-white/75 text-sm">
-          Looking for something specific?{" "}
-          <Link href="/#contact" className="text-[#2dd4bf] hover:underline">
-            Get in touch
-          </Link>
-        </p>
       </div>
-    </div>
+    </ThemeShell>
   )
 }
