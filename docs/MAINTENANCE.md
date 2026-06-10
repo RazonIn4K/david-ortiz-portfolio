@@ -4,14 +4,7 @@ Last reviewed: 2026-06-10. This is the operational companion to `docs/PROJECT-ST
 
 ## Working-copy discipline
 
-One checkout, one session at a time. The repo at `~/Git-Projects/david-ortiz-portfolio` is canonical. A linked worktree at `~/Git-Projects/david-ortiz-portfolio-main-sync` (created during the June 2026 overhaul) still holds the `main` branch, which forces other checkouts onto side branches. When you no longer need it, remove it from the canonical checkout on the Mac:
-
-```bash
-git worktree remove ~/Git-Projects/david-ortiz-portfolio-main-sync
-git worktree prune
-```
-
-Until then, work happens on a branch (currently `work`) and lands on `main` via push or PR. Never run two agent sessions against this repo concurrently; the June 10 session lost time to exactly that.
+One checkout, one session at a time. The repo at `~/Git-Projects/david-ortiz-portfolio` is canonical and sits on `main`. The `-main-sync` worktree from the June 2026 overhaul was removed on 2026-06-10; do not create parallel worktrees or run two agent sessions against this repo concurrently. The June 10 session lost time to exactly that.
 
 ## Secrets and environment
 
@@ -29,7 +22,7 @@ David retired the `/pay` funnel on 2026-06-10: `app/pay/`, `app/pagar/`, `data/p
 
 ## Branch hygiene
 
-Remote branches with unmerged commits and no open PR, both superseded by what is on `main` (safe to delete on GitHub): `refactor/prune-ecosystem-links` (superseded by the #71 copy-audit decision) and `test/whatsapp-and-chat-coverage` (superseded by the test suite merged via #62-#74). Merged PR head branches can be pruned at any time.
+Cleaned 2026-06-10: all 17 stale remote branches deleted after verifying each mapped to a merged PR (#52-#68; "unmerged commit" counts were squash-merge artifacts). Standing rule: delete the head branch when a PR merges, and keep `origin/main` as the only long-lived branch.
 
 ## Verification
 
