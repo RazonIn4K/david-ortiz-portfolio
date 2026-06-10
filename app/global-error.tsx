@@ -2,6 +2,34 @@
 
 import { useEffect } from "react"
 
+const themeVariables = `
+  :root {
+    --bg: #ddebe6;
+    --panel: #f4fbf7;
+    --border: #6f8f88;
+    --accent-soft: #cceee6;
+    --accent-2: #9b352d;
+    --fg: #061513;
+    --muted: #243c38;
+    --accent: #00585d;
+    --on-accent: #ffffff;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #061311;
+      --panel: #10231f;
+      --border: #5f8179;
+      --accent-soft: #153b38;
+      --accent-2: #ff9b86;
+      --fg: #f4fffb;
+      --muted: #c1d4cf;
+      --accent: #7cf7e7;
+      --on-accent: #03110f;
+    }
+  }
+`
+
 export default function GlobalError({
   error,
   reset,
@@ -16,7 +44,10 @@ export default function GlobalError({
 
   return (
     <html lang="en">
-      <body style={{ margin: 0, backgroundColor: "#ddebe6" }}>
+      <head>
+        <style>{themeVariables}</style>
+      </head>
+      <body style={{ margin: 0, backgroundColor: "var(--bg)" }}>
         <div
           style={{
             minHeight: "100vh",
@@ -29,13 +60,13 @@ export default function GlobalError({
         >
           <div
             style={{
-              background: "#f4fbf7",
+              background: "var(--panel)",
               backdropFilter: "blur(20px)",
               borderRadius: "1rem",
               padding: "2rem",
               maxWidth: "28rem",
               textAlign: "center",
-              border: "1px solid #6f8f88",
+              border: "1px solid var(--border)",
             }}
           >
             <div
@@ -44,7 +75,7 @@ export default function GlobalError({
                 height: "4rem",
                 margin: "0 auto 1.5rem",
                 borderRadius: "50%",
-                background: "#cceee6",
+                background: "var(--accent-soft)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -54,7 +85,7 @@ export default function GlobalError({
                 width="32"
                 height="32"
                 fill="none"
-                stroke="#9b352d"
+                stroke="var(--accent-2)"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
@@ -71,7 +102,7 @@ export default function GlobalError({
               style={{
                 fontSize: "1.5rem",
                 fontWeight: "bold",
-                color: "#061513",
+                color: "var(--fg)",
                 marginBottom: "0.5rem",
               }}
             >
@@ -80,7 +111,7 @@ export default function GlobalError({
 
             <p
               style={{
-                color: "#243c38",
+                color: "var(--muted)",
                 marginBottom: "1.5rem",
                 lineHeight: 1.5,
               }}
@@ -93,8 +124,8 @@ export default function GlobalError({
                 onClick={reset}
                 style={{
                   padding: "0.75rem 1.5rem",
-                  background: "#00585d",
-                  color: "#ffffff",
+                  background: "var(--accent)",
+                  color: "var(--on-accent)",
                   fontWeight: 600,
                   borderRadius: "0.75rem",
                   border: "none",
@@ -110,10 +141,10 @@ export default function GlobalError({
                 style={{
                   padding: "0.75rem 1.5rem",
                   background: "transparent",
-                  color: "#243c38",
+                  color: "var(--muted)",
                   fontWeight: 600,
                   borderRadius: "0.75rem",
-                  border: "1px solid #6f8f88",
+                  border: "1px solid var(--border)",
                   cursor: "pointer",
                   fontSize: "1rem",
                 }}
