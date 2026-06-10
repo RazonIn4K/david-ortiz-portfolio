@@ -45,9 +45,10 @@ describe("sitemap", () => {
 
 describe("security headers", () => {
   it("applies the baseline hardening set to every route", async () => {
-    const headerRules = await nextConfig.headers()
+    const headerRules = await nextConfig.headers?.()
+    if (!headerRules) throw new Error("nextConfig.headers is not defined")
     const all = headerRules.find((entry) => entry.source === "/(.*)")
-    expect(all).toBeDefined()
+    if (!all) throw new Error("catch-all header rule is missing")
 
     const byKey = Object.fromEntries(all.headers.map((header) => [header.key, header.value]))
     expect(byKey["X-Content-Type-Options"]).toBe("nosniff")
