@@ -1,0 +1,50 @@
+name: Uptime check
+
+on:
+  schedule:
+    # Every 6 hours — enough to catch outages without noisy traffic.
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe davidtiz.com routes
+        run: |
+          set -e
+          fail=0
+          check () {
+            local expected="$1"; shift
+            local label="$1"; shift
+            local actual
+            actual=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "$@") || actual="ERR"
+            if [ "$actual" = "$expected" ]; then
+              echo "ok   $actual  $label"
+            else
+              echo "FAIL expected=$expected got=$actual  $label"
+              fail=1
+            fi
+          }
+
+          check 200 "/"            "https://davidtiz.com/"
+          check 200 "/contact"     "https://davidtiz.com/contact"
+          check 200 "/portfolio"   "https://davidtiz.com/portfolio"
+          check 200 "/privacy"     "https://davidtiz.com/privacy"
+          check 200 "/demo"        "https://davidtiz.com/demo"
+          check 200 "/robots.txt"  "https://davidtiz.com/robots.txt"
+          check 200 "/sitemap.xml" "https://davidtiz.com/sitemap.xml"
+
+          # The screened WhatsApp redirect must REJECT a bare request.
+          # 403 here means the contact guard is alive; 200/302/500 means it broke.
+          check 403 "/contact/whatsapp (guard)" "https://davidtiz.com/contact/whatsapp"
+
+          # Chat endpoint answers (real model or canned fallback are both 200).
+          check 200 "/api/chat" -X POST "https://davidtiz.com/api/chat" \
+            -H "Content-Type: application/json" \
+            -d '{"messages":[{"role":"user","content":"uptime probe"}]}'
+
+          exit $fail
