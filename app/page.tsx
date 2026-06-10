@@ -2,11 +2,11 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "framer-motion"
 import { GithubIcon } from "@/components/icons/brand-icons"
 import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
 import { AIAssistant } from "@/components/ai-assistant"
+import { useSiteTheme } from "@/components/use-site-theme"
 import { contact, whatsappHref } from "@/data/content"
 import {
   ArrowUpRight,
@@ -141,39 +141,6 @@ const contactGuardrails = [
   "A future WhatsApp/n8n screener can label spam, ask one clarifying question, and keep human approval on replies.",
   "Direct calls should happen after context, not as the first public CTA bots can scrape.",
 ]
-
-function useSiteTheme() {
-  const [theme, setTheme] = useState<"light" | "dark">("light")
-
-  useEffect(() => {
-    const requestedTheme = new URLSearchParams(window.location.search).get("theme")
-    let nextTheme: "light" | "dark" | null = null
-
-    if (requestedTheme === "light" || requestedTheme === "dark") {
-      nextTheme = requestedTheme
-      window.localStorage.setItem("davidtiz-theme", requestedTheme)
-    } else {
-      const savedTheme = window.localStorage.getItem("davidtiz-theme")
-      if (savedTheme === "light" || savedTheme === "dark") {
-        nextTheme = savedTheme
-      } else if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) {
-        nextTheme = "dark"
-      }
-    }
-
-    if (!nextTheme) return
-
-    const frame = window.requestAnimationFrame(() => setTheme(nextTheme))
-    return () => window.cancelAnimationFrame(frame)
-  }, [])
-
-  const updateTheme = (nextTheme: "light" | "dark") => {
-    setTheme(nextTheme)
-    window.localStorage.setItem("davidtiz-theme", nextTheme)
-  }
-
-  return { theme, updateTheme }
-}
 
 export default function HomePage() {
   const { theme, updateTheme } = useSiteTheme()
@@ -521,6 +488,9 @@ export default function HomePage() {
           <a href={contact.github} target="_blank" rel="noreferrer">
             GitHub
           </a>
+          <Link href="/contact">All contact paths</Link>
+          <Link href="/portfolio">Portfolio</Link>
+          <Link href="/privacy">Privacy</Link>
         </span>
       </footer>
 

@@ -16,7 +16,7 @@ export default function GlobalError({
 
   return (
     <html lang="en">
-      <body style={{ margin: 0, backgroundColor: "#060a14" }}>
+      <body style={{ margin: 0, backgroundColor: "#ddebe6" }}>
         <div
           style={{
             minHeight: "100vh",
@@ -29,13 +29,13 @@ export default function GlobalError({
         >
           <div
             style={{
-              background: "rgba(255, 255, 255, 0.05)",
+              background: "#f4fbf7",
               backdropFilter: "blur(20px)",
               borderRadius: "1rem",
               padding: "2rem",
               maxWidth: "28rem",
               textAlign: "center",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
+              border: "1px solid #6f8f88",
             }}
           >
             <div
@@ -44,7 +44,7 @@ export default function GlobalError({
                 height: "4rem",
                 margin: "0 auto 1.5rem",
                 borderRadius: "50%",
-                background: "rgba(255, 107, 107, 0.2)",
+                background: "#cceee6",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -54,7 +54,7 @@ export default function GlobalError({
                 width="32"
                 height="32"
                 fill="none"
-                stroke="#ff6b6b"
+                stroke="#9b352d"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
@@ -71,7 +71,7 @@ export default function GlobalError({
               style={{
                 fontSize: "1.5rem",
                 fontWeight: "bold",
-                color: "#ffffff",
+                color: "#061513",
                 marginBottom: "0.5rem",
               }}
             >
@@ -80,7 +80,7 @@ export default function GlobalError({
 
             <p
               style={{
-                color: "rgba(255, 255, 255, 0.6)",
+                color: "#243c38",
                 marginBottom: "1.5rem",
                 lineHeight: 1.5,
               }}
@@ -93,8 +93,8 @@ export default function GlobalError({
                 onClick={reset}
                 style={{
                   padding: "0.75rem 1.5rem",
-                  background: "linear-gradient(to right, #2dd4bf, #22d3ee)",
-                  color: "#060a14",
+                  background: "#00585d",
+                  color: "#ffffff",
                   fontWeight: 600,
                   borderRadius: "0.75rem",
                   border: "none",
@@ -110,10 +110,10 @@ export default function GlobalError({
                 style={{
                   padding: "0.75rem 1.5rem",
                   background: "transparent",
-                  color: "#ffffff",
+                  color: "#243c38",
                   fontWeight: 600,
                   borderRadius: "0.75rem",
-                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  border: "1px solid #6f8f88",
                   cursor: "pointer",
                   fontSize: "1rem",
                 }}
