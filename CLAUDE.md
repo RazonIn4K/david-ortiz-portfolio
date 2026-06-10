@@ -104,6 +104,7 @@ Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.co
 - These are public business details, NOT secrets. Never move them into `.env`.
 
 ## Constraints for future edits
+- Brand boundary: this site never becomes an ecosystem router. Rules + allowed-link test live in `docs/BRAND-BOUNDARY.md`.
 - Do not touch secrets (`.env.local`, `.env.production`, Doppler).
 - Do not invent clients, testimonials, revenue, certifications, job titles, or years of experience.
 - Keep tone plain and honest; avoid agency-brochure language.
