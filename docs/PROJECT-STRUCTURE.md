@@ -1,8 +1,8 @@
 # Project Structure Map
 
 > Living reference for how this repo actually fits together — entry points, the real
-> import graph (what loads vs. what is dead), and prioritized follow-ups.
-> Last verified against `main` after the Next.js 16 / `davidtiz.com` overhaul.
+> import graph, and the state of past follow-ups.
+> Last verified against `main` after the June 2026 hardening stack (PRs #53–#68) merged.
 
 ## What this is
 
@@ -10,9 +10,9 @@ Personal portfolio for David Ortiz — **Next.js 16 (App Router), React 19, Tail
 deployed on Vercel, production domain `davidtiz.com`. It is a personal builder/operator
 portfolio, **not** an agency or multi-site "ecosystem" router (see `CLAUDE.md` / `AGENTS.md`).
 
-The user-facing front page (`/`) is deliberately small. Most of the surface area is either
-secondary routes (contact, pay, portfolio, privacy), backend integrations
-(WhatsApp/Meta/chat), or scaffold that is reachable only from a dev showcase route.
+The user-facing front page (`/`) is deliberately small. The rest of the surface area is
+secondary routes (contact, pay, portfolio, privacy, demos) and backend integrations
+(WhatsApp webhook → n8n, Meta coexistence, AI chat).
 
 ## Tech stack
 
@@ -23,11 +23,12 @@ secondary routes (contact, pay, portfolio, privacy), backend integrations
 | Fonts | Geist Sans / Geist Mono (`next/font`) |
 | Analytics | `@vercel/analytics` (only mounted when `VERCEL=1`) |
 | Lint | ESLint flat config (`eslint.config.mjs` → `eslint-config-next`) |
-| Secrets | Doppler (`doppler run -- …`) |
+| Tests | Vitest (`npm test`), node env, specs co-located as `*.test.ts` |
+| CI | GitHub Actions: `ci.yml` (lint → test → build) + `codeql.yml`, on push/PR |
+| Secrets | Doppler (`doppler run -- …`), project `david-ortiz-portfolio` |
 
-Notable config: `next.config.mjs` sets `typescript.ignoreBuildErrors: true` and
-`images.unoptimized: true`. The first one means **type errors (including undefined
-references) do not fail the build** — see follow-up #1.
+Notable config: `next.config.mjs` sets `typescript.ignoreBuildErrors: false` (type errors
+fail the build) and rewrites `/demo` → `/demo/index.html`.
 
 ## Runtime entry points
 
@@ -36,93 +37,83 @@ the homepage does not have to import them. Reachable surfaces:
 
 | URL | File | Notes |
 |---|---|---|
-| `/` | `app/page.tsx` | The real homepage — single client component, `dtz-*` styles |
+| `/` | `app/page.tsx` | Homepage — single client component, `dtz-*` styles, mounts the floating AI assistant |
 | `/contact` | `app/contact/page.tsx` | Contact hub; renders `ProtectedWhatsAppLink` |
-| `/contact/whatsapp` | `app/contact/whatsapp/route.ts` | Screened WhatsApp redirect (cookie/token + abuse scoring) |
+| `/contact/whatsapp` | `app/contact/whatsapp/route.ts` | Screened WhatsApp redirect: HttpOnly cookie/token pairing, single-use (replay → 403), abuse scoring |
+| `/contact/whatsapp/challenge` | `.../challenge/route.ts` | Mints the challenge: returns the token + sets the HttpOnly cookie |
 | `/portfolio` | `app/portfolio/page.tsx` | Portfolio detail page |
-| `/privacy` | `app/privacy/page.tsx` | Static privacy page |
+| `/privacy` | `app/privacy/page.tsx` | Static privacy page (a Meta-app precondition) |
 | `/pay`, `/pagar` | `app/pay/page.tsx`, `app/pagar/page.tsx` | Stripe payment-link menu (Spanish) |
-| `/admin/whatsapp-coexistence` | `app/admin/whatsapp-coexistence/page.tsx` + `launcher.tsx` | Admin tool |
-| `/api/chat` | `app/api/chat/route.ts` | OpenRouter chat w/ keyword fallback; **not used by homepage** |
-| `/api/whatsapp/webhook` | `app/api/whatsapp/webhook/route.ts` | Meta webhook verify + HMAC + forward to n8n |
-| `/api/meta/embedded-signup/*` | `callback/route.ts`, `status/route.ts` | Meta embedded-signup flow |
+| `/demo` (+ `/demo/*.html`) | `public/demo/` via rewrite | Static Spanish local-business demos; linked from the homepage work card and `/pay`; demos link back to the screened WhatsApp path |
+| `/admin/whatsapp-coexistence` | `page.tsx` + `launcher.tsx` | Admin-key-gated Meta Embedded Signup launcher (404 without key) |
+| `/api/chat` | `app/api/chat/route.ts` | OpenRouter chat — **used by the homepage assistant**. Rate-limited (15/min/IP), payload caps, cheapest-first model chain (`OPENROUTER_MODELS` → `OPENROUTER_MODEL` → `openrouter/free`), canned-keyword fallback |
+| `/api/whatsapp/webhook` | `route.ts` | Meta verify handshake + HMAC signature check; forwards to n8n with correlation-id, privacy-safe outcome logging |
+| `/api/meta/embedded-signup/*` | `callback/route.ts`, `status/route.ts` | Coexistence flow; server-side token exchange exists but is gated behind `META_EMBEDDED_SIGNUP_ALLOW_TOKEN_EXCHANGE=true` (default off — Meta currently blocks ES for this app) |
 | specials | `app/layout.tsx`, `error.tsx`, `global-error.tsx`, `not-found.tsx` | Framework chrome |
 
-**Edge layer:** `proxy.ts` (Next.js 16 middleware, formerly `middleware.ts`) runs before the
-route handlers on every path except `api/chat` + static assets. It only canonicalizes the
-host (`www.davidtiz.com` → `davidtiz.com`, 308) and otherwise passes through via
-`NextResponse.next()`. The `/design-system` showcase route was removed (see Cleanup).
+**Edge layer:** `proxy.ts` (Next.js 16 middleware) runs before all routes except static
+assets and only canonicalizes the host (`www.davidtiz.com` → `davidtiz.com`, 308).
 
-## Import graph — live vs. dormant
+## Import graph — live modules
 
-Verified by static import analysis; there are **no** dynamic/lazy imports
-(`dynamic()` / `import()` / `require()`) anywhere, so this graph is complete.
+No dynamic/lazy imports exist, so static analysis is complete.
 
-### Homepage (`/`) pulls in only three local modules
+### Homepage (`/`) pulls in four local modules
 ```
 app/page.tsx
  ├─ components/icons/brand-icons.tsx        (GithubIcon)
  ├─ components/contact/protected-whatsapp-link.tsx
+ ├─ components/ai-assistant.tsx             (floating concierge → POST /api/chat)
  └─ data/content.ts                         (contact, whatsappHref)
 ```
 
 ### Live components / libs (and what keeps them alive)
 | Module | Reachable via |
 |---|---|
-| `components/contact/protected-whatsapp-link.tsx` | `/`, `/contact`, `/pay` |
+| `components/contact/protected-whatsapp-link.tsx` | `/`, `/contact`, `/pay` — fetches one shared challenge per page load |
+| `components/ai-assistant.tsx` | `/` |
 | `components/icons/brand-icons.tsx` | `/`, `/contact` |
-| `data/content.ts` | everywhere |
+| `data/content.ts` | everywhere (content + `contact` + `chatConfig`) |
 | `data/payment-links.ts` | `/pay` |
 | `lib/site-config.ts` | `/contact`, `/portfolio`, `lib/contact-links` |
-| `lib/contact-links.ts` | `/contact` |
-| `lib/meta-embedded-signup.ts` | `/api/meta/embedded-signup/callback` |
-| `lib/utils.ts` (`cn`) | kept as a conventional helper (no importer after the showcase removal) |
+| `lib/contact-links.ts` | `/contact` (social/hire/follow links; ecosystem links pruned in #59) |
+| `lib/meta-embedded-signup.ts` | Meta callback/status/launcher (HMAC state, admin key, gated token exchange) |
+| `lib/abuse-store.ts` | `/contact/whatsapp` + `/api/chat` — rate windows + single-use tokens; REST Redis (Vercel KV/Upstash env vars) when configured, in-memory fallback, fails open |
+| `lib/utils.ts` (`cn`) | conventional helper |
 
-### ✅ Removed: the `/design-system` showcase cluster
-The `ds-*` cluster (`ds-button/card/badge/input/ecosystem-nav/icon-set`), its route
-(`app/design-system/`), and `lib/design-system/{tokens,site-configs}.ts` were reachable
-*only* through the `/design-system` dev page, and encoded a multi-site "ecosystem" concept
-the project docs say is **not** the framing. Removed in this PR — the production build
-confirms the route is gone. `lib/utils.ts` (`cn`) was kept as a conventional helper.
+## History: the June 2026 cleanup + hardening stack (merged)
 
-## Cleanup performed (branch `chore/remove-dead-scaffold`)
+- **#53** removed dead scaffold: `components/ui-creative/` (10 files), the `/design-system`
+  showcase cluster (`ds-*` components + tokens + site-configs), `lib/design-system/animations.ts`,
+  and an accidentally committed `dev_server.log`.
+- **#54** fixed the `CONTACT_PATH` ReferenceError that 500'd the WhatsApp redirect's happy
+  path, and set `ignoreBuildErrors: false`.
+- **#55** untracked the stale `verification/` Playwright artifacts (gitignored).
+- **#56** added Vitest + the first security specs (Meta signup state HMAC, webhook signatures).
+- **#57** restored CI (lint/test/build) + CodeQL; removed the stale `/projects` rewrite.
+- **#58** ran middleware on `/api/chat`; pointed `doppler.yaml` at the project config.
+- **#59** pruned HighEncode/CSBrainAI/Prompt Defenders ecosystem links from contact surfaces.
+- **#60** rate-limited `/api/chat` + env-driven cheapest-first model chain.
+- **#61** re-added the AI assistant as a floating homepage concierge.
+- **#62** moved challenge issuance server-side (HttpOnly cookie; fixed a multi-link race).
+- **#63** privacy-safe n8n forward logging (status/duration/correlation-id only).
+- **#64** behavior tests for `/api/chat` guards + the challenge/replay flow.
+- **#65** wired `public/demo/` into the site (`/demo` rewrite + homepage card CTA).
+- **#66** implemented the Meta coexistence token exchange behind a default-off flag.
+- **#67** optional Redis-backed persistence for abuse state (in-memory fallback, fail-open).
+- **#68** fixed the case-sensitive SameSite test assertion that briefly broke main CI.
 
-Removed code that is imported by nothing reachable:
+All validated post-merge: CI + CodeQL green; production E2E confirmed the challenge → 302 →
+replay-403 flow, `/demo` routes, and a real (non-fallback) `/api/chat` model response.
 
-- `components/ui-creative/` — entire directory (10 files: `ai-assistant`, `terminal-hero`,
-  `holographic-card`, `orbit-visualization`, `hex-grid-bg`, `floating-dock`,
-  `floating-contact`, `animated-stats`, `service-grid`, `ecosystem-links`). Nothing in the
-  app imports any of them; they only import outward. Confirmed by repo-wide grep (only
-  doc references existed, now updated).
-- `lib/design-system/animations.ts` — zero importers.
-- **`/design-system` showcase cluster** — `app/design-system/` (route + layout + error),
-  `components/design-system/ds-*` (6 files), and `lib/design-system/{tokens,site-configs}.ts`.
-  Reachable only from the dev showcase route; removed per decision. `lib/utils.ts` kept.
-- `dev_server.log` — an accidentally committed runtime log; added `*.log` + `dev_server.log`
-  to `.gitignore`.
+## Open operational notes
 
-**Validated:** `npm run build` succeeds and the route list no longer includes
-`/design-system`; `tsc --noEmit` reports only the pre-existing `CONTACT_PATH` error
-(follow-up #1), confirming these removals introduce no type errors.
-
-Docs updated to match: `CLAUDE.md`, `AGENTS.md` (removed stale `ui-creative/` and
-`design-system/` references).
-
-## Prioritized follow-ups (not in the cleanup PR)
-
-1. **🔴 Bug: `/contact/whatsapp` 500s on the happy path.**
-   `app/contact/whatsapp/route.ts:242` references `CONTACT_PATH`, which is **never
-   defined** in the repo. On a valid (non-blocked) redirect, `markChallengeCookieConsumed`
-   throws `ReferenceError`; the `GET` handler has no try/catch, so it returns HTTP 500 —
-   breaking the one genuinely live contact feature. Hidden by `ignoreBuildErrors: true`.
-   **Fixed in PR #54** (defines `CONTACT_PATH = "/contact/whatsapp"`, matching the cookie's
-   scoped path). Still wants a manual happy-path check before merge.
-2. ~~Decide the fate of `/design-system` + the `ds-*` cluster.~~ **Done** — removed in this PR.
-3. **`verification/` (17 tracked artifacts: PNG screenshots + `.py` scripts).** Decide
-   whether these belong in the repo or should move to CI artifacts / be gitignored.
-   *(Left as-is — needs the owner's call; not auto-removed.)*
-4. **Reconsider `typescript.ignoreBuildErrors: true`.** It hid follow-up #1. Verified with
-   `tsc --noEmit`: the codebase has **exactly one** type error — the `CONTACT_PATH` bug —
-   so once PR #54 lands, `ignoreBuildErrors` can be set to `false` and the build will
-   type-check clean. (PR #54 also flips this flag so the check would catch the next one.)
-5. ~~Minor doc drift: `AGENTS.md` `phone` field.~~ **Done** — corrected.
+1. **Shared abuse state is dormant until Redis exists.** Provision via Vercel Marketplace
+   (Upstash) — `KV_REST_API_URL`/`KV_REST_API_TOKEN` appear automatically; no code change.
+   Until then, rate/replay state is per-instance in-memory (by design).
+2. **Meta Embedded Signup stays parked.** Meta blocks it for this app ("BSPs or TPs" only).
+   When unblocked: set `META_EMBEDDED_SIGNUP_ALLOW_TOKEN_EXCHANGE=true`, run the launcher,
+   store the returned token as `WHATSAPP_ACCESS_TOKEN`, flip the flag back off. Never click
+   takeover/migration wording (see `docs/WHATSAPP_COEXISTENCE_EMBEDDED_SIGNUP_SPEC.md`).
+3. **`verification/` stays local-only** (gitignored); the old scripts target the pre-overhaul
+   site and would need a rewrite against the current routes if browser e2e is ever wanted.

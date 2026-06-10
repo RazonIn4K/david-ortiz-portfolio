@@ -18,10 +18,14 @@ npm run dev      # Start dev server (localhost:3000)
 npm run build    # Production build
 npm run start    # Run production server locally
 npm run lint     # Run ESLint
+npm test         # Run Vitest suite (route handlers + lib, node env)
+npm run test:watch
 
 # With Doppler (secrets)
 doppler run -- npm run dev
 ```
+
+CI (`.github/workflows/ci.yml`) runs lint → test → build on every push/PR; CodeQL runs alongside. `next.config.mjs` has `ignoreBuildErrors: false`, so type errors fail the build.
 
 ## Tech Stack
 - Framework: Next.js 16 (App Router)
@@ -40,14 +44,23 @@ app/
   error.tsx         # Page-level error boundary
   global-error.tsx  # App-level error boundary
   not-found.tsx     # Custom 404
-  api/chat/route.ts # AI chat endpoint (NOT used by the homepage)
+  api/chat/route.ts # AI chat endpoint — used by the homepage floating assistant
+  api/whatsapp/webhook/      # Meta webhook: verify handshake + HMAC, forwards to n8n
+  api/meta/embedded-signup/  # Coexistence callback/status (token exchange behind default-off flag)
+  admin/whatsapp-coexistence/ # Admin-key-gated Meta signup launcher
+  contact/whatsapp/ # Screened redirect (route.ts) + challenge issuance (challenge/route.ts)
 components/
+  ai-assistant.tsx  # Floating chat concierge on the homepage (calls /api/chat)
   contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact + /pay)
   icons/            # brand-icons (used by homepage + /contact)
 data/content.ts     # Shared content + centralized contact (`contact`, `whatsappHref`)
-lib/                # Utilities + site config (site-config, contact-links, meta-embedded-signup, utils)
+lib/                # site-config, contact-links, meta-embedded-signup, abuse-store, utils
 public/visuals/     # Hero/workbench images and SVGs
+public/demo/        # Static Spanish local-business demos; hub served at /demo via rewrite,
+                    # linked from the homepage work card and /pay
 ```
+
+Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.config.ts` maps `@/*` and stubs `server-only`).
 
 ## Homepage sections (`app/page.tsx`)
 1. Header — brand, nav (Start / Work / About / Notes / Contact), light/dark toggle
@@ -61,11 +74,26 @@ public/visuals/     # Hero/workbench images and SVGs
 
 ## Contact protection behavior
 
-- `ProtectedWhatsAppLink` in `components/contact/protected-whatsapp-link.tsx` sets:
-  - a short-lived `dzt-contact-challenge` cookie scoped to `/contact/whatsapp`
-  - a matching `challenge` query param on the outbound link
-- `app/contact/whatsapp/route.ts` validates that cookie/token pairing before issuing the redirect.
-- The route applies light abuse scoring (user-agent quality, referrer, burst patterns, link/spam signals) and returns `403` when blocked.
+- `ProtectedWhatsAppLink` fetches one shared challenge per page load from
+  `GET /contact/whatsapp/challenge`, which returns the token AND sets a short-lived
+  `dzt-contact-challenge` cookie (HttpOnly, SameSite=Lax, scoped to `/contact/whatsapp`).
+  The component echoes the token as the `challenge` query param on the outbound link.
+- `app/contact/whatsapp/route.ts` validates the cookie/token pairing, age, and single-use
+  (replay → 403) before issuing the 302 to `wa.me`.
+- The route applies light abuse scoring (user-agent quality, referrer, burst patterns,
+  link/spam signals) and returns `403` when blocked.
+- Replay/burst state goes through `lib/abuse-store.ts`: shared via REST Redis when
+  `KV_REST_API_URL`/`UPSTASH_REDIS_REST_URL` (+ token) are configured, otherwise
+  in-memory per instance; Redis errors fail open.
+
+## AI assistant (`components/ai-assistant.tsx` → `POST /api/chat`)
+
+- Floating concierge on the homepage; sends `{ messages }`, renders `{ message, fallback }`,
+  handles `429` (rate limit) gracefully.
+- The route is rate-limited (15/min/IP via `lib/abuse-store`), caps payloads, and tries a
+  cheapest-first model chain: `OPENROUTER_MODELS` (comma-separated) → `OPENROUTER_MODEL` →
+  default `openrouter/free`. Missing key or all-models-failed degrades to a canned keyword
+  fallback instead of erroring.
 
 ## Design / Styling
 - Uses custom `dtz-*` classes defined in `app/globals.css`. Keep this design language: accessible, personal, light/dark, grounded. Not cyberpunk/agency.
