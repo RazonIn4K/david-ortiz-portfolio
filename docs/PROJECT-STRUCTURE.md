@@ -77,7 +77,6 @@ app/page.tsx
 | `lib/contact-links.ts` | `/contact` (social/hire/follow links; ecosystem links pruned in #59) |
 | `lib/meta-embedded-signup.ts` | Meta callback/status/launcher (HMAC state, admin key, gated token exchange) |
 | `lib/abuse-store.ts` | `/contact/whatsapp` + `/api/chat` — rate windows + single-use tokens; REST Redis (Vercel KV/Upstash env vars) when configured, in-memory fallback, fails open |
-| `lib/utils.ts` (`cn`) | conventional helper |
 
 ## History: the June 2026 cleanup + hardening stack (merged)
 
@@ -103,6 +102,12 @@ app/page.tsx
 
 All validated post-merge: CI + CodeQL green; production E2E confirmed the challenge → 302 →
 replay-403 flow, `/demo` routes, and a real (non-fallback) `/api/chat` model response.
+
+Direct pushes on 2026-06-10 after the stack: dependency prune (122 packages of v0/shadcn
+residue incl. `lib/utils.ts`; package renamed to `david-ortiz-portfolio`; plain
+`tsc --noEmit` now clean), the `/pay` funnel retirement (Stripe links deactivated and
+account renamed, pages/scripts removed — see `docs/MAINTENANCE.md`), and repo hygiene
+(17 merged-PR branches deleted, `-main-sync` worktree removed).
 
 ## Open operational notes
 
