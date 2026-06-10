@@ -23,9 +23,9 @@ Doppler is the source of truth for env vars (`doppler.yaml`, `scripts/deploy_sec
 - **Meta / WhatsApp coexistence (parked):** token exchange is behind a default-off flag. When registering the webhook with Meta, use the apex URL `https://davidtiz.com/api/whatsapp/webhook`. Never register the `www` host: `proxy.ts` 308-redirects all `www` traffic and Meta will not follow redirects reliably.
 - **Shared abuse state (optional):** `lib/abuse-store.ts` falls back to per-instance memory. Provision a Redis/KV store and set the env vars above if replay/burst limits should hold across serverless instances.
 
-## Payments (/pay)
+## Payments (retired 2026-06-10)
 
-The Stripe links in `data/payment-links.ts` were probed on 2026-06-10 and are **live** (active checkout pages on the "Tomodachi" Stripe account, e.g. the $15 flyer item). `docs/BRAND-BOUNDARY.md` documents `/pay` as a deliberate sub-brand exception. Decision pending from David: keep as-is, or retire. If retiring: deactivate the payment links in the Stripe dashboard first, then remove `app/pay/`, `app/pagar/`, `data/payment-links.ts`, and `scripts/stripe-*.sh` in one PR.
+David retired the `/pay` funnel on 2026-06-10: `app/pay/`, `app/pagar/`, `data/payment-links.ts`, and `scripts/stripe-*.sh` removed; `docs/stripe/` moved to `docs/archive/stripe/`; robots/tests/docs updated. The seven Stripe payment links were deactivated in the dashboard and verified inactive via the Stripe API on account `acct_1RTxsnP5UmVB5UbV`; the public business name was set to "David Ortiz" and the card statement descriptor changed from `TOMODACHI.PW` to `DAVID ORTIZ` (note: the CLI's `stripe login` restricted key cannot write payment links or account settings, so dashboard + API verification is the working pattern). Deactivated link IDs, should they ever need reactivating: `plink_1TeryXP5UmVB5UbVMgvYmQe8` (Flyer $15), `plink_1TerzDP5UmVB5UbVdGCnDQMa` (WhatsApp Setup $40), `plink_1TerzqP5UmVB5UbVPQML6aFC` (Order Page $60), `plink_1Tes0RP5UmVB5UbV6NubpvDK` (Combo $150), `plink_1Tes0xP5UmVB5UbVyiNJa3cm` (Website + Google $300), `plink_1Tes1WP5UmVB5UbV62mQmczp` (Maintenance $50/mo), `plink_1Tes29P5UmVB5UbVuTnlRhGW` (Deposit $100).
 
 ## Branch hygiene
 

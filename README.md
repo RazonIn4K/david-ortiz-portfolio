@@ -1,6 +1,6 @@
 # David Ortiz — Personal Portfolio
 
-Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents selected work, current learning threads, practical web systems, AI-assisted workflow experiments, and contact information. It is a single-page site with anchor navigation (`#start`, `#work`, `#process`, `#stack`, `#notes`, `#contact`), plus a few focused secondary pages (`/contact`, `/portfolio`, `/pay`, `/privacy`, `/demo`).
+Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents selected work, current learning threads, practical web systems, AI-assisted workflow experiments, and contact information. It is a single-page site with anchor navigation (`#start`, `#work`, `#process`, `#stack`, `#notes`, `#contact`), plus a few focused secondary pages (`/contact`, `/portfolio`, `/privacy`, `/demo`).
 
 ## Getting Started
 
@@ -44,7 +44,6 @@ app/
   not-found.tsx     # Custom 404
   contact/          # Contact hub + screened WhatsApp redirect/challenge
   portfolio/        # Selected-work detail page
-  pay/, pagar/      # Stripe payment links (Spanish local-business funnel)
   api/chat/route.ts # AI chat endpoint (used by the homepage assistant)
 components/         # AI assistant, theme shell, contact link, icons
 data/content.ts     # Shared content + centralized contact details

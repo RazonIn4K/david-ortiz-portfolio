@@ -11,7 +11,7 @@ deployed on Vercel, production domain `davidtiz.com`. It is a personal builder/o
 portfolio, **not** an agency or multi-site "ecosystem" router (see `CLAUDE.md` / `AGENTS.md`).
 
 The user-facing front page (`/`) is deliberately small. The rest of the surface area is
-secondary routes (contact, pay, portfolio, privacy, demos) and backend integrations
+secondary routes (contact, portfolio, privacy, demos) and backend integrations
 (WhatsApp webhook → n8n, Meta coexistence, AI chat).
 
 ## Tech stack
@@ -43,8 +43,7 @@ the homepage does not have to import them. Reachable surfaces:
 | `/contact/whatsapp/challenge` | `.../challenge/route.ts` | Mints the challenge: returns the token + sets the HttpOnly cookie |
 | `/portfolio` | `app/portfolio/page.tsx` | Portfolio detail page |
 | `/privacy` | `app/privacy/page.tsx` | Static privacy page (a Meta-app precondition) |
-| `/pay`, `/pagar` | `app/pay/page.tsx`, `app/pagar/page.tsx` | Stripe payment-link menu (Spanish) |
-| `/demo` (+ `/demo/*.html`) | `public/demo/` via rewrite | Static Spanish local-business demos; linked from the homepage work card and `/pay`; demos link back to the screened WhatsApp path |
+| `/demo` (+ `/demo/*.html`) | `public/demo/` via rewrite | Static Spanish local-business demos; linked from the homepage work card; demos link back to the screened WhatsApp path |
 | `/admin/whatsapp-coexistence` | `page.tsx` + `launcher.tsx` | Admin-key-gated Meta Embedded Signup launcher (404 without key) |
 | `/api/chat` | `app/api/chat/route.ts` | OpenRouter chat — **used by the homepage assistant**. Rate-limited (15/min/IP), payload caps, cheapest-first model chain (`OPENROUTER_MODELS` → `OPENROUTER_MODEL` → `openrouter/free`), canned-keyword fallback |
 | `/api/whatsapp/webhook` | `route.ts` | Meta verify handshake + HMAC signature check; forwards to n8n with correlation-id, privacy-safe outcome logging |
@@ -70,11 +69,10 @@ app/page.tsx
 ### Live components / libs (and what keeps them alive)
 | Module | Reachable via |
 |---|---|
-| `components/contact/protected-whatsapp-link.tsx` | `/`, `/contact`, `/pay` — fetches one shared challenge per page load |
+| `components/contact/protected-whatsapp-link.tsx` | `/`, `/contact` — fetches one shared challenge per page load |
 | `components/ai-assistant.tsx` | `/` |
 | `components/icons/brand-icons.tsx` | `/`, `/contact` |
 | `data/content.ts` | everywhere (content + `contact` + `chatConfig`) |
-| `data/payment-links.ts` | `/pay` |
 | `lib/site-config.ts` | `/contact`, `/portfolio`, `lib/contact-links` |
 | `lib/contact-links.ts` | `/contact` (social/hire/follow links; ecosystem links pruned in #59) |
 | `lib/meta-embedded-signup.ts` | Meta callback/status/launcher (HMAC state, admin key, gated token exchange) |

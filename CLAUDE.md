@@ -51,13 +51,13 @@ app/
   contact/whatsapp/ # Screened redirect (route.ts) + challenge issuance (challenge/route.ts)
 components/
   ai-assistant.tsx  # Floating chat concierge on the homepage (calls /api/chat)
-  contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact + /pay)
+  contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact)
   icons/            # brand-icons (used by homepage + /contact)
 data/content.ts     # Shared content + centralized contact (`contact`, `whatsappHref`)
 lib/                # site-config, contact-links, meta-embedded-signup, abuse-store, utils
 public/visuals/     # Hero/workbench images and SVGs
 public/demo/        # Static Spanish local-business demos; hub served at /demo via rewrite,
-                    # linked from the homepage work card and /pay
+                    # linked from the homepage work card
 ```
 
 Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.config.ts` maps `@/*` and stubs `server-only`).
@@ -105,7 +105,7 @@ Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.co
 
 ## Constraints for future edits
 - Brand boundary: this site never becomes an ecosystem router. Rules + allowed-link test live in `docs/BRAND-BOUNDARY.md`.
-- Operational state (working-copy rule, parked integrations, /pay status, env source of truth): `docs/MAINTENANCE.md`.
+- Operational state (working-copy rule, parked integrations, retired /pay funnel, env source of truth): `docs/MAINTENANCE.md`.
 - Do not touch secrets (`.env.local`, `.env.production`, Doppler).
 - Do not invent clients, testimonials, revenue, certifications, job titles, or years of experience.
 - Keep tone plain and honest; avoid agency-brochure language.

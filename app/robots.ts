@@ -12,8 +12,6 @@ export default function robots(): MetadataRoute.Robots {
           "/admin/",
           "/api/",
           "/contact/whatsapp", // screened redirect + challenge endpoint, not content
-          "/pay", // already noindex via page metadata
-          "/pagar",
         ],
       },
     ],

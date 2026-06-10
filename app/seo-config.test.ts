@@ -12,7 +12,7 @@ describe("robots.txt config", () => {
 
   it("keeps crawlers off the operational routes", () => {
     const disallow = Array.isArray(rule.disallow) ? rule.disallow : [rule.disallow]
-    for (const path of ["/admin/", "/api/", "/contact/whatsapp", "/pay", "/pagar"]) {
+    for (const path of ["/admin/", "/api/", "/contact/whatsapp"]) {
       expect(disallow).toContain(path)
     }
   })
