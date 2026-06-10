@@ -6,9 +6,9 @@ const nextConfig = {
     // ReferenceError fixed in this PR. `tsc --noEmit` is clean as of this change.
     ignoreBuildErrors: false,
   },
-  images: {
-    unoptimized: true,
-  },
+  // next/image optimization is ON (Vercel optimizes on demand). /portfolio's
+  // large screenshots were previously shipped raw because of unoptimized: true.
+  // SVGs in <Image> are auto-served unoptimized by Next, which is what we want.
   async rewrites() {
     return [
       // Clean URL for the static local-business demo hub in public/demo/.
