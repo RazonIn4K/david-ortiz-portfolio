@@ -76,3 +76,7 @@ If you touch dependencies or `.fossa.yml`, follow the documented scan workflow b
 
 - [FOSSA scan playbook](docs/fossa-scan-playbook.md)
 - [FOSSA remediation notes](docs/fossa-remediation-notes.md)
+
+## GitLab CI/CD Security Scans
+This project is integrated with GitLab CI/CD to run automated security scans (SAST, Secret Detection, Dependency Scanning, and manual DAST). For more details, see [GitLab CI/CD Security Integration](docs/GITLAB-CI.md).
+

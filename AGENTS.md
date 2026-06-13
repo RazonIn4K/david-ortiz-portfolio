@@ -95,3 +95,11 @@ TypeScript `baseUrl: "."` with `@/*` mapping to root, e.g. `import { contact } f
 vercel --prod
 ```
 Auto-deploys from the connected branch via Vercel's GitHub integration.
+
+## GitLab CI/CD & Security Scanners
+All 7 active workspaces are mirrored to GitLab to run automated Ultimate security scans on the `main` branch.
+- **Remotes:** Every repository has a `gitlab` SSH remote (e.g. `git@gitlab.com:razonin4k/david-ortiz-portfolio-ci.git`).
+- **Scanners:** SAST, Secret Detection, Dependency Scanning, and DAST (Dynamic Application Security Testing) are enabled.
+- **DAST Staging Target:** `https://david-ortiz-portfolio-git-main-razs-projects-29d4f2e6.vercel.app` (configured as a manual trigger).
+- **Documentation:** For setup, triggers, and scanning details, see [docs/GITLAB-CI.md](file:///Users/davidortiz/Git-Projects/david-ortiz-portfolio/docs/GITLAB-CI.md) in this repository.
+

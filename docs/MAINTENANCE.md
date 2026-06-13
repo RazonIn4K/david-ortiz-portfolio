@@ -26,4 +26,7 @@ Cleaned 2026-06-10: all 17 stale remote branches deleted after verifying each ma
 
 ## Verification
 
-CI runs lint + vitest + build on every push/PR; CodeQL and a 6-hour production uptime probe (`.github/workflows/uptime-check.yml`) run on schedules. Locally: `npm test`, `npm run lint`, `npx tsc --noEmit` (clean as of 2026-06-10), `npm run build`. The uptime probe asserts the WhatsApp redirect returns 403 to bare requests; a 200/302/500 there means the contact guard broke.
+GitHub Actions CI runs lint + vitest + build on every push/PR; CodeQL and a 6-hour production uptime probe (`.github/workflows/uptime-check.yml`) run on schedules. Locally: `npm test`, `npm run lint`, `npx tsc --noEmit` (clean as of 2026-06-10), `npm run build`. The uptime probe asserts the WhatsApp redirect returns 403 to bare requests; a 200/302/500 there means the contact guard broke.
+
+Additionally, GitLab CI/CD automatically runs Ultimate security scans (SAST, Secret Detection, Dependency Scanning) on any commit pushed to the `gitlab` remote's `main` branch. A manual DAST scan is also available in the GitLab pipeline dashboard, targeting the main-branch staging/preview URL. For details, see [docs/GITLAB-CI.md](file:///Users/davidortiz/Git-Projects/david-ortiz-portfolio/docs/GITLAB-CI.md).
+
