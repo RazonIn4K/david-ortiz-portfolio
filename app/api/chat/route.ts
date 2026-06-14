@@ -34,10 +34,16 @@ interface ChatMessage {
 const CHAT_RATE_LIMIT = { windowMs: 60_000, maxRequests: 15 }
 
 function getClientIp(request: NextRequest) {
+  // On Vercel, x-vercel-forwarded-for and x-real-ip are set by the platform and
+  // cannot be spoofed by the client — prefer them so the rate-limit key is
+  // unforgeable. The raw x-forwarded-for leftmost is client-controllable and is
+  // kept only as a non-Vercel/local fallback. cf-connecting-ip is dropped: this
+  // app is Vercel-direct (not behind Cloudflare), so that header was 100%
+  // client-spoofable and let a caller mint unlimited fresh rate-limit buckets.
   return (
-    request.headers.get("cf-connecting-ip") ||
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     "unknown"
   )
 }
@@ -73,9 +79,13 @@ const MAX_TOTAL_CHARS = 8000
 function isChatMessage(value: unknown): value is ChatMessage {
   if (!value || typeof value !== "object") return false
   const message = value as Partial<ChatMessage>
+  // Only accept user/assistant turns from the client. A client-supplied "system"
+  // message would be forwarded alongside the server system prompt and could
+  // override the assistant's guardrails (confirmed prompt-injection); the server
+  // is the sole source of the system prompt.
   return (
     typeof message.content === "string" &&
-    (message.role === "user" || message.role === "assistant" || message.role === "system")
+    (message.role === "user" || message.role === "assistant")
   )
 }
 
