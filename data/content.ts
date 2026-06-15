@@ -39,10 +39,10 @@ export const services: Service[] = [
     },
   },
   {
-    title: 'Prompt Safety',
+    title: 'AI Security and Prompt Defense',
     description:
-      'Notes on prompt injection, misuse resistance, and the practical failure modes that show up in AI-assisted workflows.',
-    bullets: ['Prompt defense', 'Attack surfaces', 'Safer delivery'],
+      'Notes on prompt injection, instruction boundaries, misuse resistance, and the practical failure modes that show up in AI-assisted workflows.',
+    bullets: ['Prompt defense', 'Instruction boundaries', 'Safer delivery'],
     icon: '🛡️',
     cta: {
       label: 'Read the security notes',

@@ -79,11 +79,11 @@ const workAreas = [
   },
   {
     label: "Safety",
-    title: "Prompt Safety Learning",
-    body: "Ongoing study of AI guardrails, prompt injection, misuse boundaries, and the practical checks needed before an AI-powered workflow should be trusted.",
+    title: "AI Security and Prompt Defense",
+    body: "Practical work on prompt injection, instruction boundaries, misuse resistance, and the checks needed before an AI-powered workflow should be trusted.",
     image: "/visuals/ai-guardrails.svg",
     icon: ShieldCheck,
-    tags: ["Guardrails", "Testing", "Scope", "Review"],
+    tags: ["Prompt defense", "Guardrails", "Testing", "Review"],
   },
 ]
 
@@ -132,7 +132,7 @@ const stackGroups = [
 const currentFocus = [
   "Cleaner local-business websites with quote, order, or contact flows that do not feel overbuilt.",
   "Repeatable AI-assisted delivery: research, implementation, review, browser QA, and a written handoff.",
-  "Security-aware AI workflow habits, especially prompt injection, tool boundaries, and validation.",
+  "AI-security workflow habits, especially prompt injection, tool boundaries, and validation.",
   "Better notes that preserve what worked, what failed, and what should happen in the next session.",
 ]
 
