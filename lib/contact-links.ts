@@ -10,7 +10,7 @@ export const socialProfileLinks = [
   "https://www.youtube.com/@razonlab",
   "https://www.twitch.tv/razonlab",
   "https://x.com/Razonapp",
-  "https://www.linkedin.com/in/david-ortiz-210190205/",
+  "https://www.linkedin.com/in/davidortiz-dekalb/",
   "https://www.facebook.com/profile.php?id=61581646236939",
   "https://www.instagram.com/ra.z.on",
 ] as const
@@ -91,7 +91,7 @@ export const followWorkLinks: ContactLink[] = [
   {
     id: "linkedin",
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/david-ortiz-210190205/",
+    href: "https://www.linkedin.com/in/davidortiz-dekalb/",
     description: "Professional profile, background, and another clean way to connect.",
   },
 ]
