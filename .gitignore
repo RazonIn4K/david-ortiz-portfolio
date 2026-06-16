@@ -81,6 +81,7 @@ temp/
 .env*.local
 
 # Codex/Claude local worktree artifacts
+.codex/
 .claude/worktrees/
 .claude/settings.local.json
 

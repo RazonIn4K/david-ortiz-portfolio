@@ -62,6 +62,12 @@ public/demo/        # Static Spanish local-business demos; hub served at /demo v
 
 Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.config.ts` maps `@/*` and stubs `server-only`).
 
+## Clean Architecture Boundaries
+
+Canonical boundary guidance lives in [`docs/ARCHITECTURE-BOUNDARIES.md`](docs/ARCHITECTURE-BOUNDARIES.md). Read it before refactoring route handlers, contact flows, chat behavior, or shared content/data modules.
+
+Short version: this app is intentionally small, so do not over-abstract; but do not let business/security rules drift further into framework files without characterization tests. For the WhatsApp redirect lane, preserve challenge validation, full challenge value integrity, replay blocking, sanitization, and redirect message behavior.
+
 ## Homepage sections (`app/page.tsx`)
 1. Header — brand, nav (Start / Work / About / Notes / Contact), light/dark toggle
 2. Hero — positioning + CTAs (See selected work, Message me on WhatsApp)

@@ -93,14 +93,17 @@ function validateContactChallenge(request: NextRequest): ChallengeValidation {
     }
   }
 
-  if (challengeCookie.token !== challengeFromQuery.token) {
+  if (
+    challengeCookie.token !== challengeFromQuery.token ||
+    challengeCookie.issuedAt !== challengeFromQuery.issuedAt
+  ) {
     return {
       valid: false,
       reason: "contact-challenge-mismatch",
     }
   }
 
-  const age = Date.now() - challengeFromQuery.issuedAt
+  const age = Date.now() - challengeCookie.issuedAt
   if (age < 0 || age > contactChallengeWindowMs) {
     return {
       valid: false,

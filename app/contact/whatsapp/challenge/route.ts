@@ -11,9 +11,9 @@ const CHALLENGE_TTL_SECONDS = 10 * 60
 // (so it can be echoed back as the `?challenge=` query param on the outbound
 // link) AND set as a cookie server-side. The cookie is HttpOnly so client JS
 // can neither read nor forge it; the redirect route (/contact/whatsapp) then
-// compares the cookie token against the query token. Minting and validation
-// are both server-side now, which also removes the old client/server clock-skew
-// failure mode on the expiry check.
+// compares the full cookie challenge value against the query challenge value.
+// Minting and validation are both server-side now, which also removes the old
+// client/server clock-skew failure mode on the expiry check.
 export function GET(request: NextRequest) {
   const token = `${randomBytes(16).toString("hex")}.${Date.now()}`
 

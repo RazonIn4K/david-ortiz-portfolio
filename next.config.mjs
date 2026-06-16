@@ -1,6 +1,15 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   allowedDevOrigins: ['127.0.0.1'],
+  outputFileTracingRoot: __dirname,
+  turbopack: {
+    root: __dirname,
+  },
   typescript: {
     // Type errors fail the build. Previously `true`, which hid the CONTACT_PATH
     // ReferenceError fixed in this PR. `tsc --noEmit` is clean as of this change.
