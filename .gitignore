@@ -65,6 +65,7 @@ Thumbs.db
 dist/
 build/
 .next/
+.next-ci/
 *.tsbuildinfo
 
 # Documentation/log artifacts
