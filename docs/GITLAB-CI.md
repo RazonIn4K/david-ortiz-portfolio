@@ -2,6 +2,13 @@
 
 This project is integrated with GitLab CI/CD (mirroring to `gitlab.com/razonin4k/david-ortiz-portfolio-ci`) to run automated security scanning and vulnerability checks.
 
+GitHub Actions pushes to GitLab automatically when the repository secret
+`GITLAB_MIRROR_TOKEN` is configured. If that secret is absent, the mirror
+workflow exits successfully after a skip notice instead of failing the
+repository's main CI status. In that case, keep the GitLab mirror current with
+the configured local SSH remote or add the GitHub secret before relying on
+automatic GitLab scans.
+
 ## Pipeline Scoping
 To optimize runner usage and prevent scanner noise on feature branches, the pipeline is configured with a global `workflow:rules` constraint. Pipelines will **only run on commits to the `main` branch**.
 
