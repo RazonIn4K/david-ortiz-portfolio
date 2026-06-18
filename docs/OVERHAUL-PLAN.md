@@ -120,10 +120,13 @@ Suggested contents:
 ## This site is not
 - A multi-domain ecosystem router.
 - A services marketplace.
-- A brand directory for High Encode, CSBrainAI, Prompt Defenders, or any future project.
+- A brand directory or "choose a brand" page for High Encode, CSBrainAI,
+  Prompt Defenders, Razon Live Lab, or any future project.
 
 ## Allowed outbound links
 - Selected work examples on /portfolio (current example: highencodelearning.com via businessSiteUrl).
+- Individual proof cards for David's own projects, as long as they stay selected-work
+  evidence and do not become sibling-domain navigation or an ecosystem section.
 - Required legal/privacy/platform links.
 - Project demos hosted inside this repo (/demo).
 - One-off links when they serve the current page's user task.
@@ -150,7 +153,7 @@ find it.
 After #70 lands, grep the app for:
 
 ```text
-ecosystem | hub | HighEncode | CSBrainAI | Prompt Defenders | multi-site | network
+ecosystem | multi-site | brand network | choose a brand | our brands
 ```
 
 Keep harmless descriptive phrases ("contact hub" at `app/contact/page.tsx:31,91`).
@@ -176,7 +179,9 @@ brand-boundary decision (2026-06). Do not delete — they are useful history.
 
 ## What NOT to do in this repo
 
-- Do not add links to CSBrainAI or Prompt Defenders anywhere.
+- Do not add a sibling-brand directory, ecosystem nav, or High Encode service CTA.
+- Prompt Defenders and Razon Live Lab may appear only as individual proof cards
+  for David's own work.
 - Do not restyle `/pay`, `/pagar`, or `public/demo/*` into the dtz design system.
 - Do not move the public `contact` object out of `data/content.ts` into env vars
   (explicit existing constraint).

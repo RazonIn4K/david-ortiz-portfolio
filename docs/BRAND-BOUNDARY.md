@@ -15,7 +15,8 @@
 
 - A multi-domain ecosystem router.
 - A services marketplace or agency brochure.
-- A brand directory for High Encode, CSBrainAI, Prompt Defenders, or any future project.
+- A brand directory or "choose a brand" page for High Encode, CSBrainAI,
+  Prompt Defenders, Razon Live Lab, or any future project.
 - A landing page that asks visitors to "choose a brand."
 
 ## Allowed outbound links
@@ -23,6 +24,11 @@
 - **Selected work examples on `/portfolio`** — e.g., the Hernandez Landscape site and
   its case note (currently hosted on the business property). These are portfolio
   artifacts: evidence of work, never navigation.
+- **Individual proof cards for David's own projects** — e.g., a prompt-defense demo
+  or Razon Live Lab. These belong only as selected-work evidence, never as a
+  dedicated brands/projects directory, sibling-domain nav, or ecosystem section.
+  High Encode Learning stays off this personal hub except where a page explains
+  the personal-vs-business split.
 - **Required legal/privacy/platform links** (e.g., `/privacy`).
 - **Project demos hosted inside this repo** (`/demo` and its sub-pages).
 - **Personal profiles** on `/contact`: GitHub, LinkedIn, YouTube, Twitch, X, Facebook,
@@ -34,6 +40,7 @@
 - Footer or nav sections named "ecosystem," "network," "our brands," or similar.
 - Navigation that routes visitors to sibling domains as destinations.
 - Copy that makes other brands the organizing structure of davidtiz.com.
+- High Encode Learning service CTAs or company routing on this personal hub.
 - Re-adding pruned brand links to the contact surfaces (removed in PR #59) or
   reviving the deleted `/design-system` multi-site showcase (removed in PR #53).
 
@@ -76,7 +83,7 @@ nav bars, no shared "ecosystem" components.
   `businessSiteUrl` constant that feeds the allowed `/portfolio` links):
 
   ```bash
-  grep -rniE "ecosystem|HighEncode|CSBrainAI|Prompt Defenders|multi-site|brand network" \
+  grep -rniE "ecosystem|multi-site|brand network|choose a brand|our brands" \
     app/ components/ data/ lib/ public/demo/ --include="*.tsx" --include="*.ts" --include="*.html"
   ```
 

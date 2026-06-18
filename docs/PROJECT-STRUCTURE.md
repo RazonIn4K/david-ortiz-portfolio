@@ -11,7 +11,7 @@ deployed on Vercel, production domain `davidtiz.com`. It is a personal builder/o
 portfolio, **not** an agency or multi-site "ecosystem" router (see `CLAUDE.md` / `AGENTS.md`).
 
 The user-facing front page (`/`) is deliberately small. The rest of the surface area is
-secondary routes (contact, portfolio, privacy, demos) and backend integrations
+secondary routes (contact, portfolio, writeups, privacy, demos) and backend integrations
 (WhatsApp webhook → n8n, Meta coexistence, AI chat).
 
 ## Tech stack
@@ -42,6 +42,8 @@ the homepage does not have to import them. Reachable surfaces:
 | `/contact/whatsapp` | `app/contact/whatsapp/route.ts` | Screened WhatsApp redirect: HttpOnly cookie/token pairing, single-use (replay → 403), abuse scoring |
 | `/contact/whatsapp/challenge` | `.../challenge/route.ts` | Mints the challenge: returns the token + sets the HttpOnly cookie |
 | `/portfolio` | `app/portfolio/page.tsx` | Portfolio detail page |
+| `/writeups` | `app/writeups/page.tsx` | CTF writeups index; sanitized technique-focused notes |
+| `/writeups/[slug]` | `app/writeups/[slug]/page.tsx` | Static writeup detail pages from `content/writeups/*.md` |
 | `/privacy` | `app/privacy/page.tsx` | Static privacy page (a Meta-app precondition) |
 | `/demo` (+ `/demo/*.html`) | `public/demo/` via rewrite | Static Spanish local-business demos; linked from the homepage work card; demos link back to the screened WhatsApp path |
 | `/admin/whatsapp-coexistence` | `page.tsx` + `launcher.tsx` | Admin-key-gated Meta Embedded Signup launcher (404 without key) |
@@ -64,6 +66,18 @@ app/page.tsx
  ├─ components/contact/protected-whatsapp-link.tsx
  ├─ components/ai-assistant.tsx             (floating concierge → POST /api/chat)
  └─ data/content.ts                         (contact, whatsappHref)
+```
+
+### Writeups (`/writeups`) pull in markdown content
+```
+app/writeups/page.tsx
+ ├─ components/theme-shell.tsx
+ └─ lib/writeups.ts                         (frontmatter + markdown discovery)
+
+app/writeups/[slug]/page.tsx
+ ├─ components/theme-shell.tsx
+ ├─ components/writeup-content.tsx          (ReactMarkdown + GFM rendering)
+ └─ lib/writeups.ts
 ```
 
 ### Live components / libs (and what keeps them alive)

@@ -33,6 +33,7 @@ const navItems = [
   { label: "Process", href: "#process" },
   { label: "Stack", href: "#stack" },
   { label: "Notes", href: "#notes" },
+  { label: "Writeups", href: "/writeups" },
   { label: "Contact", href: "#contact" },
 ]
 
@@ -84,6 +85,25 @@ const workAreas = [
     image: "/visuals/ai-guardrails.svg",
     icon: ShieldCheck,
     tags: ["Prompt defense", "Guardrails", "Testing", "Review"],
+    cta: { label: "Read CTF writeups", href: "/writeups" },
+  },
+  {
+    label: "Proof",
+    title: "PromptDefenders",
+    body: "A prompt-injection defense project: evaluation methodology, safe test cases, and checklists for hardening AI-assisted workflows.",
+    image: "/visuals/proof-asset-gallery.svg",
+    icon: ShieldCheck,
+    tags: ["Prompt defense", "Eval methodology", "Checklists"],
+    cta: { label: "Open live demo", href: "https://prompt-defenders.vercel.app" },
+  },
+  {
+    label: "Lab",
+    title: "Razon Live Lab",
+    body: "Learning AI security and systems in public: streams, writeups, and sanitized demos, in English and Spanish.",
+    image: "/visuals/generated-lanes.webp",
+    icon: Sparkles,
+    tags: ["Live builds", "AI security", "EN/ES"],
+    cta: { label: "Visit lab", href: "https://razonlab.com" },
   },
 ]
 
@@ -297,10 +317,10 @@ export default function HomePage() {
       <section id="work" className="dtz-section" aria-labelledby="work-title">
         <div className="dtz-section-heading">
           <p className="dtz-section-label">Selected work</p>
-          <h2 id="work-title">Five lanes I keep returning to.</h2>
+          <h2 id="work-title">Working lanes and public proof.</h2>
           <p>
-            These are portfolio categories, not inflated case studies. Each one points to the kind of systems I can
-            build, test, and explain clearly.
+            These are portfolio categories and individual proof cards, not a brand directory. Each one points to the
+            kind of systems I can build, test, and explain clearly.
           </p>
         </div>
 
@@ -490,6 +510,7 @@ export default function HomePage() {
           </a>
           <Link href="/contact">All contact paths</Link>
           <Link href="/portfolio">Portfolio</Link>
+          <Link href="/writeups">Writeups</Link>
           <Link href="/privacy">Privacy</Link>
         </span>
       </footer>

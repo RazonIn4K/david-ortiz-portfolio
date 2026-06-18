@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest"
 import robots from "@/app/robots"
 import sitemap from "@/app/sitemap"
 import nextConfig from "@/next.config.mjs"
+import { getWriteupSlugs } from "@/lib/writeups"
 
 // These guard the SEO/hardening config against accidental edits: removing a
 // disallow line or a header here is a deliberate decision, not a side effect.
@@ -31,8 +32,10 @@ describe("sitemap", () => {
       "https://davidtiz.com/",
       "https://davidtiz.com/contact",
       "https://davidtiz.com/portfolio",
+      "https://davidtiz.com/writeups",
       "https://davidtiz.com/demo",
       "https://davidtiz.com/privacy",
+      ...getWriteupSlugs().map((slug) => `https://davidtiz.com/writeups/${slug}`),
     ])
   })
 

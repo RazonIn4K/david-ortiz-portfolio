@@ -77,6 +77,20 @@ export const showcaseProjects: Project[] = [
     href: '/#work',
     metrics: ['RAG', 'Citations', 'Testing'],
   },
+  {
+    title: 'PromptDefenders',
+    description:
+      'A prompt-injection defense project: evaluation methodology, safe test cases, and checklists for hardening AI-assisted workflows.',
+    href: 'https://prompt-defenders.vercel.app',
+    metrics: ['Prompt defense', 'Eval methodology', 'Checklists'],
+  },
+  {
+    title: 'Razon Live Lab',
+    description:
+      'Learning AI security and systems in public: streams, writeups, and sanitized demos, in English and Spanish.',
+    href: 'https://razonlab.com',
+    metrics: ['Live builds', 'AI security', 'EN/ES'],
+  },
 ]
 
 export type CaseStudy = {
