@@ -1339,17 +1339,35 @@ body {
   }
 
   .dtz-nav {
-    grid-template-columns: 1fr;
-    padding-block: 0.8rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.65rem;
+    padding-block: 0.65rem;
   }
 
-  .dtz-nav-list,
-  .dtz-actions {
+  .dtz-brand {
+    min-width: 0;
+  }
+
+  .dtz-nav-list {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex-wrap: nowrap;
     justify-content: flex-start;
-    flex-wrap: wrap;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 
-  .dtz-hero,
+  .dtz-nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dtz-actions {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+  }
+
   .dtz-band,
   .dtz-contact,
   .dtz-two-col {
@@ -1919,7 +1937,7 @@ body {
 
 .dtz-proof-surface-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
   gap: 1rem;
 }
 
@@ -2367,11 +2385,9 @@ body {
 }
 
 @media (max-width: 1020px) {
-  .dtz-overhaul-hero,
   .dtz-notes-layout,
   .dtz-overhaul-contact,
-  .dtz-proof-heading,
-  .dtz-proof-surface-grid {
+  .dtz-proof-heading {
     grid-template-columns: 1fr;
   }
 
@@ -2385,26 +2401,12 @@ body {
     gap: 1rem;
     min-height: auto;
   }
+}
 
-  .dtz-stage-grid {
+@media (max-width: 900px) {
+  .dtz-hero,
+  .dtz-overhaul-hero {
     grid-template-columns: 1fr;
-  }
-
-  .dtz-stage-column {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .dtz-stage-checks {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .dtz-proof-surface.is-featured {
-    min-height: auto;
-  }
-
-  .dtz-proof-surface.is-featured .dtz-proof-surface-media {
-    min-height: 0;
-    aspect-ratio: 16 / 10;
   }
 }
 
@@ -2416,11 +2418,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .dtz-stage-column,
-  .dtz-stage-checks {
-    grid-template-columns: 1fr;
-  }
-
   .dtz-work-card {
     grid-template-columns: 1fr;
   }
@@ -2429,6 +2426,21 @@ body {
     aspect-ratio: 900 / 430;
     border-right: 0;
     border-bottom: 1px solid var(--dtz-border);
+  }
+}
+
+@media (max-width: 620px) {
+  .dtz-proof-surface-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dtz-proof-surface.is-featured {
+    min-height: auto;
+  }
+
+  .dtz-proof-surface.is-featured .dtz-proof-surface-media {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
   }
 }
 
@@ -2479,6 +2491,7 @@ body {
   }
 
   .dtz-stage-grid {
+    grid-template-columns: 1fr;
     min-height: 0;
   }
 
