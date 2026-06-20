@@ -1,5 +1,6 @@
 "use client"
 
+import type { CSSProperties } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
@@ -10,6 +11,8 @@ import { useSiteTheme } from "@/components/use-site-theme"
 import { contact, whatsappHref } from "@/data/content"
 import {
   ArrowUpRight,
+  AtSign,
+  BadgeCheck,
   BookOpen,
   CheckCircle2,
   ClipboardCheck,
@@ -17,11 +20,14 @@ import {
   Compass,
   FileText,
   Globe,
+  LockKeyhole,
   Mail,
   MessageCircle,
   Moon,
   ShieldCheck,
   Sparkles,
+  Smartphone,
+  Store,
   Sun,
   Workflow,
   Wrench,
@@ -29,19 +35,82 @@ import {
 
 const navItems = [
   { label: "Start", href: "#start" },
+  { label: "Setup", href: "#setup" },
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
   { label: "Stack", href: "#stack" },
   { label: "Notes", href: "#notes" },
-  { label: "Writeups", href: "/writeups" },
   { label: "Contact", href: "#contact" },
 ]
 
 const proofSignals = [
-  "DeKalb, IL and remote",
-  "Screened contact path",
+  "Websites that explain the business",
+  "Domain + official email setup",
+  "WhatsApp, Facebook, Instagram handoff",
   "English or Spanish",
-  "Built with Next.js on Vercel",
+]
+
+const heroHighlights = [
+  "Website design",
+  "Domain setup",
+  "Official email",
+  "Social links",
+  "Security basics",
+]
+
+const launchFlow = [
+  {
+    title: "Website",
+    detail: "Clear pages, photos, services, forms",
+    icon: Globe,
+  },
+  {
+    title: "Domain",
+    detail: "A real address the business owns",
+    icon: BadgeCheck,
+  },
+  {
+    title: "Email",
+    detail: "Official inbox with familiar forwarding",
+    icon: AtSign,
+  },
+  {
+    title: "Social",
+    detail: "Facebook, Instagram, WhatsApp paths",
+    icon: Smartphone,
+  },
+  {
+    title: "Security",
+    detail: "2FA, recovery, and handoff notes",
+    icon: LockKeyhole,
+  },
+]
+
+const setupCards = [
+  {
+    title: "A Website That Feels Real",
+    body: "Service pages, menus, galleries, quote/order/contact flows, and copy that explains the business without making visitors decode tech terms.",
+    points: ["Mobile-first pages", "Clear calls to action", "English/Spanish copy paths"],
+    icon: Store,
+  },
+  {
+    title: "Domain And Official Email",
+    body: "The business keeps ownership of the domain while the official email can still forward to the Gmail or inbox they already understand.",
+    points: ["Domain ownership", "info@ or sales@ setup", "Familiar inbox forwarding"],
+    icon: AtSign,
+  },
+  {
+    title: "Social And WhatsApp Connection",
+    body: "Facebook, Instagram, WhatsApp, Google profile links, and contact buttons are connected so customers know where to click next.",
+    points: ["WhatsApp messages", "Social profile buttons", "Google/local links"],
+    icon: Smartphone,
+  },
+  {
+    title: "Security-Minded Handoff",
+    body: "The setup includes simple account protection, recovery details, and a written handoff so the owner is not locked out later.",
+    points: ["2FA and recovery", "DNS/email checks", "Plain-language handoff"],
+    icon: ShieldCheck,
+  },
 ]
 
 const workAreas = [
@@ -57,7 +126,7 @@ const workAreas = [
   {
     label: "Systems",
     title: "AI-Assisted Workflows",
-    body: "Practical workflows that split research, implementation, review, QA, and documentation into visible steps instead of hiding everything inside one prompt.",
+    body: "Practical workflows that turn research, implementation, review, QA, and documentation into visible steps instead of hiding everything inside one prompt.",
     image: "/visuals/systems-routing.svg",
     icon: Workflow,
     tags: ["Codex", "Claude", "Browser QA", "Runbooks"],
@@ -110,22 +179,22 @@ const workAreas = [
 const processSteps = [
   {
     title: "Start With The Real Surface",
-    body: "I look at the repo, browser, files, deployment, or workflow first so the work starts from evidence instead of labels.",
+    body: "I look at the current site, social page, domain, inbox, or workflow first so the work starts from the real situation.",
     icon: Compass,
   },
   {
     title: "Map The Useful Version",
-    body: "I separate facts, assumptions, and open questions, then turn the mess into a small buildable scope.",
+    body: "I separate what customers need to see, what the owner needs to control, and what should be kept simple.",
     icon: ClipboardCheck,
   },
   {
     title: "Build In Working Passes",
-    body: "I prefer a working first version, then tighten copy, layout, routes, contact paths, and edge cases from there.",
+    body: "I ship a working first version, then tighten the design, copy, forms, routes, contact paths, and edge cases.",
     icon: Code2,
   },
   {
     title: "Verify And Hand Off",
-    body: "I run the checks that matter, document what changed, and leave the next person with a clear continuation path.",
+    body: "I run the checks that matter, document what changed, and leave the owner with a clear continuation path.",
     icon: FileText,
   },
 ]
@@ -151,9 +220,9 @@ const stackGroups = [
 
 const currentFocus = [
   "Cleaner local-business websites with quote, order, or contact flows that do not feel overbuilt.",
+  "Friendlier onboarding for owners who mostly use Gmail, Facebook, Instagram, or WhatsApp today.",
   "Repeatable AI-assisted delivery: research, implementation, review, browser QA, and a written handoff.",
   "AI-security workflow habits, especially prompt injection, tool boundaries, and validation.",
-  "Better notes that preserve what worked, what failed, and what should happen in the next session.",
 ]
 
 const contactGuardrails = [
@@ -226,17 +295,24 @@ export default function HomePage() {
         >
           <p className="dtz-kicker">
             <Sparkles aria-hidden="true" />
-            Practical websites, automation, and AI workflow notes
+            Websites, setup, security, and plain-language handoff
           </p>
-          <h1 id="hero-title">I turn messy ideas into working web systems.</h1>
+          <h1 id="hero-title">I build websites and the setup around them.</h1>
           <p className="dtz-lede">
-            I&apos;m David Ortiz. I build practical sites, workflow prototypes, and clear handoff notes for projects
-            where the real value is getting the system working and understandable.
+            I&apos;m David Ortiz. I help small businesses turn a Facebook page, word-of-mouth hustle, or rough idea into
+            a clean online presence: website, domain, official email, WhatsApp/social contact paths, and a handoff they
+            can actually use.
           </p>
 
+          <ul className="dtz-hero-badges" aria-label="What David can set up">
+            {heroHighlights.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+
           <div className="dtz-hero-actions" aria-label="Primary actions">
-            <a className="dtz-button primary" href="#work">
-              See selected work
+            <a className="dtz-button primary" href="#setup">
+              See what I can set up
               <ArrowUpRight aria-hidden="true" />
             </a>
             <ProtectedWhatsAppLink
@@ -258,6 +334,7 @@ export default function HomePage() {
           animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
         >
+          <div className="dtz-hero-glow" aria-hidden="true" />
           <div className="dtz-workbench-frame">
             <Image
               src="/visuals/generated-workbench.webp"
@@ -268,26 +345,33 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="dtz-hero-note">
-            <span>How this page should read</span>
-            <strong>Personal, useful, and specific.</strong>
-            <p>No inflated claims. No agency wrapper. Just what I build, how I work, and how to reach me.</p>
+          <div className="dtz-launch-panel" aria-label="Local business launch setup">
+            <span>Local business launch</span>
+            <strong>Website + domain + email + social + security</strong>
+            <p>Built so a non-technical owner knows what customers see and what accounts they control.</p>
+            <div className="dtz-launch-progress" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </div>
           </div>
 
-          <div className="dtz-stack-card dtz-hero-stack">
-            <span>Current lanes</span>
-            <div>
-              <strong>Local sites</strong>
-              <small>forms, copy, deploys</small>
-            </div>
-            <div>
-              <strong>AI workflow</strong>
-              <small>research to QA</small>
-            </div>
-            <div>
-              <strong>Automation</strong>
-              <small>small, documented systems</small>
-            </div>
+          <div className="dtz-launch-flow" aria-label="Setup path">
+            {launchFlow.map((item, index) => {
+              const Icon = item.icon
+
+              return (
+                <div className="dtz-launch-step" key={item.title} style={{ "--step-index": index } as CSSProperties}>
+                  <span>
+                    <Icon aria-hidden="true" />
+                  </span>
+                  <div>
+                    <strong>{item.title}</strong>
+                    <small>{item.detail}</small>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </motion.div>
       </section>
@@ -299,9 +383,8 @@ export default function HomePage() {
         </div>
         <div className="dtz-summary-copy">
           <p>
-            This site is the front door for selected builds, current learning, and practical collaboration. Outside
-            projects can show up as examples, but the organizing idea is simple: David Ortiz, the work, and a direct
-            path to contact.
+            This site is the front door for practical websites, setup help, automation, security-minded workflows, and
+            selected proof. The organizing idea stays simple: David Ortiz, the work, and a direct path to contact.
           </p>
           <ul className="dtz-signal-list" aria-label="Portfolio signals">
             {proofSignals.map((signal) => (
@@ -314,13 +397,55 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section id="setup" className="dtz-section dtz-services-section" aria-labelledby="setup-title">
+        <div className="dtz-section-heading">
+          <p className="dtz-section-label">What I can set up</p>
+          <h2 id="setup-title">The website is only one part of looking real online.</h2>
+          <p>
+            Many local owners already live in Gmail, Facebook, Instagram, or WhatsApp. I keep that familiar path, then
+            add the professional pieces around it so customers trust the business and the owner is not overwhelmed.
+          </p>
+        </div>
+
+        <div className="dtz-setup-grid">
+          {setupCards.map((item, index) => {
+            const Icon = item.icon
+
+            return (
+              <motion.article
+                className="dtz-setup-card"
+                key={item.title}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.05 }}
+              >
+                <span className="dtz-setup-icon">
+                  <Icon aria-hidden="true" />
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+                <ul>
+                  {item.points.map((point) => (
+                    <li key={point}>
+                      <CheckCircle2 aria-hidden="true" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.article>
+            )
+          })}
+        </div>
+      </section>
+
       <section id="work" className="dtz-section" aria-labelledby="work-title">
         <div className="dtz-section-heading">
           <p className="dtz-section-label">Selected work</p>
-          <h2 id="work-title">Working lanes and public proof.</h2>
+          <h2 id="work-title">Working lanes and proof people can inspect.</h2>
           <p>
-            These are portfolio categories and individual proof cards, not a brand directory. Each one points to the
-            kind of systems I can build, test, and explain clearly.
+            These are portfolio categories and individual proof cards, not a brand directory. Each one points to a
+            practical thing I can design, connect, test, and explain clearly.
           </p>
         </div>
 
@@ -394,10 +519,10 @@ export default function HomePage() {
       <section id="stack" className="dtz-section dtz-stack-section" aria-labelledby="stack-title">
         <div className="dtz-section-heading">
           <p className="dtz-section-label">Stack</p>
-          <h2 id="stack-title">Tools I reach for when the job fits.</h2>
+          <h2 id="stack-title">Tools behind the calm handoff.</h2>
           <p>
-            The stack changes by project, but the goal stays the same: ship something understandable, verify it, and
-            leave the maintenance path visible.
+            Visitors should not have to care about the stack. I use it to make the finished setup fast, reliable,
+            secure enough for the job, and easier to maintain.
           </p>
         </div>
 
@@ -421,8 +546,8 @@ export default function HomePage() {
             <p className="dtz-section-label">Current focus</p>
             <h2 id="notes-title">What I&apos;m paying attention to right now.</h2>
             <p>
-              This is the living part of the portfolio: fewer broad claims, more notes about what is being built,
-              tested, and tightened.
+              This is the living part of the portfolio: clearer local-business packages, practical security habits,
+              useful automation, and proof that survives beyond a sales conversation.
             </p>
           </div>
 
@@ -443,11 +568,11 @@ export default function HomePage() {
       <section id="contact" className="dtz-contact dtz-overhaul-contact" aria-labelledby="contact-title">
         <div>
           <p className="dtz-section-label">Contact</p>
-          <h2 id="contact-title">Send the rough version.</h2>
+          <h2 id="contact-title">Send the rough version. I can help shape it.</h2>
           <p>
-            You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
-            and what would make the next step useful. I keep the public contact path screened so the phone number is not
-            treated like an open spam target.
+            You do not need a polished brief. Send the business, the current Facebook/Instagram/site link if you have
+            one, and what customers should be able to do next. I keep the public contact path screened so the phone
+            number is not treated like an open spam target.
           </p>
         </div>
 
