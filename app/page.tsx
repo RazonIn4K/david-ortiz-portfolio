@@ -1,6 +1,5 @@
 "use client"
 
-import type { CSSProperties } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
@@ -48,6 +47,33 @@ const proofSignals = [
   "Domain + official email setup",
   "WhatsApp, Facebook, Instagram handoff",
   "English or Spanish",
+]
+
+const proofSurfaces = [
+  {
+    label: "Live website build",
+    title: "Hernandez Landscape",
+    body: "A real local-service surface with service clarity, trust cues, and direct quote paths.",
+    image: "/portfolio/hernandez/site-trust-screenshot.png",
+    href: "/portfolio",
+    alt: "Screenshot of the Hernandez Landscape website trust and services section.",
+  },
+  {
+    label: "Spanish-first demos",
+    title: "Pedidos, citas, servicios",
+    body: "Small-business flows for owners and customers who live on mobile, WhatsApp, and social.",
+    image: "/visuals/local-business-system.svg",
+    href: "/demo",
+    alt: "Illustrated local business system showing connected website, social, and contact paths.",
+  },
+  {
+    label: "Setup layer",
+    title: "Domain, inbox, social, handoff",
+    body: "The professional pieces around the site are part of the work, not an afterthought.",
+    image: "/visuals/generated-workbench.webp",
+    href: "#setup",
+    alt: "Desk scene representing website setup, account handoff, and project notes.",
+  },
 ]
 
 const heroHighlights = [
@@ -328,41 +354,68 @@ export default function HomePage() {
         </motion.div>
 
         <motion.div
-          className="dtz-hero-visual dtz-overhaul-visual"
-          aria-label="Visual portfolio workbench"
+          className="dtz-hero-visual dtz-overhaul-visual dtz-showcase-stage"
+          aria-label="Website design and setup proof"
           initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
           animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
         >
-          <div className="dtz-hero-glow" aria-hidden="true" />
-          <div className="dtz-workbench-frame">
-            <Image
-              src="/visuals/generated-workbench.webp"
-              alt="Desk scene with a laptop, notebook, and project cards representing a builder's workbench."
-              width={1536}
-              height={1024}
-              priority
-            />
+          <div className="dtz-stage-topline">
+            <span>Live screens, not just claims</span>
+            <Link href="/portfolio">
+              View portfolio
+              <ArrowUpRight aria-hidden="true" />
+            </Link>
           </div>
 
-          <div className="dtz-launch-panel" aria-label="Local business launch setup">
-            <span>Local business launch</span>
-            <strong>Website + domain + email + social + security</strong>
-            <p>Built so a non-technical owner knows what customers see and what accounts they control.</p>
-            <div className="dtz-launch-progress" aria-hidden="true">
-              <i />
-              <i />
-              <i />
+          <div className="dtz-stage-grid">
+            <Link className="dtz-live-preview" href="/portfolio">
+              <span className="dtz-browser-bar" aria-hidden="true">
+                <i />
+                <i />
+                <i />
+                <strong>davidtiz.com / portfolio</strong>
+              </span>
+              <Image
+                src="/portfolio/hernandez/site-screenshot.png"
+                alt="Screenshot of a local business website portfolio example."
+                width={1440}
+                height={1000}
+                priority
+                loading="eager"
+                sizes="(max-width: 560px) calc(100vw - 44px), (max-width: 1020px) calc(100vw - 64px), 368px"
+              />
+            </Link>
+
+            <div className="dtz-stage-column">
+              <Link className="dtz-mini-preview" href="/portfolio">
+                <Image
+                  src="/portfolio/hernandez/site-trust-screenshot.png"
+                  alt="Screenshot of services and trust sections from a local business website."
+                  width={1440}
+                  height={729}
+                />
+                <span>
+                  <strong>Trust section</strong>
+                  Services, photos, contact path
+                </span>
+              </Link>
+
+              <div className="dtz-handoff-panel">
+                <span>Owner handoff</span>
+                <strong>Domain, inbox, social, recovery</strong>
+                <p>Set up around the tools the owner already uses.</p>
+              </div>
             </div>
           </div>
 
-          <div className="dtz-launch-flow" aria-label="Setup path">
-            {launchFlow.map((item, index) => {
+          <div className="dtz-stage-checks" aria-label="Setup path">
+            {launchFlow.map((item) => {
               const Icon = item.icon
 
               return (
-                <div className="dtz-launch-step" key={item.title} style={{ "--step-index": index } as CSSProperties}>
-                  <span>
+                <div className="dtz-stage-check" key={item.title}>
+                  <span aria-hidden="true">
                     <Icon aria-hidden="true" />
                   </span>
                   <div>
@@ -376,15 +429,15 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      <section className="dtz-band dtz-summary-band" aria-labelledby="summary-title">
-        <div>
-          <p className="dtz-section-label">Quick read</p>
-          <h2 id="summary-title">A portfolio for the work I actually do.</h2>
-        </div>
-        <div className="dtz-summary-copy">
+      <section className="dtz-section dtz-proof-section" aria-labelledby="proof-title">
+        <div className="dtz-section-heading dtz-proof-heading">
+          <div>
+            <p className="dtz-section-label">Design proof</p>
+            <h2 id="proof-title">Make the work visible before someone has to ask.</h2>
+          </div>
           <p>
-            This site is the front door for practical websites, setup help, automation, security-minded workflows, and
-            selected proof. The organizing idea stays simple: David Ortiz, the work, and a direct path to contact.
+            The site should show that I can design the customer-facing page and connect the practical setup behind it:
+            domain, official email, WhatsApp/social paths, security basics, and a plain handoff.
           </p>
           <ul className="dtz-signal-list" aria-label="Portfolio signals">
             {proofSignals.map((signal) => (
@@ -394,6 +447,32 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="dtz-proof-surface-grid">
+          {proofSurfaces.map((item, index) => (
+            <motion.article
+              className={index === 0 ? "dtz-proof-surface is-featured" : "dtz-proof-surface"}
+              key={item.title}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.06 }}
+            >
+              <Link className="dtz-proof-surface-media" href={item.href}>
+                <Image src={item.image} alt={item.alt} width={1440} height={index === 0 ? 1000 : 729} />
+              </Link>
+              <div className="dtz-proof-surface-copy">
+                <span>{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+                <Link href={item.href}>
+                  Inspect it
+                  <ArrowUpRight aria-hidden="true" />
+                </Link>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </section>
 
