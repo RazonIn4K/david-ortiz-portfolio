@@ -33,20 +33,17 @@ import {
 } from "lucide-react"
 
 const navItems = [
-  { label: "Start", href: "#start" },
-  { label: "Setup", href: "#setup" },
   { label: "Work", href: "#work" },
-  { label: "Process", href: "#process" },
-  { label: "Stack", href: "#stack" },
   { label: "Notes", href: "#notes" },
+  { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
 ]
 
 const proofSignals = [
-  "Websites that explain the business",
-  "Domain + official email setup",
-  "WhatsApp, Facebook, Instagram handoff",
-  "English or Spanish",
+  "Selected work people can inspect",
+  "Operating notes on real systems",
+  "Automation and AI-security checks",
+  "Clear handoff, not hidden complexity",
 ]
 
 const proofSurfaces = [
@@ -77,11 +74,11 @@ const proofSurfaces = [
 ]
 
 const heroHighlights = [
-  "Website design",
-  "Domain setup",
-  "Official email",
-  "Social links",
-  "Security basics",
+  "Web systems",
+  "Automation workflows",
+  "AI-security checks",
+  "RAG & notes tools",
+  "Operating notes",
 ]
 
 const launchFlow = [
@@ -114,26 +111,26 @@ const launchFlow = [
 
 const setupCards = [
   {
-    title: "A Website That Feels Real",
-    body: "Service pages, menus, galleries, quote/order/contact flows, and copy that explains the business without making visitors decode tech terms.",
-    points: ["Mobile-first pages", "Clear calls to action", "English/Spanish copy paths"],
+    title: "Local Business Sites",
+    body: "Selected proof: a customer-facing site with clear services, forms, and a practical handoff path. Not the main offer, but a real thing I can build and explain.",
+    points: ["Mobile-first pages", "Clear calls to action", "Bilingual-friendly copy"],
     icon: Store,
   },
   {
-    title: "Domain And Official Email",
-    body: "The business keeps ownership of the domain while the official email can still forward to the Gmail or inbox they already understand.",
+    title: "Domain And Email Setup",
+    body: "The surrounding professional layer: domain ownership, official email forwarding, and DNS checks that keep the business reachable.",
     points: ["Domain ownership", "info@ or sales@ setup", "Familiar inbox forwarding"],
     icon: AtSign,
   },
   {
-    title: "Social And WhatsApp Connection",
-    body: "Facebook, Instagram, WhatsApp, Google profile links, and contact buttons are connected so customers know where to click next.",
-    points: ["WhatsApp messages", "Social profile buttons", "Google/local links"],
+    title: "Social And WhatsApp Paths",
+    body: "Connecting the site to the places customers already use, with a guarded WhatsApp path so the phone number is not exposed to scrapers.",
+    points: ["WhatsApp guard route", "Social profile buttons", "Google/local links"],
     icon: Smartphone,
   },
   {
     title: "Security-Minded Handoff",
-    body: "The setup includes simple account protection, recovery details, and a written handoff so the owner is not locked out later.",
+    body: "Account protection, recovery details, and plain-language notes so the owner can keep the system running without depending on memory.",
     points: ["2FA and recovery", "DNS/email checks", "Plain-language handoff"],
     icon: ShieldCheck,
   },
@@ -143,7 +140,7 @@ const workAreas = [
   {
     label: "Web",
     title: "Local Business Sites",
-    body: "Focused websites for small businesses: clear services, simple contact paths, bilingual-friendly copy, DNS/deploy setup, and handoff notes an owner can use.",
+    body: "Selected proof: customer-facing sites with clear services, forms, and bilingual-friendly copy. Used to show how I think about layout, contact paths, and owner handoff.",
     image: "/visuals/local-business-system.svg",
     icon: Globe,
     tags: ["Next.js", "Forms", "Local SEO", "Handoff"],
@@ -152,7 +149,7 @@ const workAreas = [
   {
     label: "Systems",
     title: "AI-Assisted Workflows",
-    body: "Practical workflows that turn research, implementation, review, QA, and documentation into visible steps instead of hiding everything inside one prompt.",
+    body: "Practical workflows that split research, implementation, review, QA, and documentation into visible steps instead of hiding everything inside one prompt.",
     image: "/visuals/systems-routing.svg",
     icon: Workflow,
     tags: ["Codex", "Claude", "Browser QA", "Runbooks"],
@@ -246,9 +243,9 @@ const stackGroups = [
 
 const currentFocus = [
   "Cleaner local-business websites with quote, order, or contact flows that do not feel overbuilt.",
-  "Friendlier onboarding for owners who mostly use Gmail, Facebook, Instagram, or WhatsApp today.",
   "Repeatable AI-assisted delivery: research, implementation, review, browser QA, and a written handoff.",
   "AI-security workflow habits, especially prompt injection, tool boundaries, and validation.",
+  "Better notes that preserve what worked, what failed, and what should happen in the next session.",
 ]
 
 const contactGuardrails = [
@@ -321,13 +318,12 @@ export default function HomePage() {
         >
           <p className="dtz-kicker">
             <Sparkles aria-hidden="true" />
-            Websites, setup, security, and plain-language handoff
+            Selected work, operating notes, and systems thinking
           </p>
-          <h1 id="hero-title">I build websites and the setup around them.</h1>
+          <h1 id="hero-title">I build practical web, automation, and AI-security systems.</h1>
           <p className="dtz-lede">
-            I&apos;m David Ortiz. I help small businesses turn a Facebook page, word-of-mouth hustle, or rough idea into
-            a clean online presence: website, domain, official email, WhatsApp/social contact paths, and a handoff they
-            can actually use.
+            I&apos;m David Ortiz. This is my personal proof hub: selected work, operating notes, and the decisions behind
+            the systems I build, test, and hand off.
           </p>
 
           <ul className="dtz-hero-badges" aria-label="What David can set up">
@@ -337,19 +333,14 @@ export default function HomePage() {
           </ul>
 
           <div className="dtz-hero-actions" aria-label="Primary actions">
-            <a className="dtz-button primary" href="#setup">
-              See what I can set up
+            <a className="dtz-button primary" href="#work">
+              View selected work
               <ArrowUpRight aria-hidden="true" />
             </a>
-            <ProtectedWhatsAppLink
-              className="dtz-button secondary"
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Message me on WhatsApp
-              <MessageCircle aria-hidden="true" />
-            </ProtectedWhatsAppLink>
+            <a className="dtz-button secondary" href="#notes">
+              Read operating notes
+              <BookOpen aria-hidden="true" />
+            </a>
           </div>
         </motion.div>
 
@@ -432,12 +423,12 @@ export default function HomePage() {
       <section className="dtz-section dtz-proof-section" aria-labelledby="proof-title">
         <div className="dtz-section-heading dtz-proof-heading">
           <div>
-            <p className="dtz-section-label">Design proof</p>
+            <p className="dtz-section-label">Proof of work</p>
             <h2 id="proof-title">Make the work visible before someone has to ask.</h2>
           </div>
           <p>
-            The site should show that I can design the customer-facing page and connect the practical setup behind it:
-            domain, official email, WhatsApp/social paths, security basics, and a plain handoff.
+            I show the customer-facing surface and the practical setup behind it: domain, email, WhatsApp/social paths,
+            security basics, and a plain handoff. The proof is inspectable, not just claimed.
           </p>
           <ul className="dtz-signal-list" aria-label="Portfolio signals">
             {proofSignals.map((signal) => (
@@ -478,11 +469,11 @@ export default function HomePage() {
 
       <section id="setup" className="dtz-section dtz-services-section" aria-labelledby="setup-title">
         <div className="dtz-section-heading">
-          <p className="dtz-section-label">What I can set up</p>
-          <h2 id="setup-title">The website is only one part of looking real online.</h2>
+          <p className="dtz-section-label">Selected proof</p>
+          <h2 id="setup-title">The practical layer behind the site.</h2>
           <p>
-            Many local owners already live in Gmail, Facebook, Instagram, or WhatsApp. I keep that familiar path, then
-            add the professional pieces around it so customers trust the business and the owner is not overwhelmed.
+            A working local-business site needs more than a homepage. These are the pieces I connect and document so the
+            owner can keep the system running after handoff.
           </p>
         </div>
 
@@ -523,8 +514,8 @@ export default function HomePage() {
           <p className="dtz-section-label">Selected work</p>
           <h2 id="work-title">Working lanes and proof people can inspect.</h2>
           <p>
-            These are portfolio categories and individual proof cards, not a brand directory. Each one points to a
-            practical thing I can design, connect, test, and explain clearly.
+            These are categories and proof cards, not a brand directory. Each one points to a practical thing I can
+            design, connect, test, and explain clearly.
           </p>
         </div>
 
@@ -622,11 +613,11 @@ export default function HomePage() {
       <section id="notes" className="dtz-section dtz-notes-section" aria-labelledby="notes-title">
         <div className="dtz-notes-layout">
           <div>
-            <p className="dtz-section-label">Current focus</p>
+            <p className="dtz-section-label">Operating notes</p>
             <h2 id="notes-title">What I&apos;m paying attention to right now.</h2>
             <p>
-              This is the living part of the portfolio: clearer local-business packages, practical security habits,
-              useful automation, and proof that survives beyond a sales conversation.
+              This is the living part of the portfolio: systems thinking, practical security habits, useful automation,
+              and proof that survives beyond a sales conversation.
             </p>
           </div>
 
@@ -647,11 +638,11 @@ export default function HomePage() {
       <section id="contact" className="dtz-contact dtz-overhaul-contact" aria-labelledby="contact-title">
         <div>
           <p className="dtz-section-label">Contact</p>
-          <h2 id="contact-title">Send the rough version. I can help shape it.</h2>
+          <h2 id="contact-title">Start a conversation about the work.</h2>
           <p>
-            You do not need a polished brief. Send the business, the current Facebook/Instagram/site link if you have
-            one, and what customers should be able to do next. I keep the public contact path screened so the phone
-            number is not treated like an open spam target.
+            You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
+            and what would make the next step useful. I keep the public contact path screened so the phone number is not
+            treated like an open spam target.
           </p>
         </div>
 
