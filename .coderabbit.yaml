@@ -1,0 +1,162 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit configuration for davidtiz.com.
+# Docs checked: https://docs.coderabbit.ai/reference/configuration (last updated 2026-06-22)
+
+language: "en-US"
+tone_instructions: "Be direct and evidence-based. Prioritize security, privacy, correctness, accessibility, and maintainability over style-only nitpicks."
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  review_status: true
+  review_details: true
+  commit_status: true
+  fail_commit_status: true
+  collapse_walkthrough: true
+  changed_files_summary: true
+  sequence_diagrams: true
+  estimate_code_review_effort: true
+  assess_linked_issues: true
+  related_issues: true
+  related_prs: true
+  suggested_labels: true
+  in_progress_fortune: false
+  poem: false
+  enable_prompt_for_ai_agents: true
+  disable_cache: true
+
+  path_filters:
+    - "!**/.maps/**"
+    - "!**/.vercel/**"
+    - "!**/.playwright-mcp/**"
+    - "!**/.next/**"
+    - "!**/.next-ci/**"
+    - "!**/coverage/**"
+    - "!**/test-reports/**"
+    - "!**/*.log"
+    - "!**/*.tsbuildinfo"
+
+  path_instructions:
+    - path: "app/api/**"
+      instructions: |
+        Review API handlers for request validation, auth/session boundaries, HMAC/signature verification, replay prevention, abuse/rate limits, SSRF/open redirect risks, and accidental logging of secrets or PII.
+        For webhook or callback routes, verify the exact challenge/signature semantics are preserved and failure responses do not leak sensitive detail.
+    - path: "app/contact/**"
+      instructions: |
+        Preserve the screened WhatsApp redirect flow: full challenge value integrity, replay blocking, sanitization, safe redirect construction, and consistent user-facing copy.
+    - path: "components/contact/**"
+      instructions: |
+        Treat contact UI as a security-sensitive boundary. Do not bypass the guarded redirect route for WhatsApp. Public email/WhatsApp details are not secrets, but do not move operational secrets into client code.
+    - path: "lib/**"
+      instructions: |
+        Check shared logic for small, testable functions, strict TypeScript behavior, edge/runtime compatibility, and clear separation between public contact data and private environment secrets.
+    - path: "data/content.ts"
+      instructions: |
+        Enforce the brand boundary: davidtiz.com is David's personal proof hub, not a services marketplace, agency funnel, or ecosystem router. Do not invent clients, revenue, certifications, job titles, or years of experience.
+    - path: "app/page.tsx"
+      instructions: |
+        Keep copy plain, honest, accessible, and personal. Local-business work may appear as selected proof, but High Encode, PromptDefenders, CSBrainAI, or Razon artifacts must not become the organizing frame of the site.
+    - path: "docs/**"
+      instructions: |
+        Review docs for first-party verification, public-safety, and consistency with AGENTS.md. Flag local paths, secrets, raw private operational details, or unverified public claims.
+    - path: "**/*.test.ts"
+      instructions: |
+        Ensure tests cover happy paths, failure paths, abuse/replay behavior where relevant, and brand-boundary regressions for public copy/link changes.
+
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 5
+    ignore_title_keywords:
+      - "wip"
+      - "dnm"
+      - "do not merge"
+    drafts: false
+
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+    simplify:
+      enabled: false
+
+  pre_merge_checks:
+    override_requested_reviewers_only: false
+    docstrings:
+      mode: "off"
+    title:
+      mode: "warning"
+      requirements: "Use a concise, descriptive title. Prefer conventional prefixes such as feat:, fix:, docs:, security:, chore:, or test:."
+    description:
+      mode: "warning"
+    custom_checks:
+      - name: "No secrets or local artifacts"
+        mode: "error"
+        instructions: |
+          Fail if the PR adds or modifies tracked secret-bearing/local files such as .env, .env.*, .vercel/**, .maps/**, private scan reports, tokens, API keys, OAuth secrets, webhook secrets, or Doppler/Vercel credentials.
+          Allow .env.example only when all values are obvious placeholders and no real token-like values appear.
+      - name: "DavidTiz brand boundary"
+        mode: "error"
+        instructions: |
+          Fail if the PR reframes davidtiz.com as an agency site, services marketplace, High Encode router, or multi-brand ecosystem hub.
+          Pass when DavidTiz remains a personal proof hub and outside projects appear only as selected work/proof.
+      - name: "No invented public claims"
+        mode: "warning"
+        instructions: |
+          Fail if the PR adds specific public claims about clients, revenue, certifications, employment, domains, security findings, or current AI/tool capabilities without first-party evidence in the changed files, linked issue, or PR description.
+          Inconclusive is acceptable when the PR only changes implementation and no new public claims are introduced.
+
+  tools:
+    github-checks:
+      enabled: true
+      timeout_ms: 900000
+    eslint:
+      enabled: true
+    actionlint:
+      enabled: true
+    zizmor:
+      enabled: true
+    gitleaks:
+      enabled: true
+    trufflehog:
+      enabled: true
+    dotenvLint:
+      enabled: true
+    osvScanner:
+      enabled: true
+    semgrep:
+      enabled: true
+    opengrep:
+      enabled: true
+    reactDoctor:
+      enabled: true
+    markdownlint:
+      enabled: true
+    yamllint:
+      enabled: true
+
+chat:
+  art: false
+  allow_non_org_members: false
+  auto_reply: true
+
+knowledge_base:
+  opt_out: false
+  web_search:
+    enabled: true
+  code_guidelines:
+    enabled: true
+    filePatterns: []
+  learnings:
+    scope: "local"
+    approval_delay: 3
+  issues:
+    scope: "local"
+  pull_requests:
+    scope: "local"
+  mcp:
+    usage: "disabled"
+  automatic_repository_linking: false
