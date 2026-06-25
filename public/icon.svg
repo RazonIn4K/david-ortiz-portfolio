@@ -1,9 +1,1 @@
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <title>David Ortiz DO favicon mark</title>
-  <rect x="10" y="10" width="160" height="160" rx="28" fill="#9b352d"/>
-  <rect x="18" y="18" width="144" height="144" rx="22" stroke="#c2872f" stroke-width="8"/>
-  <path d="M50 53H76C93.7 53 106 65.7 106 90C106 114.3 93.7 127 76 127H50V53ZM68 69V111H76C83.7 111 88 103.7 88 90C88 76.3 83.7 69 76 69H68Z" fill="#f4efe6"/>
-  <path d="M116 53C134 53 146 67.6 146 90C146 112.4 134 127 116 127C98 127 86 112.4 86 90C86 67.6 98 53 116 53ZM116 69C108.4 69 104 77.1 104 90C104 102.9 108.4 111 116 111C123.6 111 128 102.9 128 90C128 77.1 123.6 69 116 69Z" fill="#f4efe6"/>
-  <circle cx="46" cy="46" r="8" fill="#FFCF6C"/>
-  <circle cx="134" cy="134" r="8" fill="#FF9B86"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" fill="none" viewBox="0 0 180 180"><title>David Ortiz DO favicon mark</title><rect width="160" height="160" x="10" y="10" fill="#9b352d" rx="28"/><rect width="144" height="144" x="18" y="18" stroke="#c2872f" stroke-width="8" rx="22"/><path fill="#f4efe6" d="M50 53H76C93.7 53 106 65.7 106 90C106 114.3 93.7 127 76 127H50V53ZM68 69V111H76C83.7 111 88 103.7 88 90C88 76.3 83.7 69 76 69H68Z"/><path fill="#f4efe6" d="M116 53C134 53 146 67.6 146 90C146 112.4 134 127 116 127C98 127 86 112.4 86 90C86 67.6 98 53 116 53ZM116 69C108.4 69 104 77.1 104 90C104 102.9 108.4 111 116 111C123.6 111 128 102.9 128 90C128 77.1 123.6 69 116 69Z"/><circle cx="46" cy="46" r="8" fill="#FFCF6C"/><circle cx="134" cy="134" r="8" fill="#FF9B86"/></svg>
