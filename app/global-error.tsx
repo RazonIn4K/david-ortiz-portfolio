@@ -4,28 +4,28 @@ import { useEffect } from "react"
 
 const themeVariables = `
   :root {
-    --bg: #ddebe6;
-    --panel: #f4fbf7;
-    --border: #6f8f88;
-    --accent-soft: #cceee6;
-    --accent-2: #9b352d;
-    --fg: #061513;
-    --muted: #243c38;
-    --accent: #00585d;
+    --bg: #f4efe6;
+    --panel: #fbf7f0;
+    --border: #d8cbb8;
+    --accent-soft: #efe2d0;
+    --accent-2: #c2872f;
+    --fg: #1c1714;
+    --muted: #4a423b;
+    --accent: #9b352d;
     --on-accent: #ffffff;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #061311;
-      --panel: #10231f;
-      --border: #5f8179;
-      --accent-soft: #153b38;
-      --accent-2: #ff9b86;
-      --fg: #f4fffb;
-      --muted: #c1d4cf;
-      --accent: #7cf7e7;
-      --on-accent: #03110f;
+      --bg: #16110d;
+      --panel: #221a14;
+      --border: #4a3f34;
+      --accent-soft: #3a241d;
+      --accent-2: #e0a955;
+      --fg: #f4efe6;
+      --muted: #c9bdae;
+      --accent: #e0795f;
+      --on-accent: #1c1714;
     }
   }
 `

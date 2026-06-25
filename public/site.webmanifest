@@ -4,8 +4,8 @@
   "description": "Personal hub for builds, notes, and systems work.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#061311",
-  "theme_color": "#00585D",
+  "background_color": "#16110d",
+  "theme_color": "#9b352d",
   "icons": [
     {
       "src": "/icon-192x192.png",
