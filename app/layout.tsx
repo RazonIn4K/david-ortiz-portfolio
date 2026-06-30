@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { socialProfileLinks } from "@/lib/contact-links";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
         url: "/visuals/david-og-card.png",
         width: 1200,
         height: 630,
-        alt: "Generated David Ortiz portfolio workbench image",
+        alt: "David Ortiz — builder and operator portfolio",
       },
     ],
   },
@@ -104,6 +105,33 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "David Ortiz",
+  url: siteUrl,
+  jobTitle: "Web developer and AI automation builder",
+  description: siteDescription,
+  email: "hello@davidtiz.com",
+  image: `${siteUrl}/visuals/david-og-card.png`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "DeKalb",
+    addressRegion: "IL",
+    addressCountry: "US",
+  },
+  knowsAbout: [
+    "Web development",
+    "Next.js",
+    "AI-assisted workflows",
+    "Automation",
+    "Prompt injection defense",
+    "Local business websites",
+    "RAG systems",
+  ],
+  sameAs: [...socialProfileLinks],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -112,6 +140,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <a className="skip-link" href="#main-content">
           Skip to main content
         </a>
