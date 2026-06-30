@@ -49,7 +49,7 @@ export const metadata: Metadata = {
         url: "/visuals/david-og-card.png",
         width: 1200,
         height: 630,
-        alt: "David Ortiz — builder and operator portfolio",
+        alt: "David Ortiz, builder and operator portfolio",
       },
     ],
   },
