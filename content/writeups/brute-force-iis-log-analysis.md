@@ -1,7 +1,7 @@
 ---
 title: "Brute Force: Finding the One Successful Login in an IIS Log"
 date: "2025-11-07"
-competition: "National Cyber League — Fall 2025"
+competition: "National Cyber League, Fall 2025"
 category: "Log Analysis"
 difficulty: "Medium"
 summary: "Thousands of IIS access-log lines hide one credential-stuffing source. The fail-then-success status pattern reveals which account fell and whether the attacker completed their goal."

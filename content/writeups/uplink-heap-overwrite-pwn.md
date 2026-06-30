@@ -1,7 +1,7 @@
 ---
 title: "Uplink: From a scanf Overflow to system() via a Heap Task Overwrite"
 date: "2026-06-13"
-competition: "US Cyber Games — Season VI (2026)"
+competition: "US Cyber Games, Season VI (2026)"
 category: "Binary Exploitation"
 difficulty: "100 pts"
 summary: "Every modern mitigation is on, so control-flow hijacking is off the table. The path to system() is a data-only chain: an unbounded scanf corrupts a size field, which turns a later read() into a heap overwrite of the task the program is about to execute."

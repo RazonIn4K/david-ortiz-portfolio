@@ -1,7 +1,7 @@
 ---
 title: "SAR Grid: Breaking a Matrix-Conjugation Cipher over a Composite Modulus"
 date: "2026-06-13"
-competition: "US Cyber Games — Season VI (2026)"
+competition: "US Cyber Games, Season VI (2026)"
 category: "Cryptography"
 difficulty: "100 pts"
 summary: "A cipher hides each route as C = A⁻¹·M·A mod n. The training pairs leak a hidden prime factor through linear algebra, which collapses the problem from mod n to mod p and reveals the secret change of coordinates."

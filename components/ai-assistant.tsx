@@ -63,7 +63,7 @@ export function AIAssistant() {
       const data = (await response.json().catch(() => ({}))) || {}
 
       if (response.status === 429) {
-        setError(`Easy there — too many messages. Try again in ${data.retryAfter ?? "a few"}s.`)
+        setError(`Easy there, too many messages. Try again in ${data.retryAfter ?? "a few"}s.`)
         return
       }
       if (!response.ok || typeof data.message !== "string") {
@@ -73,7 +73,7 @@ export function AIAssistant() {
 
       setMessages([...next, { role: "assistant", content: data.message }])
     } catch {
-      setError("Network hiccup — please try again.")
+      setError("Network hiccup. Please try again.")
     } finally {
       setLoading(false)
     }

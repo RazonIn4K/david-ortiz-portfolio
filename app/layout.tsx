@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 const siteUrl = "https://davidtiz.com";
 const siteTitle = "David Ortiz | Personal Portfolio";
 const siteDescription =
-  "Personal portfolio for David Ortiz — practical web systems, AI-assisted workflows, automation experiments, selected builds, and notes.";
+  "Personal portfolio for David Ortiz: practical web systems, AI-assisted workflows, automation experiments, selected builds, and notes.";
 
 export const metadata: Metadata = {
   title: siteTitle,

@@ -1,7 +1,7 @@
 ---
 title: "Stolen Swipe: Spotting Magstripe Fraud in EMV and ATM Logs"
 date: "2025-11-09"
-competition: "National Cyber League — Fall 2025"
+competition: "National Cyber League, Fall 2025"
 category: "Log Analysis"
 difficulty: "Hard"
 summary: "Correlating a chip log with an ATM log reconstructs full card numbers via the Luhn check digit, then EMV tag analysis separates legitimate chip use from fraudulent magstripe fallback and pinpoints where the fraud happened."

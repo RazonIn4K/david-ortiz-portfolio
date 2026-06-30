@@ -1,7 +1,7 @@
 ---
 title: "Stacked: Static ELF Analysis and a Base64-Cookie Overflow"
 date: "2025-11-05"
-competition: "National Cyber League — Fall 2025"
+competition: "National Cyber League, Fall 2025"
 category: "Reverse Engineering"
 difficulty: "Medium"
 summary: "Static analysis recovers an XOR-obfuscated flag and a length check that intentionally crashes the server to reveal it. The real puzzle is what 'number of A's' means once base64 is in the path."

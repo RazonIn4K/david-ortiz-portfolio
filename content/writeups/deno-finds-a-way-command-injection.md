@@ -1,7 +1,7 @@
 ---
 title: "Deno Finds a Way: Command Injection in a Compiled Deno Binary"
 date: "2025-11-06"
-competition: "National Cyber League — Fall 2025"
+competition: "National Cyber League, Fall 2025"
 category: "Enumeration & Exploitation"
 difficulty: "Easy"
 summary: "A NOPASSWD sudo entry points at a Deno-compiled binary that embeds its own TypeScript source. The source concatenates user input straight into a shell command, so a single argument escalates to root."

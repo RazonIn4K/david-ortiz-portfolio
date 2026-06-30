@@ -66,7 +66,7 @@ export const hireMeLinks: ContactLink[] = [
 export const followWorkLinks: ContactLink[] = [
   {
     id: "youtube",
-    label: "YouTube — Razon Live Lab",
+    label: "YouTube: Razon Live Lab",
     href: "https://www.youtube.com/@razonlab",
     description: "AI security explainers, live build VODs, and stream highlights from the lab.",
   },

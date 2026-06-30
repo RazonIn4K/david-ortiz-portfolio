@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 
 const highlights = [
   "Bilingual English and Spanish paths",
-  "Instant estimator that pre-fills the full quote request — address, owner confirmation, callback time, service, and estimate range — into the lead form",
+  "Instant estimator that pre-fills the full quote request (address, owner confirmation, callback time, service, and estimate range) into the lead form",
   "Service pages for lawn care, tree service, landscaping, and snow removal",
   "Project gallery, sourced public review, and local service-area content",
 ];

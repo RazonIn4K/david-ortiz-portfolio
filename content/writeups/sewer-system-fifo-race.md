@@ -1,7 +1,7 @@
 ---
 title: "Sewer System: Exploiting a SUID Binary Through a FIFO Race"
 date: "2025-11-08"
-competition: "National Cyber League — Fall 2025"
+competition: "National Cyber League, Fall 2025"
 category: "Enumeration & Exploitation"
 difficulty: "Hard"
 summary: "A SUID binary reads a protected file and leaks it through a predictable named pipe in /tmp. Winning the read/write race recovers the data with no real exploit code."
