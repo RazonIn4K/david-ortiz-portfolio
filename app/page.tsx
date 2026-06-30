@@ -263,9 +263,15 @@ export default function HomePage() {
       <header className="dtz-header">
         <nav className="dtz-nav" aria-label="Primary navigation">
           <Link className="dtz-brand" href="#start" aria-label="David Ortiz home">
-            <span className="dtz-mark" aria-hidden="true">
-              DO
-            </span>
+            <Image
+              className="dtz-logo-img"
+              src="/davidtiz-logo-transparent.png"
+              alt=""
+              width={44}
+              height={44}
+              priority
+              aria-hidden="true"
+            />
             <span>
               <strong>David Ortiz</strong>
               <small>builder/operator portfolio</small>
