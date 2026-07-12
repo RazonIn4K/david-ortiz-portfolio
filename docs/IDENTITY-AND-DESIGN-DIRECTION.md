@@ -168,11 +168,17 @@ A second AI produced an independent identity direction. It converged on the same
 
 Positioning, hero, palette (Warm Operator), and the personal-vs-business split stay as written above. Add /now to the sitemap, rename Writing to Field Notes, adopt the system-map hero (boundary-safe), the "Tools are powerful. Systems make them useful." tagline, the "Technical Systems Builder" role label, and the five-layer proof model.
 
-## Next build steps (when ready)
+## Next build steps (status 2026-07-12)
 
-1. Lock the logo (regenerate the clean geometric DO monogram per section 3).
-2. Apply the Warm Operator tokens to `globals.css` (light + dark) and run the contrast check.
-3. Add the serif display + mono pairing (next/font).
-4. Restructure home to the wireframe in section 5; add the NOW status strip.
-5. Build the ⌘K command palette and the Lab log with tag filters.
-6. Swap og.png and favicon to the new clay/paper mark.
+1. ~~Lock the logo~~ — DO mark shipped in the header (2026-06-29); whether it meets the
+   "clean geometric, less decorative" bar in section 3 stays the owner's call.
+2. ~~Apply the Warm Operator tokens to `globals.css`~~ — done, light + dark.
+3. ~~Add the serif display + mono pairing (next/font)~~ — Fraunces display for H1/H2,
+   Geist Mono for labels/status/tags.
+4. ~~Restructure home to the wireframe in section 5; add the NOW status strip~~ — done:
+   command-center hero, NOW/LAST SHIPPED strip, Selected systems (3 flagship proof
+   cards, problem -> built -> proves), other-lanes rows, From the lab (3 newest
+   writeups, build-time), legacy teal design system removed from `globals.css`.
+5. Build the ⌘K command palette and the Lab log with tag filters. (Remaining, plus
+   the /now page and the /work `/lab` routes from section 4.)
+6. ~~Swap og.png and favicon to the new clay/paper mark~~ — done.
