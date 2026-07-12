@@ -30,7 +30,7 @@ CI (`.github/workflows/ci.yml`) runs lint → test → build on every push/PR; C
 ## Tech Stack
 - Framework: Next.js 16 (App Router)
 - UI: React 19, Tailwind CSS 4, Framer Motion
-- Fonts: Geist Sans & Geist Mono (`next/font`)
+- Fonts: Geist Sans (body), Geist Mono (labels/status), Fraunces serif display for H1/H2 (`next/font`)
 - Analytics: Vercel Analytics
 - Deployment: Vercel
 
@@ -69,8 +69,8 @@ Canonical boundary guidance lives in [`docs/ARCHITECTURE-BOUNDARIES.md`](docs/AR
 Short version: this app is intentionally small, so do not over-abstract; but do not let business/security rules drift further into framework files without characterization tests. For the WhatsApp redirect lane, preserve challenge validation, full challenge value integrity, replay blocking, sanitization, and redirect message behavior.
 
 ## Homepage sections (`app/page.tsx`)
-1. Header — brand, nav (Start / Work / About / Notes / Contact), light/dark toggle
-2. Hero — positioning + CTAs (See selected work, Message me on WhatsApp)
+1. Header — brand + "Technical Systems Builder" role label, nav (Work / Notes / Process / Contact), light/dark toggle
+2. Hero — command-center hero per `docs/IDENTITY-AND-DESIGN-DIRECTION.md`: mono clay eyebrow, serif headline, CTAs (See the systems / How I work), NOW + LAST SHIPPED status strip (data in `data/content.ts` → `heroStatus`)
 3. Selected Work — category cards (local business sites, AI workflow, RAG, automation, prompt safety)
 4. About / Operating Style — how David works
 5. Stack — tools he reaches for

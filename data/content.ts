@@ -190,6 +190,17 @@ export const processSteps = [
   },
 ]
 
+// Hero NOW/LAST SHIPPED strip. Keep both lines honest and current: update `now`
+// when the working focus shifts, and `lastShipped` whenever something real ships.
+export const heroStatus = {
+  now: "prompt-defense evals · multi-AI delivery workflows · learning in public",
+  lastShipped: {
+    label: "CTF writeups + proof cards",
+    href: "/writeups",
+    date: "Jun 2026",
+  },
+}
+
 export const chatConfig = {
   title: 'PORTFOLIO GUIDE',
   subtitle: 'Ask about the work, current experiments, or how he approaches projects',

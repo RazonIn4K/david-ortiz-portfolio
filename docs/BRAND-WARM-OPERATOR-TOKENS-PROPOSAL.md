@@ -1,6 +1,6 @@
 # David Tiz brand: Warm Operator token set (proposal)
 
-Status: PROPOSAL, not yet applied to `app/globals.css`. Owner decision 2026-06-17 chose the "Warm Operator" direction to give davidtiz.com an identity distinct from Razon Lab (which owns dark + teal). This file is the drop-in replacement for the `--dtz-*` color tokens. Review, then apply to the `.dtz-site` light and dark blocks in `globals.css`.
+Status: APPLIED to `app/globals.css` (light and dark `.dtz-site` blocks). Owner decision 2026-06-17 chose the "Warm Operator" direction to give davidtiz.com an identity distinct from Razon Lab (which owns dark + teal). This file remains the reference for the `--dtz-*` color tokens.
 
 ## Why this palette
 

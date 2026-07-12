@@ -7,11 +7,10 @@ import { GithubIcon } from "@/components/icons/brand-icons"
 import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
 import { AIAssistant } from "@/components/ai-assistant"
 import { useSiteTheme } from "@/components/use-site-theme"
-import { contact, whatsappHref } from "@/data/content"
+import { contact, heroStatus, whatsappHref } from "@/data/content"
 import {
   ArrowUpRight,
   AtSign,
-  BadgeCheck,
   BookOpen,
   CheckCircle2,
   ClipboardCheck,
@@ -19,7 +18,6 @@ import {
   Compass,
   FileText,
   Globe,
-  LockKeyhole,
   Mail,
   MessageCircle,
   Moon,
@@ -70,42 +68,6 @@ const proofSurfaces = [
     image: "/visuals/generated-workbench.webp",
     href: "#setup",
     alt: "Desk scene representing website setup, account handoff, and project notes.",
-  },
-]
-
-const heroHighlights = [
-  "Web systems",
-  "Automation workflows",
-  "AI-security checks",
-  "RAG & notes tools",
-  "Operating notes",
-]
-
-const launchFlow = [
-  {
-    title: "Website",
-    detail: "Clear pages, photos, services, forms",
-    icon: Globe,
-  },
-  {
-    title: "Domain",
-    detail: "A real address the business owns",
-    icon: BadgeCheck,
-  },
-  {
-    title: "Email",
-    detail: "Official inbox with familiar forwarding",
-    icon: AtSign,
-  },
-  {
-    title: "Social",
-    detail: "Facebook, Instagram, WhatsApp paths",
-    icon: Smartphone,
-  },
-  {
-    title: "Security",
-    detail: "2FA, recovery, and handoff notes",
-    icon: LockKeyhole,
   },
 ]
 
@@ -274,7 +236,7 @@ export default function HomePage() {
             />
             <span>
               <strong>David Ortiz</strong>
-              <small>builder/operator portfolio</small>
+              <small>Technical Systems Builder</small>
             </span>
           </Link>
 
@@ -315,113 +277,46 @@ export default function HomePage() {
         </nav>
       </header>
 
-      <section id="start" className="dtz-hero dtz-overhaul-hero" aria-labelledby="hero-title">
+      <section id="start" className="dtz-hero dtz-command-hero" aria-labelledby="hero-title">
         <motion.div
           className="dtz-hero-copy"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: "easeOut" }}
         >
-          <p className="dtz-kicker">
-            <Sparkles aria-hidden="true" />
-            Selected work, operating notes, and systems thinking
+          <p className="dtz-eyebrow">
+            Systems builder <span aria-hidden="true">{"//"}</span> AI orchestration · Security · Automation
           </p>
-          <h1 id="hero-title">I build practical web, automation, and AI-security systems.</h1>
+          <h1 id="hero-title">I build systems out of many AIs.</h1>
           <p className="dtz-lede">
-            I&apos;m David Ortiz. This is my personal proof hub: selected work, operating notes, and the decisions behind
-            the systems I build, test, and hand off.
+            I coordinate models, tools, and workflows into systems that hold up, and I study how they fail in public.
+            Not one technology, a working stack of them.
           </p>
-
-          <ul className="dtz-hero-badges" aria-label="What David can set up">
-            {heroHighlights.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
 
           <div className="dtz-hero-actions" aria-label="Primary actions">
             <a className="dtz-button primary" href="#work">
-              View selected work
+              See the systems
               <ArrowUpRight aria-hidden="true" />
             </a>
-            <a className="dtz-button secondary" href="#notes">
-              Read operating notes
-              <BookOpen aria-hidden="true" />
+            <a className="dtz-button secondary" href="#process">
+              How I work
+              <Compass aria-hidden="true" />
             </a>
           </div>
-        </motion.div>
 
-        <motion.div
-          className="dtz-hero-visual dtz-overhaul-visual dtz-showcase-stage"
-          aria-label="Website design and setup proof"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-        >
-          <div className="dtz-stage-topline">
-            <span>Live screens, not just claims</span>
-            <Link href="/portfolio">
-              View portfolio
-              <ArrowUpRight aria-hidden="true" />
-            </Link>
-          </div>
-
-          <div className="dtz-stage-grid">
-            <Link className="dtz-live-preview" href="/portfolio">
-              <span className="dtz-browser-bar" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <strong>davidtiz.com / portfolio</strong>
+          <div className="dtz-status-strip" aria-label="Current status">
+            <p>
+              <span className="dtz-status-dot" aria-hidden="true" />
+              <strong>Now</strong>
+              <span>{heroStatus.now}</span>
+            </p>
+            <p>
+              <strong>Last shipped</strong>
+              <span>
+                <Link href={heroStatus.lastShipped.href}>{heroStatus.lastShipped.label}</Link> ·{" "}
+                {heroStatus.lastShipped.date}
               </span>
-              <Image
-                src="/portfolio/hernandez/site-screenshot.png"
-                alt="Screenshot of a local business website portfolio example."
-                width={1440}
-                height={1000}
-                priority
-                loading="eager"
-                sizes="(max-width: 560px) calc(100vw - 44px), (max-width: 1020px) calc(100vw - 64px), 368px"
-              />
-            </Link>
-
-            <div className="dtz-stage-column">
-              <Link className="dtz-mini-preview" href="/portfolio">
-                <Image
-                  src="/portfolio/hernandez/site-trust-screenshot.png"
-                  alt="Screenshot of services and trust sections from a local business website."
-                  width={1440}
-                  height={729}
-                />
-                <span>
-                  <strong>Trust section</strong>
-                  Services, photos, contact path
-                </span>
-              </Link>
-
-              <div className="dtz-handoff-panel">
-                <span>Owner handoff</span>
-                <strong>Domain, inbox, social, recovery</strong>
-                <p>Set up around the tools the owner already uses.</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="dtz-stage-checks" aria-label="Setup path">
-            {launchFlow.map((item) => {
-              const Icon = item.icon
-
-              return (
-                <div className="dtz-stage-check" key={item.title}>
-                  <span aria-hidden="true">
-                    <Icon aria-hidden="true" />
-                  </span>
-                  <div>
-                    <strong>{item.title}</strong>
-                    <small>{item.detail}</small>
-                  </div>
-                </div>
-              )
-            })}
+            </p>
           </div>
         </motion.div>
       </section>
@@ -451,10 +346,12 @@ export default function HomePage() {
             <motion.article
               className={index === 0 ? "dtz-proof-surface is-featured" : "dtz-proof-surface"}
               key={item.title}
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.06 }}
+              transition={
+                shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: "easeOut", delay: index * 0.06 }
+              }
             >
               <Link className="dtz-proof-surface-media" href={item.href}>
                 <Image src={item.image} alt={item.alt} width={1440} height={index === 0 ? 1000 : 729} />
@@ -491,10 +388,12 @@ export default function HomePage() {
               <motion.article
                 className="dtz-setup-card"
                 key={item.title}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.05 }}
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: "easeOut", delay: index * 0.05 }
+                }
               >
                 <span className="dtz-setup-icon">
                   <Icon aria-hidden="true" />
@@ -533,10 +432,12 @@ export default function HomePage() {
               <motion.article
                 className="dtz-work-card"
                 key={item.title}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.04 }}
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: "easeOut", delay: index * 0.04 }
+                }
               >
                 <div className="dtz-work-media">
                   <Image src={item.image} alt="" width={900} height={640} />
