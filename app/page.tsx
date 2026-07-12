@@ -1,5 +1,6 @@
 "use client"
 
+import { useSyncExternalStore } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion } from "framer-motion"
@@ -7,7 +8,7 @@ import { GithubIcon } from "@/components/icons/brand-icons"
 import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
 import { AIAssistant } from "@/components/ai-assistant"
 import { useSiteTheme } from "@/components/use-site-theme"
-import { contact, heroStatus, whatsappHref } from "@/data/content"
+import { contact, currentFocus, heroStatus, whatsappHref } from "@/data/content"
 import {
   ArrowUpRight,
   AtSign,
@@ -203,22 +204,32 @@ const stackGroups = [
   },
 ]
 
-const currentFocus = [
-  "Cleaner local-business websites with quote, order, or contact flows that do not feel overbuilt.",
-  "Repeatable AI-assisted delivery: research, implementation, review, browser QA, and a written handoff.",
-  "AI-security workflow habits, especially prompt injection, tool boundaries, and validation.",
-  "Better notes that preserve what worked, what failed, and what should happen in the next session.",
-]
-
 const contactGuardrails = [
   "Public links start with project context instead of a bare phone number.",
   "A future WhatsApp/n8n screener can label spam, ask one clarifying question, and keep human approval on replies.",
   "Direct calls should happen after context, not as the first public CTA bots can scrape.",
 ]
 
+const subscribeNoop = () => () => {}
+const getTrue = () => true
+const getFalse = () => false
+
 export default function HomePage() {
   const { theme, updateTheme } = useSiteTheme()
   const shouldReduceMotion = useReducedMotion()
+  // useSyncExternalStore reports false during SSR/hydration, true right after.
+  const hydrated = useSyncExternalStore(subscribeNoop, getTrue, getFalse)
+
+  // Motion props must be identical on server and client render (SSR bakes the
+  // initial styles into the HTML), so the reduced-motion branch may only kick
+  // in after hydration: it swaps the scroll-gated reveal for an instant one.
+  const instantReveal = Boolean(hydrated && shouldReduceMotion)
+  const reveal = (delay = 0) => ({
+    initial: { opacity: 0, y: 18 },
+    animate: instantReveal ? { opacity: 1, y: 0 } : undefined,
+    whileInView: { opacity: 1, y: 0 },
+    transition: instantReveal ? { duration: 0 } : { duration: 0.45, ease: "easeOut" as const, delay },
+  })
 
   return (
     <div className={`dtz-site dtz-${theme}`}>
@@ -346,12 +357,8 @@ export default function HomePage() {
             <motion.article
               className={index === 0 ? "dtz-proof-surface is-featured" : "dtz-proof-surface"}
               key={item.title}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              {...reveal(index * 0.06)}
               viewport={{ once: true, amount: 0.25 }}
-              transition={
-                shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: "easeOut", delay: index * 0.06 }
-              }
             >
               <Link className="dtz-proof-surface-media" href={item.href}>
                 <Image src={item.image} alt={item.alt} width={1440} height={index === 0 ? 1000 : 729} />
@@ -388,12 +395,8 @@ export default function HomePage() {
               <motion.article
                 className="dtz-setup-card"
                 key={item.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                {...reveal(index * 0.05)}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={
-                  shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: "easeOut", delay: index * 0.05 }
-                }
               >
                 <span className="dtz-setup-icon">
                   <Icon aria-hidden="true" />
@@ -432,12 +435,8 @@ export default function HomePage() {
               <motion.article
                 className="dtz-work-card"
                 key={item.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                {...reveal(index * 0.04)}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={
-                  shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: "easeOut", delay: index * 0.04 }
-                }
               >
                 <div className="dtz-work-media">
                   <Image src={item.image} alt="" width={900} height={640} />

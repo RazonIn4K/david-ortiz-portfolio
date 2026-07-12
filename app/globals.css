@@ -811,14 +811,6 @@ body {
   color: var(--dtz-on-accent);
 }
 
-.dtz-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(380px, 1.05fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: center;
-  padding-block: clamp(3rem, 8vw, 6rem);
-}
-
 .dtz-site .dtz-section-label,
 .dtz-site .dtz-card-label {
   color: var(--dtz-accent);
@@ -1508,9 +1500,19 @@ body {
   }
 }
 
+/* Scroll-reveal styles are inline (framer-motion); force content visible on paper */
+@media print {
+  .dtz-hero-copy,
+  .dtz-proof-surface,
+  .dtz-setup-card,
+  .dtz-work-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Warm Operator command-center hero */
 .dtz-command-hero {
-  display: block;
   padding-block: clamp(3.2rem, 9vw, 6.5rem);
 }
 
@@ -1595,12 +1597,6 @@ body {
   }
   50% {
     opacity: 0.35;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dtz-status-dot {
-    animation: none;
   }
 }
 
@@ -1719,6 +1715,8 @@ body {
 }
 
 .dtz-proof-surface:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--dtz-accent) 70%, var(--dtz-border));
   box-shadow: 0 24px 64px color-mix(in srgb, var(--dtz-panel-dark) 20%, transparent);
 }
 
@@ -1728,6 +1726,20 @@ body {
   aspect-ratio: 16 / 8.6;
   border-bottom: 1px solid var(--dtz-border);
   background: var(--dtz-panel-dark);
+}
+
+.dtz-proof-surface-media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  transition:
+    transform 260ms ease,
+    filter 260ms ease;
+}
+
+.dtz-proof-surface:hover img {
+  filter: saturate(1.08) contrast(1.04);
+  transform: scale(1.025);
 }
 
 .dtz-proof-surface.is-featured .dtz-proof-surface-media {
@@ -1752,6 +1764,29 @@ body {
   margin: 0;
   color: var(--dtz-muted);
   line-height: 1.58;
+}
+
+.dtz-proof-surface-copy span {
+  color: var(--dtz-accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dtz-proof-surface-copy a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  color: var(--dtz-accent);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.dtz-proof-surface-copy svg {
+  width: 0.95rem;
+  height: 0.95rem;
 }
 
 .dtz-services-section {
@@ -2150,12 +2185,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-}
-
-@media (max-width: 900px) {
-  .dtz-hero {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 760px) {

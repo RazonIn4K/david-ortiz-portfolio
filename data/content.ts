@@ -190,7 +190,8 @@ export const processSteps = [
   },
 ]
 
-// Hero NOW/LAST SHIPPED strip. Keep both lines honest and current: update `now`
+// Hero NOW/LAST SHIPPED strip and the Notes section's current-focus list live
+// together so there is one honest update point: refresh `now` + `currentFocus`
 // when the working focus shifts, and `lastShipped` whenever something real ships.
 export const heroStatus = {
   now: "prompt-defense evals · multi-AI delivery workflows · learning in public",
@@ -200,6 +201,13 @@ export const heroStatus = {
     date: "Jun 2026",
   },
 }
+
+export const currentFocus = [
+  "Cleaner local-business websites with quote, order, or contact flows that do not feel overbuilt.",
+  "Repeatable AI-assisted delivery: research, implementation, review, browser QA, and a written handoff.",
+  "AI-security workflow habits, especially prompt injection, tool boundaries, and validation.",
+  "Better notes that preserve what worked, what failed, and what should happen in the next session.",
+]
 
 export const chatConfig = {
   title: 'PORTFOLIO GUIDE',
