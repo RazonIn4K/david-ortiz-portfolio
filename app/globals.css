@@ -819,12 +819,13 @@ body {
   padding-block: clamp(3rem, 8vw, 6rem);
 }
 
-.dtz-section-label,
-.dtz-card-label {
+.dtz-site .dtz-section-label,
+.dtz-site .dtz-card-label {
   color: var(--dtz-accent);
-  font-size: 0.83rem;
-  font-weight: 850;
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -1636,9 +1637,10 @@ body {
 
 .dtz-contact-card span {
   color: var(--dtz-accent);
-  font-size: 0.78rem;
-  font-weight: 850;
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -1923,9 +1925,10 @@ body {
   border-radius: 8px;
   background: var(--dtz-accent-soft);
   color: var(--dtz-accent);
-  font-size: 0.76rem;
-  font-weight: 850;
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -1969,8 +1972,9 @@ body {
   border: 1px solid var(--dtz-border);
   border-radius: 8px;
   color: var(--dtz-subtle);
-  font-size: 0.78rem;
-  font-weight: 760;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
 }
 
 .dtz-process-grid {
