@@ -1600,6 +1600,130 @@ body {
   }
 }
 
+/* Selected systems: problem -> built -> proves lines */
+.dtz-system-lines {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.dtz-system-lines > div {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  gap: 0.65rem;
+}
+
+.dtz-system-lines dt {
+  padding-top: 0.18rem;
+  color: var(--dtz-accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dtz-system-lines dd {
+  margin: 0;
+  color: var(--dtz-muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.dtz-proof-surface-copy .dtz-tag-list {
+  margin: 0;
+}
+
+/* The rest of the bench: compact working lanes */
+.dtz-lane-list {
+  margin: 2.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dtz-lane-list li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+  gap: 0.5rem 1.1rem;
+  align-items: baseline;
+  padding: 0.95rem 0;
+  border-top: 1px solid var(--dtz-border);
+}
+
+.dtz-lane-label {
+  color: var(--dtz-accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dtz-lane-list strong {
+  display: block;
+  color: var(--dtz-fg);
+}
+
+.dtz-lane-list p {
+  margin: 0.2rem 0 0;
+  color: var(--dtz-muted);
+  line-height: 1.55;
+}
+
+.dtz-lane-list .dtz-card-link {
+  white-space: nowrap;
+}
+
+/* From the lab: latest writeups */
+.dtz-lab-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dtz-lab-list li {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 0.35rem 1.1rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--dtz-border);
+}
+
+.dtz-lab-date {
+  padding-top: 0.15rem;
+  color: var(--dtz-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.dtz-lab-list li > div > a {
+  color: var(--dtz-fg);
+  font-size: 1.08rem;
+  font-weight: 750;
+  line-height: 1.3;
+  text-decoration-color: var(--dtz-accent-2);
+  text-underline-offset: 3px;
+}
+
+.dtz-lab-list li > div > a:hover {
+  color: var(--dtz-accent);
+}
+
+.dtz-lab-list .dtz-tag-list {
+  margin: 0.5rem 0 0;
+}
+
+.dtz-section > .dtz-card-link {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 760px) {
+  .dtz-lane-list li,
+  .dtz-lab-list li {
+    grid-template-columns: 1fr;
+  }
+}
+
 .dtz-signal-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

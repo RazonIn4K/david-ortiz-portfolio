@@ -38,7 +38,7 @@ CI (`.github/workflows/ci.yml`) runs lint → test → build on every push/PR; C
 
 ```
 app/
-  page.tsx          # Home — single-page personal portfolio (client component, dtz-* classes)
+  page.tsx          # Home — thin server component: reads latest writeups, renders components/home-page.tsx
   layout.tsx        # Root layout, fonts, metadata
   globals.css       # Global styles + dtz-* design system (light/dark themes)
   error.tsx         # Page-level error boundary
@@ -50,6 +50,7 @@ app/
   admin/whatsapp-coexistence/ # Admin-key-gated Meta signup launcher
   contact/whatsapp/ # Screened redirect (route.ts) + challenge issuance (challenge/route.ts)
 components/
+  home-page.tsx     # Homepage client component (dtz-* classes, framer-motion reveals)
   ai-assistant.tsx  # Floating chat concierge on the homepage (calls /api/chat)
   contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact)
   icons/            # brand-icons (used by homepage + /contact)
@@ -68,15 +69,16 @@ Canonical boundary guidance lives in [`docs/ARCHITECTURE-BOUNDARIES.md`](docs/AR
 
 Short version: this app is intentionally small, so do not over-abstract; but do not let business/security rules drift further into framework files without characterization tests. For the WhatsApp redirect lane, preserve challenge validation, full challenge value integrity, replay blocking, sanitization, and redirect message behavior.
 
-## Homepage sections (`app/page.tsx`)
-1. Header — brand + "Technical Systems Builder" role label, nav (Work / Notes / Process / Contact), light/dark toggle
+## Homepage sections (`components/home-page.tsx`)
+1. Header — brand + "Technical Systems Builder" role label, nav (Work / Lab / Process / Notes / Contact), light/dark toggle
 2. Hero — command-center hero per `docs/IDENTITY-AND-DESIGN-DIRECTION.md`: mono clay eyebrow, serif headline, CTAs (See the systems / How I work), NOW + LAST SHIPPED status strip (data in `data/content.ts` → `heroStatus`)
-3. Selected Work — category cards (local business sites, AI workflow, RAG, automation, prompt safety)
-4. About / Operating Style — how David works
-5. Stack — tools he reaches for
-6. Notes / Current Focus — what he's working on now
-7. Contact — WhatsApp-first (screened redirect), email, and GitHub
-8. Footer — WhatsApp · Email · GitHub
+3. Selected systems — 3 flagship proof cards in problem → built → proves format (`data/content.ts` → `flagshipSystems`), plus compact "other lanes" rows (`workLanes`)
+4. How I work — operating principles (process cards)
+5. From the lab — 3 newest writeups, read from `content/writeups` at build time by `app/page.tsx`
+6. Stack — tools he reaches for
+7. Notes / Current Focus — what he's working on now (`currentFocus`)
+8. Contact — WhatsApp-first (screened redirect), email, and GitHub
+9. Footer — WhatsApp · Email · GitHub
 
 ## Contact protection behavior
 
