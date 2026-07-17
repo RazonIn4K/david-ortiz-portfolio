@@ -136,8 +136,7 @@ export default function ContactPage() {
     },
     {
       heading: "Follow the work",
-      intro:
-        "Best if you want to inspect the actual code, experiments, and project follow-through.",
+      intro: "Best if you want the code, the streams, and the writeups behind the work.",
       links: followWorkLinks,
     },
   ]
@@ -152,8 +151,8 @@ export default function ContactPage() {
               A direct path to David, without making people guess
             </h1>
             <p className="mt-5 text-lg leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
-              {personalSitePublicLabel} stays personal, experimental, and reflective. This page is the shareable contact hub:
-              the fastest confirmed ways to email, book time, start a freelance conversation, or move into a scoped business discussion.
+              {personalSitePublicLabel} is my personal site: AI-security work and shipped software. This page is the
+              shareable contact hub: the fastest confirmed ways to email, book time, or start a scoped conversation.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <span
