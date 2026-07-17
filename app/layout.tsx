@@ -20,23 +20,21 @@ const fraunces = Fraunces({
 });
 
 const siteUrl = "https://davidtiz.com";
-const siteTitle = "David Ortiz | Personal Portfolio";
+const siteTitle = "David Ortiz | AI Security Engineer";
 const siteDescription =
-  "Personal portfolio for David Ortiz: practical web systems, AI-assisted workflows, automation experiments, selected builds, and notes.";
+  "Personal site for David Ortiz: AI security and offensive evaluation work, competition rankings, and production software builds.";
 
 export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
   keywords: [
     "David Ortiz",
-    "personal portfolio",
-    "web systems",
-    "AI-assisted workflows",
-    "automation",
+    "AI security",
+    "prompt injection",
+    "offensive evaluation",
+    "National Cyber League",
+    "CTF writeups",
     "Next.js",
-    "local business websites",
-    "RAG experiments",
-    "prompt safety",
   ],
   applicationName: "David Ortiz Portfolio",
   creator: "David Ortiz",
@@ -54,7 +52,7 @@ export const metadata: Metadata = {
         url: "/visuals/david-og-card.png",
         width: 1200,
         height: 630,
-        alt: "David Ortiz, builder and operator portfolio",
+        alt: "David Ortiz, AI security and software portfolio",
       },
     ],
   },
@@ -115,7 +113,7 @@ const personJsonLd = {
   "@type": "Person",
   name: "David Ortiz",
   url: siteUrl,
-  jobTitle: "Web developer and AI automation builder",
+  jobTitle: "AI Security Engineer",
   description: siteDescription,
   email: "hello@davidtiz.com",
   image: `${siteUrl}/visuals/david-og-card.png`,
@@ -126,13 +124,13 @@ const personJsonLd = {
     addressCountry: "US",
   },
   knowsAbout: [
-    "Web development",
+    "AI security evaluation",
+    "Prompt injection",
+    "Log analysis",
+    "Network traffic analysis",
+    "Web application security",
     "Next.js",
-    "AI-assisted workflows",
-    "Automation",
-    "Prompt injection defense",
-    "Local business websites",
-    "RAG systems",
+    "Web development",
   ],
   sameAs: [...socialProfileLinks],
 };

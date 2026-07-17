@@ -8,76 +8,42 @@ import { GithubIcon } from "@/components/icons/brand-icons"
 import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
 import { AIAssistant } from "@/components/ai-assistant"
 import { useSiteTheme } from "@/components/use-site-theme"
-import { contact, currentFocus, flagshipSystems, heroStatus, whatsappHref, workLanes } from "@/data/content"
+import { contact, heroChips, proofCards, whatsappHref } from "@/data/content"
 import type { WriteupMeta } from "@/lib/writeups"
 import {
   ArrowUpRight,
-  CheckCircle2,
-  ClipboardCheck,
   Code2,
   Compass,
   FileText,
   Mail,
   MessageCircle,
   Moon,
-  ShieldCheck,
   Sun,
 } from "lucide-react"
 
 const navItems = [
   { label: "Work", href: "#work" },
-  { label: "Lab", href: "#lab" },
   { label: "Process", href: "#process" },
-  { label: "Notes", href: "#notes" },
+  { label: "Writeups", href: "/writeups" },
   { label: "Contact", href: "#contact" },
 ]
 
 const processSteps = [
   {
-    title: "Start With The Real Surface",
-    body: "I look at the current site, social page, domain, inbox, or workflow first so the work starts from the real situation.",
+    title: "Recon The Real Surface",
+    body: "Start from the actual model, repo, or live site, not a slide about it.",
     icon: Compass,
   },
   {
-    title: "Map The Useful Version",
-    body: "I separate what customers need to see, what the owner needs to control, and what should be kept simple.",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Build In Working Passes",
-    body: "I ship a working first version, then tighten the design, copy, forms, routes, contact paths, and edge cases.",
+    title: "Build And Break In Passes",
+    body: "Ship a working version, test it, attack it, tighten it.",
     icon: Code2,
   },
   {
-    title: "Verify And Hand Off",
-    body: "I run the checks that matter, document what changed, and leave the owner with a clear continuation path.",
+    title: "Write It Down",
+    body: "Dated writeups and handoff docs, with sensitive details redacted.",
     icon: FileText,
   },
-]
-
-const stackGroups = [
-  {
-    title: "Frontend",
-    items: ["Next.js", "React", "Tailwind CSS", "Accessible UI"],
-  },
-  {
-    title: "Deployment",
-    items: ["Vercel", "Netlify", "DNS setup", "Production QA"],
-  },
-  {
-    title: "Automation",
-    items: ["n8n", "APIs", "Shell scripts", "Operational notes"],
-  },
-  {
-    title: "AI Workflow",
-    items: ["Codex", "Claude Code", "Grok", "Perplexity", "Obsidian"],
-  },
-]
-
-const contactGuardrails = [
-  "Public links start with project context instead of a bare phone number.",
-  "A future WhatsApp/n8n screener can label spam, ask one clarifying question, and keep human approval on replies.",
-  "Direct calls should happen after context, not as the first public CTA bots can scrape.",
 ]
 
 const subscribeNoop = () => () => {}
@@ -117,7 +83,7 @@ export function HomePage({ labNotes }: { labNotes: WriteupMeta[] }) {
             />
             <span>
               <strong>David Ortiz</strong>
-              <small>Technical Systems Builder</small>
+              <small>AI Security Engineer</small>
             </span>
           </Link>
 
@@ -166,17 +132,13 @@ export function HomePage({ labNotes }: { labNotes: WriteupMeta[] }) {
           transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: "easeOut" }}
         >
           <p className="dtz-eyebrow">
-            Systems builder <span aria-hidden="true">{"//"}</span> AI orchestration · Security · Automation
+            AI security <span aria-hidden="true">{"//"}</span> offensive evaluation · production software
           </p>
-          <h1 id="hero-title">I build systems out of many AIs.</h1>
-          <p className="dtz-lede">
-            I coordinate models, tools, and workflows into systems that hold up, and I study how they fail in public.
-            Not one technology, a working stack of them.
-          </p>
+          <h1 id="hero-title">I break AI systems and ship production software.</h1>
 
           <div className="dtz-hero-actions" aria-label="Primary actions">
             <a className="dtz-button primary" href="#work">
-              See the systems
+              See the work
               <ArrowUpRight aria-hidden="true" />
             </a>
             <a className="dtz-button secondary" href="#process">
@@ -185,56 +147,31 @@ export function HomePage({ labNotes }: { labNotes: WriteupMeta[] }) {
             </a>
           </div>
 
-          <div className="dtz-status-strip" aria-label="Current status">
-            <p>
-              <span className="dtz-status-dot" aria-hidden="true" />
-              <strong>Now</strong>
-              <span>{heroStatus.now}</span>
-            </p>
-            <p>
-              <strong>Last shipped</strong>
-              <span>
-                <Link href={heroStatus.lastShipped.href}>{heroStatus.lastShipped.label}</Link> ·{" "}
-                {heroStatus.lastShipped.date}
-              </span>
-            </p>
-          </div>
+          <ul className="dtz-tag-list dtz-hero-chips" aria-label="Credentials">
+            {heroChips.map((chip) => (
+              <li key={chip}>{chip}</li>
+            ))}
+          </ul>
         </motion.div>
       </section>
 
       <section id="work" className="dtz-section dtz-proof-section" aria-labelledby="work-title">
         <div className="dtz-section-heading">
-          <p className="dtz-section-label">Selected systems</p>
-          <h2 id="work-title">Three systems, each with proof.</h2>
-          <p>
-            The flagship builds, all in the same format: the problem, what I built, and what it proves. The rest of the
-            bench is below, and the working notes live in the lab.
-          </p>
+          <p className="dtz-section-label">Selected proof</p>
+          <h2 id="work-title">Break results, rankings, and live builds.</h2>
         </div>
 
         <div className="dtz-proof-surface-grid">
-          {flagshipSystems.map((item, index) => {
-            const media = (
-              <Image src={item.image} alt={item.alt} width={1440} height={index === 0 ? 1000 : 729} />
-            )
+          {proofCards.map((item, index) => {
             const linkProps = item.external ? { target: "_blank", rel: "noreferrer" } : undefined
 
             return (
               <motion.article
-                className={index === 0 ? "dtz-proof-surface is-featured" : "dtz-proof-surface"}
+                className="dtz-proof-surface"
                 key={item.title}
                 {...reveal(index * 0.06)}
                 viewport={{ once: true, amount: 0.25 }}
               >
-                {item.external ? (
-                  <a className="dtz-proof-surface-media" href={item.href} {...linkProps}>
-                    {media}
-                  </a>
-                ) : (
-                  <Link className="dtz-proof-surface-media" href={item.href}>
-                    {media}
-                  </Link>
-                )}
                 <div className="dtz-proof-surface-copy">
                   <ul className="dtz-tag-list" aria-label={`${item.title} status`}>
                     {item.badges.map((badge) => (
@@ -242,57 +179,51 @@ export function HomePage({ labNotes }: { labNotes: WriteupMeta[] }) {
                     ))}
                   </ul>
                   <h3>{item.title}</h3>
-                  <dl className="dtz-system-lines">
-                    <div>
-                      <dt>Problem</dt>
-                      <dd>{item.problem}</dd>
-                    </div>
-                    <div>
-                      <dt>Built</dt>
-                      <dd>{item.built}</dd>
-                    </div>
-                    <div>
-                      <dt>Proves</dt>
-                      <dd>{item.proves}</dd>
-                    </div>
-                  </dl>
+                  <p>{item.result}</p>
+                  {item.context ? <p>{item.context}</p> : null}
                   <a href={item.href} {...linkProps}>
                     {item.linkLabel}
                     <ArrowUpRight aria-hidden="true" />
                   </a>
+                  {item.secondaryHref && item.secondaryLabel ? (
+                    <a href={item.secondaryHref} target="_blank" rel="noreferrer">
+                      {item.secondaryLabel}
+                      <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  ) : null}
                 </div>
               </motion.article>
             )
           })}
         </div>
 
-        <ul className="dtz-lane-list" aria-label="Other working lanes">
-          {workLanes.map((lane) => (
-            <li key={lane.title}>
-              <span className="dtz-lane-label">{lane.label}</span>
-              <div>
-                <strong>{lane.title}</strong>
-                <p>{lane.line}</p>
-              </div>
-              {lane.href && lane.linkLabel ? (
-                <a className="dtz-card-link" href={lane.href}>
-                  {lane.linkLabel}
-                  <ArrowUpRight aria-hidden="true" />
-                </a>
-              ) : null}
-            </li>
-          ))}
-        </ul>
+        <div className="dtz-lab-strip">
+          <p className="dtz-section-label">Lab log</p>
+          <ol className="dtz-lab-list">
+            {labNotes.map((note) => (
+              <li key={note.slug}>
+                <span className="dtz-lab-date">{note.date}</span>
+                <div>
+                  <Link href={`/writeups/${note.slug}`}>{note.title}</Link>
+                  <ul className="dtz-tag-list" aria-label={`${note.title} tags`}>
+                    <li>{note.category}</li>
+                    <li>{note.difficulty}</li>
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <Link className="dtz-card-link" href="/writeups">
+            All writeups
+            <ArrowUpRight aria-hidden="true" />
+          </Link>
+        </div>
       </section>
 
       <section id="process" className="dtz-section" aria-labelledby="process-title">
         <div className="dtz-section-heading">
           <p className="dtz-section-label">How I work</p>
-          <h2 id="process-title">How I keep projects grounded.</h2>
-          <p>
-            The common thread is verification. I would rather inspect the actual surface and make a smaller honest
-            improvement than write a big plan that never reaches the browser.
-          </p>
+          <h2 id="process-title">Same loop for security work and software.</h2>
         </div>
 
         <div className="dtz-process-grid">
@@ -311,113 +242,14 @@ export function HomePage({ labNotes }: { labNotes: WriteupMeta[] }) {
         </div>
       </section>
 
-      <section id="lab" className="dtz-section" aria-labelledby="lab-title">
-        <div className="dtz-section-heading">
-          <p className="dtz-section-label">From the lab</p>
-          <h2 id="lab-title">Latest writeups, dated and inspectable.</h2>
-          <p>
-            Technique-first writeups from real challenges: what broke, how it was approached, and what it proves. Flags
-            and live details stay redacted.
-          </p>
-        </div>
-
-        <ol className="dtz-lab-list">
-          {labNotes.map((note) => (
-            <li key={note.slug}>
-              <span className="dtz-lab-date">{note.date}</span>
-              <div>
-                <Link href={`/writeups/${note.slug}`}>{note.title}</Link>
-                <ul className="dtz-tag-list" aria-label={`${note.title} tags`}>
-                  <li>{note.category}</li>
-                  <li>{note.difficulty}</li>
-                </ul>
-              </div>
-            </li>
-          ))}
-        </ol>
-
-        <Link className="dtz-card-link" href="/writeups">
-          Open the lab log
-          <ArrowUpRight aria-hidden="true" />
-        </Link>
-      </section>
-
-      <section id="stack" className="dtz-section dtz-stack-section" aria-labelledby="stack-title">
-        <div className="dtz-section-heading">
-          <p className="dtz-section-label">Stack</p>
-          <h2 id="stack-title">Tools behind the calm handoff.</h2>
-          <p>
-            Visitors should not have to care about the stack. I use it to make the finished setup fast, reliable,
-            secure enough for the job, and easier to maintain.
-          </p>
-        </div>
-
-        <div className="dtz-stack-grid">
-          {stackGroups.map((group) => (
-            <article className="dtz-stack-group" key={group.title}>
-              <h3>{group.title}</h3>
-              <ul>
-                {group.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="notes" className="dtz-section dtz-notes-section" aria-labelledby="notes-title">
-        <div className="dtz-notes-layout">
-          <div>
-            <p className="dtz-section-label">Operating notes</p>
-            <h2 id="notes-title">What I&apos;m paying attention to right now.</h2>
-            <p>
-              This is the living part of the portfolio: systems thinking, practical security habits, useful automation,
-              and proof that survives beyond a sales conversation.
-            </p>
-          </div>
-
-          <div className="dtz-notes-panel">
-            <Image src="/visuals/generated-lanes.webp" alt="" width={1774} height={887} />
-            <ul className="dtz-check-list">
-              {currentFocus.map((line) => (
-                <li key={line}>
-                  <CheckCircle2 aria-hidden="true" />
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
       <section id="contact" className="dtz-contact dtz-overhaul-contact" aria-labelledby="contact-title">
         <div>
           <p className="dtz-section-label">Contact</p>
-          <h2 id="contact-title">Start a conversation about the work.</h2>
-          <p>
-            You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
-            and what would make the next step useful. I keep the public contact path screened so the phone number is not
-            treated like an open spam target.
-          </p>
+          <h2 id="contact-title">Send the target, the question, or the build.</h2>
+          <p>WhatsApp is fastest. Email works. The code is public.</p>
         </div>
 
         <div className="dtz-contact-panel">
-          <div className="dtz-contact-card">
-            <span>Best first message</span>
-            <p>What are you trying to build or fix, and what is the current state?</p>
-          </div>
-          <div className="dtz-contact-card dtz-contact-guard">
-            <span>Phone spam guard</span>
-            <ul>
-              {contactGuardrails.map((item) => (
-                <li key={item}>
-                  <ShieldCheck aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
           <div className="dtz-contact-actions">
             <ProtectedWhatsAppLink
               className="dtz-button primary"
@@ -426,15 +258,6 @@ export function HomePage({ labNotes }: { labNotes: WriteupMeta[] }) {
               rel="noreferrer"
             >
               Message me on WhatsApp
-              <MessageCircle aria-hidden="true" />
-            </ProtectedWhatsAppLink>
-            <ProtectedWhatsAppLink
-              className="dtz-button secondary"
-              href="/contact/whatsapp?intent=callback"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Request a call-back
               <MessageCircle aria-hidden="true" />
             </ProtectedWhatsAppLink>
             <a className="dtz-button secondary" href={`mailto:${contact.email}`}>

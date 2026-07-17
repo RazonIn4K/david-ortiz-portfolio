@@ -2,20 +2,20 @@ import { NextRequest, NextResponse } from "next/server"
 import { contact } from "@/data/content"
 import { incrementWindow } from "@/lib/abuse-store"
 
-const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (davidtiz.com). This site is a personal notebook and portfolio, not a sales page.
+const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (davidtiz.com). This site is a personal identity and portfolio surface, not a sales page.
 
 ## What davidtiz.com is for:
-- Personal notes, selected work, experiments, and learning-in-public
-- Explaining abstraction layers across browsers, apps, APIs, infrastructure, and business systems
-- Helping visitors understand what David builds and how he approaches projects
+- David's AI-security and offensive-evaluation work: authorized arena results (Gray Swan), NCL competition rankings, CTF writeups
+- His shipped software: PromptDefenders (prompt-injection scanner), RayBridge, and client web builds
+- Helping visitors understand the work and how to reach David
 
 ## What davidtiz.com is NOT for:
-- It is not the primary project sales page
+- It is not the SMB web-services sales page; formal scoping for local-business web work goes through highencodelearning.com
 - Do not present it like a course platform or education business
 - Do not route every question toward external services
 
 ## Guidance:
-- If someone asks what David is learning or building, answer from the perspective of experimentation, notes, and system design
+- Only state results that appear on the site; never invent rankings, breaks, clients, or certifications
 - Keep answers casual, concise, and useful
 - Default to 2-4 short sentences
 - Do not invent pricing or sales promises
@@ -197,11 +197,11 @@ function getFallbackResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase()
 
   if (lowerMessage.includes("hire") || lowerMessage.includes("project") || lowerMessage.includes("service") || lowerMessage.includes("work")) {
-    return "This site is the personal portfolio and notes layer. If you want to start a scoped project, contact David directly at " + contact.email + "."
+    return "This site is David's personal identity surface. To start a scoped project, contact him directly at " + contact.email + "."
   }
 
   if (lowerMessage.includes("learn") || lowerMessage.includes("building") || lowerMessage.includes("studying")) {
-    return "Right now the focus is on abstraction layers, browser behavior, automation systems, AI tooling, and prompt safety. You can see current work in the selected work and notes sections."
+    return "Current focus: AI-security evaluation in authorized arenas, CTF competition, PromptDefenders, and production web builds. The work section and writeups have the details."
   }
 
   if (lowerMessage.includes("contact") || lowerMessage.includes("email") || lowerMessage.includes("whatsapp") || lowerMessage.includes("phone")) {
@@ -209,8 +209,8 @@ function getFallbackResponse(userMessage: string): string {
   }
 
   if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {
-    return "Prompt safety, AI system behavior, and reliability testing are active topics across current work. He keeps notes on what worked, what failed, and what needs tightening."
+    return "AI security is the core lane: confirmed prompt-injection breaks in authorized arenas, an NCL Fall 2025 ranking, PromptDefenders, and CTF writeups, all linked from the work section."
   }
 
-  return "Ask about what David is learning, what he is building, or how he approaches project handoffs. If you're ready to start a conversation, use the Contact section."
+  return "Ask about the AI-security results, the shipped builds, or the writeups. If you're ready to start a conversation, use the Contact section."
 }

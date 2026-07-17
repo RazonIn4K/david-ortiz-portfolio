@@ -4,9 +4,9 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Project Overview
 
-Personal portfolio site for David Ortiz, built with Next.js 16 (App Router), React 19, and Tailwind CSS 4, deployed on Vercel. It is a single-page site that presents David as a builder/operator: selected work, how he works, his stack, current learning notes, and a clear contact path.
+Personal portfolio site for David Ortiz, built with Next.js 16 (App Router), React 19, and Tailwind CSS 4, deployed on Vercel. It presents one identity: an AI-security / offensive-evaluation engineer who also ships production software. Proof over description: verified competition results (Gray Swan Arena, NCL), live products (PromptDefenders), CTF writeups, and one shipped client build.
 
-It is NOT an "ecosystem router" or an agency site. Do not reframe it around HighEncode, CSBrainAI, Prompt Defenders, or a multi-site ecosystem. Outside projects may appear only as ordinary portfolio examples, never as the organizing structure.
+It is NOT an "ecosystem router" or an agency site. Do not reframe it around HighEncode, CSBrainAI, Prompt Defenders, or a multi-site ecosystem. Outside projects may appear only as ordinary portfolio examples, never as the organizing structure. SMB web-services sales/scoping belongs to highencodelearning.com; Hernandez Landscape appears here as exactly one secondary proof card/entry.
 
 **Production**: `davidtiz.com`
 **Vercel Project**: `david-ortiz-portfolio` (team: razs-projects-29d4f2e6)
@@ -54,11 +54,11 @@ components/
   ai-assistant.tsx  # Floating chat concierge on the homepage (calls /api/chat)
   contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact)
   icons/            # brand-icons (used by homepage + /contact)
-data/content.ts     # Shared content + centralized contact (`contact`, `whatsappHref`)
+data/content.ts     # Shared content: heroChips, proofCards, chatConfig, centralized contact (`contact`, `whatsappHref`)
 lib/                # site-config, contact-links, meta-embedded-signup, abuse-store, utils
 public/visuals/     # Hero/workbench images and SVGs
-public/demo/        # Static Spanish local-business demos; hub served at /demo via rewrite,
-                    # linked from the homepage work card
+public/demo/        # Static Spanish local-business demos; hub served at /demo via rewrite
+                    # (no longer linked from the homepage)
 ```
 
 Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.config.ts` maps `@/*` and stubs `server-only`).
@@ -70,15 +70,14 @@ Canonical boundary guidance lives in [`docs/ARCHITECTURE-BOUNDARIES.md`](docs/AR
 Short version: this app is intentionally small, so do not over-abstract; but do not let business/security rules drift further into framework files without characterization tests. For the WhatsApp redirect lane, preserve challenge validation, full challenge value integrity, replay blocking, sanitization, and redirect message behavior.
 
 ## Homepage sections (`components/home-page.tsx`)
-1. Header — brand + "Technical Systems Builder" role label, nav (Work / Lab / Process / Notes / Contact), light/dark toggle
-2. Hero — command-center hero per `docs/IDENTITY-AND-DESIGN-DIRECTION.md`: mono clay eyebrow, serif headline, CTAs (See the systems / How I work), NOW + LAST SHIPPED status strip (data in `data/content.ts` → `heroStatus`)
-3. Selected systems — 3 flagship proof cards in problem → built → proves format (`data/content.ts` → `flagshipSystems`), plus compact "other lanes" rows (`workLanes`)
-4. How I work — operating principles (process cards)
-5. From the lab — 3 newest writeups, read from `content/writeups` at build time by `app/page.tsx`
-6. Stack — tools he reaches for
-7. Notes / Current Focus — what he's working on now (`currentFocus`)
-8. Contact — WhatsApp-first (screened redirect), email, and GitHub
-9. Footer — WhatsApp · Email · GitHub
+1. Header — brand + "AI Security Engineer" role label, nav (Work / Process / Writeups / Contact), light/dark toggle
+2. Hero — one identity sentence ("I break AI systems and ship production software.") + 3 credential chips (`data/content.ts` → `heroChips`), CTAs (See the work / How I work)
+3. Selected proof — 4 proof cards, each one artifact + one result + one link (`data/content.ts` → `proofCards`), followed by a compact lab log: 3 newest writeups, read from `content/writeups` at build time by `app/page.tsx`
+4. How I work — 3 process steps
+5. Contact — one line + WhatsApp (screened redirect), email, and GitHub buttons
+6. Footer — WhatsApp · Email · GitHub · route links
+
+Copy rules for this page: every number must be checkable at the linked source; no em-dashes in rendered copy; no filler adjectives; keep body text under ~400 words. `/portfolio` is a proof index across the same categories (Hernandez is one entry, with scoping links to highencodelearning.com).
 
 ## Contact protection behavior
 
