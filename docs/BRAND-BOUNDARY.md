@@ -8,7 +8,8 @@
 
 - David Ortiz's personal home base.
 - A place for selected work, current notes, direct contact, and trust signals.
-- The canonical identity layer for David as a builder/operator.
+- The canonical identity layer for David as an AI-security / offensive-evaluation
+  engineer who also ships production software.
 - WhatsApp-first for contact, with a screened redirect protecting the number.
 
 ## This site is not

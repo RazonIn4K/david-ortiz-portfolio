@@ -1,6 +1,6 @@
 # David Ortiz — Personal Portfolio
 
-Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents selected work, current learning threads, practical web systems, AI-assisted workflow experiments, and contact information. It is a single-page site with anchor navigation (`#start`, `#work`, `#process`, `#stack`, `#notes`, `#contact`), plus a few focused secondary pages (`/contact`, `/portfolio`, `/privacy`, `/demo`).
+Personal site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents one identity: an AI-security / offensive-evaluation engineer who also ships production software, backed by verifiable proof (Gray Swan Arena profile, NCL score report, live products, CTF writeups). The homepage uses anchor navigation (`#start`, `#work`, `#process`, `#contact`), plus focused secondary pages (`/contact`, `/portfolio`, `/writeups`, `/privacy`, `/demo`).
 
 ## Getting Started
 
@@ -36,18 +36,19 @@ Linked to the Vercel project `david-ortiz-portfolio` (team `razs-projects-29d4f2
 
 ```
 app/
-  page.tsx          # Home — single-page personal portfolio (dtz-* design)
+  page.tsx          # Home — thin server component: reads latest writeups, renders components/home-page.tsx
   layout.tsx        # Root layout, fonts, metadata
   globals.css       # Global styles + dtz-* design system, light/dark
   error.tsx         # Page-level error boundary
   global-error.tsx  # App-level error boundary
   not-found.tsx     # Custom 404
   contact/          # Contact hub + screened WhatsApp redirect/challenge
-  portfolio/        # Selected-work detail page
+  portfolio/        # Proof index (competition results, products, writeups, one client build)
+  writeups/         # CTF technique writeups (markdown in content/writeups)
   api/chat/route.ts # AI chat endpoint (used by the homepage assistant)
-components/         # AI assistant, theme shell, contact link, icons
-data/content.ts     # Shared content + centralized contact details
-lib/                # site-config, contact-links, abuse-store, meta helpers
+components/         # Homepage, AI assistant, theme shell, contact link, icons
+data/content.ts     # Shared content (heroChips, proofCards) + centralized contact details
+lib/                # site-config, contact-links, abuse-store, meta helpers, writeups
 public/             # Images, visuals, and the /demo static pages
 ```
 

@@ -1,5 +1,12 @@
 # davidtiz.com — Identity and Design Direction
 
+> **Positioning superseded (2026-07-17).** The site was repositioned around one identity:
+> an AI-security / offensive-evaluation engineer who also ships production software
+> (see `CLAUDE.md` for the current structure and copy rules). The "systems builder"
+> positioning, hero copy, role label, section list, and site map below are historical.
+> The **Warm Operator palette, typography (Fraunces + Geist), and design language remain
+> in force**, as does the personal-vs-business governance.
+
 Status: design direction (owner brief 2026-06-17). This is the serious identity spec for the next version of davidtiz.com. Palette is the chosen "Warm Operator" set (see `BRAND-WARM-OPERATOR-TOKENS-PROPOSAL.md`). Governance: this site stays the personal hub, never an ecosystem router or services marketplace (see `BRAND-BOUNDARY.md`); paid services route to High Encode Learning LLC.
 
 ## The core idea

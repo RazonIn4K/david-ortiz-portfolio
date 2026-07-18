@@ -1,7 +1,7 @@
 {
   "name": "David Ortiz Personal Site",
   "short_name": "David Ortiz",
-  "description": "Personal hub for builds, notes, and systems work.",
+  "description": "AI security and offensive evaluation work, plus production software builds.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#16110d",

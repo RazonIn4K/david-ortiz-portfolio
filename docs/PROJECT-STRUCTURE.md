@@ -7,8 +7,9 @@
 ## What this is
 
 Personal portfolio for David Ortiz — **Next.js 16 (App Router), React 19, Tailwind CSS 4**,
-deployed on Vercel, production domain `davidtiz.com`. It is a personal builder/operator
-portfolio, **not** an agency or multi-site "ecosystem" router (see `CLAUDE.md` / `AGENTS.md`).
+deployed on Vercel, production domain `davidtiz.com`. It presents David as an AI-security /
+offensive-evaluation engineer who also ships production software, **not** an agency or
+multi-site "ecosystem" router (see `CLAUDE.md` / `AGENTS.md`).
 
 The user-facing front page (`/`) is deliberately small. The rest of the surface area is
 secondary routes (contact, portfolio, writeups, privacy, demos) and backend integrations

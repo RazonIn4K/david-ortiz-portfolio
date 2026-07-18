@@ -3,6 +3,11 @@
 Date: 2026-06-09
 Status: Executed (D1–D4 complete, 2026-06-10)
 
+> **Note (2026-07-17):** the positioning described in this plan was later superseded by
+> the AI-security repositioning (identity, homepage structure, and /portfolio proof
+> index now documented in `CLAUDE.md`). The brand-boundary governance in this file
+> still applies.
+
 > Execution record: #70 merged and verified in production (D1); `docs/BRAND-BOUNDARY.md`
 > added with CLAUDE.md/AGENTS.md pointers and a clean copy audit (#71, D2+D3);
 > ecosystem-era docs archived to `docs/archive/` (D4). CI green throughout.
