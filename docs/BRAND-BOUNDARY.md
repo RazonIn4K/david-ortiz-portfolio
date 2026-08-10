@@ -40,7 +40,7 @@ The canonical portfolio decision and contract live in the RazonWorks repository 
 - **Required legal/privacy/platform links** (for example, `/privacy`).
 - **Project demos hosted inside this repo** (`/demo` and its sub-pages).
 - **Personal profiles** on `/contact`: GitHub, LinkedIn, YouTube, Twitch, X, Facebook,
-  Instagram, Upwork, Fiverr, Calendly. These are *David's* channels, not sibling brands.
+  Instagram, and Calendly. These are *David's* channels, not sibling brands or package marketplaces.
 - One-off links when they serve the current page's user task.
 
 ## Not allowed
@@ -95,12 +95,15 @@ cross-site nav bars, and no shared "ecosystem" components.
 
 DavidTiz may summarize material owned elsewhere only when the summary explains David's role or judgment. Link to the canonical artifact instead of cloning the full service page, lesson, case study, or experiment.
 
-## Phase 0 migration status
+## Migration status
 
-- This change aligns governance only. It does not alter public pages, navigation, metadata, forms, analytics, deployment, or domains.
+- The Phase 0 governance commit changed documentation only; that statement is historical.
+- The proof-first checkpoint updates local source for `/`, `/contact`, and personal metadata. It removes the homepage assistant mount and commercial contact marketplace, while keeping the screened WhatsApp mechanics unchanged.
+- The standalone `/api/chat` route remains rate-limited and now returns a boundary response for commercial-intake markers before any model call. It is not mounted on the homepage.
+- No hosted behavior, analytics, deployment, or domain state was changed or verified by this checkpoint.
 - The current `businessSiteUrl` still points to High Encode Learning. That is a known legacy runtime mismatch, not the current ownership rule.
 - Replace that target only in a later authorized implementation slice, after the intended RazonWorks destination exists and its hosted behavior is verified.
-- The RazonWorks `/lab` and `/es/lab` destinations are planned. Phase 0 does not implement, deploy, or host them.
+- A coordinated RazonWorks implementation branch now contains local source for `/lab` and `/es/lab`. This repository does not claim those routes are hosted, and the standalone Lab-domain redirect remains unverified and incomplete.
 
 ## Enforcement
 

@@ -13,6 +13,7 @@ const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (
 - It is not the primary project sales page
 - Do not present it like a course platform or education business
 - Do not route every question toward external services
+- Do not accept commercial service scoping or client intake on this site
 
 ## Guidance:
 - If someone asks what David is learning or building, answer from the perspective of experimentation, notes, and system design
@@ -20,7 +21,32 @@ const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (
 - Default to 2-4 short sentences
 - Do not invent pricing or sales promises
 - Avoid formal sales language
+- If someone asks to hire David or requests a quote, explain that commercial intake is not handled here
 - Avoid markdown unless the user asks for a list`
+
+const COMMERCIAL_BOUNDARY_RESPONSE =
+  "This personal site does not handle commercial service scoping or client intake. The Contact page is for employment, collaboration, speaking, referrals, and peer conversations; selected work is available on the homepage."
+
+const commercialIntakeMarkers = [
+  "hire david",
+  "hire you",
+  "your services",
+  "services do you offer",
+  "service package",
+  "get a quote",
+  "request a quote",
+  "pricing",
+  "freelance",
+  "contract work",
+  "client project",
+  "start a project",
+  "scope a project",
+]
+
+function isCommercialIntakeRequest(message: string) {
+  const normalized = message.toLowerCase()
+  return commercialIntakeMarkers.some((marker) => normalized.includes(marker))
+}
 
 interface ChatMessage {
   role: "user" | "assistant" | "system"
@@ -125,6 +151,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Message content too long" }, { status: 400 })
     }
 
+    const containsCommercialIntake = messages.some(
+      (message) => message.role === "user" && isCommercialIntakeRequest(message.content),
+    )
+    if (containsCommercialIntake) {
+      return NextResponse.json({
+        message: COMMERCIAL_BOUNDARY_RESPONSE,
+        fallback: true,
+      })
+    }
+
     const apiKey = process.env.OPENROUTER_API_KEY
     if (!apiKey) {
       console.error("OPENROUTER_API_KEY not configured")
@@ -196,8 +232,12 @@ export async function POST(request: NextRequest) {
 function getFallbackResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase()
 
-  if (lowerMessage.includes("hire") || lowerMessage.includes("project") || lowerMessage.includes("service") || lowerMessage.includes("work")) {
-    return "This site is the personal portfolio and notes layer. If you want to start a scoped project, contact David directly at " + contact.email + "."
+  if (isCommercialIntakeRequest(userMessage)) {
+    return COMMERCIAL_BOUNDARY_RESPONSE
+  }
+
+  if (lowerMessage.includes("project") || lowerMessage.includes("work") || lowerMessage.includes("portfolio")) {
+    return "The homepage has three selected proof records showing the problem, David's role, the decision, the tradeoff, and the available evidence."
   }
 
   if (lowerMessage.includes("learn") || lowerMessage.includes("building") || lowerMessage.includes("studying")) {
@@ -212,5 +252,5 @@ function getFallbackResponse(userMessage: string): string {
     return "Prompt safety, AI system behavior, and reliability testing are active topics across current work. He keeps notes on what worked, what failed, and what needs tightening."
   }
 
-  return "Ask about what David is learning, what he is building, or how he approaches project handoffs. If you're ready to start a conversation, use the Contact section."
+  return "Ask about what David is learning, what he is building, or how he approaches system boundaries and handoffs. The Contact section is for employment, collaboration, speaking, referrals, and peer conversations."
 }

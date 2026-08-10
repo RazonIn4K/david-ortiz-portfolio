@@ -190,14 +190,6 @@ export const processSteps = [
   },
 ]
 
-export const chatConfig = {
-  title: 'PORTFOLIO GUIDE',
-  subtitle: 'Ask about the work, current experiments, or how he approaches projects',
-  placeholder: 'Ask about projects, automation workflows, or how David works.',
-  welcomeMessage:
-    "Hi! This is David's personal portfolio. Ask about what he's building, how he works, or what he's exploring next.",
-}
-
 // Centralized contact details. A public business number/email is not a secret;
 // keep these here (not in .env) so links stay consistent across the site.
 export const contact = {

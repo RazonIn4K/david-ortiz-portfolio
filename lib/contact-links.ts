@@ -26,13 +26,13 @@ export const quickReachLinks: ContactLink[] = [
     id: "email",
     label: "Email",
     href: "mailto:hello@davidtiz.com",
-    description: "Best async path for introductions, follow-up, and project questions.",
+    description: "Best async path for introductions, professional follow-up, and thoughtful questions.",
   },
   {
     id: "calendly",
-    label: "Book a call",
+    label: "Schedule a conversation",
     href: "https://calendly.com/davidinfosec07",
-    description: "Use this if you want to talk live and get into the actual problem quickly.",
+    description: "Use this when a live conversation is more useful than another message.",
   },
   {
     id: "facebook",
@@ -48,39 +48,24 @@ export const quickReachLinks: ContactLink[] = [
   },
 ]
 
-export const hireMeLinks: ContactLink[] = [
-  {
-    id: "upwork",
-    label: "Upwork",
-    href: "https://www.upwork.com/freelancers/davido174",
-    description: "Use this if you want a scoped freelance project or contract path.",
-  },
-  {
-    id: "fiverr",
-    label: "Fiverr",
-    href: "https://www.fiverr.com/razonnet",
-    description: "Use this if a productized package or smaller entry point makes more sense.",
-  },
-]
-
 export const followWorkLinks: ContactLink[] = [
   {
     id: "youtube",
-    label: "YouTube: Razon Live Lab",
+    label: "YouTube",
     href: "https://www.youtube.com/@razonlab",
-    description: "AI security explainers, live build VODs, and stream highlights from the lab.",
+    description: "Technical explainers, build recordings, and selected stream highlights.",
   },
   {
     id: "twitch",
     label: "Twitch",
     href: "https://www.twitch.tv/razonlab",
-    description: "Live deep-work blocks and sanitized build sessions, in real time.",
+    description: "Live deep-work blocks and sanitized build sessions.",
   },
   {
     id: "x",
     label: "X",
     href: "https://x.com/Razonapp",
-    description: "Clips, AI security takes, and go-live announcements.",
+    description: "Short technical notes, clips, and session announcements.",
   },
   {
     id: "github",
@@ -94,23 +79,4 @@ export const followWorkLinks: ContactLink[] = [
     href: "https://www.linkedin.com/in/davidortiz-dekalb/",
     description: "Professional profile, background, and another clean way to connect.",
   },
-]
-
-export const floatingContactLinks: ContactLink[] = [
-  quickReachLinks[0],
-  quickReachLinks[1],
-  quickReachLinks[2],
-  quickReachLinks[3],
-  hireMeLinks[0],
-]
-
-export const footerPrimaryLinks: ContactLink[] = [
-  quickReachLinks[0],
-  quickReachLinks[1],
-  quickReachLinks[2],
-  quickReachLinks[3],
-  hireMeLinks[0],
-  hireMeLinks[1],
-  followWorkLinks[0],
-  followWorkLinks[1],
 ]

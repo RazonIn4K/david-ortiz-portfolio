@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 const siteUrl = "https://davidtiz.com";
 const siteTitle = "David Ortiz | Personal Portfolio";
 const siteDescription =
-  "Personal portfolio for David Ortiz: practical web systems, AI-assisted workflows, automation experiments, selected builds, and notes.";
+  "Personal portfolio for David Ortiz: selected systems, security writeups, operating notes, and the decisions and tradeoffs behind the work.";
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -26,12 +26,12 @@ export const metadata: Metadata = {
     "David Ortiz",
     "personal portfolio",
     "web systems",
-    "AI-assisted workflows",
-    "automation",
+    "technical systems builder",
+    "security writeups",
+    "automation guardrails",
     "Next.js",
-    "local business websites",
-    "RAG experiments",
-    "prompt safety",
+    "operating notes",
+    "prompt injection defense",
   ],
   applicationName: "David Ortiz Portfolio",
   creator: "David Ortiz",
@@ -110,7 +110,7 @@ const personJsonLd = {
   "@type": "Person",
   name: "David Ortiz",
   url: siteUrl,
-  jobTitle: "Web developer and AI automation builder",
+  jobTitle: "Technical systems builder",
   description: siteDescription,
   email: "hello@davidtiz.com",
   image: `${siteUrl}/visuals/david-og-card.png`,
@@ -123,11 +123,10 @@ const personJsonLd = {
   knowsAbout: [
     "Web development",
     "Next.js",
-    "AI-assisted workflows",
-    "Automation",
+    "Automation systems",
     "Prompt injection defense",
-    "Local business websites",
-    "RAG systems",
+    "Security analysis",
+    "Operational documentation",
   ],
   sameAs: [...socialProfileLinks],
 };

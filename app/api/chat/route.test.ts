@@ -20,6 +20,7 @@ async function loadRoute() {
 
 afterEach(() => {
   vi.unstubAllEnvs()
+  vi.restoreAllMocks()
   vi.resetModules()
 })
 
@@ -68,6 +69,45 @@ describe("POST /api/chat — validation (rejects before any model call)", () => 
 })
 
 describe("POST /api/chat — behavior", () => {
+  it.each([
+    [
+      "single-turn request",
+      [
+        {
+          role: "user",
+          content: "I want to hire David for a freelance service project. Can I get a quote?",
+        },
+      ],
+    ],
+    [
+      "earlier request followed by a neutral turn",
+      [
+        {
+          role: "user",
+          content: "I want to hire David for a freelance service project. Can I get a quote?",
+        },
+        { role: "assistant", content: "Tell me what you want to know about the portfolio." },
+        { role: "user", content: "Thanks. What should I read next?" },
+      ],
+    ],
+  ])("keeps commercial intake off the personal site for a %s", async (_label, messages) => {
+    vi.stubEnv("OPENROUTER_API_KEY", "test-key")
+    const fetchSpy = vi
+      .spyOn(globalThis, "fetch")
+      .mockRejectedValue(new Error("model fetch should not run for commercial intake"))
+    const { POST } = await loadRoute()
+    const res = await POST(post({ messages }))
+
+    expect(res.status).toBe(200)
+    const data = await res.json()
+    expect(data.fallback).toBe(true)
+    expect(data.message).toContain("does not handle commercial service scoping or client intake")
+    expect(data.message).toContain("employment, collaboration, speaking, referrals, and peer conversations")
+    expect(data.message).not.toContain("start a scoped project")
+    expect(data.message).not.toContain("contact David directly")
+    expect(fetchSpy).not.toHaveBeenCalled()
+  })
+
   it("falls back to a canned reply (200, fallback:true) when no API key is set", async () => {
     vi.stubEnv("OPENROUTER_API_KEY", "")
     const { POST } = await loadRoute()

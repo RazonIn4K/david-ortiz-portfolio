@@ -37,17 +37,17 @@ the homepage does not have to import them. Reachable surfaces:
 
 | URL | File | Notes |
 |---|---|---|
-| `/` | `app/page.tsx` | Homepage — single client component, `dtz-*` styles, mounts the floating AI assistant |
-| `/contact` | `app/contact/page.tsx` | Contact hub; renders `ProtectedWhatsAppLink` |
+| `/` | `app/page.tsx` | Proof-first personal homepage with three typed records and `dtz-*` styles |
+| `/contact` | `app/contact/page.tsx` | Personal contact hub; renders `ProtectedWhatsAppLink`, no commercial intake marketplace |
 | `/contact/whatsapp` | `app/contact/whatsapp/route.ts` | Screened WhatsApp redirect: HttpOnly cookie/token pairing, single-use (replay → 403), abuse scoring |
 | `/contact/whatsapp/challenge` | `.../challenge/route.ts` | Mints the challenge: returns the token + sets the HttpOnly cookie |
 | `/portfolio` | `app/portfolio/page.tsx` | Portfolio detail page |
 | `/writeups` | `app/writeups/page.tsx` | CTF writeups index; sanitized technique-focused notes |
 | `/writeups/[slug]` | `app/writeups/[slug]/page.tsx` | Static writeup detail pages from `content/writeups/*.md` |
 | `/privacy` | `app/privacy/page.tsx` | Static privacy page (a Meta-app precondition) |
-| `/demo` (+ `/demo/*.html`) | `public/demo/` via rewrite | Static Spanish local-business demos; linked from the homepage work card; demos link back to the screened WhatsApp path |
+| `/demo` (+ `/demo/*.html`) | `public/demo/` via rewrite | Legacy static Spanish local-business demos outside primary homepage navigation; demos link back to the screened WhatsApp path |
 | `/admin/whatsapp-coexistence` | `page.tsx` + `launcher.tsx` | Admin-key-gated Meta Embedded Signup launcher (404 without key) |
-| `/api/chat` | `app/api/chat/route.ts` | OpenRouter chat — **used by the homepage assistant**. Rate-limited (15/min/IP), payload caps, cheapest-first model chain (`OPENROUTER_MODELS` → `OPENROUTER_MODEL` → `openrouter/free`), canned-keyword fallback |
+| `/api/chat` | `app/api/chat/route.ts` | Standalone OpenRouter guide API, not mounted on `/`. Rate-limited (15/min/IP), payload caps, cheapest-first model chain, and a pre-model commercial-intake boundary response |
 | `/api/whatsapp/webhook` | `route.ts` | Meta verify handshake + HMAC signature check; forwards to n8n with correlation-id, privacy-safe outcome logging |
 | `/api/meta/embedded-signup/*` | `callback/route.ts`, `status/route.ts` | Coexistence flow; server-side token exchange exists but is gated behind `META_EMBEDDED_SIGNUP_ALLOW_TOKEN_EXCHANGE=true` (default off — Meta currently blocks ES for this app) |
 | specials | `app/layout.tsx`, `error.tsx`, `global-error.tsx`, `not-found.tsx` | Framework chrome |
@@ -59,13 +59,14 @@ assets and only canonicalizes the host (`www.davidtiz.com` → `davidtiz.com`, 3
 
 No dynamic/lazy imports exist, so static analysis is complete.
 
-### Homepage (`/`) pulls in four local modules
+### Homepage (`/`) pulls in five local modules
 ```
 app/page.tsx
  ├─ components/icons/brand-icons.tsx        (GithubIcon)
  ├─ components/contact/protected-whatsapp-link.tsx
- ├─ components/ai-assistant.tsx             (floating concierge → POST /api/chat)
- └─ data/content.ts                         (contact, whatsappHref)
+ ├─ components/use-site-theme.ts            (light/dark preference)
+ ├─ data/content.ts                         (contact, whatsappHref)
+ └─ data/home-content.ts                    (navigation, actions, three proof records)
 ```
 
 ### Writeups (`/writeups`) pull in markdown content
@@ -84,11 +85,10 @@ app/writeups/[slug]/page.tsx
 | Module | Reachable via |
 |---|---|
 | `components/contact/protected-whatsapp-link.tsx` | `/`, `/contact` — fetches one shared challenge per page load |
-| `components/ai-assistant.tsx` | `/` |
 | `components/icons/brand-icons.tsx` | `/`, `/contact` |
-| `data/content.ts` | everywhere (content + `contact` + `chatConfig`) |
+| `data/content.ts` | `/`, `/contact`, `/api/chat` (shared public contact details) |
 | `lib/site-config.ts` | `/contact`, `/portfolio`, `lib/contact-links` |
-| `lib/contact-links.ts` | `/contact` (social/hire/follow links; ecosystem links pruned in #59) |
+| `lib/contact-links.ts` | `/contact` (personal reach and follow links; commercial marketplace links removed) |
 | `lib/meta-embedded-signup.ts` | Meta callback/status/launcher (HMAC state, admin key, gated token exchange) |
 | `lib/abuse-store.ts` | `/contact/whatsapp` + `/api/chat` — rate windows + single-use tokens; REST Redis (Vercel KV/Upstash env vars) when configured, in-memory fallback, fails open |
 

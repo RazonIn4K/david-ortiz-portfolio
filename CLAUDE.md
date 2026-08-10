@@ -48,20 +48,20 @@ app/
   error.tsx         # Page-level error boundary
   global-error.tsx  # App-level error boundary
   not-found.tsx     # Custom 404
-  api/chat/route.ts # AI chat endpoint — used by the homepage floating assistant
+  api/chat/route.ts # Standalone rate-limited guide API; not mounted on the homepage
   api/whatsapp/webhook/      # Meta webhook: verify handshake + HMAC, forwards to n8n
   api/meta/embedded-signup/  # Coexistence callback/status (token exchange behind default-off flag)
   admin/whatsapp-coexistence/ # Admin-key-gated Meta signup launcher
   contact/whatsapp/ # Screened redirect (route.ts) + challenge issuance (challenge/route.ts)
 components/
-  ai-assistant.tsx  # Floating chat concierge on the homepage (calls /api/chat)
   contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact)
   icons/            # brand-icons (used by homepage + /contact)
 data/content.ts     # Shared content + centralized contact (`contact`, `whatsappHref`)
+data/home-content.ts # Typed homepage navigation, actions, and three proof records
 lib/                # site-config, contact-links, meta-embedded-signup, abuse-store, utils
 public/visuals/     # Hero/workbench images and SVGs
 public/demo/        # Static Spanish local-business demos; hub served at /demo via rewrite,
-                    # linked from the homepage work card
+                    # retained outside the primary homepage navigation
 ```
 
 Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.config.ts` maps `@/*` and stubs `server-only`).
@@ -73,14 +73,14 @@ Canonical boundary guidance lives in [`docs/ARCHITECTURE-BOUNDARIES.md`](docs/AR
 Short version: this app is intentionally small, so do not over-abstract; but do not let business/security rules drift further into framework files without characterization tests. For the WhatsApp redirect lane, preserve challenge validation, full challenge value integrity, replay blocking, sanitization, and redirect message behavior.
 
 ## Homepage sections (`app/page.tsx`)
-1. Header — brand, nav (Start / Work / About / Notes / Contact), light/dark toggle
-2. Hero — positioning + CTAs (See selected work, Message me on WhatsApp)
-3. Selected Work — category cards (local business sites, AI workflow, RAG, automation, prompt safety)
-4. About / Operating Style — how David works
-5. Stack — tools he reaches for
-6. Notes / Current Focus — what he's working on now
-7. Contact — WhatsApp-first (screened redirect), email, and GitHub
-8. Footer — WhatsApp · Email · GitHub
+1. Header: personal mark, Work / How I work / Notes / Contact, light/dark toggle
+2. Hero: technical-systems positioning with local `#work` and `#notes` actions
+3. Selected Work: exactly three typed proof records with problem, David's role, decision, tradeoff, and evidence
+4. How I Work: four personal operating principles
+5. Working Vocabulary: the small tool groups David actually reaches for
+6. Operating Notes: current focus plus the published writeups path
+7. Personal Contact: screened WhatsApp, email, and GitHub
+8. Footer: personal contact and focused local routes
 
 ## Contact protection behavior
 
@@ -96,14 +96,14 @@ Short version: this app is intentionally small, so do not over-abstract; but do 
   `KV_REST_API_URL`/`UPSTASH_REDIS_REST_URL` (+ token) are configured, otherwise
   in-memory per instance; Redis errors fail open.
 
-## AI assistant (`components/ai-assistant.tsx` → `POST /api/chat`)
+## Standalone guide API (`POST /api/chat`)
 
-- Floating concierge on the homepage; sends `{ messages }`, renders `{ message, fallback }`,
-  handles `429` (rate limit) gracefully.
+- The proof-first homepage does not mount a floating assistant. Do not remount one without a brand-boundary and open-dialog accessibility review.
 - The route is rate-limited (15/min/IP via `lib/abuse-store`), caps payloads, and tries a
   cheapest-first model chain: `OPENROUTER_MODELS` (comma-separated) → `OPENROUTER_MODEL` →
   default `openrouter/free`. Missing key or all-models-failed degrades to a canned keyword
   fallback instead of erroring.
+- Commercial-intake markers return a personal-site boundary response before any model call.
 
 ## Design / Styling
 - Uses custom `dtz-*` classes defined in `app/globals.css`. Keep this design language: accessible, personal, light/dark, grounded. Not cyberpunk/agency.
@@ -111,7 +111,7 @@ Short version: this app is intentionally small, so do not over-abstract; but do 
 
 ## Contact details
 - Centralized in `data/content.ts` → `contact` (whatsappNumber, email, github) and `whatsappHref`.
-- These are public business details, NOT secrets. Never move them into `.env`.
+- These are public contact details, NOT secrets. Never move them into `.env`.
 
 ## Constraints for future edits
 - Brand boundary: this site never becomes an ecosystem router. Rules + allowed-link test live in `docs/BRAND-BOUNDARY.md`.

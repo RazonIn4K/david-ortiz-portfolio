@@ -5,6 +5,8 @@ Status: Executed (D1–D4 complete, 2026-06-10)
 
 Portfolio governance addendum: 2026-08-09, Phase 0 documentation only.
 
+Proof-first personal-surface checkpoint: 2026-08-10, local source only. The homepage now uses exactly three typed proof records and local Work/Notes actions; the former setup catalog, generic work lanes, unverified Lab card, and floating assistant are removed from `/`. `/contact` now presents only personal conversation and profile paths while preserving the screened WhatsApp mechanics. The standalone chat API rejects commercial-intake markers before any model call. Hosted behavior was not reverified, and `/portfolio` retains its documented legacy business handoff pending a verified RazonWorks destination.
+
 > Historical execution record: #70 merged and was recorded as verified in production (D1); `docs/BRAND-BOUNDARY.md`
 > added with CLAUDE.md/AGENTS.md pointers and a clean copy audit (#71, D2+D3);
 > ecosystem-era docs archived to `docs/archive/` (D4). CI was recorded as green. This

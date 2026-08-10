@@ -122,7 +122,7 @@ Services live on RazonWorks, not here. After the intended destination exists and
 - davidtiz.com = the person and the curated proof. It shows who David is, selected systems, personal operating notes, writing, and a direct personal contact path. It never lists prices, packages, or a service menu.
 - RazonWorks = the commercial headquarters for paid services, project discussions, deliverables, and client intake.
 - High Encode Learning = education, learning paths, tutorials, and learner support. It is not the business-services destination.
-- Razon Lab = the experimental research arm of RazonWorks. Full methods, environments, results, limitations, and artifacts belong there. Planned `/lab` and `/es/lab` routes are not implemented or hosted by Phase 0.
+- Razon Lab = the experimental research arm of RazonWorks. Full methods, environments, results, limitations, and artifacts belong there. A coordinated RazonWorks implementation branch now contains local source for `/lab` and `/es/lab`; hosted behavior and the standalone-domain redirect remain unverified and incomplete.
 - The bridge: after a verified RazonWorks destination exists, one restrained, secondary business handoff may link to it. Personal contact remains available for employment, collaboration, speaking, referrals, and peer contact.
 - Razon Lab, PromptDefenders, and csbrainai may appear here only as selected-work evidence, never as a brand directory.
 
@@ -157,7 +157,7 @@ A second AI produced an independent identity direction. It converged on the same
 - **Rename Writing -> Field Notes.** "Blog" and even "Writing" are generic; "Field Notes" fits the lab identity. Each note uses: question -> experiment -> takeaway -> next test.
 - **Labs structure:** each lab entry is question -> current experiments -> artifacts -> status. Lab areas: AI Orchestration, Prompt Defense, Security Automation, Learning Systems.
 - **System-map hero (boundary-safe version):** a node graph with David at center and four areas (AI orchestration, security automation, prompt defense, learning systems), with project artifacts as proof nodes. IMPORTANT: nodes are evidence of work, not navigation to sibling brand sites. This keeps the command-center feel without becoming an ecosystem router.
-- **Five proof layers:** (1) homepage cards (5-7 flagship), (2) case studies, (3) field notes, (4) /now, (5) selected repos. Recruiters/clients stay calm; peers can go deep.
+- **Five proof layers:** (1) three homepage flagship records, (2) focused portfolio and writeup pages, (3) field notes, (4) a future `/now` page, and (5) selected repositories. The local proof-first homepage implements the first layer; later layers remain separate slices.
 - **Status + type badges on every proof item:** Live / In progress / Archived, and Product / Lab / Client / Security.
 
 ### Rejected, with reasons
