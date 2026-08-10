@@ -1,6 +1,6 @@
 # David Ortiz — Personal Portfolio
 
-Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents three curated proof records, the decisions and tradeoffs behind them, personal operating notes, and direct contact. It is a single-page site with anchor navigation (`#start`, `#work`, `#process`, `#stack`, `#notes`, `#contact`), plus focused secondary pages (`/contact`, `/portfolio`, `/writeups`, `/privacy`, `/demo`).
+Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents three curated proof records, the decisions and tradeoffs behind them, personal operating notes, and direct contact. It is a single-page site with anchor navigation (`#start`, `#work`, `#process`, `#stack`, `#notes`, `#contact`), plus focused secondary pages (`/contact`, `/portfolio`, `/writeups`, `/privacy`). The legacy `/demo` files remain reachable but are excluded from the sitemap and temporarily noindexed.
 
 ## Getting Started
 
@@ -46,10 +46,10 @@ app/
   portfolio/        # Selected-work detail page
   api/chat/route.ts # Standalone, rate-limited personal-site guide API; not mounted on `/`
 components/         # Theme shell, protected contact link, icons
-data/content.ts     # Shared content + centralized contact details
+data/content.ts     # Centralized personal contact details
 data/home-content.ts # Typed homepage navigation, actions, and proof records
 lib/                # site-config, contact-links, abuse-store, meta helpers
-public/             # Images, visuals, and the /demo static pages
+public/             # Images, visuals, and temporarily contained /demo static pages
 ```
 
 ## Notes
@@ -67,7 +67,7 @@ public/             # Images, visuals, and the /demo static pages
 
 The canonical portfolio decision and contract live in the `RazonIn4K/razonworks` repository at `docs/adr/0038-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. The local rules are in [docs/BRAND-BOUNDARY.md](docs/BRAND-BOUNDARY.md).
 
-The proof-first homepage is implemented in local source. This work does not verify or change hosted behavior. The existing `businessSiteUrl` runtime target remains a known legacy mismatch. A future implementation may provide one contextual, secondary RazonWorks business handoff only after the intended destination exists and its hosted behavior is verified. Do not treat that handoff as implemented or deployed yet.
+The proof-first homepage and `/portfolio` record are implemented in local source. `/portfolio` uses checked-in evidence and does not render a sibling-business handoff. No hosted behavior was verified or changed by this checkpoint. A future implementation may provide one contextual, secondary RazonWorks handoff only after the exact destination exists and its hosted behavior is verified.
 
 ## Contact protection
 

@@ -4,7 +4,7 @@ export type HomeLink = {
 }
 
 export type HomeEvidence = HomeLink & {
-  status: "Source-backed" | "Published" | "Implemented"
+  status: "Checked-in record" | "Published" | "Implemented"
   note: string
 }
 
@@ -50,8 +50,8 @@ export const homeProofRecords: HomeProofRecord[] = [
     evidence: {
       label: "Open the portfolio record",
       href: "/portfolio",
-      status: "Source-backed",
-      note: "Screenshots and source-linked case context are stored in this repository.",
+      status: "Checked-in record",
+      note: "David's recorded account and three local assets are stored in this repository.",
     },
     tags: ["Bilingual web", "Quote flow", "Handoff"],
   },

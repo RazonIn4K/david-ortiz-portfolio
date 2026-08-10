@@ -1,147 +1,126 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import type { Metadata } from "next"
+import Image from "next/image"
+import Link from "next/link"
 import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
-  ExternalLink,
   FileText,
   Mail,
-  MapPin,
-  MousePointerClick,
-  Quote,
-  Star,
-} from "lucide-react";
+  ShieldCheck,
+} from "lucide-react"
 
-import { businessSiteUrl } from "@/lib/site-config";
-import { contact } from "@/data/content";
-import { ThemeShell } from "@/components/theme-shell";
+import { ThemeShell } from "@/components/theme-shell"
+import { contact } from "@/data/content"
+import { homeProofRecords } from "@/data/home-content"
 
 export const metadata: Metadata = {
-  title: "Portfolio | David Ortiz",
+  title: "Hernandez Landscape Decision Record | David Ortiz",
   description:
-    "Portfolio for David Ortiz, including the Hernandez Landscape website, sourced customer review links, and local-business quote flow.",
+    "David Ortiz's personal decision record for a local-business web interface, with checked-in captures and explicit limits on unverified behavior.",
   alternates: {
     canonical: "/portfolio",
   },
   openGraph: {
-    title: "Portfolio | David Ortiz",
+    title: "Hernandez Landscape Decision Record | David Ortiz",
     description:
-      "Portfolio for David Ortiz, including the Hernandez Landscape website, sourced customer review links, and local-business quote flow.",
+      "A personal decision record with local captures separated from unverified route behavior, authorship, permission, and outcomes.",
     url: "/portfolio",
-    type: "website",
+    type: "article",
   },
   twitter: {
     card: "summary",
-    title: "Portfolio | David Ortiz",
+    title: "Hernandez Landscape Decision Record | David Ortiz",
     description:
-      "Portfolio for David Ortiz, including the Hernandez Landscape website, sourced customer review links, and local-business quote flow.",
+      "A checked-in personal decision record with explicit evidence limits.",
   },
-};
+}
 
-const highlights = [
-  "Bilingual English and Spanish paths",
-  "Instant estimator that pre-fills the full quote request (address, owner confirmation, callback time, service, and estimate range) into the lead form",
-  "Service pages for lawn care, tree service, landscaping, and snow removal",
-  "Project gallery, sourced public review, and local service-area content",
-];
+function getPortfolioProof() {
+  const record = homeProofRecords.find((candidate) => candidate.id === "hernandez-landscape")
+  if (!record) throw new Error("The Hernandez Landscape proof record is required")
+  return record
+}
 
-const packageExamples = [
-  {
-    title: "Website launch",
-    description:
-      "Mobile-first service site with calls, quote forms, gallery sections, and local SEO basics.",
-  },
-  {
-    title: "Local growth",
-    description:
-      "Website plus Google Maps, social proof, follow-up flow, and lead generation setup.",
-  },
-  {
-    title: "Ongoing care",
-    description:
-      "Monthly updates, seasonal service changes, tracking, and campaign support.",
-  },
-];
+const portfolioProof = getPortfolioProof()
 
-const referenceLinks = [
+const recordFields = [
   {
-    title: "Live landscaping website",
-    description:
-      "The Hernandez site lets visitors inspect the finished landscaping example in its live form.",
-    href: "https://hernandezlandscapeservices.com",
-    icon: MapPin,
+    label: "Problem",
+    value: portfolioProof.problem,
   },
   {
-    title: "Services and work page",
-    description:
-      "A broader work page with supporting local-business examples and delivery context.",
-    href: `${businessSiteUrl}/work`,
-    icon: ExternalLink,
+    label: "My role",
+    value: portfolioProof.role,
   },
   {
-    title: "Hernandez case note",
-    description:
-      "Detailed breakdown of bilingual copy, service structure, trust signals, and quote capture.",
-    href: `${businessSiteUrl}/projects/hernandez-landscape-local-business-site`,
-    icon: FileText,
+    label: "Decision",
+    value: portfolioProof.decision,
   },
-];
+  {
+    label: "Tradeoff",
+    value: portfolioProof.tradeoff,
+  },
+] as const
 
-const stackSignals = [
-  "HTML, CSS, and JavaScript",
-  "Vanilla bilingual i18n",
-  "Web3Forms lead capture",
-  "Estimator and service-to-quote prefill",
-  "Responsive service-card layout",
-  "Local SEO and service-area copy",
-];
+const implementationObservations = [
+  "The landing capture shows an English hero, service, work, and video navigation, an EN/ES control, and quote and call actions.",
+  "The trust-section capture shows a displayed public-review card, a service-standard checklist, and a quote prompt at the saved checkpoint.",
+  "The retained project image provides visual context only; it does not establish authorship, permission, or an outcome.",
+] as const
 
-const liveProofUpdates = [
+const evidenceCaptures = [
   {
-    title: "Sourced review links",
+    title: "Saved interface capture",
     description:
-      "The Hernandez trust section now references a public review instead of generic placeholder testimonials.",
-    icon: Star,
+      "A checked-in screenshot preserves the page composition used when this portfolio record was assembled.",
+    src: "/portfolio/hernandez/site-screenshot.png",
+    alt: "Saved interface capture for the Hernandez Landscape portfolio record",
+    width: 1440,
+    height: 1000,
+    className: "aspect-[16/11] w-full object-cover object-top",
   },
   {
-    title: "Estimate-to-form handoff",
+    title: "Saved trust-section capture",
     description:
-      "After the instant estimate, a Send My Estimate Request button now pre-fills the quote form with the address, owner confirmation, callback time, service, and estimate summary, in English and Spanish.",
-    icon: MousePointerClick,
+      "A second checked-in capture records how the trust section was presented at the source checkpoint.",
+    src: "/portfolio/hernandez/site-trust-screenshot.png",
+    alt: "Saved trust-section capture for the Hernandez Landscape portfolio record",
+    width: 1440,
+    height: 729,
+    className: "aspect-[16/10] w-full object-cover object-top",
   },
   {
-    title: "Aligned reference links",
+    title: "Retained project image",
     description:
-      "This page, the services page, and the case note now point to the same current live example.",
-    icon: Quote,
+      "The project image remains with the local evidence set so the visual context is inspectable without relying on another site.",
+    src: "/portfolio/hernandez/landscape-work-hero.jpeg",
+    alt: "Project image retained with the Hernandez Landscape portfolio record",
+    width: 1600,
+    height: 1000,
+    className: "aspect-[16/10] w-full object-cover",
   },
-];
+] as const
 
 const panelStyle = {
   borderColor: "var(--dtz-border)",
   background: "var(--dtz-panel)",
-} as const;
+} as const
 const panelDeepStyle = {
   borderColor: "var(--dtz-border)",
   background: "var(--dtz-panel-2)",
-} as const;
-const iconChipStyle = {
-  background: "var(--dtz-accent-soft)",
-  color: "var(--dtz-accent)",
-} as const;
-const mutedText = { color: "var(--dtz-muted)" } as const;
+} as const
+const mutedText = { color: "var(--dtz-muted)" } as const
 const primaryCtaStyle = {
   background: "var(--dtz-accent)",
   color: "var(--dtz-on-accent)",
-} as const;
+} as const
 
 export default function PortfolioPage() {
   return (
     <ThemeShell>
       <main className="min-h-screen px-6 py-12">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-6xl">
           <nav className="flex flex-wrap items-center justify-between gap-4">
             <Link
               href="/"
@@ -161,40 +140,32 @@ export default function PortfolioPage() {
             </a>
           </nav>
 
-          <section className="grid gap-12 py-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <section className="grid gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
-              <p className="dtz-section-label">Portfolio</p>
+              <p className="dtz-section-label">Selected work · {portfolioProof.sequence}</p>
               <h1 className="mt-5 text-4xl font-bold leading-tight md:text-6xl">
-                Real local-business work, starting with Hernandez Landscape
+                {portfolioProof.title}
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed" style={mutedText}>
-                This page gives visitors a direct reference point. Hernandez
-                Landscape & Tree Service is a live landscaping website with
-                bilingual content, service positioning, project photos, and a
-                quote flow built around local customer calls, sourced trust
-                signals, and estimate requests that carry straight into the
-                contact form.
+                A personal proof record about the decisions behind one customer path. The purpose
+                here is to make my role, reasoning, constraint, and local evidence inspectable.
               </p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
-                  href="https://hernandezlandscapeservices.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 font-semibold transition-transform hover:scale-[1.01]"
+                  href="#record"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 font-semibold"
                   style={primaryCtaStyle}
                 >
-                  View live Hernandez site
-                  <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                  Inspect the record
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
                 <a
-                  href={`${businessSiteUrl}/projects/hernandez-landscape-local-business-site`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border px-6 py-3 font-semibold transition-colors"
+                  href="#evidence"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border px-6 py-3 font-semibold"
                   style={{ borderColor: "var(--dtz-border)", color: "var(--dtz-muted)" }}
                 >
-                  Read case note
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  View checked-in evidence
+                  <FileText className="h-4 w-4" aria-hidden="true" />
                 </a>
               </div>
             </div>
@@ -205,7 +176,7 @@ export default function PortfolioPage() {
             >
               <Image
                 src="/portfolio/hernandez/site-screenshot.png"
-                alt="Screenshot of the Hernandez Landscape website"
+                alt="Saved interface capture for the Hernandez Landscape portfolio record"
                 width={1440}
                 height={1000}
                 className="h-auto w-full rounded-2xl border"
@@ -215,223 +186,127 @@ export default function PortfolioPage() {
             </div>
           </section>
 
-          <section className="grid gap-4 pb-10 md:grid-cols-3">
-            {liveProofUpdates.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <article key={item.title} className="rounded-3xl border p-6" style={panelStyle}>
-                  <span
-                    className="flex h-11 w-11 items-center justify-center rounded-2xl"
-                    style={iconChipStyle}
-                  >
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <h2 className="mt-5 text-lg font-semibold">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-relaxed" style={mutedText}>
-                    {item.description}
-                  </p>
-                </article>
-              );
-            })}
+          <section id="record" className="scroll-mt-24 pb-16" aria-labelledby="record-heading">
+            <div className="max-w-3xl">
+              <p className="dtz-section-label">Decision record</p>
+              <h2 id="record-heading" className="mt-4 text-3xl font-bold md:text-4xl">
+                What I was responsible for, and why I chose this path
+              </h2>
+            </div>
+            <dl className="mt-8 grid gap-5 md:grid-cols-2">
+              {recordFields.map((field) => (
+                <div key={field.label} className="rounded-3xl border p-6" style={panelStyle}>
+                  <dt className="dtz-section-label">{field.label}</dt>
+                  <dd className="mt-4 leading-relaxed" style={mutedText}>
+                    {field.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </section>
 
-          <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="rounded-3xl border p-6" style={panelStyle}>
-              <p className="dtz-section-label">What the example shows</p>
+          <section className="grid gap-6 pb-16 lg:grid-cols-[0.9fr_1.1fr]">
+            <article className="rounded-3xl border p-6 md:p-8" style={panelStyle}>
+              <p className="dtz-section-label">Evidence status</p>
+              <div className="mt-5 flex items-start gap-3">
+                <ShieldCheck
+                  className="mt-0.5 h-6 w-6 shrink-0"
+                  style={{ color: "var(--dtz-accent)" }}
+                  aria-hidden="true"
+                />
+                <div>
+                  <h2 className="text-xl font-semibold">{portfolioProof.evidence.status}</h2>
+                  <p className="mt-2 text-sm leading-relaxed" style={mutedText}>
+                    {portfolioProof.evidence.note}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-6 rounded-2xl border p-4" style={panelDeepStyle}>
+                <p className="text-sm leading-relaxed" style={mutedText}>
+                  The problem, role, decision, and tradeoff are David&apos;s recorded account. The
+                  images support only the visual observations stated here. They do not verify route
+                  behavior, authorship, permission, hosted state, form delivery, or outcomes.
+                </p>
+              </div>
+            </article>
+
+            <article className="rounded-3xl border p-6 md:p-8" style={panelStyle}>
+              <p className="dtz-section-label">Recorded observations</p>
+              <h2 className="mt-4 text-2xl font-bold">What the local captures show</h2>
               <div className="mt-6 space-y-4">
-                {highlights.map((highlight) => (
-                  <div key={highlight} className="flex gap-3">
-                    <span
-                      className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full"
-                      style={{ background: "var(--dtz-accent)" }}
+                {implementationObservations.map((observation) => (
+                  <div key={observation} className="flex gap-3">
+                    <CheckCircle2
+                      className="mt-1 h-4 w-4 shrink-0"
+                      style={{ color: "var(--dtz-accent)" }}
+                      aria-hidden="true"
                     />
                     <p className="text-sm leading-relaxed" style={mutedText}>
-                      {highlight}
+                      {observation}
                     </p>
                   </div>
                 ))}
               </div>
-            </div>
+            </article>
+          </section>
 
-            <div className="grid gap-6 md:grid-cols-3">
-              {packageExamples.map((item) => (
-                <article key={item.title} className="rounded-3xl border p-6" style={panelStyle}>
-                  <h2 className="text-lg font-semibold">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-relaxed" style={mutedText}>
-                    {item.description}
-                  </p>
+          <section id="evidence" className="scroll-mt-24 pb-16" aria-labelledby="evidence-heading">
+            <div className="max-w-3xl">
+              <p className="dtz-section-label">Checked-in evidence</p>
+              <h2 id="evidence-heading" className="mt-4 text-3xl font-bold md:text-4xl">
+                Local captures, separated from current hosted claims
+              </h2>
+              <p className="mt-4 leading-relaxed" style={mutedText}>
+                These assets preserve what was reviewed for this record. They are evidence of the
+                saved portfolio checkpoint, not a claim about another site today.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-6 lg:grid-cols-3">
+              {evidenceCaptures.map((capture) => (
+                <article key={capture.src} className="overflow-hidden rounded-3xl border" style={panelStyle}>
+                  <Image
+                    src={capture.src}
+                    alt={capture.alt}
+                    width={capture.width}
+                    height={capture.height}
+                    className={capture.className}
+                  />
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold">{capture.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed" style={mutedText}>
+                      {capture.description}
+                    </p>
+                  </div>
                 </article>
               ))}
             </div>
           </section>
 
-          <section className="grid gap-6 py-16 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="rounded-3xl border p-6 md:p-8" style={panelStyle}>
-              <p className="dtz-section-label">Reference links</p>
-              <h2 className="mt-4 text-2xl font-bold md:text-3xl">
-                Each link answers a different question about the work.
-              </h2>
-              <div className="mt-6 grid gap-4">
-                {referenceLinks.map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-start gap-4 rounded-2xl border p-4 transition-colors"
-                      style={panelDeepStyle}
-                    >
-                      <span
-                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
-                        style={iconChipStyle}
-                      >
-                        <Icon className="h-5 w-5" aria-hidden="true" />
-                      </span>
-                      <span>
-                        <span className="flex items-center gap-2 text-sm font-semibold">
-                          {item.title}
-                          <ArrowRight
-                            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                            style={{ color: "var(--dtz-subtle)" }}
-                            aria-hidden="true"
-                          />
-                        </span>
-                        <span className="mt-1 block text-sm leading-relaxed" style={mutedText}>
-                          {item.description}
-                        </span>
-                      </span>
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="rounded-3xl border p-6 md:p-8" style={panelStyle}>
-              <p className="dtz-section-label">Build signals</p>
-              <h2 className="mt-4 text-2xl font-bold md:text-3xl">
-                Concrete stack, not placeholder labels.
-              </h2>
-              <p className="mt-4 text-sm leading-relaxed" style={mutedText}>
-                Clients do not need the whole implementation story, but they
-                should see that the site was built with real production pieces and
-                not just a static mockup.
-              </p>
-              <div className="mt-6 grid gap-3">
-                {stackSignals.map((signal) => (
-                  <div
-                    key={signal}
-                    className="flex items-center gap-3 rounded-2xl border px-4 py-3"
-                    style={panelDeepStyle}
-                  >
-                    <CheckCircle2
-                      className="h-4 w-4 shrink-0"
-                      style={{ color: "var(--dtz-accent)" }}
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm" style={mutedText}>
-                      {signal}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="grid gap-6 py-16 lg:grid-cols-3">
-            <div className="overflow-hidden rounded-3xl border" style={panelStyle}>
-              <Image
-                src="/portfolio/hernandez/landscape-work-hero.jpeg"
-                alt="Landscaping project photo used for Hernandez Landscape"
-                width={1600}
-                height={1000}
-                loading="eager"
-                className="aspect-[16/10] w-full object-cover"
-              />
-              <div className="p-6">
-                <h2 className="text-lg font-semibold">Real project imagery</h2>
-                <p className="mt-2 text-sm leading-relaxed" style={mutedText}>
-                  The site uses real work photos instead of generic stock imagery,
-                  so prospects can inspect the type of landscaping work the
-                  business actually performs.
-                </p>
-              </div>
-            </div>
-
-            <div className="overflow-hidden rounded-3xl border" style={panelStyle}>
-              <Image
-                src="/portfolio/hernandez/site-trust-screenshot.png"
-                alt="Sourced customer feedback section from the Hernandez Landscape website"
-                width={1440}
-                height={729}
-                loading="eager"
-                className="aspect-[16/10] w-full object-cover object-top"
-              />
-              <div className="p-6">
-                <h2 className="text-lg font-semibold">Sourced trust section</h2>
-                <p className="mt-2 text-sm leading-relaxed" style={mutedText}>
-                  The trust section now points to a public review source, keeping
-                  the sales page credible and easy to defend.
-                </p>
-              </div>
-            </div>
-
-            <div className="overflow-hidden rounded-3xl border" style={panelStyle}>
-              <Image
-                src="/portfolio/hernandez/sergio-landscaping-marketing-clean.png"
-                alt="Clean marketing visual for landscaping and snow removal outreach"
-                width={1080}
-                height={1080}
-                loading="eager"
-                className="aspect-square w-full object-cover"
-              />
-              <div className="p-6">
-                <h2 className="text-lg font-semibold">
-                  Clean outreach collateral
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed" style={mutedText}>
-                  The share image is built with clean rendered text, avoiding
-                  distorted lettering when it is sent through Messenger or social
-                  DMs.
-                </p>
-              </div>
-            </div>
-          </section>
-
           <section className="pb-12">
             <div
-              className="rounded-3xl border p-6 md:p-8"
+              className="flex flex-col gap-5 rounded-3xl border p-6 md:flex-row md:items-center md:justify-between md:p-8"
               style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-accent-soft)" }}
             >
-              <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <p className="dtz-section-label">Next step</p>
-                  <h2 className="mt-3 text-2xl font-bold">
-                    Want something like this for your local business?
-                  </h2>
-                  <p className="mt-2 max-w-2xl text-sm leading-relaxed" style={mutedText}>
-                    Use the services-facing contact flow for formal scoping,
-                    project questions, and local-business delivery.
-                  </p>
-                </div>
-                <a
-                  href={`${businessSiteUrl}/contact`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 font-semibold transition-transform hover:scale-[1.01]"
-                  style={primaryCtaStyle}
-                >
-                  Start a project
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </a>
+              <div>
+                <p className="dtz-section-label">Continue</p>
+                <h2 className="mt-3 text-2xl font-bold">Return to the broader personal record</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed" style={mutedText}>
+                  The homepage connects this record to my security writeups, operating notes, and
+                  the way I document technical decisions.
+                </p>
               </div>
+              <Link
+                href="/#work"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 font-semibold"
+                style={primaryCtaStyle}
+              >
+                Back to selected work
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
             </div>
           </section>
         </div>
       </main>
     </ThemeShell>
-  );
+  )
 }

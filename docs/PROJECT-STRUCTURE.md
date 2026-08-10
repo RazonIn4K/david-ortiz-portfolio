@@ -2,7 +2,7 @@
 
 > Living reference for how this repo actually fits together — entry points, the real
 > import graph, and the state of past follow-ups.
-> Last verified against `main` after the June 2026 hardening stack (PRs #53–#68) merged.
+> Last source-reviewed on the local portfolio-containment branch on 2026-08-10.
 
 ## What this is
 
@@ -28,7 +28,8 @@ secondary routes (contact, portfolio, writeups, privacy, demos) and backend inte
 | Secrets | Doppler (`doppler run -- …`), project `david-ortiz-portfolio` |
 
 Notable config: `next.config.mjs` sets `typescript.ignoreBuildErrors: false` (type errors
-fail the build) and rewrites `/demo` → `/demo/index.html`.
+fail the build), rewrites `/demo` to `/demo/index.html`, and gives `/demo/:path*` a
+temporary `X-Robots-Tag: noindex, nofollow` response header.
 
 ## Runtime entry points
 
@@ -41,11 +42,11 @@ the homepage does not have to import them. Reachable surfaces:
 | `/contact` | `app/contact/page.tsx` | Personal contact hub; renders `ProtectedWhatsAppLink`, no commercial intake marketplace |
 | `/contact/whatsapp` | `app/contact/whatsapp/route.ts` | Screened WhatsApp redirect: HttpOnly cookie/token pairing, single-use (replay → 403), abuse scoring |
 | `/contact/whatsapp/challenge` | `.../challenge/route.ts` | Mints the challenge: returns the token + sets the HttpOnly cookie |
-| `/portfolio` | `app/portfolio/page.tsx` | Portfolio detail page |
+| `/portfolio` | `app/portfolio/page.tsx` | Personal proof detail: problem, role, decision, tradeoff, and checked-in evidence; no business handoff |
 | `/writeups` | `app/writeups/page.tsx` | CTF writeups index; sanitized technique-focused notes |
 | `/writeups/[slug]` | `app/writeups/[slug]/page.tsx` | Static writeup detail pages from `content/writeups/*.md` |
 | `/privacy` | `app/privacy/page.tsx` | Static privacy page (a Meta-app precondition) |
-| `/demo` (+ `/demo/*.html`) | `public/demo/` via rewrite | Legacy static Spanish local-business demos outside primary homepage navigation; demos link back to the screened WhatsApp path |
+| `/demo` (+ `/demo/*.html`) | `public/demo/` via rewrite | Legacy static Spanish local-business demos outside primary navigation; temporarily noindexed and excluded from the sitemap, not migrated or retired |
 | `/admin/whatsapp-coexistence` | `page.tsx` + `launcher.tsx` | Admin-key-gated Meta Embedded Signup launcher (404 without key) |
 | `/api/chat` | `app/api/chat/route.ts` | Standalone OpenRouter guide API, not mounted on `/`. Rate-limited (15/min/IP), payload caps, cheapest-first model chain, and a pre-model commercial-intake boundary response |
 | `/api/whatsapp/webhook` | `route.ts` | Meta verify handshake + HMAC signature check; forwards to n8n with correlation-id, privacy-safe outcome logging |
@@ -86,8 +87,8 @@ app/writeups/[slug]/page.tsx
 |---|---|
 | `components/contact/protected-whatsapp-link.tsx` | `/`, `/contact` — fetches one shared challenge per page load |
 | `components/icons/brand-icons.tsx` | `/`, `/contact` |
-| `data/content.ts` | `/`, `/contact`, `/api/chat` (shared public contact details) |
-| `lib/site-config.ts` | `/contact`, `/portfolio`, `lib/contact-links` |
+| `data/content.ts` | `/`, `/contact`, `/portfolio`, `/writeups`, contact routes, and `/api/chat` (personal contact details only) |
+| `lib/site-config.ts` | `/contact` (personal site label only) |
 | `lib/contact-links.ts` | `/contact` (personal reach and follow links; commercial marketplace links removed) |
 | `lib/meta-embedded-signup.ts` | Meta callback/status/launcher (HMAC state, admin key, gated token exchange) |
 | `lib/abuse-store.ts` | `/contact/whatsapp` + `/api/chat` — rate windows + single-use tokens; REST Redis (Vercel KV/Upstash env vars) when configured, in-memory fallback, fails open |

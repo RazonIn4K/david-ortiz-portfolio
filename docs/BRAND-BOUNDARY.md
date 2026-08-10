@@ -25,9 +25,9 @@ The canonical portfolio decision and contract live in the RazonWorks repository 
 
 ## Allowed outbound links
 
-- **Selected work examples on `/portfolio`**: e.g., the Hernandez Landscape site and
-  its case note (currently hosted on the business property). These are portfolio
-  artifacts: evidence of work, never navigation.
+- **Selected work on `/portfolio`**: the current record uses checked-in captures and
+  a typed role-and-decision summary. A later external case link must be refreshed and
+  verified before it is presented as current evidence.
 - **Individual proof cards for David's own projects**: e.g., a prompt-defense demo
   or a Razon Lab experiment. These belong only as curated evidence, never as a
   dedicated brands/projects directory, sibling-domain nav, or ecosystem section.
@@ -38,7 +38,8 @@ The canonical portfolio decision and contract live in the RazonWorks repository 
   or experiment artifact helps the visitor understand the selected work. Do not use
   either property as a general business destination.
 - **Required legal/privacy/platform links** (for example, `/privacy`).
-- **Project demos hosted inside this repo** (`/demo` and its sub-pages).
+- **Project demos retained inside this repo** (`/demo` and its sub-pages). They remain
+  reachable but are temporarily excluded from the sitemap and noindexed.
 - **Personal profiles** on `/contact`: GitHub, LinkedIn, YouTube, Twitch, X, Facebook,
   Instagram, and Calendly. These are *David's* channels, not sibling brands or package marketplaces.
 - One-off links when they serve the current page's user task.
@@ -72,9 +73,10 @@ If any answer is "no," it does not belong here.
 ## Sub-brand exception: the local-business demos
 
 `public/demo/*` intentionally uses a warm "tianguis" palette instead of the
-`dtz-*` language. The demos form a Spanish-first funnel (demo → WhatsApp) aimed
-at local-business clients and live entirely inside this repo. Do not "fix" them
-to match the dtz theme, and do not grow them into a separate brand.
+`dtz-*` language. The legacy demos remain in this repository and keep their
+existing screened WhatsApp behavior. The current source excludes them from the
+sitemap and adds a temporary `noindex, nofollow` response header. This is
+containment, not migration, retirement, redirect, or hosted-state verification.
 
 (The `/pay` + `/pagar` payment pages that completed this funnel were retired on
 2026-06-10: pages and `data/payment-links.ts` removed, Stripe links deactivated.
@@ -99,10 +101,12 @@ DavidTiz may summarize material owned elsewhere only when the summary explains D
 
 - The Phase 0 governance commit changed documentation only; that statement is historical.
 - The proof-first checkpoint updates local source for `/`, `/contact`, and personal metadata. It removes the homepage assistant mount and commercial contact marketplace, while keeping the screened WhatsApp mechanics unchanged.
+- The portfolio-containment checkpoint rewrites `/portfolio` around problem, role, decision, tradeoff, and checked-in evidence. It removes the package grid and sibling-business links without adding a RazonWorks destination.
+- Unused service, case-study, resource, and sibling-brand exports were removed from `data/content.ts`; the module now holds only runtime personal contact constants.
 - The standalone `/api/chat` route remains rate-limited and now returns a boundary response for commercial-intake markers before any model call. It is not mounted on the homepage.
 - No hosted behavior, analytics, deployment, or domain state was changed or verified by this checkpoint.
-- The current `businessSiteUrl` still points to High Encode Learning. That is a known legacy runtime mismatch, not the current ownership rule.
-- Replace that target only in a later authorized implementation slice, after the intended RazonWorks destination exists and its hosted behavior is verified.
+- No business destination is rendered or configured in the current source. Add one only in a later authorized implementation slice after the intended RazonWorks destination exists and its hosted behavior is verified.
+- `/demo` remains reachable source, but it is absent from the sitemap and receives a temporary source-configured `noindex, nofollow` response header.
 - A coordinated RazonWorks implementation branch now contains local source for `/lab` and `/es/lab`. This repository does not claim those routes are hosted, and the standalone Lab-domain redirect remains unverified and incomplete.
 
 ## Enforcement
@@ -110,8 +114,7 @@ DavidTiz may summarize material owned elsewhere only when the summary explains D
 - Design language: every page except the `/demo` pages renders inside
   the `.dtz-site` scope (see `components/theme-shell.tsx`) and styles with
   `var(--dtz-*)` tokens (unified in PR #70).
-- Copy audit (run before merging copy changes; the legacy `businessSiteUrl` hit is
-  expected until the later authorized routing slice):
+- Copy audit (run before merging copy changes):
 
   ```bash
   grep -rniE "ecosystem|multi-site|brand network|choose a brand|our brands" \

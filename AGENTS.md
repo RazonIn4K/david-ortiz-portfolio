@@ -56,12 +56,12 @@ app/
 components/
   contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact)
   icons/            # brand-icons (used by homepage + /contact)
-data/content.ts     # Shared content + centralized contact (`contact`, `whatsappHref`)
+data/content.ts     # Centralized personal contact (`contact`, `whatsappHref`)
 data/home-content.ts # Typed homepage navigation, actions, and three proof records
 lib/                # site-config, contact-links, meta-embedded-signup, abuse-store, utils
 public/visuals/     # Hero/workbench images and SVGs
 public/demo/        # Static Spanish local-business demos; hub served at /demo via rewrite,
-                    # retained outside the primary homepage navigation
+                    # retained outside primary navigation and temporarily noindexed
 ```
 
 Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.config.ts` maps `@/*` and stubs `server-only`).
@@ -94,7 +94,8 @@ Short version: this app is intentionally small, so do not over-abstract; but do 
 - Brand boundary: this site never becomes an ecosystem router. Rules + allowed-link test live in `docs/BRAND-BOUNDARY.md`.
 - Personal contact remains the route for employment, collaboration, speaking, referrals, and peer contact. Do not replace it with a commercial intake flow.
 - Commercial services and client intake belong to RazonWorks. Any future RazonWorks link here must stay secondary and contextual.
-- The current `businessSiteUrl` runtime target is a legacy mismatch. Phase 0 does not change it. Change it only in an authorized implementation slice after the intended RazonWorks destination exists and its hosted behavior is verified.
+- No business destination is rendered or configured by the current personal-proof source. Add one only after the exact RazonWorks destination and its hosted behavior are verified.
+- `/demo` remains reachable source and is not migrated or retired. It is excluded from the sitemap and receives a temporary `noindex, nofollow` response header.
 - High Encode Learning owns teaching and learner support. Razon Lab owns reproducible experiment artifacts as the experimental arm of RazonWorks.
 - Operational state (working-copy rule, parked integrations, retired /pay funnel, env source of truth): `docs/MAINTENANCE.md`.
 - Do not touch secrets (`.env.local`, `.env.production`, Doppler).
