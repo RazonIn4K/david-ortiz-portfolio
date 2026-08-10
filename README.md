@@ -54,7 +54,19 @@ public/             # Images, visuals, and the /demo static pages
 ## Notes
 
 - The homepage is a personal portfolio, not a router to other sites.
-- Contact is WhatsApp-first (see `data/content.ts` → `contact` / `whatsappHref`), with email as the fallback backup.
+- Its job is to establish David's identity and judgment through a curated set of work, personal operating notes, and verifiable evidence.
+- Contact is WhatsApp-first (see `data/content.ts` -> `contact` / `whatsappHref`), with email as the fallback backup. Personal contact remains distinct from commercial client intake.
+
+## Portfolio brand governance
+
+- DavidTiz owns personal identity, curated proof, and personal contact.
+- RazonWorks is the only owner of commercial services and client intake.
+- High Encode Learning owns education and learner support.
+- Razon Lab is the experimental research arm of RazonWorks.
+
+The canonical portfolio decision and contract live in the `RazonIn4K/razonworks` repository at `docs/adr/0038-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. The local rules are in [docs/BRAND-BOUNDARY.md](docs/BRAND-BOUNDARY.md).
+
+Phase 0 changes documentation only. The existing `businessSiteUrl` runtime target remains a known legacy mismatch. A future implementation may provide one contextual, secondary RazonWorks business handoff only after the intended destination exists and its hosted behavior is verified. Do not treat that handoff as implemented or deployed yet.
 
 ## Contact protection
 
@@ -79,4 +91,3 @@ If you touch dependencies or `.fossa.yml`, follow the documented scan workflow b
 
 ## GitLab CI/CD Security Scans
 This project is integrated with GitLab CI/CD to run automated security scans (SAST, Secret Detection, Dependency Scanning, and manual DAST). For more details, see [GitLab CI/CD Security Integration](docs/GITLAB-CI.md).
-
