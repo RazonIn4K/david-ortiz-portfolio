@@ -28,6 +28,20 @@ export const metadata: Metadata = {
   title: "Contact | David Ortiz",
   description:
     "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact | David Ortiz",
+    description:
+      "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+    url: "/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact | David Ortiz",
+    description:
+      "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+  },
 }
 
 function iconFor(link: ContactLink) {
@@ -132,7 +146,7 @@ export default function ContactPage() {
 
   return (
     <ThemeShell>
-      <main className="min-h-screen px-6 py-20">
+      <div className="min-h-screen px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 max-w-3xl">
             <p className="dtz-section-label">Contact</p>
@@ -208,7 +222,7 @@ export default function ContactPage() {
             </ProtectedWhatsAppLink>
           </div>
         </div>
-      </main>
+      </div>
     </ThemeShell>
   )
 }

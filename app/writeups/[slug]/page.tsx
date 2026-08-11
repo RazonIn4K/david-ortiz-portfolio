@@ -32,6 +32,11 @@ export async function generateMetadata({
       url: `/writeups/${slug}`,
       type: "article",
     },
+    twitter: {
+      card: "summary",
+      title: `${writeup.title} | CTF Writeup`,
+      description: writeup.summary,
+    },
   }
 }
 
@@ -52,7 +57,7 @@ export default async function WriteupPage({
 
   return (
     <ThemeShell>
-      <main className="min-h-screen px-6 py-12">
+      <div className="min-h-screen px-6 py-12">
         <article className="mx-auto max-w-3xl">
           <nav className="flex items-center justify-between gap-4">
             <Link
@@ -105,7 +110,7 @@ export default async function WriteupPage({
             </p>
           </footer>
         </article>
-      </main>
+      </div>
     </ThemeShell>
   )
 }

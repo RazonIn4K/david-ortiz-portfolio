@@ -3,7 +3,10 @@ import path from "node:path"
 
 import { describe, expect, it } from "vitest"
 
-const homePageSource = fs.readFileSync(path.join(process.cwd(), "app", "page.tsx"), "utf8")
+const homePageSource = fs.readFileSync(
+  path.join(process.cwd(), "components", "personal-homepage.tsx"),
+  "utf8",
+)
 const globalStyles = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8")
 
 describe("personal homepage implementation contract", () => {

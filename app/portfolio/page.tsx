@@ -119,7 +119,7 @@ const primaryCtaStyle = {
 export default function PortfolioPage() {
   return (
     <ThemeShell>
-      <main className="min-h-screen px-6 py-12">
+      <div className="min-h-screen px-6 py-12">
         <div className="mx-auto max-w-6xl">
           <nav className="flex flex-wrap items-center justify-between gap-4">
             <Link
@@ -306,7 +306,7 @@ export default function PortfolioPage() {
             </div>
           </section>
         </div>
-      </main>
+      </div>
     </ThemeShell>
   )
 }

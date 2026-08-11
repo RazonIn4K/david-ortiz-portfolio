@@ -18,6 +18,12 @@ export const metadata: Metadata = {
     url: "/writeups",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "CTF Writeups | David Ortiz",
+    description:
+      "Capture-the-Flag writeups across binary exploitation, privilege escalation, cryptography, and log forensics.",
+  },
 }
 
 const panelStyle = {
@@ -39,7 +45,7 @@ export default function WriteupsPage() {
 
   return (
     <ThemeShell>
-      <main className="min-h-screen px-6 py-12">
+      <div className="min-h-screen px-6 py-12">
         <div className="mx-auto max-w-5xl">
           <nav className="flex flex-wrap items-center justify-between gap-4">
             <Link
@@ -130,7 +136,7 @@ export default function WriteupsPage() {
             ))}
           </section>
         </div>
-      </main>
+      </div>
     </ThemeShell>
   )
 }

@@ -6,6 +6,20 @@ export const metadata: Metadata = {
   title: "Privacy Policy | David Ortiz",
   description:
     "Privacy policy for davidtiz.com and David Ortiz's WhatsApp business messaging, including data deletion instructions.",
+  alternates: { canonical: "/privacy" },
+  openGraph: {
+    title: "Privacy Policy | David Ortiz",
+    description:
+      "Privacy policy for davidtiz.com and David Ortiz's WhatsApp business messaging, including data deletion instructions.",
+    url: "/privacy",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy | David Ortiz",
+    description:
+      "Privacy policy for davidtiz.com and David Ortiz's WhatsApp business messaging, including data deletion instructions.",
+  },
 }
 
 const wrapper: React.CSSProperties = {
@@ -19,7 +33,7 @@ const wrapper: React.CSSProperties = {
 export default function PrivacyPage() {
   return (
     <ThemeShell>
-      <main style={wrapper}>
+      <article style={wrapper}>
       <h1>Privacy Policy</h1>
       <p>
         <em>Effective date: June 4, 2026</em>
@@ -84,7 +98,7 @@ export default function PrivacyPage() {
       <p>
         <Link href="/">&larr; Back to davidtiz.com</Link>
       </p>
-      </main>
+      </article>
     </ThemeShell>
   )
 }

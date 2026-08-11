@@ -42,7 +42,7 @@ CI (`.github/workflows/ci.yml`) runs lint → test → build on every push/PR; C
 
 ```
 app/
-  page.tsx          # Home — single-page personal portfolio (client component, dtz-* classes)
+  page.tsx          # Home route wrapper and canonical metadata
   layout.tsx        # Root layout, fonts, metadata
   globals.css       # Global styles + dtz-* design system (light/dark themes)
   error.tsx         # Page-level error boundary
@@ -54,6 +54,7 @@ app/
   admin/whatsapp-coexistence/ # Admin-key-gated Meta signup launcher
   contact/whatsapp/ # Screened redirect (route.ts) + challenge issuance (challenge/route.ts)
 components/
+  personal-homepage.tsx # Client homepage implementation (dtz-* classes)
   contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact)
   icons/            # brand-icons (used by homepage + /contact)
 data/content.ts     # Centralized personal contact (`contact`, `whatsappHref`)
@@ -72,7 +73,7 @@ Canonical boundary guidance lives in [`docs/ARCHITECTURE-BOUNDARIES.md`](docs/AR
 
 Short version: this app is intentionally small, so do not over-abstract; but do not let business/security rules drift further into framework files without characterization tests. For the WhatsApp redirect lane, preserve challenge validation, full challenge value integrity, replay blocking, sanitization, and redirect message behavior.
 
-## Homepage sections (`app/page.tsx`)
+## Homepage sections (`components/personal-homepage.tsx`)
 1. Header: personal mark, Work / How I work / Notes / Contact, light/dark toggle
 2. Hero: technical-systems positioning with local `#work` and `#notes` actions
 3. Selected Work: exactly three typed proof records with problem, David's role, decision, tradeoff, and evidence
