@@ -13,7 +13,7 @@ targets:
 
 ignore:
   - type: license
-    locator: npm+next$16.2.7
+    locator: npm+next$16.3.0
     licenses:
       - CC-BY-SA-4.0
       - MPL-2.0
@@ -23,7 +23,9 @@ ignore:
       includes MPL text. These are not runtime-modified distributables in this app.
       The app uses Next.js as a dependency and does not redistribute those assets
       as separate business logic.
-      If `next` is upgraded, verify and update this locator before merging.
+      This locator must match the exact installed Next.js version. If `next` is
+      upgraded, inspect the new package artifacts and update this entry only after
+      confirming the same narrow findings still apply.
 
   - type: license
     locator: npm+@vercel/og$0.11.1
@@ -36,5 +38,6 @@ ignore:
 
 comments:
   licensing_strategy: |
-    Keep production dependencies as-is while documenting non-blocking findings
-    and re-running FOSSA scans after policy-level reviews.
+    Keep reviewed ignores narrow and version-specific. Other license-policy and
+    dependency-quality findings remain unresolved until they receive an explicit
+    legal or maintainer disposition and an exact-head FOSSA scan confirms it.
