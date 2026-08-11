@@ -65,7 +65,7 @@ public/             # Images, visuals, and temporarily contained /demo static pa
 - High Encode Learning owns education and learner support.
 - Razon Lab is the experimental research arm of RazonWorks.
 
-The canonical portfolio decision and contract live in the `RazonIn4K/razonworks` repository at `docs/adr/0038-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. The local rules are in [docs/BRAND-BOUNDARY.md](docs/BRAND-BOUNDARY.md).
+The canonical portfolio decision and contract live in the `RazonIn4K/razonworks` repository at `docs/adr/0039-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. The local rules are in [docs/BRAND-BOUNDARY.md](docs/BRAND-BOUNDARY.md).
 
 The proof-first homepage and `/portfolio` record are implemented in local source. `/portfolio` uses checked-in evidence and does not render a sibling-business handoff. No hosted behavior was verified or changed by this checkpoint. A future implementation may provide one contextual, secondary RazonWorks handoff only after the exact destination exists and its hosted behavior is verified.
 

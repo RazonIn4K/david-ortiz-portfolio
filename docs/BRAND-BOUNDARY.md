@@ -4,7 +4,7 @@
 > personal identity and curated proof hub, not a router to other properties.**
 > Personal contact stays distinct from commercial client intake.
 
-The canonical portfolio decision and contract live in the RazonWorks repository at `docs/adr/0038-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. This repository's local boundary must not contradict them. If the documents conflict, pause public changes and reconcile the canonical decision and local boundary together before implementation.
+The canonical portfolio decision and contract live in the RazonWorks repository at `docs/adr/0039-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. This repository's local boundary must not contradict them. If the documents conflict, pause public changes and reconcile the canonical decision and local boundary together before implementation.
 
 ## This site is
 
