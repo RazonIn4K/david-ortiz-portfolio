@@ -31,11 +31,20 @@ export async function generateMetadata({
       description: writeup.summary,
       url: `/writeups/${slug}`,
       type: "article",
+      images: [
+        {
+          url: "/visuals/writeups-og-card.png",
+          width: 1200,
+          height: 630,
+          alt: "David Ortiz security writeups with redacted field notes and trace analysis",
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: `${writeup.title} | CTF Writeup`,
       description: writeup.summary,
+      images: ["/visuals/writeups-og-card.png"],
     },
   }
 }

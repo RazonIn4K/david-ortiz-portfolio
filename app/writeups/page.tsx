@@ -17,12 +17,21 @@ export const metadata: Metadata = {
       "Capture-the-Flag writeups across binary exploitation, privilege escalation, cryptography, and log forensics.",
     url: "/writeups",
     type: "website",
+    images: [
+      {
+        url: "/visuals/writeups-og-card.png",
+        width: 1200,
+        height: 630,
+        alt: "David Ortiz security writeups with redacted field notes and trace analysis",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "CTF Writeups | David Ortiz",
     description:
       "Capture-the-Flag writeups across binary exploitation, privilege escalation, cryptography, and log forensics.",
+    images: ["/visuals/writeups-og-card.png"],
   },
 }
 

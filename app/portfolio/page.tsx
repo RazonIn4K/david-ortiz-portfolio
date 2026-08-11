@@ -27,12 +27,21 @@ export const metadata: Metadata = {
       "A personal decision record with local captures separated from unverified route behavior, authorship, permission, and outcomes.",
     url: "/portfolio",
     type: "article",
+    images: [
+      {
+        url: "/portfolio/hernandez/decision-record-og.png",
+        width: 1200,
+        height: 630,
+        alt: "David Ortiz personal decision record for the Hernandez Landscape interface",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Hernandez Landscape Decision Record | David Ortiz",
     description:
       "A checked-in personal decision record with explicit evidence limits.",
+    images: ["/portfolio/hernandez/decision-record-og.png"],
   },
 }
 
