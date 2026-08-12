@@ -7,6 +7,8 @@ import { followWorkLinks, quickReachLinks } from "@/lib/contact-links"
 
 const contactPageSource = fs.readFileSync(path.join(process.cwd(), "app", "contact", "page.tsx"), "utf8")
 const contactLinksSource = fs.readFileSync(path.join(process.cwd(), "lib", "contact-links.ts"), "utf8")
+const privacyPageSource = fs.readFileSync(path.join(process.cwd(), "app", "privacy", "page.tsx"), "utf8")
+const compactPrivacyPageSource = privacyPageSource.replace(/\s+/g, " ")
 
 describe("personal contact boundary", () => {
   it("keeps the screened personal WhatsApp path and names the allowed reasons to connect", () => {
@@ -44,6 +46,17 @@ describe("personal contact boundary", () => {
   it("presents channel links as David's profiles rather than sibling brands", () => {
     for (const link of [...quickReachLinks, ...followWorkLinks]) {
       expect(link.label).not.toMatch(/RazonWorks|Razon Lab|High Encode|CSBrainAI/i)
+    }
+  })
+
+  it("describes personal contact records without presenting this site as business intake", () => {
+    expect(compactPrivacyPageSource).toContain("WhatsApp contact messaging")
+    expect(compactPrivacyPageSource).toContain("personal contact request")
+    expect(compactPrivacyPageSource).toContain("Commercial service inquiries belong with RazonWorks")
+    expect(compactPrivacyPageSource).toContain("contact record")
+
+    for (const forbidden of ["WhatsApp business messaging", "services you ask about", "lead record"]) {
+      expect(privacyPageSource).not.toContain(forbidden)
     }
   })
 })

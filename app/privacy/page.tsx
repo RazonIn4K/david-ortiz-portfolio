@@ -5,12 +5,12 @@ import { ThemeShell } from "@/components/theme-shell"
 export const metadata: Metadata = {
   title: "Privacy Policy | David Ortiz",
   description:
-    "Privacy policy for davidtiz.com and David Ortiz's WhatsApp business messaging, including data deletion instructions.",
+    "Privacy policy for davidtiz.com and David Ortiz's WhatsApp contact messaging, including data deletion instructions.",
   alternates: { canonical: "/privacy" },
   openGraph: {
     title: "Privacy Policy | David Ortiz",
     description:
-      "Privacy policy for davidtiz.com and David Ortiz's WhatsApp business messaging, including data deletion instructions.",
+      "Privacy policy for davidtiz.com and David Ortiz's WhatsApp contact messaging, including data deletion instructions.",
     url: "/privacy",
     type: "website",
   },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Privacy Policy | David Ortiz",
     description:
-      "Privacy policy for davidtiz.com and David Ortiz's WhatsApp business messaging, including data deletion instructions.",
+      "Privacy policy for davidtiz.com and David Ortiz's WhatsApp contact messaging, including data deletion instructions.",
   },
 }
 
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
       <article style={wrapper}>
       <h1>Privacy Policy</h1>
       <p>
-        <em>Effective date: June 4, 2026</em>
+        <em>Effective date: August 12, 2026</em>
       </p>
       <p>
         This site, davidtiz.com, is the personal portfolio of David Ortiz. This page explains what
@@ -51,13 +51,18 @@ export default function PrivacyPage() {
         your own browser (localStorage) and is never transmitted to me.
       </p>
 
-      <h2>WhatsApp business messaging</h2>
+      <h2>WhatsApp contact messaging</h2>
       <p>
         If you contact me on WhatsApp (including through the buttons on this site), I receive your
         phone number, your WhatsApp profile name, and the messages you send, delivered through
-        Meta&apos;s WhatsApp Business Platform. I use this information to respond to your inquiry and
-        provide the services you ask about. Inquiry details may be stored as a lead record so I can
-        follow up.
+        Meta&apos;s WhatsApp Business Platform. I use this information to respond to your personal
+        contact request, such as an introduction, employment conversation, collaboration, speaking,
+        referral, or peer discussion. Conversation details may be stored as a contact record so I
+        can follow up.
+      </p>
+      <p>
+        Commercial service inquiries belong with RazonWorks. I may direct an inquiry there instead
+        of treating this personal portfolio as client intake.
       </p>
       <p>
         Service providers that process this data on my behalf: Meta Platforms (WhatsApp message
@@ -68,8 +73,8 @@ export default function PrivacyPage() {
 
       <h2>Retention</h2>
       <p>
-        Messages and lead records are kept only as long as needed to handle your inquiry and
-        maintain ordinary business records, and are deleted on request as described below.
+        Messages and contact records are kept only as long as needed to handle your conversation
+        and maintain ordinary correspondence, and are deleted on request as described below.
       </p>
 
       <h2>Data deletion instructions</h2>
@@ -84,7 +89,7 @@ export default function PrivacyPage() {
         <li>Send &quot;Delete my data&quot; in a WhatsApp message to the same number you contacted.</li>
       </ul>
       <p>
-        I will delete your lead records and stored messages within 30 days and confirm when it is
+        I will delete your contact records and stored messages within 30 days and confirm when it is
         done. Note that WhatsApp messages on Meta&apos;s own servers are governed by Meta&apos;s
         retention rules and your own WhatsApp app.
       </p>

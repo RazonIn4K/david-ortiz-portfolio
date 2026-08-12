@@ -3,6 +3,7 @@ import robots from "@/app/robots"
 import sitemap from "@/app/sitemap"
 import nextConfig from "@/next.config.mjs"
 import { getWriteupSlugs } from "@/lib/writeups"
+import { socialProfileLinks } from "@/lib/contact-links"
 
 // These guard the SEO/hardening config against accidental edits: removing a
 // disallow line or a header here is a deliberate decision, not a side effect.
@@ -69,5 +70,20 @@ describe("security headers", () => {
     expect(byKey["X-Frame-Options"]).toBe("DENY")
     expect(byKey["Referrer-Policy"]).toBe("strict-origin-when-cross-origin")
     expect(byKey["Permissions-Policy"]).toContain("camera=()")
+  })
+})
+
+describe("Person structured-data profile boundary", () => {
+  it("asserts only owner-person profiles and excludes Razon Lab channels", () => {
+    expect(socialProfileLinks).toEqual([
+      "https://github.com/RazonIn4K",
+      "https://www.linkedin.com/in/davidortiz-dekalb/",
+      "https://www.facebook.com/profile.php?id=61581646236939",
+      "https://www.instagram.com/ra.z.on",
+    ])
+
+    for (const url of socialProfileLinks) {
+      expect(url).not.toMatch(/youtube\.com\/\@razonlab|twitch\.tv\/razonlab|x\.com\/Razonapp/i)
+    }
   })
 })

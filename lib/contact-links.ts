@@ -5,11 +5,9 @@ export type ContactLink = {
   description: string
 }
 
+// `Person.sameAs` must contain owner-person profiles, not Razon Lab publication channels.
 export const socialProfileLinks = [
   "https://github.com/RazonIn4K",
-  "https://www.youtube.com/@razonlab",
-  "https://www.twitch.tv/razonlab",
-  "https://x.com/Razonapp",
   "https://www.linkedin.com/in/davidortiz-dekalb/",
   "https://www.facebook.com/profile.php?id=61581646236939",
   "https://www.instagram.com/ra.z.on",
