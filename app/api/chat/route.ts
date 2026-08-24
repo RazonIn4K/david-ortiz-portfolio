@@ -204,8 +204,8 @@ function getFallbackResponse(userMessage: string): string {
     return "Right now the focus is on abstraction layers, browser behavior, automation systems, AI tooling, and prompt safety. You can see current work in the selected work and notes sections."
   }
 
-  if (lowerMessage.includes("contact") || lowerMessage.includes("email") || lowerMessage.includes("whatsapp") || lowerMessage.includes("phone")) {
-    return `Use the contact section at ${contact.email} or the WhatsApp link on the page.`
+  if (lowerMessage.includes("contact") || lowerMessage.includes("email") || lowerMessage.includes("phone")) {
+    return `Use the contact section — email ${contact.email}, book a call via Calendly, or visit /contact for all paths.`
   }
 
   if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import {
@@ -30,6 +31,7 @@ import { ProtectedEmailLink } from "@/components/contact/protected-email-link"
 import {
   Reveal,
   ScrollProgress,
+  SectionHeader,
   StaggerContainer,
   staggerItem,
 } from "@/components/motion/site-motion"
@@ -166,9 +168,19 @@ export function ContactPageClient() {
         <div className="dtz-contact-shell">
           <motion.div
             ref={heroRef}
-            className="dtz-contact-hero mb-14 max-w-3xl"
+            className="dtz-contact-hero dtz-contact-hero-editorial mb-14 max-w-3xl"
             style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
           >
+            <div className="dtz-subpage-hero-atmosphere dtz-contact-atmosphere" aria-hidden="true">
+              <Image
+                src="/visuals/hero-atmosphere.webp"
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, 720px"
+                style={{ objectFit: "cover" }}
+                priority
+              />
+            </div>
             <motion.p
               className="dtz-section-label dtz-float-badge"
               style={{ display: "inline-block" }}
@@ -179,33 +191,53 @@ export function ContactPageClient() {
               Contact
             </motion.p>
             <motion.h1
-              className="mt-4"
+              className="mt-4 dtz-hero-display"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className={shouldReduceMotion ? "" : "dtz-text-shimmer"}>
-                Direct path to David,
+                Direct path
               </span>
-              <br />
-              without the guesswork
+              <span className="dtz-hero-accent"> to David.</span>
             </motion.h1>
             <motion.p
-              className="mt-6 text-lg leading-relaxed md:text-xl"
-              style={{ color: "var(--dtz-muted)" }}
+              className="mt-6 text-lg leading-relaxed md:text-xl dtz-section-lead"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
             >
-              {personalSitePublicLabel} stays personal, experimental, and reflective. This page is the shareable contact hub:
-              the fastest confirmed ways to email, book time, start a freelance conversation, or move into a scoped business discussion.
+              {personalSitePublicLabel} stays personal and experimental. This page is the shareable hub — email, Calendly,
+              freelance paths, and places to follow the work.
             </motion.p>
             <motion.div
-              className="mt-8 flex flex-wrap gap-3"
+              className="mt-8 flex flex-wrap gap-3 dtz-contact-hero-actions"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 15 }}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45 }}
             >
+              <ProtectedEmailLink
+                className="dtz-button primary dtz-button-glow dtz-contact-primary-btn"
+                subject="Inquiry from contact page"
+              >
+                <Mail aria-hidden="true" />
+                <span>
+                  <strong>Email David</strong>
+                  <small>Async · project questions</small>
+                </span>
+              </ProtectedEmailLink>
+              <a
+                className="dtz-button secondary dtz-button-glow dtz-contact-primary-btn"
+                href="https://calendly.com/davidinfosec07"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <CalendarDays aria-hidden="true" />
+                <span>
+                  <strong>Book a call</strong>
+                  <small>Live · scoped conversation</small>
+                </span>
+              </a>
               <motion.span
                 className="rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] dtz-tag-pop"
                 style={{
@@ -215,7 +247,7 @@ export function ContactPageClient() {
                 }}
                 whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
               >
-                English + Español welcome
+                English + Español
               </motion.span>
               <motion.div whileHover={shouldReduceMotion ? {} : { x: -4 }}>
                 <Link
@@ -231,6 +263,16 @@ export function ContactPageClient() {
           </motion.div>
 
           <div className="dtz-section-rule" aria-hidden="true" />
+
+          <Reveal direction="up">
+            <SectionHeader
+              index="01"
+              label="Contact paths"
+              title="Pick the lane that matches your intent."
+              lead="Quick reach for a conversation, hire-me for scoped work, follow-the-work for code and experiments."
+              align="left"
+            />
+          </Reveal>
 
           <div className="dtz-contact-groups">
             {groups.map((group, groupIndex) => {

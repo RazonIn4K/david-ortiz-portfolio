@@ -148,10 +148,21 @@ export function PortfolioMotion() {
 
         <motion.section
           ref={heroRef}
-          className="dtz-portfolio-hero"
+          className="dtz-portfolio-hero dtz-portfolio-hero-editorial"
           style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
         >
+          <div className="dtz-subpage-hero-atmosphere dtz-portfolio-atmosphere" aria-hidden="true">
+            <Image
+              src="/visuals/workbench-atmosphere.webp"
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 960px"
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          </div>
           <motion.div
+            className="dtz-portfolio-hero-copy"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -163,30 +174,27 @@ export function PortfolioMotion() {
               transition={{ duration: 0.5, delay: 0.1 }}
               style={{ display: "inline-block" }}
             >
-              Portfolio
+              Portfolio · Featured build
             </motion.p>
             <motion.h1
-              className="mt-5"
+              className="mt-5 dtz-hero-display"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className={shouldReduceMotion ? "" : "dtz-text-shimmer"}>
-                Real local-business work,
+                Hernandez Landscape
               </span>
-              <br />
-              starting with Hernandez Landscape
+              <span className="dtz-hero-accent"> — live local-business proof.</span>
             </motion.h1>
             <motion.p
-              className="mt-6 max-w-2xl text-lg leading-relaxed"
-              style={{ color: "var(--dtz-muted)" }}
+              className="mt-6 max-w-xl text-lg leading-relaxed dtz-section-lead"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
             >
-              Hernandez Landscape & Tree Service is a live landscaping website with bilingual content,
-              service positioning, project photos, and a quote flow built around local customer calls,
-              sourced trust signals, and estimate requests that carry straight into the contact form.
+              Bilingual services site with estimator handoff, sourced trust signals, and quote capture
+              built for real local customer calls — inspectable end to end.
             </motion.p>
             <motion.div
               className="mt-8 flex flex-col gap-4 sm:flex-row"
@@ -243,6 +251,72 @@ export function PortfolioMotion() {
 
         <div className="dtz-section-rule" aria-hidden="true" />
 
+        <StaggerContainer as="ul" className="dtz-portfolio-feature-chips pb-8" staggerDelay={0.08}>
+          {highlights.map((highlight) => (
+            <motion.li key={highlight} className="dtz-portfolio-feature-chip" variants={staggerItem}>
+              {highlight}
+            </motion.li>
+          ))}
+        </StaggerContainer>
+
+        <div className="dtz-section-rule" aria-hidden="true" />
+
+        <Reveal direction="up">
+          <SectionHeader
+            index="01"
+            label="What it shows"
+            title="Built for local customers, not a slide deck."
+            lead="Bilingual paths, estimator-to-form handoff, service pages, and trust signals tied to real sources."
+          />
+          <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <motion.div
+              className="rounded-3xl border p-6 dtz-glass-panel dtz-portfolio-stack-panel"
+              style={{ borderColor: "var(--dtz-border)" }}
+              whileHover={shouldReduceMotion ? {} : { y: -4 }}
+            >
+              <p className="dtz-section-label">Delivery shape</p>
+              <StaggerContainer className="mt-5 grid gap-3" staggerDelay={0.08} as="ul">
+                {packageExamples.map((item) => (
+                  <motion.li
+                    key={item.title}
+                    className="dtz-portfolio-stack-item"
+                    variants={staggerItem}
+                    whileHover={shouldReduceMotion ? {} : { x: 6 }}
+                  >
+                    <strong>{item.title}</strong>
+                    <span>{item.description}</span>
+                  </motion.li>
+                ))}
+              </StaggerContainer>
+            </motion.div>
+
+            <motion.div
+              className="dtz-img-hover overflow-hidden rounded-3xl border dtz-portfolio-feature-shot"
+              style={{ borderColor: "var(--dtz-border)" }}
+              whileHover={shouldReduceMotion ? {} : { y: -6 }}
+            >
+              <Image
+                src="/portfolio/hernandez/site-trust-screenshot.png"
+                alt="Trust and services section from the Hernandez Landscape website"
+                width={1440}
+                height={729}
+                className="h-full w-full object-cover object-top"
+              />
+            </motion.div>
+          </section>
+        </Reveal>
+
+        <div className="dtz-section-rule" aria-hidden="true" />
+
+        <Reveal direction="up" delay={0.05}>
+          <SectionHeader
+            index="02"
+            label="Recent updates"
+            title="Proof that keeps moving with the build."
+            align="left"
+          />
+        </Reveal>
+
         <StaggerContainer className="dtz-portfolio-metric-grid pb-10" staggerDelay={0.1}>
           {liveProofUpdates.map((item) => {
             const Icon = item.icon
@@ -268,70 +342,11 @@ export function PortfolioMotion() {
           })}
         </StaggerContainer>
 
-        <div className="dtz-section-rule" aria-hidden="true" />
-
-        <Reveal direction="up">
-          <SectionHeader
-            index="01"
-            label="What the example shows"
-            title="Built for real local customers, not a slide deck."
-            lead="The Hernandez site is inspectable end to end: bilingual paths, estimator handoff, service pages, and trust signals that point to real sources."
-          />
-          <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <motion.div
-              className="rounded-3xl border p-6 dtz-glass-panel"
-              style={{ borderColor: "var(--dtz-border)" }}
-              whileHover={shouldReduceMotion ? {} : { y: -4 }}
-            >
-              <div className="mt-2 space-y-4">
-                {highlights.map((highlight, i) => (
-                  <motion.div
-                    key={highlight}
-                    className="flex gap-3"
-                    initial={shouldReduceMotion ? false : { opacity: 0, x: -20 }}
-                    whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1, duration: 0.4 }}
-                  >
-                    <motion.span
-                      className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full"
-                      style={{ background: "var(--dtz-accent)" }}
-                      whileHover={shouldReduceMotion ? {} : { scale: 1.5 }}
-                    />
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
-                      {highlight}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            <StaggerContainer className="grid gap-6 md:grid-cols-3" staggerDelay={0.08}>
-              {packageExamples.map((item) => (
-                <motion.article
-                  key={item.title}
-                  className="rounded-3xl border p-6 dtz-card-interactive"
-                  style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
-                  variants={staggerItem}
-                  whileHover={shouldReduceMotion ? {} : { y: -6, scale: 1.02 }}
-                >
-                  <h2 className="text-lg font-semibold">{item.title}</h2>
-                  <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
-                    {item.description}
-                  </p>
-                </motion.article>
-              ))}
-            </StaggerContainer>
-          </section>
-        </Reveal>
-
-        <div className="dtz-section-rule" aria-hidden="true" />
-
         <Reveal direction="up" delay={0.1}>
           <SectionHeader
-            index="02"
+            index="03"
             label="Reference links"
-            title="Each link answers a different question about the work."
+            title="Each link answers a different question."
             align="left"
           />
           <section className="grid gap-6 py-8 lg:grid-cols-[1.05fr_0.95fr]">
@@ -425,7 +440,7 @@ export function PortfolioMotion() {
 
         <Reveal direction="up">
           <SectionHeader
-            index="03"
+            index="04"
             label="Visual proof"
             title="Screens, photos, and collateral from the live build."
             align="left"

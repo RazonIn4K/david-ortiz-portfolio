@@ -49,11 +49,11 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ]
 
-const proofSignals = [
-  "Selected work people can inspect",
-  "Operating notes on real systems",
-  "Automation and AI-security checks",
-  "Clear handoff, not hidden complexity",
+const proofChips = [
+  "Inspectable proof",
+  "Operating notes",
+  "AI-security checks",
+  "Plain handoff",
 ]
 
 const proofSurfaces = [
@@ -148,9 +148,19 @@ const setupCards = [
 
 const workAreas = [
   {
+    label: "Featured",
+    title: "Hernandez Landscape",
+    body: "Live bilingual landscaping site — service pages, instant estimator, quote handoff, and sourced trust signals you can inspect end to end.",
+    image: "/portfolio/hernandez/site-screenshot.png",
+    icon: Store,
+    tags: ["Bilingual", "Estimator", "Local SEO", "Handoff"],
+    cta: { label: "Open portfolio case", href: "/portfolio" },
+    featured: true,
+  },
+  {
     label: "Web",
     title: "Local Business Sites",
-    body: "Selected proof: customer-facing sites with clear services, forms, and bilingual-friendly copy. Used to show how I think about layout, contact paths, and owner handoff.",
+    body: "Customer-facing sites with clear services, forms, and bilingual-friendly copy — layout, contact paths, and owner handoff included.",
     image: "/visuals/local-business-system.svg",
     icon: Globe,
     tags: ["Next.js", "Forms", "Local SEO", "Handoff"],
@@ -368,7 +378,7 @@ export default function HomePage() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <Sparkles aria-hidden="true" className="dtz-icon-bounce" />
-            Selected work, operating notes, and systems thinking
+            Selected work · operating notes · systems thinking
           </motion.p>
           <motion.h1
             id="hero-title"
@@ -386,8 +396,7 @@ export default function HomePage() {
             animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.45 }}
           >
-            I&apos;m David Ortiz. This is my personal proof hub: selected work, operating notes, and the decisions behind
-            the systems I build, test, and hand off.
+            I&apos;m David Ortiz — builder/operator. This site is my proof hub: work you can inspect, notes on how I ship, and the decisions behind each system.
           </motion.p>
 
           <motion.div
@@ -525,17 +534,14 @@ export default function HomePage() {
             index="01"
             label="Proof of work"
             titleId="proof-title"
-            title="Make the work visible before someone has to ask."
-            lead="I show the customer-facing surface and the practical setup behind it: domain, email, social paths, security basics, and a plain handoff. The proof is inspectable, not just claimed."
+            title="Show the work before anyone asks."
+            lead="Customer-facing surfaces plus the setup behind them — domain, inbox, social paths, and a handoff the owner can actually use."
           />
-          <StaggerContainer as="ul" className="dtz-signal-list" aria-label="Portfolio signals" staggerDelay={0.06}>
-            {proofSignals.map((signal) => (
-              <motion.li key={signal} variants={staggerItem}>
-                <CheckCircle2 aria-hidden="true" />
-                {signal}
-              </motion.li>
+          <ul className="dtz-proof-chips" aria-label="Portfolio signals">
+            {proofChips.map((chip) => (
+              <li key={chip}>{chip}</li>
             ))}
-          </StaggerContainer>
+          </ul>
         </Reveal>
 
         <StaggerContainer className="dtz-proof-surface-grid is-bento" staggerDelay={0.1}>
@@ -572,7 +578,7 @@ export default function HomePage() {
             label="Selected proof"
             titleId="setup-title"
             title="The practical layer behind the site."
-            lead="A working local-business site needs more than a homepage. These are the pieces I connect and document so the owner can keep the system running after handoff."
+            lead="Domain, inbox, social paths, and security basics — connected and documented so the owner can keep running after handoff."
           />
         </Reveal>
 
@@ -617,15 +623,15 @@ export default function HomePage() {
             index="03"
             label="Selected work"
             titleId="work-title"
-            title="Working lanes and proof people can inspect."
-            lead="These are categories and proof cards, not a brand directory. Each one points to a practical thing I can design, connect, test, and explain clearly."
+            title="Lanes and proof you can open."
+            lead="Categories and inspectable examples — not a brand directory. Each card points to something I can design, connect, test, and explain."
           />
         </Reveal>
 
         <StaggerContainer className="dtz-work-grid is-bento" staggerDelay={0.06}>
-          {workAreas.map((item, workIndex) => {
+          {workAreas.map((item) => {
             const Icon = item.icon
-            const isFeatured = workIndex === 0
+            const isFeatured = "featured" in item && item.featured
 
             return (
               <motion.article
@@ -634,8 +640,18 @@ export default function HomePage() {
                 variants={staggerItem}
                 whileHover={shouldReduceMotion ? {} : { y: -6 }}
               >
+                {isFeatured ? (
+                  <span className="dtz-work-featured-badge" aria-hidden="true">
+                    Featured build
+                  </span>
+                ) : null}
                 <div className="dtz-work-media dtz-img-hover">
-                  <Image src={item.image} alt="" width={900} height={640} />
+                  <Image
+                    src={item.image}
+                    alt={isFeatured ? "Screenshot of the Hernandez Landscape website." : ""}
+                    width={900}
+                    height={640}
+                  />
                 </div>
                 <div className="dtz-work-copy">
                   <div className="dtz-work-label">
@@ -686,8 +702,8 @@ export default function HomePage() {
             index="04"
             label="Process"
             titleId="process-title"
-            title="How I keep projects grounded."
-            lead="The common thread is verification. I would rather inspect the actual surface and make a smaller honest improvement than write a big plan that never reaches the browser."
+            title="Grounded delivery, verified in the browser."
+            lead="Inspect the real surface first. Ship a working pass, then tighten — smaller honest improvements beat big plans that never ship."
           />
         </Reveal>
 
@@ -800,64 +816,70 @@ export default function HomePage() {
       <div className="dtz-section-rule" aria-hidden="true" />
 
       <Reveal direction="up">
-        <section id="contact" className="dtz-contact dtz-overhaul-contact dtz-cta-ring" aria-labelledby="contact-title">
-          <div>
+        <section id="contact" className="dtz-contact dtz-overhaul-contact dtz-cta-ring is-editorial" aria-labelledby="contact-title">
+          <div className="dtz-contact-intro">
             <p className="dtz-section-label">
               <span className="dtz-index-badge" aria-hidden="true">
                 07
               </span>
               Contact
             </p>
-            <h2 id="contact-title">Start a conversation about the work.</h2>
+            <h2 id="contact-title" className="dtz-contact-display">
+              Start with the project, the problem, or the link.
+            </h2>
             <p className="dtz-section-lead">
-              You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
-              and what would make the next step useful.
+              No polished brief required. Tell me what you&apos;re building, what&apos;s broken, and what a useful next step looks like.
             </p>
           </div>
 
           <div className="dtz-contact-panel">
-            <motion.div
-              className="dtz-contact-card dtz-glass-panel"
-              whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <span>Best first message</span>
-              <p>What are you trying to build or fix, and what is the current state?</p>
-            </motion.div>
-            <motion.div
-              className="dtz-contact-card dtz-glass-panel"
-              whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <span>Response time</span>
-              <p>I typically respond within one business day. For urgent matters, book a call directly.</p>
-            </motion.div>
-            <StaggerContainer className="dtz-contact-actions" staggerDelay={0.08}>
-              <motion.div variants={staggerItem}>
+            <div className="dtz-contact-quick">
+              <motion.div variants={staggerItem} className="dtz-contact-quick-primary">
                 <ProtectedEmailLink
-                  className="dtz-button primary dtz-button-glow"
+                  className="dtz-button primary dtz-button-glow dtz-contact-primary-btn"
                   subject="Project inquiry from davidtiz.com"
                 >
-                  <RevealedEmail />
                   <Mail aria-hidden="true" />
+                  <span>
+                    <strong>Email David</strong>
+                    <small>Best async path · hello@davidtiz.com on reveal</small>
+                  </span>
+                  <RevealedEmail className="sr-only" />
                 </ProtectedEmailLink>
               </motion.div>
-              <motion.div variants={staggerItem}>
-                <a
-                  className="dtz-button secondary dtz-button-glow"
-                  href="https://calendly.com/davidinfosec07"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Book a call
-                  <CalendarDays aria-hidden="true" />
-                </a>
-              </motion.div>
+              <motion.a
+                className="dtz-button secondary dtz-button-glow dtz-contact-primary-btn"
+                href="https://calendly.com/davidinfosec07"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <CalendarDays aria-hidden="true" />
+                <span>
+                  <strong>Book a call</strong>
+                  <small>Live conversation when timing matters</small>
+                </span>
+              </motion.a>
+            </div>
+            <motion.div
+              className="dtz-contact-card dtz-glass-panel"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <span>What to send</span>
+              <p>What you&apos;re trying to build or fix, plus the current link, file, or constraint if you have one.</p>
+            </motion.div>
+            <StaggerContainer className="dtz-contact-actions is-compact" staggerDelay={0.08}>
               <motion.div variants={staggerItem}>
                 <a className="dtz-button secondary dtz-button-glow" href={contact.github} target="_blank" rel="noreferrer">
                   GitHub
                   <GithubIcon aria-hidden="true" />
                 </a>
+              </motion.div>
+              <motion.div variants={staggerItem}>
+                <Link className="dtz-button secondary dtz-button-glow" href="/contact">
+                  All contact paths
+                  <ArrowUpRight aria-hidden="true" />
+                </Link>
               </motion.div>
             </StaggerContainer>
           </div>
