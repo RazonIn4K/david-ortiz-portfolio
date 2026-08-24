@@ -2954,6 +2954,98 @@ body {
   text-align: left;
 }
 
+/* Enhanced visual rhythm 2026 */
+.dtz-section-accent-line {
+  position: relative;
+}
+
+.dtz-section-accent-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--dtz-accent), var(--dtz-accent-2) 50%, var(--dtz-accent-3));
+  opacity: 0.8;
+}
+
+.dtz-section-glow {
+  position: relative;
+}
+
+.dtz-section-glow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(135deg, 
+    color-mix(in srgb, var(--dtz-accent) 15%, transparent),
+    transparent 60%,
+    color-mix(in srgb, var(--dtz-accent-2) 10%, transparent)
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.dtz-section-glow:hover::before {
+  opacity: 1;
+}
+
+.dtz-hero-title-emphasis {
+  position: relative;
+  display: inline;
+}
+
+.dtz-hero-title-emphasis::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.1em;
+  height: 0.12em;
+  background: linear-gradient(90deg, var(--dtz-accent), var(--dtz-accent-2));
+  opacity: 0.4;
+  border-radius: 2px;
+}
+
+.dtz-gradient-border {
+  position: relative;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.dtz-gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--dtz-border), var(--dtz-accent-soft), var(--dtz-border));
+}
+
+.dtz-subtle-pattern {
+  background-image: 
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--dtz-border) 40%, transparent) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.dtz-work-card-featured {
+  position: relative;
+}
+
+.dtz-work-card-featured::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 3px;
+  background: linear-gradient(90deg, var(--dtz-accent), var(--dtz-accent-2));
+  border-radius: 3px 3px 0 0;
+}
+
 @media (max-width: 1180px) {
   .dtz-work-card,
   .dtz-work-card:nth-child(5) {

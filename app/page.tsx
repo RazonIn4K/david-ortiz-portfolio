@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion, useInView, useScroll, useTransform } from "framer-motion"
-import { useRef, useEffect, useState, useCallback } from "react"
+import { useRef } from "react"
 import { GithubIcon } from "@/components/icons/brand-icons"
 import { ProtectedEmailLink, RevealedEmail } from "@/components/contact/protected-email-link"
 import { AIAssistant } from "@/components/ai-assistant"
@@ -95,21 +95,27 @@ interface StaggerContainerProps {
   children: React.ReactNode
   className?: string
   staggerDelay?: number
+  as?: "div" | "ul"
+  "aria-label"?: string
 }
 
-function StaggerContainer({ children, className = "", staggerDelay = 0.08 }: StaggerContainerProps) {
-  const ref = useRef<HTMLDivElement>(null)
+function StaggerContainer({ children, className = "", staggerDelay = 0.08, as = "div", "aria-label": ariaLabel }: StaggerContainerProps) {
+  const ref = useRef<HTMLDivElement | HTMLUListElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-60px" })
   const shouldReduceMotion = useReducedMotion()
 
+  const Component = as === "ul" ? motion.ul : motion.div
+  const FallbackComponent = as === "ul" ? "ul" : "div"
+
   if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>
+    return <FallbackComponent className={className} aria-label={ariaLabel}>{children}</FallbackComponent>
   }
 
   return (
-    <motion.div
-      ref={ref}
+    <Component
+      ref={ref as React.RefObject<HTMLDivElement & HTMLUListElement>}
       className={className}
+      aria-label={ariaLabel}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={{
@@ -122,7 +128,7 @@ function StaggerContainer({ children, className = "", staggerDelay = 0.08 }: Sta
       }}
     >
       {children}
-    </motion.div>
+    </Component>
   )
 }
 
@@ -136,11 +142,6 @@ const staggerItem = {
       ease: [0.22, 1, 0.36, 1] as const,
     },
   },
-}
-
-function useParallax(value: number, distance: number) {
-  const shouldReduceMotion = useReducedMotion()
-  return shouldReduceMotion ? 0 : value * distance
 }
 
 const navItems = [
@@ -636,7 +637,7 @@ export default function HomePage() {
             I show the customer-facing surface and the practical setup behind it: domain, email, social paths,
             security basics, and a plain handoff. The proof is inspectable, not just claimed.
           </p>
-          <StaggerContainer className="dtz-signal-list" aria-label="Portfolio signals" staggerDelay={0.06}>
+          <StaggerContainer as="ul" className="dtz-signal-list" aria-label="Portfolio signals" staggerDelay={0.06}>
             {proofSignals.map((signal) => (
               <motion.li key={signal} variants={staggerItem}>
                 <CheckCircle2 aria-hidden="true" />
@@ -869,7 +870,7 @@ export default function HomePage() {
             >
               <Image src="/visuals/generated-lanes.webp" alt="" width={1774} height={887} />
             </motion.div>
-            <StaggerContainer className="dtz-check-list" staggerDelay={0.08}>
+            <StaggerContainer as="ul" className="dtz-check-list" staggerDelay={0.08}>
               {currentFocus.map((line) => (
                 <motion.li
                   key={line}

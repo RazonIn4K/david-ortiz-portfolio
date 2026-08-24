@@ -350,7 +350,7 @@ export function PortfolioMotion() {
               <motion.article
                 key={item.title}
                 className="rounded-3xl border p-6 dtz-card-interactive dtz-glass-panel"
-                style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
+                style={{ borderColor: "var(--dtz-border)" }}
                 variants={staggerItem}
                 whileHover={shouldReduceMotion ? {} : { y: -6 }}
               >
@@ -374,7 +374,7 @@ export function PortfolioMotion() {
           <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
             <motion.div
               className="rounded-3xl border p-6 dtz-glass-panel"
-              style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
+              style={{ borderColor: "var(--dtz-border)" }}
               whileHover={shouldReduceMotion ? {} : { y: -4 }}
             >
               <p className="dtz-section-label">What the example shows</p>
@@ -424,7 +424,7 @@ export function PortfolioMotion() {
           <section className="grid gap-6 py-16 lg:grid-cols-[1.05fr_0.95fr]">
             <motion.div
               className="rounded-3xl border p-6 md:p-8 dtz-glass-panel"
-              style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
+              style={{ borderColor: "var(--dtz-border)" }}
               whileHover={shouldReduceMotion ? {} : { y: -4 }}
             >
               <p className="dtz-section-label">Reference links</p>
@@ -474,7 +474,7 @@ export function PortfolioMotion() {
 
             <motion.div
               className="rounded-3xl border p-6 md:p-8 dtz-glass-panel"
-              style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
+              style={{ borderColor: "var(--dtz-border)" }}
               whileHover={shouldReduceMotion ? {} : { y: -4 }}
             >
               <p className="dtz-section-label">Build signals</p>
