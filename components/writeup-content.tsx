@@ -5,12 +5,12 @@ const mutedText = { color: "var(--dtz-muted)" } as const
 
 const components: Components = {
   h2: ({ children }) => (
-    <h2 className="mt-10 mb-3 text-2xl font-bold" style={{ color: "var(--dtz-text)" }}>
+    <h2 className="mt-10 mb-3 text-2xl font-bold" style={{ color: "var(--dtz-fg)" }}>
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="mt-7 mb-2 text-lg font-semibold" style={{ color: "var(--dtz-text)" }}>
+    <h3 className="mt-7 mb-2 text-lg font-semibold" style={{ color: "var(--dtz-fg)" }}>
       {children}
     </h3>
   ),
@@ -42,7 +42,7 @@ const components: Components = {
     </a>
   ),
   strong: ({ children }) => (
-    <strong style={{ color: "var(--dtz-text)" }}>{children}</strong>
+    <strong style={{ color: "var(--dtz-fg)" }}>{children}</strong>
   ),
   blockquote: ({ children }) => (
     <blockquote
@@ -98,7 +98,7 @@ const components: Components = {
   th: ({ children }) => (
     <th
       className="border px-3 py-2 text-left font-semibold"
-      style={{ borderColor: "var(--dtz-border)", color: "var(--dtz-text)" }}
+      style={{ borderColor: "var(--dtz-border)", color: "var(--dtz-fg)" }}
     >
       {children}
     </th>
