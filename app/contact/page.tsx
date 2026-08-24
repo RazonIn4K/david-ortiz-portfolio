@@ -6,7 +6,6 @@ import {
   CalendarDays,
   ExternalLink,
   Mail,
-  MessageCircle,
 } from "lucide-react"
 
 import {
@@ -22,9 +21,8 @@ import {
   type ContactLink,
 } from "@/lib/contact-links"
 import { personalSitePublicLabel } from "@/lib/site-config"
-import { whatsappHref } from "@/data/content"
-import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
 import { ThemeShell } from "@/components/theme-shell"
+import { ProtectedEmailLink } from "@/components/contact/protected-email-link"
 
 export const metadata: Metadata = {
   title: "Contact | David Ortiz",
@@ -50,8 +48,6 @@ function iconFor(link: ContactLink) {
       return <InstagramIcon {...props} />
     case "linkedin":
       return <LinkedinIcon {...props} />
-    case "whatsapp":
-      return <MessageCircle {...props} />
     case "github":
       return <GithubIcon {...props} />
     default:
@@ -99,16 +95,14 @@ function ContactTile({ link }: { link: ContactLink }) {
     </>
   )
 
-  return link.id === "whatsapp" ? (
-    <ProtectedWhatsAppLink
-      href={link.href}
-      target={isExternal(link.href) ? "_blank" : undefined}
-      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
+  return link.id === "email" ? (
+    <ProtectedEmailLink
       className={tileClass}
       style={tileStyle}
+      subject="Inquiry from contact page"
     >
       {body}
-    </ProtectedWhatsAppLink>
+    </ProtectedEmailLink>
   ) : (
     <a
       href={link.href}
@@ -208,16 +202,14 @@ export default function ContactPage() {
               I keep the first message short on purpose. If this is a real project, send scope and timeline so I can
               respond quickly with realistic next steps.
             </p>
-            <ProtectedWhatsAppLink
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
+            <ProtectedEmailLink
               className="mt-4 inline-flex items-center gap-2 rounded-2xl px-5 py-3 font-semibold transition-transform hover:scale-[1.01]"
               style={{ background: "var(--dtz-accent)", color: "var(--dtz-on-accent)" }}
+              subject="Project inquiry"
             >
-              Start a project on WhatsApp
+              Start a project via email
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </ProtectedWhatsAppLink>
+            </ProtectedEmailLink>
           </div>
         </div>
       </main>

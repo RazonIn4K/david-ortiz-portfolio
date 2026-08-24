@@ -17,15 +17,9 @@ export const socialProfileLinks = [
 
 export const quickReachLinks: ContactLink[] = [
   {
-    id: "whatsapp",
-    label: "WhatsApp",
-    href: "/contact/whatsapp?intent=portfolio",
-    description: "Start with a screened, context-first message that keeps the phone out of public pages.",
-  },
-  {
     id: "email",
     label: "Email",
-    href: "mailto:hello@davidtiz.com",
+    href: "#",
     description: "Best async path for introductions, follow-up, and project questions.",
   },
   {

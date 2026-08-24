@@ -5,15 +5,16 @@ import Link from "next/link"
 import { motion, useReducedMotion, useInView, useScroll, useTransform } from "framer-motion"
 import { useRef, useEffect, useState, useCallback } from "react"
 import { GithubIcon } from "@/components/icons/brand-icons"
-import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
+import { ProtectedEmailLink, RevealedEmail } from "@/components/contact/protected-email-link"
 import { AIAssistant } from "@/components/ai-assistant"
 import { useSiteTheme } from "@/components/use-site-theme"
-import { contact, whatsappHref } from "@/data/content"
+import { contact } from "@/data/content"
 import {
   ArrowUpRight,
   AtSign,
   BadgeCheck,
   BookOpen,
+  CalendarDays,
   CheckCircle2,
   ClipboardCheck,
   Code2,
@@ -22,9 +23,9 @@ import {
   Globe,
   LockKeyhole,
   Mail,
-  MessageCircle,
   Moon,
   ShieldCheck,
+  Share2,
   Sparkles,
   Smartphone,
   Store,
@@ -168,7 +169,7 @@ const proofSurfaces = [
   {
     label: "Spanish-first demos",
     title: "Pedidos, citas, servicios",
-    body: "Small-business flows for owners and customers who live on mobile, WhatsApp, and social.",
+    body: "Small-business flows for owners and customers who live on mobile and social.",
     image: "/visuals/local-business-system.svg",
     href: "/demo",
     alt: "Illustrated local business system showing connected website, social, and contact paths.",
@@ -209,7 +210,7 @@ const launchFlow = [
   },
   {
     title: "Social",
-    detail: "Facebook, Instagram, WhatsApp paths",
+    detail: "Facebook, Instagram, and direct paths",
     icon: Smartphone,
   },
   {
@@ -233,10 +234,10 @@ const setupCards = [
     icon: AtSign,
   },
   {
-    title: "Social And WhatsApp Paths",
-    body: "Connecting the site to the places customers already use, with a guarded WhatsApp path so the phone number is not exposed to scrapers.",
-    points: ["WhatsApp guard route", "Social profile buttons", "Google/local links"],
-    icon: Smartphone,
+    title: "Social And Contact Paths",
+    body: "Connecting the site to the places customers already use, with clear paths from social profiles to contact forms.",
+    points: ["Social profile buttons", "Contact forms", "Google/local links"],
+    icon: Share2,
   },
   {
     title: "Security-Minded Handoff",
@@ -358,11 +359,6 @@ const currentFocus = [
   "Better notes that preserve what worked, what failed, and what should happen in the next session.",
 ]
 
-const contactGuardrails = [
-  "Public links start with project context instead of a bare phone number.",
-  "A future WhatsApp/n8n screener can label spam, ask one clarifying question, and keep human approval on replies.",
-  "Direct calls should happen after context, not as the first public CTA bots can scrape.",
-]
 
 export default function HomePage() {
   const { theme, updateTheme } = useSiteTheme()
@@ -637,7 +633,7 @@ export default function HomePage() {
             <h2 id="proof-title">Make the work visible before someone has to ask.</h2>
           </div>
           <p>
-            I show the customer-facing surface and the practical setup behind it: domain, email, WhatsApp/social paths,
+            I show the customer-facing surface and the practical setup behind it: domain, email, social paths,
             security basics, and a plain handoff. The proof is inspectable, not just claimed.
           </p>
           <StaggerContainer className="dtz-signal-list" aria-label="Portfolio signals" staggerDelay={0.06}>
@@ -896,8 +892,7 @@ export default function HomePage() {
             <h2 id="contact-title">Start a conversation about the work.</h2>
             <p>
               You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
-              and what would make the next step useful. I keep the public contact path screened so the phone number is not
-              treated like an open spam target.
+              and what would make the next step useful.
             </p>
           </div>
 
@@ -911,47 +906,32 @@ export default function HomePage() {
               <p>What are you trying to build or fix, and what is the current state?</p>
             </motion.div>
             <motion.div
-              className="dtz-contact-card dtz-contact-guard dtz-glass-panel"
+              className="dtz-contact-card dtz-glass-panel"
               whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <span>Phone spam guard</span>
-              <ul>
-                {contactGuardrails.map((item) => (
-                  <li key={item}>
-                    <ShieldCheck aria-hidden="true" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <span>Response time</span>
+              <p>I typically respond within one business day. For urgent matters, book a call directly.</p>
             </motion.div>
             <StaggerContainer className="dtz-contact-actions" staggerDelay={0.08}>
               <motion.div variants={staggerItem}>
-                <ProtectedWhatsAppLink
+                <ProtectedEmailLink
                   className="dtz-button primary dtz-button-glow"
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noreferrer"
+                  subject="Project inquiry from davidtiz.com"
                 >
-                  Message me on WhatsApp
-                  <MessageCircle aria-hidden="true" />
-                </ProtectedWhatsAppLink>
-              </motion.div>
-              <motion.div variants={staggerItem}>
-                <ProtectedWhatsAppLink
-                  className="dtz-button secondary dtz-button-glow"
-                  href="/contact/whatsapp?intent=callback"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Request a call-back
-                  <MessageCircle aria-hidden="true" />
-                </ProtectedWhatsAppLink>
-              </motion.div>
-              <motion.div variants={staggerItem}>
-                <a className="dtz-button secondary dtz-button-glow" href={`mailto:${contact.email}`}>
-                  {contact.email}
+                  <RevealedEmail />
                   <Mail aria-hidden="true" />
+                </ProtectedEmailLink>
+              </motion.div>
+              <motion.div variants={staggerItem}>
+                <a
+                  className="dtz-button secondary dtz-button-glow"
+                  href="https://calendly.com/davidinfosec07"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Book a call
+                  <CalendarDays aria-hidden="true" />
                 </a>
               </motion.div>
               <motion.div variants={staggerItem}>
@@ -969,10 +949,7 @@ export default function HomePage() {
         <footer className="dtz-footer">
           <span>David Ortiz</span>
           <span className="dtz-footer-links">
-            <ProtectedWhatsAppLink href={whatsappHref} target="_blank" rel="noreferrer">
-              WhatsApp
-            </ProtectedWhatsAppLink>
-            <a href={`mailto:${contact.email}`}>Email</a>
+            <ProtectedEmailLink>Email</ProtectedEmailLink>
             <a href={contact.github} target="_blank" rel="noreferrer">
               GitHub
             </a>

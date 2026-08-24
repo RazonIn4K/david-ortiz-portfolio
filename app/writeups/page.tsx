@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Mail, ShieldCheck } from "lucide-react"
 
-import { contact } from "@/data/content"
 import { ThemeShell } from "@/components/theme-shell"
 import { getAllWriteups } from "@/lib/writeups"
+import { ProtectedEmailLink } from "@/components/contact/protected-email-link"
 
 export const metadata: Metadata = {
   title: "CTF Writeups | David Ortiz",
@@ -50,14 +50,14 @@ export default function WriteupsPage() {
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               Back to home
             </Link>
-            <a
-              href={`mailto:${contact.email}`}
+            <ProtectedEmailLink
               className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
               style={primaryCtaStyle}
+              subject="Writeup inquiry"
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
               Contact David
-            </a>
+            </ProtectedEmailLink>
           </nav>
 
           <section className="py-12">

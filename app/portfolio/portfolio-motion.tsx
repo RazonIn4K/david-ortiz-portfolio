@@ -18,7 +18,7 @@ import {
 } from "lucide-react"
 
 import { businessSiteUrl } from "@/lib/site-config"
-import { contact } from "@/data/content"
+import { ProtectedEmailLink } from "@/components/contact/protected-email-link"
 
 const highlights = [
   "Bilingual English and Spanish paths",
@@ -233,16 +233,14 @@ export function PortfolioMotion() {
               Back to home
             </Link>
           </motion.div>
-          <motion.a
-            href={`mailto:${contact.email}`}
+          <ProtectedEmailLink
             className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold dtz-button-glow"
             style={{ background: "var(--dtz-accent)", color: "var(--dtz-on-accent)" }}
-            whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
-            whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+            subject="Project inquiry from portfolio"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
             Contact David
-          </motion.a>
+          </ProtectedEmailLink>
         </motion.nav>
 
         <motion.section
