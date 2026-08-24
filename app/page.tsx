@@ -77,7 +77,7 @@ const proofSurfaces = [
     label: "Setup layer",
     title: "Domain, inbox, social, handoff",
     body: "The professional pieces around the site are part of the work, not an afterthought.",
-    image: "/visuals/generated-workbench.webp",
+    image: "/visuals/workbench-atmosphere.webp",
     href: "#setup",
     alt: "Desk scene representing website setup, account handoff, and project notes.",
   },
@@ -345,6 +345,16 @@ export default function HomePage() {
         aria-labelledby="hero-title"
         style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
       >
+        <div className="dtz-hero-atmosphere" aria-hidden="true">
+          <Image
+            src="/visuals/hero-atmosphere.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: "cover" }}
+          />
+        </div>
         <motion.div
           className="dtz-hero-copy"
           initial={shouldReduceMotion ? false : { opacity: 0 }}
@@ -769,7 +779,7 @@ export default function HomePage() {
               style={{ borderRadius: "var(--dtz-radius-md)", overflow: "hidden" }}
               whileHover={shouldReduceMotion ? {} : { scale: 1.01 }}
             >
-              <Image src="/visuals/generated-lanes.webp" alt="" width={1774} height={887} />
+              <Image src="/visuals/notes-atmosphere.webp" alt="" width={1774} height={887} />
             </motion.div>
             <StaggerContainer as="ul" className="dtz-check-list is-editorial" staggerDelay={0.08}>
               {currentFocus.map((line) => (
