@@ -2,11 +2,19 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { motion, useReducedMotion, useInView, useScroll, useTransform } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { GithubIcon } from "@/components/icons/brand-icons"
 import { ProtectedEmailLink, RevealedEmail } from "@/components/contact/protected-email-link"
 import { AIAssistant } from "@/components/ai-assistant"
+import {
+  CapabilityTrack,
+  Reveal,
+  ScrollProgress,
+  SectionHeader,
+  StaggerContainer,
+  staggerItem,
+} from "@/components/motion/site-motion"
 import { useSiteTheme } from "@/components/use-site-theme"
 import { contact } from "@/data/content"
 import {
@@ -33,116 +41,6 @@ import {
   Workflow,
   Wrench,
 } from "lucide-react"
-
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1])
-  const shouldReduceMotion = useReducedMotion()
-
-  if (shouldReduceMotion) return null
-
-  return (
-    <motion.div
-      className="dtz-scroll-progress"
-      style={{ scaleX }}
-    />
-  )
-}
-
-interface RevealProps {
-  children: React.ReactNode
-  className?: string
-  delay?: number
-  direction?: "up" | "down" | "left" | "right" | "scale"
-}
-
-function Reveal({ children, className = "", delay = 0, direction = "up" }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-80px" })
-  const shouldReduceMotion = useReducedMotion()
-
-  const variants = {
-    up: { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } },
-    down: { hidden: { opacity: 0, y: -40 }, visible: { opacity: 1, y: 0 } },
-    left: { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0 } },
-    right: { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0 } },
-    scale: { hidden: { opacity: 0, scale: 0.92 }, visible: { opacity: 1, scale: 1 } },
-  }
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>
-  }
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={variants[direction]}
-      transition={{
-        duration: 0.7,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-interface StaggerContainerProps {
-  children: React.ReactNode
-  className?: string
-  staggerDelay?: number
-  as?: "div" | "ul"
-  "aria-label"?: string
-}
-
-function StaggerContainer({ children, className = "", staggerDelay = 0.08, as = "div", "aria-label": ariaLabel }: StaggerContainerProps) {
-  const ref = useRef<HTMLDivElement | HTMLUListElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-60px" })
-  const shouldReduceMotion = useReducedMotion()
-
-  const Component = as === "ul" ? motion.ul : motion.div
-  const FallbackComponent = as === "ul" ? "ul" : "div"
-
-  if (shouldReduceMotion) {
-    return <FallbackComponent className={className} aria-label={ariaLabel}>{children}</FallbackComponent>
-  }
-
-  return (
-    <Component
-      ref={ref as React.RefObject<HTMLDivElement & HTMLUListElement>}
-      className={className}
-      aria-label={ariaLabel}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay,
-          },
-        },
-      }}
-    >
-      {children}
-    </Component>
-  )
-}
-
-const staggerItem = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-}
 
 const navItems = [
   { label: "Work", href: "#work" },
@@ -464,12 +362,13 @@ export default function HomePage() {
           </motion.p>
           <motion.h1
             id="hero-title"
-            className={shouldReduceMotion ? "" : "dtz-text-shimmer"}
+            className={`dtz-hero-display ${shouldReduceMotion ? "" : "dtz-text-shimmer"}`}
             initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            I build practical web, automation, and AI-security systems.
+            I build practical web, automation,
+            <span className="dtz-hero-accent">and AI-security systems.</span>
           </motion.h1>
           <motion.p
             className="dtz-lede"
@@ -480,27 +379,6 @@ export default function HomePage() {
             I&apos;m David Ortiz. This is my personal proof hub: selected work, operating notes, and the decisions behind
             the systems I build, test, and hand off.
           </motion.p>
-
-          <motion.ul
-            className="dtz-hero-badges"
-            aria-label="What David can set up"
-            initial={shouldReduceMotion ? false : { opacity: 0 }}
-            animate={shouldReduceMotion ? undefined : { opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.55 }}
-          >
-            {heroHighlights.map((item, i) => (
-              <motion.li
-                key={item}
-                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.8 }}
-                animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 0.6 + i * 0.06 }}
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05, y: -2 }}
-                className="dtz-tag-pop"
-              >
-                {item}
-              </motion.li>
-            ))}
-          </motion.ul>
 
           <motion.div
             className="dtz-hero-actions"
@@ -528,6 +406,8 @@ export default function HomePage() {
               <BookOpen aria-hidden="true" />
             </motion.a>
           </motion.div>
+
+          <CapabilityTrack items={heroHighlights} />
         </motion.div>
 
         <motion.div
@@ -627,16 +507,17 @@ export default function HomePage() {
         </motion.div>
       </motion.section>
 
+      <div className="dtz-section-rule" aria-hidden="true" />
+
       <section className="dtz-section dtz-proof-section" aria-labelledby="proof-title">
-        <Reveal className="dtz-section-heading dtz-proof-heading">
-          <div>
-            <p className="dtz-section-label">Proof of work</p>
-            <h2 id="proof-title">Make the work visible before someone has to ask.</h2>
-          </div>
-          <p>
-            I show the customer-facing surface and the practical setup behind it: domain, email, social paths,
-            security basics, and a plain handoff. The proof is inspectable, not just claimed.
-          </p>
+        <Reveal>
+          <SectionHeader
+            index="01"
+            label="Proof of work"
+            titleId="proof-title"
+            title="Make the work visible before someone has to ask."
+            lead="I show the customer-facing surface and the practical setup behind it: domain, email, social paths, security basics, and a plain handoff. The proof is inspectable, not just claimed."
+          />
           <StaggerContainer as="ul" className="dtz-signal-list" aria-label="Portfolio signals" staggerDelay={0.06}>
             {proofSignals.map((signal) => (
               <motion.li key={signal} variants={staggerItem}>
@@ -647,7 +528,7 @@ export default function HomePage() {
           </StaggerContainer>
         </Reveal>
 
-        <StaggerContainer className="dtz-proof-surface-grid" staggerDelay={0.1}>
+        <StaggerContainer className="dtz-proof-surface-grid is-bento" staggerDelay={0.1}>
           {proofSurfaces.map((item, index) => (
             <motion.article
               className={`${index === 0 ? "dtz-proof-surface is-featured" : "dtz-proof-surface"} dtz-card-interactive`}
@@ -672,14 +553,17 @@ export default function HomePage() {
         </StaggerContainer>
       </section>
 
+      <div className="dtz-section-rule" aria-hidden="true" />
+
       <section id="setup" className="dtz-section dtz-services-section" aria-labelledby="setup-title">
-        <Reveal className="dtz-section-heading">
-          <p className="dtz-section-label">Selected proof</p>
-          <h2 id="setup-title">The practical layer behind the site.</h2>
-          <p>
-            A working local-business site needs more than a homepage. These are the pieces I connect and document so the
-            owner can keep the system running after handoff.
-          </p>
+        <Reveal>
+          <SectionHeader
+            index="02"
+            label="Selected proof"
+            titleId="setup-title"
+            title="The practical layer behind the site."
+            lead="A working local-business site needs more than a homepage. These are the pieces I connect and document so the owner can keep the system running after handoff."
+          />
         </Reveal>
 
         <StaggerContainer className="dtz-setup-grid" staggerDelay={0.08}>
@@ -715,23 +599,27 @@ export default function HomePage() {
         </StaggerContainer>
       </section>
 
+      <div className="dtz-section-rule" aria-hidden="true" />
+
       <section id="work" className="dtz-section" aria-labelledby="work-title">
-        <Reveal className="dtz-section-heading">
-          <p className="dtz-section-label">Selected work</p>
-          <h2 id="work-title">Working lanes and proof people can inspect.</h2>
-          <p>
-            These are categories and proof cards, not a brand directory. Each one points to a practical thing I can
-            design, connect, test, and explain clearly.
-          </p>
+        <Reveal>
+          <SectionHeader
+            index="03"
+            label="Selected work"
+            titleId="work-title"
+            title="Working lanes and proof people can inspect."
+            lead="These are categories and proof cards, not a brand directory. Each one points to a practical thing I can design, connect, test, and explain clearly."
+          />
         </Reveal>
 
-        <StaggerContainer className="dtz-work-grid" staggerDelay={0.06}>
-          {workAreas.map((item) => {
+        <StaggerContainer className="dtz-work-grid is-bento" staggerDelay={0.06}>
+          {workAreas.map((item, workIndex) => {
             const Icon = item.icon
+            const isFeatured = workIndex === 0
 
             return (
               <motion.article
-                className="dtz-work-card dtz-card-interactive"
+                className={`dtz-work-card dtz-card-interactive${isFeatured ? " is-featured" : ""}`}
                 key={item.title}
                 variants={staggerItem}
                 whileHover={shouldReduceMotion ? {} : { y: -6 }}
@@ -780,17 +668,20 @@ export default function HomePage() {
         </StaggerContainer>
       </section>
 
+      <div className="dtz-section-rule" aria-hidden="true" />
+
       <section id="process" className="dtz-section" aria-labelledby="process-title">
-        <Reveal className="dtz-section-heading">
-          <p className="dtz-section-label">Process</p>
-          <h2 id="process-title">How I keep projects grounded.</h2>
-          <p>
-            The common thread is verification. I would rather inspect the actual surface and make a smaller honest
-            improvement than write a big plan that never reaches the browser.
-          </p>
+        <Reveal>
+          <SectionHeader
+            index="04"
+            label="Process"
+            titleId="process-title"
+            title="How I keep projects grounded."
+            lead="The common thread is verification. I would rather inspect the actual surface and make a smaller honest improvement than write a big plan that never reaches the browser."
+          />
         </Reveal>
 
-        <StaggerContainer className="dtz-process-grid" staggerDelay={0.1}>
+        <StaggerContainer className="dtz-process-grid is-timeline" staggerDelay={0.1}>
           {processSteps.map((step, index) => {
             const Icon = step.icon
 
@@ -816,14 +707,17 @@ export default function HomePage() {
         </StaggerContainer>
       </section>
 
+      <div className="dtz-section-rule" aria-hidden="true" />
+
       <section id="stack" className="dtz-section dtz-stack-section" aria-labelledby="stack-title">
-        <Reveal className="dtz-section-heading">
-          <p className="dtz-section-label">Stack</p>
-          <h2 id="stack-title">Tools behind the calm handoff.</h2>
-          <p>
-            Visitors should not have to care about the stack. I use it to make the finished setup fast, reliable,
-            secure enough for the job, and easier to maintain.
-          </p>
+        <Reveal>
+          <SectionHeader
+            index="05"
+            label="Stack"
+            titleId="stack-title"
+            title="Tools behind the calm handoff."
+            lead="Visitors should not have to care about the stack. I use it to make the finished setup fast, reliable, secure enough for the job, and easier to maintain."
+          />
         </Reveal>
 
         <StaggerContainer className="dtz-stack-grid" staggerDelay={0.08}>
@@ -851,12 +745,19 @@ export default function HomePage() {
         </StaggerContainer>
       </section>
 
+      <div className="dtz-section-rule" aria-hidden="true" />
+
       <section id="notes" className="dtz-section dtz-notes-section" aria-labelledby="notes-title">
-        <Reveal className="dtz-notes-layout" direction="up">
+        <Reveal className="dtz-notes-layout is-editorial" direction="up">
           <div>
-            <p className="dtz-section-label">Operating notes</p>
+            <p className="dtz-section-label">
+              <span className="dtz-index-badge" aria-hidden="true">
+                06
+              </span>
+              Operating notes
+            </p>
             <h2 id="notes-title">What I&apos;m paying attention to right now.</h2>
-            <p>
+            <p className="dtz-section-lead">
               This is the living part of the portfolio: systems thinking, practical security habits, useful automation,
               and proof that survives beyond a sales conversation.
             </p>
@@ -865,12 +766,12 @@ export default function HomePage() {
           <div className="dtz-notes-panel">
             <motion.div
               className="dtz-img-hover"
-              style={{ borderRadius: "8px", overflow: "hidden" }}
+              style={{ borderRadius: "var(--dtz-radius-md)", overflow: "hidden" }}
               whileHover={shouldReduceMotion ? {} : { scale: 1.01 }}
             >
               <Image src="/visuals/generated-lanes.webp" alt="" width={1774} height={887} />
             </motion.div>
-            <StaggerContainer as="ul" className="dtz-check-list" staggerDelay={0.08}>
+            <StaggerContainer as="ul" className="dtz-check-list is-editorial" staggerDelay={0.08}>
               {currentFocus.map((line) => (
                 <motion.li
                   key={line}
@@ -886,12 +787,19 @@ export default function HomePage() {
         </Reveal>
       </section>
 
+      <div className="dtz-section-rule" aria-hidden="true" />
+
       <Reveal direction="up">
         <section id="contact" className="dtz-contact dtz-overhaul-contact dtz-cta-ring" aria-labelledby="contact-title">
           <div>
-            <p className="dtz-section-label">Contact</p>
+            <p className="dtz-section-label">
+              <span className="dtz-index-badge" aria-hidden="true">
+                07
+              </span>
+              Contact
+            </p>
             <h2 id="contact-title">Start a conversation about the work.</h2>
-            <p>
+            <p className="dtz-section-lead">
               You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
               and what would make the next step useful.
             </p>

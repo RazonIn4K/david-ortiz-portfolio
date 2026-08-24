@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import Link from "next/link"
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -27,6 +27,12 @@ import {
 import { personalSitePublicLabel } from "@/lib/site-config"
 import { ThemeShell } from "@/components/theme-shell"
 import { ProtectedEmailLink } from "@/components/contact/protected-email-link"
+import {
+  Reveal,
+  ScrollProgress,
+  StaggerContainer,
+  staggerItem,
+} from "@/components/motion/site-motion"
 
 function iconFor(link: ContactLink) {
   const props = { className: "h-4 w-4", "aria-hidden": true } as const
@@ -57,111 +63,7 @@ function isExternal(href: string) {
   return href.startsWith("http")
 }
 
-interface RevealProps {
-  children: React.ReactNode
-  className?: string
-  delay?: number
-  direction?: "up" | "down" | "left" | "right" | "scale"
-}
-
-function Reveal({ children, className = "", delay = 0, direction = "up" }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-60px" })
-  const shouldReduceMotion = useReducedMotion()
-
-  const variants = {
-    up: { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } },
-    down: { hidden: { opacity: 0, y: -40 }, visible: { opacity: 1, y: 0 } },
-    left: { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0 } },
-    right: { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0 } },
-    scale: { hidden: { opacity: 0, scale: 0.92 }, visible: { opacity: 1, scale: 1 } },
-  }
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>
-  }
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={variants[direction]}
-      transition={{
-        duration: 0.7,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-interface StaggerContainerProps {
-  children: React.ReactNode
-  className?: string
-  staggerDelay?: number
-}
-
-function StaggerContainer({ children, className = "", staggerDelay = 0.08 }: StaggerContainerProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-40px" })
-  const shouldReduceMotion = useReducedMotion()
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>
-  }
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay,
-          },
-        },
-      }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-const staggerItem = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-}
-
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1])
-  const shouldReduceMotion = useReducedMotion()
-
-  if (shouldReduceMotion) return null
-
-  return (
-    <motion.div
-      className="dtz-scroll-progress"
-      style={{ scaleX }}
-    />
-  )
-}
-
-function ContactTile({ link, index }: { link: ContactLink; index: number }) {
+function ContactTile({ link }: { link: ContactLink }) {
   const shouldReduceMotion = useReducedMotion()
 
   const body = (
@@ -260,11 +162,11 @@ export function ContactPageClient() {
   return (
     <ThemeShell>
       <ScrollProgress />
-      <main className="min-h-screen px-6 py-16 md:py-20">
-        <div className="mx-auto max-w-6xl">
+      <main className="dtz-contact-page">
+        <div className="dtz-contact-shell">
           <motion.div
             ref={heroRef}
-            className="mb-16 max-w-3xl"
+            className="dtz-contact-hero mb-14 max-w-3xl"
             style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
           >
             <motion.p
@@ -277,7 +179,7 @@ export function ContactPageClient() {
               Contact
             </motion.p>
             <motion.h1
-              className="mt-4 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl"
+              className="mt-4"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -328,23 +230,18 @@ export function ContactPageClient() {
             </motion.div>
           </motion.div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="dtz-section-rule" aria-hidden="true" />
+
+          <div className="dtz-contact-groups">
             {groups.map((group, groupIndex) => {
               const Icon = group.icon
               return (
                 <Reveal key={group.heading} delay={groupIndex * 0.1} direction="up">
                   <motion.section
-                    className="rounded-3xl border p-6 dtz-glass-panel relative overflow-hidden"
-                    style={{ borderColor: "var(--dtz-border)" }}
+                    className="dtz-contact-group-card dtz-glass-panel"
                     whileHover={shouldReduceMotion ? {} : { y: -4 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div
-                      className="absolute top-0 left-0 right-0 h-1"
-                      style={{
-                        background: `linear-gradient(90deg, var(--dtz-accent), var(--dtz-accent-2), var(--dtz-accent-3))`,
-                      }}
-                    />
                     <div className="flex items-start justify-between gap-4">
                       <p className="dtz-section-label">{group.heading}</p>
                       <motion.span
@@ -360,8 +257,8 @@ export function ContactPageClient() {
                     </p>
 
                     <StaggerContainer className="mt-6 space-y-3" staggerDelay={0.08}>
-                      {group.links.map((link, index) => (
-                        <ContactTile key={link.id} link={link} index={index} />
+                      {group.links.map((link) => (
+                        <ContactTile key={link.id} link={link} />
                       ))}
                     </StaggerContainer>
                   </motion.section>
@@ -370,19 +267,14 @@ export function ContactPageClient() {
             })}
           </div>
 
+          <div className="dtz-section-rule mt-10" aria-hidden="true" />
+
           <Reveal delay={0.3} direction="up">
             <motion.div
-              className="mt-10 rounded-3xl border px-6 py-6 md:py-8 dtz-cta-ring relative overflow-hidden"
-              style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
+              className="mt-8 rounded-3xl border px-6 py-6 md:py-8 dtz-cta-ring dtz-overhaul-contact"
+              style={{ borderColor: "var(--dtz-border)" }}
               whileHover={shouldReduceMotion ? {} : { scale: 1.005 }}
             >
-              <div
-                className="absolute inset-0 opacity-30"
-                style={{
-                  background: `radial-gradient(ellipse at 20% 50%, var(--dtz-accent-soft) 0%, transparent 50%)`,
-                }}
-              />
-              <div className="relative">
                 <p className="text-base font-bold md:text-lg" style={{ color: "var(--dtz-fg)" }}>
                   Prefer a structured intake?
                 </p>
@@ -404,7 +296,6 @@ export function ContactPageClient() {
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </ProtectedEmailLink>
                 </motion.div>
-              </div>
             </motion.div>
           </Reveal>
         </div>

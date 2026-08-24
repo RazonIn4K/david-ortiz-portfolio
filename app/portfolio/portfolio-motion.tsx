@@ -3,7 +3,7 @@
 import { useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import {
   ArrowLeft,
   ArrowRight,
@@ -19,6 +19,13 @@ import {
 
 import { businessSiteUrl } from "@/lib/site-config"
 import { ProtectedEmailLink } from "@/components/contact/protected-email-link"
+import {
+  Reveal,
+  ScrollProgress,
+  SectionHeader,
+  StaggerContainer,
+  staggerItem,
+} from "@/components/motion/site-motion"
 
 const highlights = [
   "Bilingual English and Spanish paths",
@@ -99,110 +106,6 @@ const liveProofUpdates = [
   },
 ]
 
-interface RevealProps {
-  children: React.ReactNode
-  className?: string
-  delay?: number
-  direction?: "up" | "down" | "left" | "right" | "scale"
-}
-
-function Reveal({ children, className = "", delay = 0, direction = "up" }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-60px" })
-  const shouldReduceMotion = useReducedMotion()
-
-  const variants = {
-    up: { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } },
-    down: { hidden: { opacity: 0, y: -40 }, visible: { opacity: 1, y: 0 } },
-    left: { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0 } },
-    right: { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0 } },
-    scale: { hidden: { opacity: 0, scale: 0.92 }, visible: { opacity: 1, scale: 1 } },
-  }
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>
-  }
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={variants[direction]}
-      transition={{
-        duration: 0.7,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-interface StaggerContainerProps {
-  children: React.ReactNode
-  className?: string
-  staggerDelay?: number
-}
-
-function StaggerContainer({ children, className = "", staggerDelay = 0.08 }: StaggerContainerProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-40px" })
-  const shouldReduceMotion = useReducedMotion()
-
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>
-  }
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay,
-          },
-        },
-      }}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-const staggerItem = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-}
-
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1])
-  const shouldReduceMotion = useReducedMotion()
-
-  if (shouldReduceMotion) return null
-
-  return (
-    <motion.div
-      className="dtz-scroll-progress"
-      style={{ scaleX }}
-    />
-  )
-}
-
 export function PortfolioMotion() {
   const shouldReduceMotion = useReducedMotion()
   const heroRef = useRef<HTMLElement>(null)
@@ -214,9 +117,9 @@ export function PortfolioMotion() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
   return (
-    <main className="min-h-screen px-6 py-12">
+    <div className="dtz-portfolio-page">
       <ScrollProgress />
-      <div className="mx-auto max-w-7xl">
+      <div className="dtz-portfolio-shell">
         <motion.nav
           className="flex flex-wrap items-center justify-between gap-4"
           initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
@@ -245,7 +148,7 @@ export function PortfolioMotion() {
 
         <motion.section
           ref={heroRef}
-          className="grid gap-12 py-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-center"
+          className="dtz-portfolio-hero"
           style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
         >
           <motion.div
@@ -263,7 +166,7 @@ export function PortfolioMotion() {
               Portfolio
             </motion.p>
             <motion.h1
-              className="mt-5 text-4xl font-bold leading-tight md:text-6xl"
+              className="mt-5"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
@@ -281,12 +184,9 @@ export function PortfolioMotion() {
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
             >
-              This page gives visitors a direct reference point. Hernandez
-              Landscape & Tree Service is a live landscaping website with
-              bilingual content, service positioning, project photos, and a
-              quote flow built around local customer calls, sourced trust
-              signals, and estimate requests that carry straight into the
-              contact form.
+              Hernandez Landscape & Tree Service is a live landscaping website with bilingual content,
+              service positioning, project photos, and a quote flow built around local customer calls,
+              sourced trust signals, and estimate requests that carry straight into the contact form.
             </motion.p>
             <motion.div
               className="mt-8 flex flex-col gap-4 sm:flex-row"
@@ -322,14 +222,13 @@ export function PortfolioMotion() {
           </motion.div>
 
           <motion.div
-            className="rounded-3xl border p-4 dtz-card-interactive"
-            style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)", boxShadow: "var(--dtz-shadow)" }}
+            className="dtz-portfolio-frame dtz-card-interactive"
             initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95, y: 30 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             whileHover={shouldReduceMotion ? {} : { y: -6 }}
           >
-            <div className="dtz-img-hover rounded-2xl overflow-hidden border" style={{ borderColor: "var(--dtz-border)" }}>
+            <div className="dtz-img-hover overflow-hidden rounded-2xl border" style={{ borderColor: "var(--dtz-border)" }}>
               <Image
                 src="/portfolio/hernandez/site-screenshot.png"
                 alt="Screenshot of the Hernandez Landscape website"
@@ -342,43 +241,49 @@ export function PortfolioMotion() {
           </motion.div>
         </motion.section>
 
-        <StaggerContainer className="grid gap-4 pb-10 md:grid-cols-3" staggerDelay={0.1}>
+        <div className="dtz-section-rule" aria-hidden="true" />
+
+        <StaggerContainer className="dtz-portfolio-metric-grid pb-10" staggerDelay={0.1}>
           {liveProofUpdates.map((item) => {
             const Icon = item.icon
 
             return (
               <motion.article
                 key={item.title}
-                className="rounded-3xl border p-6 dtz-card-interactive dtz-glass-panel"
-                style={{ borderColor: "var(--dtz-border)" }}
+                className="dtz-portfolio-metric dtz-card-interactive dtz-glass-panel"
                 variants={staggerItem}
                 whileHover={shouldReduceMotion ? {} : { y: -6 }}
               >
                 <motion.span
-                  className="flex h-11 w-11 items-center justify-center rounded-2xl dtz-icon-bounce"
+                  className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl dtz-icon-bounce"
                   style={{ background: "var(--dtz-accent-soft)", color: "var(--dtz-accent)" }}
                   whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: -5 }}
                 >
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </motion.span>
-                <h2 className="mt-5 text-lg font-semibold">{item.title}</h2>
-                <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
-                  {item.description}
-                </p>
+                <strong>{item.title}</strong>
+                <span>{item.description}</span>
               </motion.article>
             )
           })}
         </StaggerContainer>
 
+        <div className="dtz-section-rule" aria-hidden="true" />
+
         <Reveal direction="up">
+          <SectionHeader
+            index="01"
+            label="What the example shows"
+            title="Built for real local customers, not a slide deck."
+            lead="The Hernandez site is inspectable end to end: bilingual paths, estimator handoff, service pages, and trust signals that point to real sources."
+          />
           <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
             <motion.div
               className="rounded-3xl border p-6 dtz-glass-panel"
               style={{ borderColor: "var(--dtz-border)" }}
               whileHover={shouldReduceMotion ? {} : { y: -4 }}
             >
-              <p className="dtz-section-label">What the example shows</p>
-              <div className="mt-6 space-y-4">
+              <div className="mt-2 space-y-4">
                 {highlights.map((highlight, i) => (
                   <motion.div
                     key={highlight}
@@ -420,18 +325,22 @@ export function PortfolioMotion() {
           </section>
         </Reveal>
 
+        <div className="dtz-section-rule" aria-hidden="true" />
+
         <Reveal direction="up" delay={0.1}>
-          <section className="grid gap-6 py-16 lg:grid-cols-[1.05fr_0.95fr]">
+          <SectionHeader
+            index="02"
+            label="Reference links"
+            title="Each link answers a different question about the work."
+            align="left"
+          />
+          <section className="grid gap-6 py-8 lg:grid-cols-[1.05fr_0.95fr]">
             <motion.div
               className="rounded-3xl border p-6 md:p-8 dtz-glass-panel"
               style={{ borderColor: "var(--dtz-border)" }}
               whileHover={shouldReduceMotion ? {} : { y: -4 }}
             >
-              <p className="dtz-section-label">Reference links</p>
-              <h2 className="mt-4 text-2xl font-bold md:text-3xl">
-                Each link answers a different question about the work.
-              </h2>
-              <StaggerContainer className="mt-6 grid gap-4" staggerDelay={0.1}>
+              <StaggerContainer className="grid gap-4" staggerDelay={0.1}>
                 {referenceLinks.map((item) => {
                   const Icon = item.icon
 
@@ -481,7 +390,7 @@ export function PortfolioMotion() {
               <h2 className="mt-4 text-2xl font-bold md:text-3xl">
                 Concrete stack, not placeholder labels.
               </h2>
-              <p className="mt-4 text-sm leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
+              <p className="mt-4 text-sm leading-relaxed dtz-section-lead">
                 Clients do not need the whole implementation story, but they
                 should see that the site was built with real production pieces and
                 not just a static mockup.
@@ -512,7 +421,18 @@ export function PortfolioMotion() {
           </section>
         </Reveal>
 
-        <StaggerContainer className="grid gap-6 py-16 lg:grid-cols-3" staggerDelay={0.12}>
+        <div className="dtz-section-rule" aria-hidden="true" />
+
+        <Reveal direction="up">
+          <SectionHeader
+            index="03"
+            label="Visual proof"
+            title="Screens, photos, and collateral from the live build."
+            align="left"
+          />
+        </Reveal>
+
+        <StaggerContainer className="grid gap-6 py-8 lg:grid-cols-3" staggerDelay={0.12}>
           <motion.div
             className="overflow-hidden rounded-3xl border dtz-card-interactive"
             style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
@@ -593,6 +513,8 @@ export function PortfolioMotion() {
           </motion.div>
         </StaggerContainer>
 
+        <div className="dtz-section-rule" aria-hidden="true" />
+
         <Reveal direction="scale">
           <section className="pb-12">
             <motion.div
@@ -628,6 +550,6 @@ export function PortfolioMotion() {
           </section>
         </Reveal>
       </div>
-    </main>
+    </div>
   )
 }
