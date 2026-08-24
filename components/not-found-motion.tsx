@@ -25,11 +25,8 @@ export function NotFoundMotion() {
             </div>
 
             <h1
-              className="mt-6 text-2xl font-bold md:text-3xl"
-              style={{
-                fontFamily: "var(--font-display), var(--font-geist-sans), Georgia, serif",
-                color: "var(--dtz-fg)",
-              }}
+              className="mt-6 text-2xl font-bold md:text-3xl dtz-hero-display"
+              style={{ color: "var(--dtz-fg)" }}
             >
               Page not found
             </h1>

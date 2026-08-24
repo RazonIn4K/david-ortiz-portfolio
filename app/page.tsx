@@ -77,7 +77,7 @@ const proofSurfaces = [
     label: "Setup layer",
     title: "Domain, inbox, social, handoff",
     body: "The professional pieces around the site are part of the work, not an afterthought.",
-    image: "/visuals/workbench-atmosphere.webp",
+    image: "/visuals/project-board.svg",
     href: "#setup",
     alt: "Desk scene representing website setup, account handoff, and project notes.",
   },
@@ -212,7 +212,7 @@ const workAreas = [
     label: "Lab",
     title: "Razon Live Lab",
     body: "Learning AI security and systems in public: streams, writeups, and sanitized demos, in English and Spanish.",
-    image: "/visuals/generated-lanes.webp",
+    image: "/visuals/systems-routing.svg",
     icon: Sparkles,
     tags: ["Live builds", "AI security", "EN/ES"],
     cta: { label: "Visit lab", href: "https://razonlab.com" },
@@ -302,7 +302,7 @@ export default function HomePage() {
             </motion.div>
             <span>
               <strong>David Ortiz</strong>
-              <small>builder/operator portfolio</small>
+              <small>Websites and practical business systems.</small>
             </span>
           </Link>
 
@@ -355,16 +355,6 @@ export default function HomePage() {
         aria-labelledby="hero-title"
         style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
       >
-        <div className="dtz-hero-atmosphere" aria-hidden="true">
-          <Image
-            src="/visuals/hero-atmosphere.webp"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            style={{ objectFit: "cover" }}
-          />
-        </div>
         <motion.div
           className="dtz-hero-copy"
           initial={shouldReduceMotion ? false : { opacity: 0 }}
@@ -382,7 +372,7 @@ export default function HomePage() {
           </motion.p>
           <motion.h1
             id="hero-title"
-            className={`dtz-hero-display ${shouldReduceMotion ? "" : "dtz-text-shimmer"}`}
+            className="dtz-hero-display"
             initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
             animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -795,7 +785,7 @@ export default function HomePage() {
               style={{ borderRadius: "var(--dtz-radius-md)", overflow: "hidden" }}
               whileHover={shouldReduceMotion ? {} : { scale: 1.01 }}
             >
-              <Image src="/visuals/notes-atmosphere.webp" alt="" width={1774} height={887} />
+              <Image src="/visuals/notes-map.svg" alt="" width={900} height={640} />
             </motion.div>
             <StaggerContainer as="ul" className="dtz-check-list is-editorial" staggerDelay={0.08}>
               {currentFocus.map((line) => (
@@ -888,7 +878,10 @@ export default function HomePage() {
 
       <Reveal direction="up" delay={0.1}>
         <footer className="dtz-footer">
-          <span>David Ortiz</span>
+          <span className="dtz-footer-brand">
+            <strong>David Ortiz</strong>
+            <small>Websites and practical business systems.</small>
+          </span>
           <span className="dtz-footer-links">
             <ProtectedEmailLink>Email</ProtectedEmailLink>
             <a href={contact.github} target="_blank" rel="noreferrer">

@@ -62,7 +62,7 @@ const components: Components = {
       style={{
         borderColor: "var(--dtz-border)",
         background: "var(--dtz-panel-2)",
-        fontFamily: "var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, monospace)",
+        fontFamily: "var(--font-mono)",
       }}
     >
       {children}
@@ -77,7 +77,7 @@ const components: Components = {
     return (
       <code
         style={{
-          fontFamily: "var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, monospace)",
+          fontFamily: "var(--font-mono)",
           background: "var(--dtz-panel-2)",
           padding: "0.1rem 0.35rem",
           borderRadius: "0.3rem",

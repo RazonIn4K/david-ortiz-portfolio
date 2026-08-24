@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { ArrowRight, ShieldCheck } from "lucide-react"
@@ -34,15 +33,6 @@ export function WriteupsMotion({ writeups }: { writeups: WriteupMeta[] }) {
         className="dtz-subpage-hero"
         style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
       >
-        <div className="dtz-subpage-hero-atmosphere" aria-hidden="true">
-          <Image
-            src="/visuals/notes-atmosphere.webp"
-            alt=""
-            fill
-            sizes="(max-width: 768px) 100vw, 960px"
-            style={{ objectFit: "cover" }}
-          />
-        </div>
         <Reveal>
           <p className="dtz-section-label">
             <span className="dtz-index-badge" aria-hidden="true">

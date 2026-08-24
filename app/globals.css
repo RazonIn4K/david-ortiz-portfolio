@@ -39,15 +39,9 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  /* Font families */
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
-
-  /* Brand colors */
-  --cs-navy: #060a14;
-  --cs-navy-light: #0d1424;
-  --cs-teal: #2dd4bf;
-  --cs-cyan: #22d3ee;
+  /* Font families — RazonWorks Brand 0.1 */
+  --font-sans: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
   --cs-coral: #ff6b6b;
   --cs-purple: #a78bfa;
   --cs-blue: #3b82f6;
@@ -556,65 +550,57 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(45, 212, 191, 0.3);
+  background: color-mix(in srgb, var(--dtz-harbor, #2e6f8f) 35%, transparent);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(45, 212, 191, 0.5);
+  background: color-mix(in srgb, var(--dtz-harbor, #2e6f8f) 55%, transparent);
 }
 
-/* DavidTiz accessible personal hub — Forge & Field palette */
+/* David Ortiz personal hub — RazonWorks Brand 0.1 */
 .dtz-site {
-  --dtz-bg: #ece4d8;
-  --dtz-bg-2: #dfd3c4;
-  --dtz-fg: #12100e;
-  --dtz-muted: #4a433c;
-  --dtz-subtle: #6b6258;
-  --dtz-panel: #f7f2ea;
-  --dtz-panel-2: #efe6da;
-  --dtz-panel-dark: #0e0c0a;
-  --dtz-border: #c9baa8;
-  --dtz-accent: #c44d3a;
-  --dtz-accent-2: #2a6b5e;
-  --dtz-accent-3: #b8781f;
-  --dtz-accent-soft: #e8ddd0;
-  --dtz-on-accent: #fffbf7;
-  --dtz-focus: #2a6b5e;
-  --dtz-shadow: 0 28px 90px rgba(18, 16, 14, 0.16);
-  --dtz-glow-warm: rgba(196, 77, 58, 0.22);
-  --dtz-glow-cool: rgba(42, 107, 94, 0.18);
+  --dtz-ink: #0b1f2a;
+  --dtz-paper: #f7f4ec;
+  --dtz-mist: #e8eef2;
+  --dtz-harbor: #2e6f8f;
+  --dtz-clay: #bf4228;
+  --dtz-bg: var(--dtz-paper);
+  --dtz-bg-2: var(--dtz-mist);
+  --dtz-fg: var(--dtz-ink);
+  --dtz-muted: color-mix(in srgb, var(--dtz-ink) 68%, var(--dtz-paper));
+  --dtz-subtle: color-mix(in srgb, var(--dtz-ink) 48%, var(--dtz-paper));
+  --dtz-panel: var(--dtz-paper);
+  --dtz-panel-2: var(--dtz-mist);
+  --dtz-panel-dark: var(--dtz-ink);
+  --dtz-border: color-mix(in srgb, var(--dtz-ink) 14%, var(--dtz-mist));
+  --dtz-accent: var(--dtz-clay);
+  --dtz-accent-2: var(--dtz-harbor);
+  --dtz-accent-3: var(--dtz-harbor);
+  --dtz-accent-soft: color-mix(in srgb, var(--dtz-clay) 10%, var(--dtz-paper));
+  --dtz-harbor-soft: color-mix(in srgb, var(--dtz-harbor) 10%, var(--dtz-paper));
+  --dtz-on-accent: var(--dtz-paper);
+  --dtz-focus: var(--dtz-harbor);
+  --dtz-shadow: 0 20px 60px color-mix(in srgb, var(--dtz-ink) 12%, transparent);
   min-height: 100vh;
-  background:
-    radial-gradient(ellipse 80% 50% at 12% -8%, var(--dtz-glow-warm), transparent 52%),
-    radial-gradient(ellipse 70% 45% at 92% 4%, var(--dtz-glow-cool), transparent 48%),
-    linear-gradient(165deg, var(--dtz-bg) 0%, var(--dtz-bg-2) 100%);
+  background: linear-gradient(180deg, var(--dtz-bg) 0%, var(--dtz-bg-2) 100%);
   color: var(--dtz-fg);
 }
 
 .dtz-site.dtz-dark {
-  --dtz-bg: #0c0a09;
-  --dtz-bg-2: #151210;
-  --dtz-fg: #f3ece4;
-  --dtz-muted: #c4b8a8;
-  --dtz-subtle: #9a8f82;
-  --dtz-panel: #1a1613;
-  --dtz-panel-2: #221d19;
-  --dtz-panel-dark: #060504;
-  --dtz-border: #3d3530;
-  --dtz-accent: #e86f52;
-  --dtz-accent-2: #4db89a;
-  --dtz-accent-3: #e8b04a;
-  --dtz-accent-soft: #2a221c;
-  --dtz-on-accent: #12100e;
-  --dtz-focus: #6fd4b8;
-  --dtz-shadow: 0 28px 90px rgba(0, 0, 0, 0.48);
-  --dtz-glow-warm: rgba(232, 111, 82, 0.14);
-  --dtz-glow-cool: rgba(77, 184, 154, 0.12);
-  background:
-    radial-gradient(ellipse 75% 55% at 8% -5%, var(--dtz-glow-warm), transparent 50%),
-    radial-gradient(ellipse 65% 50% at 95% 8%, var(--dtz-glow-cool), transparent 46%),
-    linear-gradient(165deg, var(--dtz-bg) 0%, var(--dtz-bg-2) 100%);
+  --dtz-bg: var(--dtz-ink);
+  --dtz-bg-2: color-mix(in srgb, var(--dtz-ink) 92%, var(--dtz-mist));
+  --dtz-fg: var(--dtz-paper);
+  --dtz-muted: color-mix(in srgb, var(--dtz-paper) 72%, var(--dtz-ink));
+  --dtz-subtle: color-mix(in srgb, var(--dtz-paper) 52%, var(--dtz-ink));
+  --dtz-panel: color-mix(in srgb, var(--dtz-ink) 94%, var(--dtz-mist));
+  --dtz-panel-2: color-mix(in srgb, var(--dtz-ink) 88%, var(--dtz-mist));
+  --dtz-border: color-mix(in srgb, var(--dtz-paper) 16%, var(--dtz-ink));
+  --dtz-accent-soft: color-mix(in srgb, var(--dtz-clay) 16%, var(--dtz-ink));
+  --dtz-harbor-soft: color-mix(in srgb, var(--dtz-harbor) 10%, var(--dtz-ink));
+  --dtz-on-accent: var(--dtz-paper);
+  --dtz-shadow: 0 24px 72px color-mix(in srgb, #000 35%, transparent);
+  background: linear-gradient(180deg, var(--dtz-bg) 0%, var(--dtz-bg-2) 100%);
 }
 
 .dtz-site * {
@@ -858,9 +844,11 @@ body {
 .dtz-section-heading-main h2,
 .dtz-portfolio-hero h1,
 .dtz-contact-hero h1,
-.dtz-subpage-hero h1 {
-  font-family: var(--font-display), var(--font-geist-sans), Georgia, serif;
-  font-variation-settings: "SOFT" 50, "WONK" 1;
+.dtz-subpage-hero h1,
+.dtz-contact-display {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .dtz-hero h1,
@@ -921,14 +909,10 @@ body {
 }
 
 .dtz-button.primary {
-  border-color: color-mix(in srgb, var(--dtz-accent) 88%, var(--dtz-accent-3));
-  background: linear-gradient(
-    135deg,
-    var(--dtz-accent) 0%,
-    color-mix(in srgb, var(--dtz-accent) 72%, var(--dtz-accent-3)) 100%
-  );
+  border-color: var(--dtz-accent);
+  background: var(--dtz-accent);
   color: var(--dtz-on-accent);
-  box-shadow: 0 10px 28px color-mix(in srgb, var(--dtz-accent) 28%, transparent);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--dtz-accent) 22%, transparent);
 }
 
 .dtz-button.secondary {
@@ -1329,6 +1313,22 @@ body {
   padding-block: 2rem;
   border-top: 1px solid var(--dtz-border);
   color: var(--dtz-muted);
+}
+
+.dtz-footer-brand {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.dtz-footer-brand strong {
+  color: var(--dtz-fg);
+  font-weight: 700;
+}
+
+.dtz-footer-brand small {
+  color: var(--dtz-muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
 }
 
 .dtz-footer-links {
@@ -1767,7 +1767,7 @@ body {
   z-index: -1;
   border-radius: inherit;
   opacity: 0;
-  background: linear-gradient(135deg, var(--dtz-accent), var(--dtz-accent-2));
+  background: var(--dtz-harbor-soft);
   transition: opacity 0.4s ease;
 }
 
@@ -1835,34 +1835,6 @@ body {
 
 .dtz-icon-bounce:hover {
   transform: scale(1.1) rotate(-3deg);
-}
-
-/* Subtle text shimmer for hero headlines */
-@keyframes dtz-text-shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-.dtz-text-shimmer {
-  background: linear-gradient(
-    90deg,
-    var(--dtz-fg) 0%,
-    var(--dtz-fg) 35%,
-    var(--dtz-accent) 45%,
-    var(--dtz-accent-2) 55%,
-    var(--dtz-fg) 65%,
-    var(--dtz-fg) 100%
-  );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: dtz-text-shimmer 5s ease-in-out infinite;
-  animation-delay: 1.5s;
 }
 
 /* Link arrow slide */
@@ -2108,12 +2080,6 @@ body {
     transform: none;
   }
 
-  .dtz-text-shimmer {
-    animation: none;
-    background: none;
-    -webkit-text-fill-color: var(--dtz-fg);
-  }
-
   .dtz-float-badge {
     animation: none;
   }
@@ -2140,22 +2106,6 @@ body {
   padding-block: 1.65rem 1.85rem;
   position: relative;
   isolation: isolate;
-}
-
-.dtz-hero-atmosphere {
-  position: absolute;
-  inset: -1.5rem -1rem auto;
-  height: min(480px, 70vh);
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.42;
-  border-radius: var(--dtz-radius-lg);
-  overflow: hidden;
-  mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%);
-}
-
-.dtz-site.dtz-dark .dtz-hero-atmosphere {
-  opacity: 0.24;
 }
 
 .dtz-overhaul-hero .dtz-hero-copy {
@@ -2197,38 +2147,7 @@ body {
   background: color-mix(in srgb, var(--dtz-panel) 88%, transparent);
   color: var(--dtz-subtle);
   font-size: 0.86rem;
-  font-weight: 780;
-}
-
-.dtz-signal-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.65rem;
-  margin: 1.25rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.dtz-signal-list li {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.62rem 0.72rem;
-  border: 1px solid var(--dtz-border);
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--dtz-panel) 86%, transparent);
-  color: var(--dtz-muted);
-  font-size: 0.93rem;
-  font-weight: 720;
-  line-height: 1.25;
-}
-
-.dtz-signal-list svg {
-  width: 1rem;
-  height: 1rem;
-  flex: 0 0 auto;
-  color: var(--dtz-accent);
+  font-weight: 700;
 }
 
 .dtz-overhaul-visual {
@@ -2248,10 +2167,7 @@ body {
   padding: 0.85rem;
   border: 1px solid var(--dtz-border);
   border-radius: 8px;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--dtz-accent-soft) 52%, transparent), transparent 38%),
-    linear-gradient(225deg, color-mix(in srgb, var(--dtz-accent-2) 18%, transparent), transparent 42%),
-    var(--dtz-panel);
+  background: var(--dtz-panel);
   box-shadow: var(--dtz-shadow);
 }
 
@@ -2655,8 +2571,8 @@ body {
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 4px;
-  background: linear-gradient(90deg, var(--dtz-accent-2), var(--dtz-accent), var(--dtz-accent-3));
+  height: 2px;
+  background: var(--dtz-harbor-soft);
 }
 
 .dtz-setup-card:hover {
@@ -2995,98 +2911,6 @@ body {
   text-align: left;
 }
 
-/* Enhanced visual rhythm 2026 */
-.dtz-section-accent-line {
-  position: relative;
-}
-
-.dtz-section-accent-line::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--dtz-accent), var(--dtz-accent-2) 50%, var(--dtz-accent-3));
-  opacity: 0.8;
-}
-
-.dtz-section-glow {
-  position: relative;
-}
-
-.dtz-section-glow::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  z-index: -1;
-  border-radius: inherit;
-  background: linear-gradient(135deg, 
-    color-mix(in srgb, var(--dtz-accent) 15%, transparent),
-    transparent 60%,
-    color-mix(in srgb, var(--dtz-accent-2) 10%, transparent)
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.dtz-section-glow:hover::before {
-  opacity: 1;
-}
-
-.dtz-hero-title-emphasis {
-  position: relative;
-  display: inline;
-}
-
-.dtz-hero-title-emphasis::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.1em;
-  height: 0.12em;
-  background: linear-gradient(90deg, var(--dtz-accent), var(--dtz-accent-2));
-  opacity: 0.4;
-  border-radius: 2px;
-}
-
-.dtz-gradient-border {
-  position: relative;
-  border: 1px solid transparent;
-  background-clip: padding-box;
-}
-
-.dtz-gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--dtz-border), var(--dtz-accent-soft), var(--dtz-border));
-}
-
-.dtz-subtle-pattern {
-  background-image: 
-    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--dtz-border) 40%, transparent) 1px, transparent 0);
-  background-size: 24px 24px;
-}
-
-.dtz-work-card-featured {
-  position: relative;
-}
-
-.dtz-work-card-featured::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 1rem;
-  right: 1rem;
-  height: 3px;
-  background: linear-gradient(90deg, var(--dtz-accent), var(--dtz-accent-2));
-  border-radius: 3px 3px 0 0;
-}
-
 /* =====================================================
    Modern editorial system — rhythm, bento, display type
    ===================================================== */
@@ -3105,14 +2929,7 @@ body {
   margin: 0 auto;
   height: 1px;
   border: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in srgb, var(--dtz-accent-2) 40%, var(--dtz-border)) 22%,
-    color-mix(in srgb, var(--dtz-accent) 55%, var(--dtz-border)) 50%,
-    color-mix(in srgb, var(--dtz-accent-3) 40%, var(--dtz-border)) 78%,
-    transparent 100%
-  );
+  background: var(--dtz-harbor-soft);
 }
 
 .dtz-capability-track {
@@ -3170,11 +2987,11 @@ body {
   margin-right: 0.55rem;
   padding: 0.18rem 0.45rem;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--dtz-accent-2) 18%, var(--dtz-accent-soft));
-  color: var(--dtz-accent-2);
+  background: var(--dtz-harbor-soft);
+  color: var(--dtz-harbor);
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.06em;
 }
 
@@ -3285,10 +3102,10 @@ body {
   z-index: 2;
   padding: 0.35rem 0.72rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--dtz-accent), color-mix(in srgb, var(--dtz-accent-2) 70%, var(--dtz-accent)));
+  background: var(--dtz-accent);
   color: var(--dtz-on-accent);
   font-size: 0.72rem;
-  font-weight: 850;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -3325,9 +3142,8 @@ body {
 .dtz-contact-display {
   max-width: 14ch;
   margin: 0.75rem 0 0;
-  font-family: var(--font-display), var(--font-geist-sans), Georgia, serif;
   font-size: clamp(2rem, 3.8vw, 2.85rem);
-  font-weight: 870;
+  font-weight: 700;
   line-height: 1.02;
   letter-spacing: -0.03em;
   color: var(--dtz-fg);
@@ -3513,11 +3329,8 @@ body {
 
 .dtz-contact.dtz-overhaul-contact {
   border-radius: var(--dtz-radius-xl);
-  border: 1px solid color-mix(in srgb, var(--dtz-accent-2) 24%, var(--dtz-border));
-  background:
-    radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--dtz-accent) 14%, transparent), transparent 42%),
-    radial-gradient(circle at 88% 82%, color-mix(in srgb, var(--dtz-accent-2) 16%, transparent), transparent 38%),
-    linear-gradient(145deg, color-mix(in srgb, var(--dtz-panel) 96%, transparent), var(--dtz-panel-2));
+  border: 1px solid var(--dtz-border);
+  background: var(--dtz-panel);
   box-shadow: var(--dtz-shadow);
 }
 
@@ -3548,14 +3361,7 @@ body {
 }
 
 .dtz-portfolio-page::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 15% 12%, var(--dtz-glow-warm), transparent 34%),
-    radial-gradient(circle at 88% 18%, var(--dtz-glow-cool), transparent 30%);
-  z-index: -1;
+  content: none;
 }
 
 .dtz-portfolio-shell {
@@ -3632,14 +3438,7 @@ body {
 }
 
 .dtz-contact-page::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 10% 20%, var(--dtz-glow-warm), transparent 36%),
-    radial-gradient(circle at 90% 10%, var(--dtz-glow-cool), transparent 32%);
-  z-index: -1;
+  content: none;
 }
 
 .dtz-contact-shell {
@@ -3681,8 +3480,8 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--dtz-accent-2), var(--dtz-accent), var(--dtz-accent-3));
+  height: 2px;
+  background: var(--dtz-harbor-soft);
 }
 
 .dtz-subpage {
@@ -3692,14 +3491,7 @@ body {
 }
 
 .dtz-subpage::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 12% 14%, var(--dtz-glow-warm), transparent 34%),
-    radial-gradient(circle at 88% 16%, var(--dtz-glow-cool), transparent 30%);
-  z-index: -1;
+  content: none;
 }
 
 .dtz-subpage-inner {
@@ -3747,7 +3539,7 @@ body {
   margin: 0;
   color: var(--dtz-fg);
   font-size: clamp(2.2rem, 5vw, 3.6rem);
-  font-weight: 870;
+  font-weight: 700;
   line-height: 0.98;
   letter-spacing: -0.03em;
 }
@@ -3773,7 +3565,7 @@ body {
 .dtz-subpage-prose h2 {
   margin: 1.75rem 0 0.35rem;
   color: var(--dtz-fg);
-  font-family: var(--font-display), var(--font-geist-sans), Georgia, serif;
+  font-family: var(--font-sans);
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -3815,9 +3607,8 @@ body {
   border-radius: 999px;
   background: var(--dtz-accent-soft);
   color: var(--dtz-accent);
-  font-family: var(--font-display), var(--font-geist-sans), Georgia, serif;
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.03em;
 }
 

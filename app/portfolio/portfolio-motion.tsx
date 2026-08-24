@@ -151,16 +151,6 @@ export function PortfolioMotion() {
           className="dtz-portfolio-hero dtz-portfolio-hero-editorial"
           style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
         >
-          <div className="dtz-subpage-hero-atmosphere dtz-portfolio-atmosphere" aria-hidden="true">
-            <Image
-              src="/visuals/workbench-atmosphere.webp"
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 960px"
-              style={{ objectFit: "cover" }}
-              priority
-            />
-          </div>
           <motion.div
             className="dtz-portfolio-hero-copy"
             initial={shouldReduceMotion ? false : { opacity: 0 }}
@@ -182,9 +172,7 @@ export function PortfolioMotion() {
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className={shouldReduceMotion ? "" : "dtz-text-shimmer"}>
-                Hernandez Landscape
-              </span>
+              Hernandez Landscape
               <span className="dtz-hero-accent"> — live local-business proof.</span>
             </motion.h1>
             <motion.p

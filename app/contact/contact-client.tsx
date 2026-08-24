@@ -1,7 +1,6 @@
 "use client"
 
 import { useRef } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import {
@@ -171,16 +170,6 @@ export function ContactPageClient() {
             className="dtz-contact-hero dtz-contact-hero-editorial mb-14 max-w-3xl"
             style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
           >
-            <div className="dtz-subpage-hero-atmosphere dtz-contact-atmosphere" aria-hidden="true">
-              <Image
-                src="/visuals/hero-atmosphere.webp"
-                alt=""
-                fill
-                sizes="(max-width: 768px) 100vw, 720px"
-                style={{ objectFit: "cover" }}
-                priority
-              />
-            </div>
             <motion.p
               className="dtz-section-label dtz-float-badge"
               style={{ display: "inline-block" }}
@@ -196,9 +185,7 @@ export function ContactPageClient() {
               animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className={shouldReduceMotion ? "" : "dtz-text-shimmer"}>
-                Direct path
-              </span>
+              Direct path
               <span className="dtz-hero-accent"> to David.</span>
             </motion.h1>
             <motion.p
