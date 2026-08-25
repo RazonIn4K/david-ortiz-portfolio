@@ -1,6 +1,6 @@
 # David Ortiz — Personal Portfolio
 
-Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents selected work, current learning threads, practical web systems, AI-assisted workflow experiments, and contact information. It is a single-page site with anchor navigation (`#start`, `#work`, `#process`, `#stack`, `#notes`, `#contact`), plus a few focused secondary pages (`/contact`, `/portfolio`, `/privacy`, `/demo`).
+Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents three curated proof records, the decisions and tradeoffs behind them, personal operating notes, and direct contact. It is a single-page site with anchor navigation (`#start`, `#work`, `#process`, `#stack`, `#notes`, `#contact`), plus focused secondary pages (`/contact`, `/portfolio`, `/writeups`, `/privacy`). The legacy `/demo` files remain reachable but are excluded from the sitemap and temporarily noindexed.
 
 ## Getting Started
 
@@ -44,17 +44,30 @@ app/
   not-found.tsx     # Custom 404
   contact/          # Contact hub + screened WhatsApp redirect/challenge
   portfolio/        # Selected-work detail page
-  api/chat/route.ts # AI chat endpoint (used by the homepage assistant)
-components/         # AI assistant, theme shell, contact link, icons
-data/content.ts     # Shared content + centralized contact details
+  api/chat/route.ts # Standalone, rate-limited personal-site guide API; not mounted on `/`
+components/         # Theme shell, protected contact link, icons
+data/content.ts     # Centralized personal contact details
+data/home-content.ts # Typed homepage navigation, actions, and proof records
 lib/                # site-config, contact-links, abuse-store, meta helpers
-public/             # Images, visuals, and the /demo static pages
+public/             # Images, visuals, and temporarily contained /demo static pages
 ```
 
 ## Notes
 
 - The homepage is a personal portfolio, not a router to other sites.
-- Contact is WhatsApp-first (see `data/content.ts` → `contact` / `whatsappHref`), with email as the fallback backup.
+- Its job is to establish David's identity and judgment through a curated set of work, personal operating notes, and verifiable evidence.
+- Contact is WhatsApp-first (see `data/content.ts` -> `contact` / `whatsappHref`), with email as the fallback backup. Personal contact remains distinct from commercial client intake.
+
+## Portfolio brand governance
+
+- DavidTiz owns personal identity, curated proof, and personal contact.
+- RazonWorks is the only owner of commercial services and client intake.
+- High Encode Learning owns education and learner support.
+- Razon Lab is the experimental research arm of RazonWorks.
+
+The canonical portfolio decision and contract live in the `RazonIn4K/razonworks` repository at `docs/adr/0039-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. The local rules are in [docs/BRAND-BOUNDARY.md](docs/BRAND-BOUNDARY.md).
+
+The proof-first homepage and `/portfolio` record are implemented in local source. `/portfolio` uses checked-in evidence and does not render a sibling-business handoff. No hosted behavior was verified or changed by this checkpoint. A future implementation may provide one contextual, secondary RazonWorks handoff only after the exact destination exists and its hosted behavior is verified.
 
 ## Contact protection
 
@@ -79,4 +92,3 @@ If you touch dependencies or `.fossa.yml`, follow the documented scan workflow b
 
 ## GitLab CI/CD Security Scans
 This project is integrated with GitLab CI/CD to run automated security scans (SAST, Secret Detection, Dependency Scanning, and manual DAST). For more details, see [GitLab CI/CD Security Integration](docs/GITLAB-CI.md).
-

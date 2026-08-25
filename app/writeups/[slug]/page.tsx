@@ -31,6 +31,20 @@ export async function generateMetadata({
       description: writeup.summary,
       url: `/writeups/${slug}`,
       type: "article",
+      images: [
+        {
+          url: "/visuals/writeups-og-card.png",
+          width: 1200,
+          height: 630,
+          alt: "David Ortiz security writeups with redacted field notes and trace analysis",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${writeup.title} | CTF Writeup`,
+      description: writeup.summary,
+      images: ["/visuals/writeups-og-card.png"],
     },
   }
 }
@@ -52,7 +66,7 @@ export default async function WriteupPage({
 
   return (
     <ThemeShell>
-      <main className="min-h-screen px-6 py-12">
+      <div className="min-h-screen px-6 py-12">
         <article className="mx-auto max-w-3xl">
           <nav className="flex items-center justify-between gap-4">
             <Link
@@ -105,7 +119,7 @@ export default async function WriteupPage({
             </p>
           </footer>
         </article>
-      </main>
+      </div>
     </ThemeShell>
   )
 }

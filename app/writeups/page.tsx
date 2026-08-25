@@ -17,6 +17,21 @@ export const metadata: Metadata = {
       "Capture-the-Flag writeups across binary exploitation, privilege escalation, cryptography, and log forensics.",
     url: "/writeups",
     type: "website",
+    images: [
+      {
+        url: "/visuals/writeups-og-card.png",
+        width: 1200,
+        height: 630,
+        alt: "David Ortiz security writeups with redacted field notes and trace analysis",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CTF Writeups | David Ortiz",
+    description:
+      "Capture-the-Flag writeups across binary exploitation, privilege escalation, cryptography, and log forensics.",
+    images: ["/visuals/writeups-og-card.png"],
   },
 }
 
@@ -39,7 +54,7 @@ export default function WriteupsPage() {
 
   return (
     <ThemeShell>
-      <main className="min-h-screen px-6 py-12">
+      <div className="min-h-screen px-6 py-12">
         <div className="mx-auto max-w-5xl">
           <nav className="flex flex-wrap items-center justify-between gap-4">
             <Link
@@ -130,7 +145,7 @@ export default function WriteupsPage() {
             ))}
           </section>
         </div>
-      </main>
+      </div>
     </ThemeShell>
   )
 }

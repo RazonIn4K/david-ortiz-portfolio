@@ -8,7 +8,7 @@ One checkout, one session at a time. The repo at `~/Git-Projects/david-ortiz-por
 
 ## Secrets and environment
 
-Doppler is the source of truth for env vars (`doppler.yaml`, `scripts/deploy_secrets.sh`); Vercel project env should be set from Doppler, not hand-edited. Vars the code reads today: `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` (assistant), `WHATSAPP_*` and `META_*` (coexistence, gated), `N8N_WEBHOOK_URL` / `N8N_FORWARD_SECRET` (webhook forwarding, unset), `KV_REST_API_URL` / `KV_REST_API_TOKEN` or `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` (optional shared abuse state), `NEXT_PUBLIC_PERSONAL_SITE_URL` / `NEXT_PUBLIC_BUSINESS_SITE_URL` (fallbacks hardcoded).
+Doppler is the source of truth for env vars (`doppler.yaml`, `scripts/deploy_secrets.sh`); Vercel project env should be set from Doppler, not hand-edited. Vars the code reads today: `OPENROUTER_API_KEY` / `OPENROUTER_MODEL` (assistant), `WHATSAPP_*` and `META_*` (coexistence, gated), `N8N_WEBHOOK_URL` / `N8N_FORWARD_SECRET` (webhook forwarding, unset), `KV_REST_API_URL` / `KV_REST_API_TOKEN` or `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` (optional shared abuse state), and `NEXT_PUBLIC_PERSONAL_SITE_URL` (hardcoded fallback). The source no longer reads `NEXT_PUBLIC_BUSINESS_SITE_URL`; no provider-side environment value was inspected or changed by that cleanup.
 
 ## Parked integrations
 
@@ -29,4 +29,3 @@ Cleaned 2026-06-10: all 17 stale remote branches deleted after verifying each ma
 GitHub Actions CI runs lint + vitest + build on every push/PR; CodeQL and a 6-hour production uptime probe (`.github/workflows/uptime-check.yml`) run on schedules. Locally: `npm test`, `npm run lint`, `npx tsc --noEmit` (clean as of 2026-06-10), `npm run build`. The uptime probe asserts the WhatsApp redirect returns 403 to bare requests; a 200/302/500 there means the contact guard broke.
 
 Additionally, GitLab CI/CD automatically runs Ultimate security scans (SAST, Secret Detection, Dependency Scanning) on any commit pushed to the `gitlab` remote's `main` branch. A manual DAST scan is also available in the GitLab pipeline dashboard, targeting the main-branch staging/preview URL. For details, see [docs/GITLAB-CI.md](file:///Users/davidortiz/Git-Projects/david-ortiz-portfolio/docs/GITLAB-CI.md).
-

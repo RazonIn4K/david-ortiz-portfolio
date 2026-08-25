@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import {
   ArrowRight,
-  BriefcaseBusiness,
   CalendarDays,
   ExternalLink,
   Mail,
@@ -17,7 +16,6 @@ import {
 } from "@/components/icons/brand-icons"
 import {
   followWorkLinks,
-  hireMeLinks,
   quickReachLinks,
   type ContactLink,
 } from "@/lib/contact-links"
@@ -29,7 +27,21 @@ import { ThemeShell } from "@/components/theme-shell"
 export const metadata: Metadata = {
   title: "Contact | David Ortiz",
   description:
-    "Direct contact hub for David Ortiz. Email, booking, and direct work-intake paths.",
+    "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact | David Ortiz",
+    description:
+      "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+    url: "/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact | David Ortiz",
+    description:
+      "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+  },
 }
 
 function iconFor(link: ContactLink) {
@@ -39,11 +51,6 @@ function iconFor(link: ContactLink) {
       return <Mail {...props} />
     case "calendly":
       return <CalendarDays {...props} />
-    case "upwork":
-    case "fiverr":
-    case "high-encode":
-    case "business-inbox":
-      return <BriefcaseBusiness {...props} />
     case "facebook":
       return <FacebookIcon {...props} />
     case "instagram":
@@ -130,21 +137,16 @@ export default function ContactPage() {
       links: quickReachLinks,
     },
     {
-      heading: "Hire me",
-      intro: "Best if you already know this is a project, engagement, or freelance conversation.",
-      links: hireMeLinks,
-    },
-    {
       heading: "Follow the work",
       intro:
-        "Best if you want to inspect the actual code, experiments, and project follow-through.",
+        "Best if you want to inspect code, technical notes, and public build history before reaching out.",
       links: followWorkLinks,
     },
   ]
 
   return (
     <ThemeShell>
-      <main className="min-h-screen px-6 py-20">
+      <div className="min-h-screen px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 max-w-3xl">
             <p className="dtz-section-label">Contact</p>
@@ -152,8 +154,8 @@ export default function ContactPage() {
               A direct path to David, without making people guess
             </h1>
             <p className="mt-5 text-lg leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
-              {personalSitePublicLabel} stays personal, experimental, and reflective. This page is the shareable contact hub:
-              the fastest confirmed ways to email, book time, start a freelance conversation, or move into a scoped business discussion.
+              {personalSitePublicLabel} stays personal and proof-focused. This page is the shareable contact hub for
+              employment, collaboration, speaking, referrals, or peer conversations.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <span
@@ -176,7 +178,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-2">
             {groups.map(group => (
               <section
                 key={group.heading}
@@ -202,11 +204,11 @@ export default function ContactPage() {
             style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
           >
             <p className="text-sm font-semibold" style={{ color: "var(--dtz-fg)" }}>
-              Prefer a structured intake?
+              Personal context is enough.
             </p>
             <p className="mt-2 text-sm" style={{ color: "var(--dtz-muted)" }}>
-              I keep the first message short on purpose. If this is a real project, send scope and timeline so I can
-              respond quickly with realistic next steps.
+              Share who you are, why you are reaching out, and what would make the conversation useful. This page is
+              for personal connection, not proposals or service scoping.
             </p>
             <ProtectedWhatsAppLink
               href={whatsappHref}
@@ -215,12 +217,12 @@ export default function ContactPage() {
               className="mt-4 inline-flex items-center gap-2 rounded-2xl px-5 py-3 font-semibold transition-transform hover:scale-[1.01]"
               style={{ background: "var(--dtz-accent)", color: "var(--dtz-on-accent)" }}
             >
-              Start a project on WhatsApp
+              Send a personal introduction
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </ProtectedWhatsAppLink>
           </div>
         </div>
-      </main>
+      </div>
     </ThemeShell>
   )
 }

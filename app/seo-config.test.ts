@@ -3,6 +3,7 @@ import robots from "@/app/robots"
 import sitemap from "@/app/sitemap"
 import nextConfig from "@/next.config.mjs"
 import { getWriteupSlugs } from "@/lib/writeups"
+import { socialProfileLinks } from "@/lib/contact-links"
 
 // These guard the SEO/hardening config against accidental edits: removing a
 // disallow line or a header here is a deliberate decision, not a side effect.
@@ -33,7 +34,6 @@ describe("sitemap", () => {
       "https://davidtiz.com/contact",
       "https://davidtiz.com/portfolio",
       "https://davidtiz.com/writeups",
-      "https://davidtiz.com/demo",
       "https://davidtiz.com/privacy",
       ...getWriteupSlugs().map((slug) => `https://davidtiz.com/writeups/${slug}`),
     ])
@@ -41,12 +41,24 @@ describe("sitemap", () => {
 
   it("never lists noindex or operational routes", () => {
     for (const url of urls) {
-      expect(url).not.toMatch(/\/(pay|pagar|admin|api|contact\/whatsapp)/)
+      expect(url).not.toMatch(/\/(demo|pay|pagar|admin|api|contact\/whatsapp)/)
     }
   })
 })
 
 describe("security headers", () => {
+  it("keeps the legacy demo surfaces out of search during temporary containment", async () => {
+    const headerRules = await nextConfig.headers?.()
+    if (!headerRules) throw new Error("nextConfig.headers is not defined")
+    const demos = headerRules.find((entry) => entry.source === "/demo/:path*")
+    if (!demos) throw new Error("demo containment header rule is missing")
+
+    expect(demos.headers).toContainEqual({
+      key: "X-Robots-Tag",
+      value: "noindex, nofollow",
+    })
+  })
+
   it("applies the baseline hardening set to every route", async () => {
     const headerRules = await nextConfig.headers?.()
     if (!headerRules) throw new Error("nextConfig.headers is not defined")
@@ -58,5 +70,20 @@ describe("security headers", () => {
     expect(byKey["X-Frame-Options"]).toBe("DENY")
     expect(byKey["Referrer-Policy"]).toBe("strict-origin-when-cross-origin")
     expect(byKey["Permissions-Policy"]).toContain("camera=()")
+  })
+})
+
+describe("Person structured-data profile boundary", () => {
+  it("asserts only owner-person profiles and excludes Razon Lab channels", () => {
+    expect(socialProfileLinks).toEqual([
+      "https://github.com/RazonIn4K",
+      "https://www.linkedin.com/in/davidortiz-dekalb/",
+      "https://www.facebook.com/profile.php?id=61581646236939",
+      "https://www.instagram.com/ra.z.on",
+    ])
+
+    for (const url of socialProfileLinks) {
+      expect(url).not.toMatch(/youtube\.com\/\@razonlab|twitch\.tv\/razonlab|x\.com\/Razonapp/i)
+    }
   })
 })

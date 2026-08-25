@@ -48,6 +48,10 @@ describe("GET /contact/whatsapp — challenge guard", () => {
     const { GET } = await loadRoute()
     const res = await GET(new NextRequest(url("?intent=portfolio")))
     expect(res.status).toBe(403)
+    const body = await res.text()
+    expect(body).toContain("short conversation context")
+    expect(body).toContain("Commercial service inquiries belong with RazonWorks")
+    expect(body).not.toContain("project context")
   })
 
   it("blocks when the query token and cookie token do not match (403)", async () => {

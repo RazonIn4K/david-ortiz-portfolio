@@ -59,8 +59,10 @@ Use a screened WhatsApp intake bot, not a fully autonomous sales bot.
 
 ## Brand alignment note
 
-- The public portfolio is the default contact home; use a separate creator brand layer (`Razon Live Lab`, `@razonlab`, `razonlab.com`) only as an optional navigation target, not as the replacement for this site.
-- Avoid exposing a bare phone link in static HTML while keeping the business path screened and auditable.
+- The public portfolio is the default home for personal contact about employment, collaboration, speaking, referrals, and peer work.
+- Commercial services and client intake belong to RazonWorks. A future RazonWorks route from this site must stay secondary and may be added only after its intended destination is implemented and verified.
+- Razon Lab is the experimental research arm of RazonWorks, not a general creator-brand navigation target. A specific experiment may appear as curated proof with a link to its canonical artifact.
+- Avoid exposing a bare phone link in static HTML. Keep personal contact screened and auditable, and do not silently convert it into commercial intake.
 
 ## Better than a public phone button
 

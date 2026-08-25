@@ -202,7 +202,7 @@ function stripPotentialSpamText(message: string) {
 
 function blockedContactResponse(reasons: string[]) {
   const response = new NextResponse(
-    `<html><body><h1>Contact temporarily unavailable</h1><p>Email is available from the site if this is a real request. Include a short project context and preferred contact timing.</p></body></html>`,
+    `<html><body><h1>Contact temporarily unavailable</h1><p>Email is available from the site if this is a real request. Include a short conversation context and preferred contact timing. Commercial service inquiries belong with RazonWorks, not this personal contact route.</p></body></html>`,
     {
       status: 403,
       headers: {

@@ -1,5 +1,4 @@
 const DEFAULT_PERSONAL_SITE_URL = "https://davidtiz.com"
-const DEFAULT_BUSINESS_SITE_URL = "https://highencodelearning.com"
 
 function normalizeUrl(candidate: string | undefined, fallback: string) {
   if (!candidate) return fallback
@@ -27,10 +26,3 @@ export const personalSiteUrl = normalizeUrl(
 export const personalSiteDomain = hostnameFor(personalSiteUrl)
 export const personalSiteName = "David Ortiz Personal Site"
 export const personalSitePublicLabel = personalSiteDomain
-
-export const businessSiteUrl = normalizeUrl(
-  process.env.NEXT_PUBLIC_BUSINESS_SITE_URL,
-  DEFAULT_BUSINESS_SITE_URL
-)
-
-export const businessSiteDomain = hostnameFor(businessSiteUrl)

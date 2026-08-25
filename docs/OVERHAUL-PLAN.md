@@ -3,32 +3,39 @@
 Date: 2026-06-09
 Status: Executed (D1–D4 complete, 2026-06-10)
 
-> Execution record: #70 merged and verified in production (D1); `docs/BRAND-BOUNDARY.md`
+Portfolio governance addendum: 2026-08-09, Phase 0 documentation only.
+
+Proof-first personal-surface checkpoint: 2026-08-10, local source only. The homepage now uses exactly three typed proof records and local Work/Notes actions; the former setup catalog, generic work lanes, unverified Lab card, and floating assistant are removed from `/`. `/contact` now presents only personal conversation and profile paths while preserving the screened WhatsApp mechanics. The standalone chat API rejects commercial-intake markers before any model call. `/portfolio` now records problem, role, decision, tradeoff, and checked-in evidence without a commercial package or sibling-business handoff. `/demo` remains reachable source but is excluded from the sitemap and temporarily noindexed. Hosted behavior was not reverified.
+
+> Historical execution record: #70 merged and was recorded as verified in production (D1); `docs/BRAND-BOUNDARY.md`
 > added with CLAUDE.md/AGENTS.md pointers and a clean copy audit (#71, D2+D3);
-> ecosystem-era docs archived to `docs/archive/` (D4). CI green throughout.
+> ecosystem-era docs archived to `docs/archive/` (D4). CI was recorded as green. This
+> Phase 0 review did not reverify either hosted state or those provider-era observations.
 Role in portfolio strategy: **personal home base — finish and protect the boundary; no major overhaul needed.**
-Cross-repo governance: see `E:\Codebases\PORTFOLIO-OVERHAUL-MASTER-PLAN.md`.
+Cross-repo governance: the canonical portfolio decision and contract live in the `RazonIn4K/razonworks` repository at `docs/adr/0039-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. If this historical plan conflicts with those documents or `docs/BRAND-BOUNDARY.md`, pause public changes and reconcile the documents before implementation.
 
 ---
 
-## Current diagnosis (verified against the repo)
+## Historical diagnosis (recorded before PR #70 merged)
 
-This repo is **no longer the ecosystem problem**. Verified state:
+At that checkpoint, this repository was no longer the primary ecosystem-boundary problem. The
+statements below explain the 2026-06 work and are not a current repository or provider inventory:
 
 - Ecosystem links to HighEncode/CSBrainAI/Prompt Defenders were already pruned from
   contact surfaces in PR #59 (recorded at `docs/PROJECT-STRUCTURE.md:95`).
 - `CLAUDE.md` and `AGENTS.md` already state the site "is NOT an 'ecosystem router'"
   and forbid reframing it around the other brands.
-- The only remaining cross-domain reference is `businessSiteUrl`
-  (`https://highencodelearning.com`, defined at `lib/site-config.ts:2,31-34`) used
-  four times on `/portfolio` (`app/portfolio/page.tsx:79,86,168,388`). This fits the
-  "selected work" rule and stays.
+- The remaining `businessSiteUrl` runtime target points to
+  `https://highencodelearning.com` and is used from `/portfolio`. Under the 2026-08-09
+  portfolio contract, that is a known legacy mismatch. Commercial services and
+  client intake belong to RazonWorks. Phase 0 does not change runtime source. A later
+  authorized slice may change this to one contextual, secondary RazonWorks handoff
+  after the intended destination exists and its hosted behavior is verified.
 - Copy audit is clean: the only "hub" usages are descriptive ("contact hub" at
   `app/contact/page.tsx:31,91`), not organizational.
-- `main` is clean at commit `032d799` (PR #69). **PR #70 is open on branch
-  `feat/design-coherence-overhaul`** and is needed: `main` today has no robots or
-  sitemap routes, and the secondary pages (/contact, /portfolio, /privacy, 404,
-  error) still use a different design language than the homepage.
+- At the time, `main` was recorded as clean at commit `032d799` (PR #69), and PR #70
+  was open on branch `feat/design-coherence-overhaul`. Those branch and route facts
+  were superseded when the execution record above marked PR #70 merged.
 - PR #70 received a review follow-up: `global-error.tsx` now supports dark mode via
   inline CSS variables + `prefers-color-scheme` instead of forcing a bright fallback.
 
@@ -42,7 +49,7 @@ CI: lint → test → build on every push/PR, plus CodeQL.
 | --- | --- | --- |
 | `/` | `app/page.tsx` (530 lines, monolithic) | Homepage; footer inline at lines 514-525 |
 | `/contact` | `app/contact/page.tsx` | Contact hub; screened WhatsApp flow via `app/contact/whatsapp/*` |
-| `/portfolio` | `app/portfolio/page.tsx` | Selected work; links to High Encode as `businessSiteUrl` |
+| `/portfolio` | `app/portfolio/page.tsx` | Selected work; legacy `businessSiteUrl` target remains pending a verified secondary RazonWorks handoff |
 | `/privacy` | `app/privacy/page.tsx` | Legal / Meta app requirement |
 | `/pay`, `/pagar` | `app/pay/page.tsx`, `app/pagar/page.tsx` | Spanish-first Stripe payment menu; noindex; warm palette — intentional sub-brand |
 | `/demo` | `public/demo/*.html` via rewrite (`next.config.mjs:12-20`) | Spanish local-business demo hub (pedidos, citas, servicios) |
@@ -124,7 +131,7 @@ Suggested contents:
   Prompt Defenders, Razon Live Lab, or any future project.
 
 ## Allowed outbound links
-- Selected work examples on /portfolio (current example: highencodelearning.com via businessSiteUrl).
+- Selected work examples on /portfolio. The legacy business destination is not portfolio authority and is planned to become one secondary RazonWorks handoff only after the target is verified.
 - Individual proof cards for David's own projects, as long as they stay selected-work
   evidence and do not become sibling-domain navigation or an ecosystem section.
 - Required legal/privacy/platform links.
@@ -180,6 +187,7 @@ brand-boundary decision (2026-06). Do not delete — they are useful history.
 ## What NOT to do in this repo
 
 - Do not add a sibling-brand directory, ecosystem nav, or High Encode service CTA.
+- Do not make RazonWorks primary navigation or reproduce its service catalog here. A future RazonWorks handoff must stay contextual and secondary.
 - Prompt Defenders and Razon Live Lab may appear only as individual proof cards
   for David's own work.
 - Do not restyle `/pay`, `/pagar`, or `public/demo/*` into the dtz design system.

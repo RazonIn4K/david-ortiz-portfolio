@@ -32,6 +32,13 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/demo/:path*',
+        headers: [
+          // Temporary source-only containment. The demo files and routes remain in place.
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+        ],
+      },
+      {
         source: '/(.*)',
         headers: [
           // Baseline hardening. No CSP yet: the site uses inline styles

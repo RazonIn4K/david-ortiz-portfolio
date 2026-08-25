@@ -1,6 +1,6 @@
 # davidtiz.com — Identity and Design Direction
 
-Status: design direction (owner brief 2026-06-17). This is the serious identity spec for the next version of davidtiz.com. Palette is the chosen "Warm Operator" set (see `BRAND-WARM-OPERATOR-TOKENS-PROPOSAL.md`). Governance: this site stays the personal hub, never an ecosystem router or services marketplace (see `BRAND-BOUNDARY.md`); paid services route to High Encode Learning LLC.
+Status: design direction (owner brief 2026-06-17), aligned to the 2026-08-09 portfolio governance decision. This is the serious identity spec for the next version of davidtiz.com. Palette is the chosen "Warm Operator" set (see `BRAND-WARM-OPERATOR-TOKENS-PROPOSAL.md`). Governance: this site stays the personal identity and curated proof hub, never an ecosystem router or services marketplace (see `BRAND-BOUNDARY.md`). Commercial services and client intake belong to RazonWorks. A future RazonWorks handoff stays secondary and is not implemented in Phase 0.
 
 ## The core idea
 
@@ -34,14 +34,14 @@ Logo: a clean geometric "DO" monogram in clay (flat, no texture), reused as favi
 ```text
 /                Home (command center: positioning, status, top systems, paths)
 /work            Selected systems (3-5 flagship builds, each with proof)
-/lab             Field lab (experiments, evals, in-progress notes, the "log")
+/notes           Personal field notes (decisions, tradeoffs, current practice)
 /writing         Essays and breakdowns (the abstraction-stack series, security pieces)
 /about           Operating style (how I coordinate AIs/tools, principles, stack)
 /contact         Direct, screened (WhatsApp redirect, email, channels)
 /uses (optional) The actual stack and why (tools, models, routing)
 ```
 
-Services live on High Encode Learning, not here. davidtiz.com links to it once, framed as "the company I operate," never as a service menu.
+Services live on RazonWorks, not here. After the intended destination exists and its hosted behavior is verified, davidtiz.com may link to it once as a secondary business handoff, never as a service menu or primary action.
 
 ## 5. Homepage wireframe (text)
 
@@ -58,27 +58,27 @@ Services live on High Encode Learning, not here. davidtiz.com links to it once, 
 ------------------------------------------------------------------
 [ Selected systems ]  (3 cards, not a wall)
   Each: title · one-line problem · what I built · what it proves · [open]
-  e.g. PromptDefenders · Razon Live Lab · a multi-AI orchestration build
+  e.g. PromptDefenders · Razon Lab · a multi-AI orchestration build
   link: "See the full archive ->" (to /work)
 ------------------------------------------------------------------
 [ How I work ]  (operating style, 3-4 principles in plain first person)
   "Route by trust boundary." "Distrust polished output." "Prove it, sanitized."
 ------------------------------------------------------------------
-[ From the lab ]  (latest 3 experiments/notes, dated, mono tags)
-  link: "Open the lab log ->"
+[ Field notes ]  (latest 3 personal observations, decisions, or tradeoffs)
+  link: "Open the field notes ->"
 ------------------------------------------------------------------
 [ Writing ]  (2-3 featured essays: the buffer-overflow piece, abstraction stack)
 ------------------------------------------------------------------
 [ Contact ]  one clear path (WhatsApp screened) + email + channels
-[ Footer ]   David Ortiz · the person. High Encode Learning -> the company I operate.
+[ Footer ]   David Ortiz · the person. Business services -> RazonWorks (secondary).
 ```
 
-## 6. Sections: projects, labs, writing, services
+## 6. Sections: projects, notes, writing, business handoff
 
 - **Work (systems):** flagship builds only, 3-5. Each is a case in the format problem -> what I built -> stack -> what it proves -> link. Quality over volume; this is the recruiter/client surface.
-- **Lab:** the field-lab log. Smaller, dated entries: experiments, eval runs, "I tried X and here is what broke." This is where volume lives, so Work stays clean. Filterable by tag (AI security, orchestration, automation, learning).
+- **Notes:** smaller, dated personal entries about decisions, tradeoffs, and current practice. Summarize a Razon Lab experiment only when it explains David's role or judgment, then link to the canonical artifact instead of cloning the full method and results.
 - **Writing:** longform breakdowns. The abstraction-stack series and the "prompt injection is a buffer overflow" piece anchor it. Distinct from Lab (finished thinking vs working notes).
-- **Services:** NOT a section here. One honest footer line to High Encode Learning LLC. davidtiz.com sells the person; High Encode sells the work.
+- **Business handoff:** NOT a service section here. One secondary, contextual route to RazonWorks may be added only after its destination is implemented and verified. davidtiz.com presents the person and proof; RazonWorks owns commercial services and client intake.
 
 ## 7. Design language
 
@@ -119,10 +119,12 @@ Services live on High Encode Learning, not here. davidtiz.com links to it once, 
 
 ## 10. Separating personal identity from business and services
 
-- davidtiz.com = the person and the proof. It shows who David is, the systems, the lab, the writing, and a direct contact path. It never lists prices, packages, or a service menu.
-- High Encode Learning LLC = the company and the paid work (local-business sites, automations, implementation). It lives at highencodelearning.com with its own commercial brand and Stripe.
-- The bridge: one restrained footer/contact line, "David Ortiz operates High Encode Learning," linking to the company. That is the only crossover. This mirrors the existing brand boundary and keeps recruiters (who want the person) and clients (who want the company) from getting a muddled message.
-- Razon Live Lab, PromptDefenders, csbrainai appear here only as selected-work evidence cards, never as a brand directory.
+- davidtiz.com = the person and the curated proof. It shows who David is, selected systems, personal operating notes, writing, and a direct personal contact path. It never lists prices, packages, or a service menu.
+- RazonWorks = the commercial headquarters for paid services, project discussions, deliverables, and client intake.
+- High Encode Learning = education, learning paths, tutorials, and learner support. It is not the business-services destination.
+- Razon Lab = the experimental research arm of RazonWorks. Full methods, environments, results, limitations, and artifacts belong there. A coordinated RazonWorks implementation branch now contains local source for `/lab` and `/es/lab`; hosted behavior and the standalone-domain redirect remain unverified and incomplete.
+- The bridge: after a verified RazonWorks destination exists, one restrained, secondary business handoff may link to it. Personal contact remains available for employment, collaboration, speaking, referrals, and peer contact.
+- Razon Lab, PromptDefenders, and csbrainai may appear here only as selected-work evidence, never as a brand directory.
 
 ## 11. Showing proof-of-work without overwhelming
 
@@ -141,7 +143,7 @@ Services live on High Encode Learning, not here. davidtiz.com links to it once, 
 - Wall-of-projects with no hierarchy: everything equal weight, nothing flagship.
 - Over-animation: scroll-jacking, parallax, typewriter effects, particles. They read as gimmick and hurt credibility.
 - Agency-brochure voice on the personal hub: "we deliver solutions." This is a person; write in first person, plainly.
-- Pretending it is a company: no pricing tables or service menus here. That is High Encode's job.
+- Pretending it is a company: no pricing tables or service menus here. That is RazonWorks' job.
 
 ## Reconciling a second design opinion (2026-06-17)
 
@@ -155,18 +157,18 @@ A second AI produced an independent identity direction. It converged on the same
 - **Rename Writing -> Field Notes.** "Blog" and even "Writing" are generic; "Field Notes" fits the lab identity. Each note uses: question -> experiment -> takeaway -> next test.
 - **Labs structure:** each lab entry is question -> current experiments -> artifacts -> status. Lab areas: AI Orchestration, Prompt Defense, Security Automation, Learning Systems.
 - **System-map hero (boundary-safe version):** a node graph with David at center and four areas (AI orchestration, security automation, prompt defense, learning systems), with project artifacts as proof nodes. IMPORTANT: nodes are evidence of work, not navigation to sibling brand sites. This keeps the command-center feel without becoming an ecosystem router.
-- **Five proof layers:** (1) homepage cards (5-7 flagship), (2) case studies, (3) field notes, (4) /now, (5) selected repos. Recruiters/clients stay calm; peers can go deep.
+- **Five proof layers:** (1) three homepage flagship records, (2) focused portfolio and writeup pages, (3) field notes, (4) a future `/now` page, and (5) selected repositories. The local proof-first homepage implements the first layer; later layers remain separate slices.
 - **Status + type badges on every proof item:** Live / In progress / Archived, and Product / Lab / Client / Security.
 
 ### Rejected, with reasons
 
 - **The dark teal palette (`#0E1116` + `#2DD4BF` + `#F2A35E`).** These are Razon Lab's exact tokens. Using them re-merges David Tiz into the lab's identity, which defeats the owner's explicit goal (chosen 2026-06-17) of giving David Tiz a distinct identity. Keep Warm Operator. The field-lab feel comes from structure (system map, mono labels, proof tiles), not from going dark.
-- **"davidtiz.com becomes the map of all brands" (listing High Encode, Razon Lab, Prompt Defenders, CSBrainAI as a directory).** This is the ecosystem-router pattern `BRAND-BOUNDARY.md` explicitly forbids. The second AI did not have that governance. Keep projects as proof cards; reference High Encode once as "the company I operate." No brand directory.
-- **A `/services` page on davidtiz.com.** Services belong to High Encode Learning LLC. davidtiz.com sells the person, not packages. Keep the one honest link out.
+- **"davidtiz.com becomes the map of all brands" (listing High Encode, Razon Lab, Prompt Defenders, CSBrainAI as a directory).** This is the ecosystem-router pattern `BRAND-BOUNDARY.md` explicitly forbids. The second AI did not have that governance. Keep projects as proof cards. Any future RazonWorks business route stays secondary. No brand directory.
+- **A `/services` page on davidtiz.com.** Services belong to RazonWorks. davidtiz.com presents the person and proof, not packages. Keep the future handoff secondary and contextual.
 
 ### Net effect on this spec
 
-Positioning, hero, palette (Warm Operator), and the personal-vs-business split stay as written above. Add /now to the sitemap, rename Writing to Field Notes, adopt the system-map hero (boundary-safe), the "Tools are powerful. Systems make them useful." tagline, the "Technical Systems Builder" role label, and the five-layer proof model.
+Positioning, hero, palette (Warm Operator), and the personal-versus-business split stay as written above. Add /now to the sitemap, use Field Notes for personal observations, adopt the system-map hero (boundary-safe), the "Tools are powerful. Systems make them useful." tagline, the "Technical Systems Builder" role label, and the five-layer proof model.
 
 ## Next build steps (when ready)
 
@@ -174,5 +176,5 @@ Positioning, hero, palette (Warm Operator), and the personal-vs-business split s
 2. Apply the Warm Operator tokens to `globals.css` (light + dark) and run the contrast check.
 3. Add the serif display + mono pairing (next/font).
 4. Restructure home to the wireframe in section 5; add the NOW status strip.
-5. Build the ⌘K command palette and the Lab log with tag filters.
+5. Build the ⌘K command palette and the Field Notes index with tag filters.
 6. Swap og.png and favicon to the new clay/paper mark.
