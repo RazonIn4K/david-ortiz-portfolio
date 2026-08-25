@@ -154,8 +154,8 @@ export default function ContactPage() {
               A direct path to David, without making people guess
             </h1>
             <p className="mt-5 text-lg leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
-              {personalSitePublicLabel} stays personal, experimental, and reflective. This page is the shareable contact hub:
-              the fastest confirmed ways to connect about employment, collaboration, speaking, referrals, or peer conversations.
+              {personalSitePublicLabel} stays personal and proof-focused. This page is the shareable contact hub for
+              employment, collaboration, speaking, referrals, or peer conversations.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <span

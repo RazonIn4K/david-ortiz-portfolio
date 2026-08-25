@@ -59,4 +59,10 @@ describe("personal contact boundary", () => {
       expect(privacyPageSource).not.toContain(forbidden)
     }
   })
+
+  it("does not present parked workflow infrastructure as an active public-path processor", () => {
+    expect(compactPrivacyPageSource).toContain("Optional webhook and workflow integrations")
+    expect(compactPrivacyPageSource).not.toContain("Google Cloud (workflow processing and storage)")
+    expect(compactPrivacyPageSource).not.toContain("Meta's WhatsApp Business Platform")
+  })
 })

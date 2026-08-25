@@ -49,4 +49,15 @@ describe("personal homepage implementation contract", () => {
   it("keeps each theme radio named when its visible text is hidden on phones", () => {
     expect(homePageSource).toContain("aria-label={option.label}")
   })
+
+  it("keeps the critical proof content independent from client-side motion state", () => {
+    expect(homePageSource).not.toContain('from "framer-motion"')
+    expect(homePageSource).not.toContain("useReducedMotion")
+    expect(homePageSource).not.toContain("initial={{ opacity: 0")
+  })
+
+  it("dates the current-focus checkpoint instead of presenting it as timeless", () => {
+    expect(homePageSource).toContain("Aug 2026")
+    expect(homePageSource).not.toContain("<strong>Now</strong>")
+  })
 })

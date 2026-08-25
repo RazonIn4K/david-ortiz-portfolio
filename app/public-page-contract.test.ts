@@ -27,6 +27,7 @@ describe("public page landmark contract", () => {
   it("keeps the root layout as the only main landmark owner", () => {
     expect(layoutSource.match(/<main\b/g)).toHaveLength(1)
     expect(layoutSource.match(/<\/main>/g)).toHaveLength(1)
+    expect(layoutSource).toContain('<main id="main-content" tabIndex={-1}>')
 
     for (const [route, source] of Object.entries(innerPageSources)) {
       expect(source.match(/<main\b/g), `${route} must not nest a main landmark`).toBeNull()

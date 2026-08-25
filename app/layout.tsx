@@ -146,7 +146,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main-content">
           Skip to main content
         </a>
-        <main id="main-content">{children}</main>
+        <main id="main-content" tabIndex={-1}>{children}</main>
         {process.env.VERCEL === "1" && process.env.VERCEL_URL ? <Analytics /> : null}
       </body>
     </html>

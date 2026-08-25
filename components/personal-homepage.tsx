@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { motion, useReducedMotion } from "framer-motion"
 import {
   ArrowUpRight,
   BookOpen,
@@ -84,7 +83,6 @@ const contactGuardrails = [
 
 export default function PersonalHomepage() {
   const { theme, updateTheme } = useSiteTheme()
-  const shouldReduceMotion = useReducedMotion()
 
   return (
     <div className={`dtz-site dtz-${theme}`}>
@@ -145,12 +143,7 @@ export default function PersonalHomepage() {
       </header>
 
       <section id="start" className="dtz-hero dtz-overhaul-hero dtz-proof-first-hero" aria-labelledby="hero-title">
-        <motion.div
-          className="dtz-hero-copy"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
+        <div className="dtz-hero-copy">
           <p className="dtz-kicker">
             <Sparkles aria-hidden="true" />
             Technical systems builder
@@ -175,15 +168,9 @@ export default function PersonalHomepage() {
               </a>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.aside
-          className="dtz-proof-index"
-          aria-label="Three selected proof records"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
-        >
+        <aside className="dtz-proof-index" aria-label="Three selected proof records">
           <div className="dtz-proof-index-heading">
             <span>Selected proof</span>
             <strong>3 records</strong>
@@ -203,7 +190,7 @@ export default function PersonalHomepage() {
             ))}
           </ol>
           <p>Curated for judgment and traceability, not volume.</p>
-        </motion.aside>
+        </aside>
       </section>
 
       <section id="work" className="dtz-section dtz-records-section" aria-labelledby="work-title">
@@ -219,15 +206,11 @@ export default function PersonalHomepage() {
         </div>
 
         <div className="dtz-proof-record-list">
-          {homeProofRecords.map((record, index) => (
-            <motion.article
+          {homeProofRecords.map((record) => (
+            <article
               id={`proof-${record.id}`}
               className="dtz-proof-record"
               key={record.id}
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
-              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.18 }}
-              transition={{ duration: 0.4, ease: "easeOut", delay: index * 0.04 }}
             >
               <header className="dtz-proof-record-header">
                 <span className="dtz-proof-record-number">{record.sequence}</span>
@@ -271,7 +254,7 @@ export default function PersonalHomepage() {
                   </Link>
                 </div>
               </footer>
-            </motion.article>
+            </article>
           ))}
         </div>
       </section>
@@ -345,7 +328,7 @@ export default function PersonalHomepage() {
             <div className="dtz-field-notes-heading">
               <Workflow aria-hidden="true" />
               <span>Current focus</span>
-              <strong>Now</strong>
+              <strong>Aug 2026</strong>
             </div>
             <ul className="dtz-check-list">
               {currentFocus.map((line) => (

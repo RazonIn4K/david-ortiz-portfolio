@@ -36,7 +36,7 @@ export default function PrivacyPage() {
       <article style={wrapper}>
       <h1>Privacy Policy</h1>
       <p>
-        <em>Effective date: August 12, 2026</em>
+        <em>Effective date: August 25, 2026</em>
       </p>
       <p>
         This site, davidtiz.com, is the personal portfolio of David Ortiz. This page explains what
@@ -54,21 +54,20 @@ export default function PrivacyPage() {
       <h2>WhatsApp contact messaging</h2>
       <p>
         If you contact me on WhatsApp (including through the buttons on this site), I receive your
-        phone number, your WhatsApp profile name, and the messages you send, delivered through
-        Meta&apos;s WhatsApp Business Platform. I use this information to respond to your personal
-        contact request, such as an introduction, employment conversation, collaboration, speaking,
-        referral, or peer discussion. Conversation details may be stored as a contact record so I
-        can follow up.
+        phone number, your WhatsApp profile name, and the messages you send through WhatsApp. I use
+        this information to respond to your personal contact request, such as an introduction,
+        employment conversation, collaboration, speaking, referral, or peer discussion.
+        Conversation details may be stored as a contact record so I can follow up.
       </p>
       <p>
         Commercial service inquiries belong with RazonWorks. I may direct an inquiry there instead
         of treating this personal portfolio as client intake.
       </p>
       <p>
-        Service providers that process this data on my behalf: Meta Platforms (WhatsApp message
-        delivery), Vercel (website and webhook hosting), and Google Cloud (workflow processing and
-        storage). Each processes data under its own terms. I do not sell or share your information
-        with anyone else.
+        The providers used by this public path are Meta Platforms for WhatsApp delivery and Vercel
+        for website hosting and aggregate analytics. Each processes data under its own terms. I do
+        not sell your information. Optional webhook and workflow integrations are not described as
+        active here unless they are enabled and this notice is updated.
       </p>
 
       <h2>Retention</h2>
