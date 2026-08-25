@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Mail, ShieldCheck } from "lucide-react"
 
 import { contact } from "@/data/content"
 import { ThemeShell } from "@/components/theme-shell"
-import { getAllWriteups } from "@/lib/writeups"
+import { formatWriteupDate, getAllWriteups } from "@/lib/writeups"
 
 export const metadata: Metadata = {
   title: "CTF Writeups | David Ortiz",
@@ -126,9 +126,10 @@ export default function WriteupsPage() {
                 <p className="mt-3 flex-1 text-sm leading-relaxed" style={mutedText}>
                   {writeup.summary}
                 </p>
-                <div className="mt-5 flex items-center justify-between">
-                  <span className="text-xs" style={{ color: "var(--dtz-subtle)" }}>
-                    {writeup.competition}
+                <div className="mt-5 flex items-end justify-between gap-4">
+                  <span className="grid gap-1 text-xs" style={{ color: "var(--dtz-subtle)" }}>
+                    <time dateTime={writeup.date}>{formatWriteupDate(writeup.date)}</time>
+                    <span>{writeup.competition}</span>
                   </span>
                   <span
                     className="inline-flex items-center gap-1 text-sm font-semibold"

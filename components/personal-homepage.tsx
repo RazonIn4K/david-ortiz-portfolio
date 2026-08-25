@@ -1,11 +1,9 @@
-"use client"
-
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowDownRight, ArrowUpRight, BookOpen, Mail, MapPin, Moon, Sun } from "lucide-react"
+import { ArrowDownRight, ArrowUpRight, BookOpen, Mail, MapPin } from "lucide-react"
 
+import { EditorialThemeToggle } from "@/components/editorial-theme-toggle"
 import { GithubIcon, LinkedinIcon } from "@/components/icons/brand-icons"
-import { useSiteTheme } from "@/components/use-site-theme"
 import { contact } from "@/data/content"
 import { homeNavigation, homePrimaryActions, homeProofRecords } from "@/data/home-content"
 
@@ -45,10 +43,8 @@ const currentQuestions = [
 ]
 
 export default function PersonalHomepage() {
-  const { theme, updateTheme } = useSiteTheme()
-
   return (
-    <div className={`dtz-site dtz-${theme} dtz-editorial-site`}>
+    <div className="dtz-site dtz-editorial-site">
       <header className="dtz-editorial-header">
         <nav className="dtz-editorial-nav" aria-label="Primary navigation">
           <Link className="dtz-editorial-brand" href="#start" aria-label="David Ortiz home">
@@ -57,7 +53,6 @@ export default function PersonalHomepage() {
               alt=""
               width={42}
               height={42}
-              priority
               aria-hidden="true"
             />
             <span>
@@ -74,43 +69,20 @@ export default function PersonalHomepage() {
             ))}
           </ul>
 
-          <fieldset className="dtz-editorial-theme" aria-label="Color theme">
-            <legend className="sr-only">Color theme</legend>
-            {([
-              { value: "light", label: "Light", icon: Sun },
-              { value: "dark", label: "Dark", icon: Moon },
-            ] as const).map((option) => {
-              const Icon = option.icon
-              const selected = theme === option.value
-
-              return (
-                <label key={option.value} className={selected ? "is-selected" : ""}>
-                  <input
-                    type="radio"
-                    name="davidtiz-theme"
-                    value={option.value}
-                    aria-label={option.label}
-                    checked={selected}
-                    onChange={() => updateTheme(option.value)}
-                  />
-                  <Icon aria-hidden="true" />
-                  <span className="sr-only">{option.label}</span>
-                </label>
-              )
-            })}
-          </fieldset>
+          <EditorialThemeToggle />
         </nav>
+        <span className="dtz-editorial-reading-progress" aria-hidden="true" />
       </header>
 
-      <main>
+      <div>
         <section id="start" className="dtz-editorial-hero" aria-labelledby="hero-title">
           <div className="dtz-editorial-hero-main">
-            <p className="dtz-editorial-overline">Independent work · August 2026</p>
+            <p className="dtz-editorial-overline">Selected work and field notes</p>
             <h1 id="hero-title">I make complicated systems easier to understand—and easier to use.</h1>
             <p className="dtz-editorial-lede">
-              I&apos;m David, a technical builder in DeKalb, Illinois. My work moves between web interfaces,
-              automation, and security research, with a steady focus on turning messy problems into something people
-              can inspect, use, and continue.
+              I&apos;m David, a technical builder in DeKalb, Illinois. My work moves between web interfaces and security
+              research, with a steady focus on turning messy problems into something people can inspect, use, and
+              continue.
             </p>
 
             <div className="dtz-editorial-actions" aria-label="Primary actions">
@@ -128,7 +100,6 @@ export default function PersonalHomepage() {
               src="/visuals/editorial-systems-layers.webp"
               alt=""
               fill
-              priority
               sizes="(max-width: 980px) 100vw, 36vw"
               aria-hidden="true"
             />
@@ -167,43 +138,51 @@ export default function PersonalHomepage() {
                   <span>{record.year}</span>
                 </div>
                 <Link
-                  className="dtz-editorial-proof-visual"
+                  className="dtz-editorial-record-link"
                   href={record.evidence.href}
-                  aria-label={`${record.evidence.label}: ${record.title}`}
+                  aria-labelledby={`proof-title-${record.id}`}
                 >
-                  <span className="dtz-editorial-browser-bar" aria-hidden="true">
-                    <span className="dtz-editorial-browser-dots"><i /><i /><i /></span>
-                    <small>{record.visual.browserPath}</small>
-                    <i />
-                  </span>
-                  <span className="dtz-editorial-proof-image">
-                    <Image
-                      src={record.visual.src}
-                      alt={record.visual.alt}
-                      fill
-                      sizes={index === 0 ? "(max-width: 680px) 100vw, 1180px" : "(max-width: 680px) 100vw, 590px"}
-                    />
-                    <span className="dtz-editorial-proof-sweep" aria-hidden="true" />
-                  </span>
-                  <span className="dtz-editorial-proof-caption">
-                    {record.visual.label}
-                    <ArrowUpRight aria-hidden="true" />
-                  </span>
+                  <div className="dtz-editorial-proof-visual">
+                    <span className="dtz-editorial-browser-bar" aria-hidden="true">
+                      <span className="dtz-editorial-browser-dots"><i /><i /><i /></span>
+                      <small>{record.visual.browserPath}</small>
+                      <i />
+                    </span>
+                    <span className="dtz-editorial-proof-image">
+                      <Image
+                        src={record.visual.src}
+                        alt={record.visual.alt}
+                        fill
+                        sizes={index === 0 ? "(max-width: 680px) 100vw, 1180px" : "(max-width: 680px) 100vw, 590px"}
+                      />
+                      <span className="dtz-editorial-proof-sweep" aria-hidden="true" />
+                    </span>
+                    <span className="dtz-editorial-proof-caption">
+                      {record.visual.label}
+                      <ArrowUpRight aria-hidden="true" />
+                    </span>
+                  </div>
+                  <div className="dtz-editorial-work-copy">
+                    <h3 id={`proof-title-${record.id}`}>{record.title}</h3>
+                    <p>{record.summary}</p>
+                  </div>
+                  <div className="dtz-editorial-evidence-strip">
+                    <span>
+                      <strong>{record.evidence.status}</strong>
+                      <small>{record.evidence.note}</small>
+                    </span>
+                    <span className="dtz-editorial-record-action">
+                      {record.evidence.label}
+                      <ArrowUpRight aria-hidden="true" />
+                    </span>
+                  </div>
                 </Link>
-                <div className="dtz-editorial-work-copy">
-                  <h3>{record.title}</h3>
-                  <p>{record.summary}</p>
-                </div>
                 <footer>
                   <ul aria-label={`${record.title} themes`}>
                     {record.tags.map((tag) => (
                       <li key={tag}>{tag}</li>
                     ))}
                   </ul>
-                  <Link href={record.evidence.href}>
-                    {record.evidence.label}
-                    <ArrowUpRight aria-hidden="true" />
-                  </Link>
                 </footer>
               </article>
             ))}
@@ -247,7 +226,7 @@ export default function PersonalHomepage() {
             <p>Field notes</p>
             <h2 id="notes-title">Questions shaping the work right now.</h2>
             <Link href="/writeups">
-              Read all seven security writeups
+              Browse the security writeups
               <ArrowUpRight aria-hidden="true" />
             </Link>
           </div>
@@ -278,7 +257,7 @@ export default function PersonalHomepage() {
               GitHub
               <GithubIcon aria-hidden="true" />
             </a>
-            <a href="https://www.linkedin.com/in/davidortiz-dekalb/" target="_blank" rel="noreferrer">
+            <a href={contact.linkedin} target="_blank" rel="noreferrer">
               LinkedIn
               <LinkedinIcon aria-hidden="true" />
             </a>
@@ -288,7 +267,7 @@ export default function PersonalHomepage() {
             </Link>
           </div>
         </section>
-      </main>
+      </div>
 
       <footer className="dtz-editorial-footer">
         <span>© 2026 David Ortiz</span>

@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next"
 
-import { getWriteupSlugs } from "@/lib/writeups"
+import { getAllWriteups } from "@/lib/writeups"
 
 const BASE_URL = "https://davidtiz.com"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const writeupRoutes: MetadataRoute.Sitemap = getWriteupSlugs().map((slug) => ({
-    url: `${BASE_URL}/writeups/${slug}`,
+  const writeupRoutes: MetadataRoute.Sitemap = getAllWriteups().map((writeup) => ({
+    url: `${BASE_URL}/writeups/${writeup.slug}`,
+    lastModified: writeup.date,
     changeFrequency: "yearly",
     priority: 0.4,
   }))

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 import { ThemeShell } from "@/components/theme-shell"
+import { contact } from "@/data/content"
 
 export const metadata: Metadata = {
   title: "Privacy Policy | David Ortiz",
@@ -13,12 +14,21 @@ export const metadata: Metadata = {
       "Privacy policy for davidtiz.com, including analytics, direct contact, and data deletion instructions.",
     url: "/privacy",
     type: "website",
+    images: [
+      {
+        url: "/visuals/david-og-card.png",
+        width: 1200,
+        height: 630,
+        alt: "David Ortiz, builder, learner, and documentarian portfolio",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Privacy Policy | David Ortiz",
     description:
       "Privacy policy for davidtiz.com, including analytics, direct contact, and data deletion instructions.",
+    images: ["/visuals/david-og-card.png"],
   },
 }
 
@@ -41,7 +51,7 @@ export default function PrivacyPage() {
       <p>
         This site, davidtiz.com, is the personal portfolio of David Ortiz. This page explains what
         information is collected when you visit the site or contact me, how it is used, and how you
-        can have it deleted. Questions: <a href="mailto:hello@davidtiz.com">hello@davidtiz.com</a>.
+        can have it deleted. Questions: <a href={`mailto:${contact.email}`}>{contact.email}</a>.
       </p>
 
       <h2>Information collected on this website</h2>
@@ -74,7 +84,7 @@ export default function PrivacyPage() {
       </p>
       <ul>
         <li>
-          Email <a href="mailto:hello@davidtiz.com">hello@davidtiz.com</a> with the subject
+          Email <a href={`mailto:${contact.email}`}>{contact.email}</a> with the subject
           &quot;Delete my data&quot;.
         </li>
       </ul>

@@ -64,14 +64,14 @@ export const homeProofRecords: HomeProofRecord[] = [
       "The narrower path carries less campaign copy, but it makes the customer task and owner handoff easier to inspect.",
     evidence: {
       label: "Open the portfolio record",
-      href: "/portfolio",
+      href: "/portfolio#record",
       status: "Checked-in record",
       note: "David's recorded account and three local assets are stored in this repository.",
     },
     visual: {
       src: "/portfolio/hernandez/site-screenshot.png",
-      alt: "Saved screenshot of the Hernandez Landscape bilingual website interface",
-      label: "Checked-in website capture",
+      alt: "Saved English landing-page screenshot for Hernandez Landscape showing the EN/ES control, quote button, and call action",
+      label: "Checked-in interface capture · current route behavior not asserted",
       browserPath: "hernandezlandscape / saved interface",
       width: 1440,
       height: 1000,

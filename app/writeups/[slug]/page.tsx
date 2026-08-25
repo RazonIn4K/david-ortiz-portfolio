@@ -5,7 +5,9 @@ import { ArrowLeft, ShieldCheck } from "lucide-react"
 
 import { ThemeShell } from "@/components/theme-shell"
 import { WriteupContent } from "@/components/writeup-content"
-import { getWriteup, getWriteupSlugs } from "@/lib/writeups"
+import { formatWriteupDate, getWriteup, getWriteupSlugs } from "@/lib/writeups"
+
+const SITE_URL = "https://davidtiz.com"
 
 export const dynamicParams = false
 
@@ -31,6 +33,7 @@ export async function generateMetadata({
       description: writeup.summary,
       url: `/writeups/${slug}`,
       type: "article",
+      publishedTime: writeup.date,
       images: [
         {
           url: "/visuals/writeups-og-card.png",
@@ -64,9 +67,29 @@ export default async function WriteupPage({
   const writeup = getWriteup(slug)
   if (!writeup) notFound()
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: writeup.title,
+    description: writeup.summary,
+    datePublished: writeup.date,
+    url: `${SITE_URL}/writeups/${writeup.slug}`,
+    mainEntityOfPage: `${SITE_URL}/writeups/${writeup.slug}`,
+    author: {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: "David Ortiz",
+      url: SITE_URL,
+    },
+  }
+
   return (
     <ThemeShell>
       <div className="min-h-screen px-6 py-12">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c") }}
+        />
         <article className="mx-auto max-w-3xl">
           <nav className="flex items-center justify-between gap-4">
             <Link
@@ -95,6 +118,13 @@ export default async function WriteupPage({
               <span className="rounded-full border px-3 py-1" style={{ borderColor: "var(--dtz-border)", color: "var(--dtz-muted)" }}>
                 {writeup.competition}
               </span>
+              <time
+                dateTime={writeup.date}
+                className="rounded-full border px-3 py-1"
+                style={{ borderColor: "var(--dtz-border)", color: "var(--dtz-muted)" }}
+              >
+                {formatWriteupDate(writeup.date)}
+              </time>
             </div>
             <h1 className="mt-5 text-3xl font-bold leading-tight md:text-4xl">{writeup.title}</h1>
             <p className="mt-4 text-lg leading-relaxed" style={mutedText}>

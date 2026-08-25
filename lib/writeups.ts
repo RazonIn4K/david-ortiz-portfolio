@@ -16,6 +16,11 @@ export type WriteupMeta = {
 
 export type Writeup = WriteupMeta & { content: string }
 
+const writeupDateFormatter = new Intl.DateTimeFormat("en-US", {
+  dateStyle: "medium",
+  timeZone: "UTC",
+})
+
 type FrontmatterValue = string | string[]
 
 function parseFrontmatter(raw: string): {
@@ -93,4 +98,9 @@ export function getAllWriteups(): WriteupMeta[] {
       tags: writeup.tags,
     }))
     .sort((a, b) => (a.date < b.date ? 1 : -1))
+}
+
+export function formatWriteupDate(date: string): string {
+  const parsed = new Date(`${date}T00:00:00Z`)
+  return Number.isNaN(parsed.getTime()) ? date : writeupDateFormatter.format(parsed)
 }

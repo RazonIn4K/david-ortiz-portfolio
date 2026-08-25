@@ -245,7 +245,7 @@ function getFallbackResponse(userMessage: string): string {
   }
 
   if (lowerMessage.includes("contact") || lowerMessage.includes("email") || lowerMessage.includes("whatsapp") || lowerMessage.includes("phone")) {
-    return `Use the contact section at ${contact.email} or the WhatsApp link on the page.`
+    return `Email David at ${contact.email}. The Contact page is for employment, collaboration, speaking, referrals, and thoughtful technical conversations.`
   }
 
   if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {

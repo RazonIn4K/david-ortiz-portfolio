@@ -69,5 +69,8 @@ describe("personal proof social image contract", () => {
     expect(writeupSource).toContain('alternates: { canonical: `/writeups/${slug}` }')
     expect(writeupSource).toContain('url: `/writeups/${slug}`')
     expect(writeupSource).toContain('type: "article"')
+    expect(writeupSource).toContain("publishedTime: writeup.date")
+    expect(writeupSource).toContain('"@type": "TechArticle"')
+    expect(writeupSource).toContain("datePublished: writeup.date")
   })
 })
