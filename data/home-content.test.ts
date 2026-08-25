@@ -18,6 +18,12 @@ describe("personal homepage content contract", () => {
       expect(record.evidence.label.trim()).not.toBe("")
       expect(record.evidence.status.trim()).not.toBe("")
       expect(record.evidence.href).toMatch(/^(\/|#)/)
+      expect(record.visual.src).toMatch(/^\/portfolio\//)
+      expect(record.visual.alt.trim()).not.toBe("")
+      expect(record.visual.label).toMatch(/capture/i)
+      expect(record.visual.browserPath.trim()).not.toBe("")
+      expect(record.visual.width).toBeGreaterThanOrEqual(1200)
+      expect(record.visual.height).toBeGreaterThanOrEqual(700)
     }
   })
 
@@ -45,6 +51,11 @@ describe("personal homepage content contract", () => {
     expect(homepageData).toContain("stolen swipe")
     expect(homepageData).not.toContain("whatsapp")
     expect(homepageData).not.toContain("replay")
+    expect(homeProofRecords.map((record) => record.visual.src)).toEqual([
+      "/portfolio/hernandez/site-screenshot.png",
+      "/portfolio/proof/uplink-writeup.webp",
+      "/portfolio/proof/stolen-swipe-writeup.webp",
+    ])
   })
 
   it("does not turn homepage data into a service catalog or sibling-brand router", () => {

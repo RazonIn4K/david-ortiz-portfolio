@@ -67,6 +67,16 @@ describe("personal homepage implementation contract", () => {
     expect(homePageSource).not.toContain("initial={{ opacity: 0")
   })
 
+  it("renders actual proof captures and a separate decorative generated hero visual", () => {
+    expect(homePageSource).toContain("record.visual.src")
+    expect(homePageSource).toContain("record.visual.alt")
+    expect(homePageSource).toContain("record.visual.browserPath")
+    expect(homePageSource).toContain("/visuals/editorial-systems-layers.webp")
+    expect(homePageSource).toContain("Decorative systems study")
+    expect(globalStyles).toContain("prefers-reduced-motion: reduce")
+    expect(globalStyles).toContain("animation-timeline: view()")
+  })
+
   it("dates the editorial introduction instead of presenting it as timeless", () => {
     expect(homePageSource).toContain("August 2026")
     expect(homePageSource).not.toContain("<strong>Now</strong>")

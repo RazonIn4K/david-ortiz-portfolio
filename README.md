@@ -1,6 +1,6 @@
 # David Ortiz — Personal Portfolio
 
-Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents an editorial introduction, three inspectable work records, a personal approach, current field notes, and email-first contact. It is a single-page site with anchor navigation (`#start`, `#work`, `#approach`, `#notes`, `#contact`), plus focused secondary pages (`/contact`, `/portfolio`, `/writeups`, `/privacy`). The legacy `/demo` files remain reachable but are excluded from the sitemap and temporarily noindexed.
+Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents an animated editorial introduction, three screenshot-led work records, a personal approach, current field notes, and email-first contact. Generated imagery is decorative; portfolio proof uses real checked-in website and published-page captures. It is a single-page site with anchor navigation (`#start`, `#work`, `#approach`, `#notes`, `#contact`), plus focused secondary pages (`/contact`, `/portfolio`, `/writeups`, `/privacy`). The legacy `/demo` files remain reachable but are excluded from the sitemap and temporarily noindexed.
 
 ## Getting Started
 

@@ -123,14 +123,25 @@ export default function PersonalHomepage() {
             </div>
           </div>
 
-          <aside className="dtz-editorial-intro-card" aria-label="A short introduction">
-            <span className="dtz-editorial-intro-number">DO / 01</span>
-            <blockquote>
-              “I like work that asks me to understand the whole path—not just the screen in front of me.”
-            </blockquote>
-            <div>
-              <MapPin aria-hidden="true" />
-              <span>DeKalb, Illinois</span>
+          <aside className="dtz-editorial-hero-visual" aria-label="A short introduction">
+            <Image
+              src="/visuals/editorial-systems-layers.webp"
+              alt=""
+              fill
+              priority
+              sizes="(max-width: 980px) 100vw, 36vw"
+              aria-hidden="true"
+            />
+            <div className="dtz-editorial-hero-glow" aria-hidden="true" />
+            <div className="dtz-editorial-intro-card">
+              <span className="dtz-editorial-intro-number">Decorative systems study · DO / 01</span>
+              <blockquote>
+                “I like work that asks me to understand the whole path—not just the screen in front of me.”
+              </blockquote>
+              <div>
+                <MapPin aria-hidden="true" />
+                <span>DeKalb, Illinois</span>
+              </div>
             </div>
           </aside>
         </section>
@@ -155,6 +166,30 @@ export default function PersonalHomepage() {
                   <span>{record.eyebrow}</span>
                   <span>{record.year}</span>
                 </div>
+                <Link
+                  className="dtz-editorial-proof-visual"
+                  href={record.evidence.href}
+                  aria-label={`${record.evidence.label}: ${record.title}`}
+                >
+                  <span className="dtz-editorial-browser-bar" aria-hidden="true">
+                    <span className="dtz-editorial-browser-dots"><i /><i /><i /></span>
+                    <small>{record.visual.browserPath}</small>
+                    <i />
+                  </span>
+                  <span className="dtz-editorial-proof-image">
+                    <Image
+                      src={record.visual.src}
+                      alt={record.visual.alt}
+                      fill
+                      sizes={index === 0 ? "(max-width: 680px) 100vw, 1180px" : "(max-width: 680px) 100vw, 590px"}
+                    />
+                    <span className="dtz-editorial-proof-sweep" aria-hidden="true" />
+                  </span>
+                  <span className="dtz-editorial-proof-caption">
+                    {record.visual.label}
+                    <ArrowUpRight aria-hidden="true" />
+                  </span>
+                </Link>
                 <div className="dtz-editorial-work-copy">
                   <h3>{record.title}</h3>
                   <p>{record.summary}</p>

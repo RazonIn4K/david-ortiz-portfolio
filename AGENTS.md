@@ -60,7 +60,8 @@ components/
 data/content.ts     # Public email/GitHub plus the operational redirect number
 data/home-content.ts # Typed homepage navigation, actions, and three proof records
 lib/                # site-config, contact-links, meta-embedded-signup, abuse-store, utils
-public/visuals/     # Hero/workbench images and SVGs
+public/visuals/     # Decorative hero/OG assets; generated visuals never count as proof
+public/portfolio/   # Checked-in website and published-page proof captures
 public/demo/        # Static Spanish local-business demos; hub served at /demo via rewrite,
                     # retained outside primary navigation and temporarily noindexed
 ```
@@ -75,8 +76,8 @@ Short version: this app is intentionally small, so do not over-abstract; but do 
 
 ## Homepage sections (`components/personal-homepage.tsx`)
 1. Header: personal mark, Work / Approach / Notes / Contact, light/dark toggle
-2. Editorial hero: first-person introduction with local `#work` and `#notes` actions
-3. Selected Work: one portfolio record and two published security writeups
+2. Editorial hero: first-person introduction, decorative generated artwork, and local `#work` / `#notes` actions
+3. Selected Work: screenshot-led proof for one website record and two published security writeups
 4. Approach: three plain-language personal principles and a compact working-tool list
 5. Field Notes: current questions plus the complete published-writeups path
 6. Contact: concise email-first invitation with GitHub, LinkedIn, and `/contact`
@@ -85,6 +86,8 @@ Short version: this app is intentionally small, so do not over-abstract; but do 
 ## Design / Styling
 - Uses custom `dtz-*` classes defined in `app/globals.css`. Keep this design language: accessible, personal, light/dark, grounded. Not cyberpunk/agency.
 - Theme is stored in `localStorage` under `davidtiz-theme` and also honors `?theme=` and `prefers-color-scheme`.
+- Motion is progressive CSS enhancement and must honor `prefers-reduced-motion`. Critical copy and proof remain visible without client-side animation state.
+- Generated images may support the editorial mood, but proof cards must use real checked-in site/page captures with truthful alt text and source labels.
 
 ## Contact details
 - Centralized in `data/content.ts` → `contact` (operational whatsappNumber, public email, public github).
