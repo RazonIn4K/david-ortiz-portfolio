@@ -9,6 +9,7 @@ function readSource(...segments: string[]) {
 
 const layoutSource = readSource("app", "layout.tsx")
 const homeSource = readSource("app", "page.tsx")
+const homeComponentSource = readSource("components", "personal-homepage.tsx")
 const portfolioSource = readSource("app", "portfolio", "page.tsx")
 const writeupsSource = readSource("app", "writeups", "page.tsx")
 const writeupSource = readSource("app", "writeups", "[slug]", "page.tsx")
@@ -33,6 +34,9 @@ describe("public page landmark contract", () => {
       expect(source.match(/<main\b/g), `${route} must not nest a main landmark`).toBeNull()
       expect(source.match(/<\/main>/g), `${route} must not close a nested main landmark`).toBeNull()
     }
+
+    expect(homeComponentSource.match(/<main\b/g)).toBeNull()
+    expect(homeComponentSource.match(/<\/main>/g)).toBeNull()
   })
 })
 
@@ -77,6 +81,6 @@ describe("public page discovery metadata contract", () => {
     expect(writeupSource).toContain("openGraph:")
     expect(writeupSource).toContain("twitter:")
     expect(writeupSource.match(/title: `\$\{writeup\.title\} \| CTF Writeup`/g)).toHaveLength(3)
-    expect(writeupSource.match(/description: writeup\.summary/g)).toHaveLength(3)
+    expect(writeupSource.match(/description: writeup\.summary/g)).toHaveLength(4)
   })
 })

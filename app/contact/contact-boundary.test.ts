@@ -47,6 +47,7 @@ describe("personal contact boundary", () => {
   it("presents channel links as David's profiles rather than sibling brands", () => {
     for (const link of [...quickReachLinks, ...followWorkLinks]) {
       expect(link.label).not.toMatch(/RazonWorks|Razon Lab|High Encode|CSBrainAI/i)
+      expect(link.href).not.toMatch(/razonlab|Razonapp|RazonWorks|HighEncode/i)
     }
   })
 

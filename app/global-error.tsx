@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import Link from "next/link"
 
 const themeVariables = `
   :root {
@@ -136,9 +137,10 @@ export default function GlobalError({
                 Try again
               </button>
 
-              <button
-                onClick={() => (window.location.href = "/")}
+              <Link
+                href="/"
                 style={{
+                  display: "inline-block",
                   padding: "0.75rem 1.5rem",
                   background: "transparent",
                   color: "var(--muted)",
@@ -147,10 +149,11 @@ export default function GlobalError({
                   border: "1px solid var(--border)",
                   cursor: "pointer",
                   fontSize: "1rem",
+                  textDecoration: "none",
                 }}
               >
                 Go home
-              </button>
+              </Link>
             </div>
           </div>
         </div>

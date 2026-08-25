@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import robots from "@/app/robots"
 import sitemap from "@/app/sitemap"
 import nextConfig from "@/next.config.mjs"
-import { getWriteupSlugs } from "@/lib/writeups"
+import { getAllWriteups, getWriteupSlugs } from "@/lib/writeups"
 import { socialProfileLinks } from "@/lib/contact-links"
 
 // These guard the SEO/hardening config against accidental edits: removing a
@@ -35,13 +35,21 @@ describe("sitemap", () => {
       "https://davidtiz.com/portfolio",
       "https://davidtiz.com/writeups",
       "https://davidtiz.com/privacy",
-      ...getWriteupSlugs().map((slug) => `https://davidtiz.com/writeups/${slug}`),
+      ...getAllWriteups().map((writeup) => `https://davidtiz.com/writeups/${writeup.slug}`),
     ])
   })
 
   it("never lists noindex or operational routes", () => {
     for (const url of urls) {
       expect(url).not.toMatch(/\/(demo|pay|pagar|admin|api|contact\/whatsapp)/)
+    }
+  })
+
+  it("uses each writeup's known publication date as its sitemap timestamp", () => {
+    const writeupEntries = sitemap().filter((entry) => entry.url.includes("/writeups/"))
+    expect(writeupEntries).toHaveLength(getWriteupSlugs().length)
+    for (const entry of writeupEntries) {
+      expect(entry.lastModified).toMatch(/^20\d{2}-\d{2}-\d{2}$/)
     }
   })
 })

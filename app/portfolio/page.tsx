@@ -5,6 +5,7 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
+  ExternalLink,
   FileText,
   Mail,
   ShieldCheck,
@@ -285,6 +286,16 @@ export default function PortfolioPage() {
                     <p className="mt-2 text-sm leading-relaxed" style={mutedText}>
                       {capture.description}
                     </p>
+                    <a
+                      href={capture.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-2 text-sm font-semibold"
+                      style={{ color: "var(--dtz-accent)" }}
+                    >
+                      Open full-size capture
+                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                    </a>
                   </div>
                 </article>
               ))}

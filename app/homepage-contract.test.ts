@@ -8,6 +8,10 @@ const homePageSource = fs.readFileSync(
   "utf8",
 )
 const globalStyles = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8")
+const themeToggleSource = fs.readFileSync(
+  path.join(process.cwd(), "components", "editorial-theme-toggle.tsx"),
+  "utf8",
+)
 
 describe("personal homepage implementation contract", () => {
   it("renders the typed three-record proof model and editorial primary actions", () => {
@@ -55,13 +59,17 @@ describe("personal homepage implementation contract", () => {
 
   it("does not hide selected navigation items on small screens", () => {
     expect(globalStyles).not.toMatch(/\.dtz-nav-list li:nth-child\(\d+\)/)
+    expect(globalStyles).not.toContain(".dtz-editorial-nav-links {\n    display: none;")
+    expect(globalStyles).toContain(".dtz-editorial-nav-links::-webkit-scrollbar")
   })
 
-  it("keeps each theme radio named when its visible text is hidden on phones", () => {
-    expect(homePageSource).toContain("aria-label={option.label}")
+  it("keeps each theme control named when its visible text is hidden on phones", () => {
+    expect(themeToggleSource).toContain("aria-label={`${option.label} theme`}")
+    expect(themeToggleSource).toContain("aria-pressed={selected}")
   })
 
   it("keeps the critical proof content independent from client-side motion state", () => {
+    expect(homePageSource).not.toContain('"use client"')
     expect(homePageSource).not.toContain('from "framer-motion"')
     expect(homePageSource).not.toContain("useReducedMotion")
     expect(homePageSource).not.toContain("initial={{ opacity: 0")
@@ -77,8 +85,16 @@ describe("personal homepage implementation contract", () => {
     expect(globalStyles).toContain("animation-timeline: view()")
   })
 
-  it("dates the editorial introduction instead of presenting it as timeless", () => {
-    expect(homePageSource).toContain("August 2026")
+  it("uses durable editorial labels instead of stale snapshot counts or dates", () => {
+    expect(homePageSource).toContain("Selected work and field notes")
+    expect(homePageSource).toContain("Browse the security writeups")
+    expect(homePageSource).not.toContain("August 2026")
+    expect(homePageSource).not.toContain("all seven")
     expect(homePageSource).not.toContain("<strong>Now</strong>")
+  })
+
+  it("keeps one main landmark in the root layout instead of nesting another on the homepage", () => {
+    expect(homePageSource).not.toMatch(/<main\b/)
+    expect(homePageSource).not.toContain("</main>")
   })
 })

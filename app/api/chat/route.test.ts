@@ -118,6 +118,19 @@ describe("POST /api/chat — behavior", () => {
     expect(typeof data.message).toBe("string")
   })
 
+  it("keeps contact fallback email-first even when someone asks for WhatsApp", async () => {
+    vi.stubEnv("OPENROUTER_API_KEY", "")
+    const { POST } = await loadRoute()
+    const res = await POST(post({ messages: [{ role: "user", content: "Can I contact David on WhatsApp?" }] }))
+    const data = await res.json()
+
+    expect(res.status).toBe(200)
+    expect(data.fallback).toBe(true)
+    expect(data.message).toContain("hello@davidtiz.com")
+    expect(data.message).toContain("employment, collaboration, speaking, referrals")
+    expect(data.message).not.toContain("WhatsApp")
+  })
+
   it("rate-limits after 15 requests from the same IP (429 + retryAfter)", async () => {
     vi.stubEnv("OPENROUTER_API_KEY", "") // keep allowed requests on the no-network fallback path
     const { POST } = await loadRoute()

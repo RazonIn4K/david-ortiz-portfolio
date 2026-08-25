@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { contact } from "@/data/content";
 import { socialProfileLinks } from "@/lib/contact-links";
 import "./globals.css";
 
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
         url: "/visuals/david-og-card.png",
         width: 1200,
         height: 630,
-        alt: "David Ortiz, builder and operator portfolio",
+        alt: "David Ortiz, builder, learner, and documentarian portfolio",
       },
     ],
   },
@@ -108,11 +109,11 @@ export const metadata: Metadata = {
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${siteUrl}/#person`,
   name: "David Ortiz",
   url: siteUrl,
-  jobTitle: "Technical systems builder",
   description: siteDescription,
-  email: "hello@davidtiz.com",
+  email: contact.email,
   image: `${siteUrl}/visuals/david-og-card.png`,
   address: {
     "@type": "PostalAddress",
@@ -131,13 +132,40 @@ const personJsonLd = {
   sameAs: [...socialProfileLinks],
 };
 
+const themeBootScript = `(() => {
+  try {
+    const requested = new URLSearchParams(window.location.search).get("theme");
+    const saved = window.localStorage.getItem("davidtiz-theme");
+    const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const theme = requested === "light" || requested === "dark"
+      ? requested
+      : saved === "light" || saved === "dark"
+        ? saved
+        : preferred;
+    if (requested === "light" || requested === "dark") {
+      window.localStorage.setItem("davidtiz-theme", requested);
+    }
+    document.documentElement.dataset.dtzTheme = theme;
+    document.documentElement.style.colorScheme = theme;
+  } catch {
+    document.documentElement.dataset.dtzTheme = "light";
+  }
+})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body className="font-sans antialiased">
         <script
           type="application/ld+json"

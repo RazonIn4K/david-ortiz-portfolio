@@ -15,11 +15,20 @@ export const metadata: Metadata = {
     description: "Email David Ortiz or connect through his professional and creative profiles.",
     url: "/contact",
     type: "website",
+    images: [
+      {
+        url: "/visuals/david-og-card.png",
+        width: 1200,
+        height: 630,
+        alt: "David Ortiz, builder, learner, and documentarian portfolio",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Contact | David Ortiz",
     description: "Email David Ortiz or connect through his professional and creative profiles.",
+    images: ["/visuals/david-og-card.png"],
   },
 }
 
