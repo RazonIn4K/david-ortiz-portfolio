@@ -11,14 +11,15 @@ const privacyPageSource = fs.readFileSync(path.join(process.cwd(), "app", "priva
 const compactPrivacyPageSource = privacyPageSource.replace(/\s+/g, " ")
 
 describe("personal contact boundary", () => {
-  it("keeps the screened personal WhatsApp path and names the allowed reasons to connect", () => {
-    expect(contactPageSource).toContain("ProtectedWhatsAppLink")
-    expect(contactPageSource).toContain("href={whatsappHref}")
-    expect(quickReachLinks.find((link) => link.id === "whatsapp")?.href).toBe(
-      "/contact/whatsapp?intent=portfolio",
-    )
+  it("keeps email first and removes WhatsApp from the public contact surface", () => {
+    expect(quickReachLinks[0]).toMatchObject({ id: "email", href: "mailto:hello@davidtiz.com" })
 
-    for (const reason of ["employment", "collaboration", "speaking", "referrals", "peer conversations"]) {
+    for (const forbidden of ["ProtectedWhatsAppLink", "whatsappHref", "WhatsApp", "/contact/whatsapp"]) {
+      expect(contactPageSource).not.toContain(forbidden)
+      expect(JSON.stringify(quickReachLinks)).not.toContain(forbidden)
+    }
+
+    for (const reason of ["role", "collaboration", "question", "idea"]) {
       expect(contactPageSource).toContain(reason)
     }
   })
@@ -49,20 +50,19 @@ describe("personal contact boundary", () => {
     }
   })
 
-  it("describes personal contact records without presenting this site as business intake", () => {
-    expect(compactPrivacyPageSource).toContain("WhatsApp contact messaging")
-    expect(compactPrivacyPageSource).toContain("personal contact request")
-    expect(compactPrivacyPageSource).toContain("Commercial service inquiries belong with RazonWorks")
-    expect(compactPrivacyPageSource).toContain("contact record")
+  it("describes direct correspondence without presenting this site as business intake", () => {
+    expect(compactPrivacyPageSource).toContain("Direct contact")
+    expect(compactPrivacyPageSource).toContain("ordinary correspondence")
+    expect(compactPrivacyPageSource).toContain("contact records")
 
-    for (const forbidden of ["WhatsApp business messaging", "services you ask about", "lead record"]) {
+    for (const forbidden of ["WhatsApp", "services you ask about", "lead record", "RazonWorks"]) {
       expect(privacyPageSource).not.toContain(forbidden)
     }
   })
 
   it("does not present parked workflow infrastructure as an active public-path processor", () => {
-    expect(compactPrivacyPageSource).toContain("Optional webhook and workflow integrations")
     expect(compactPrivacyPageSource).not.toContain("Google Cloud (workflow processing and storage)")
     expect(compactPrivacyPageSource).not.toContain("Meta's WhatsApp Business Platform")
+    expect(compactPrivacyPageSource).not.toContain("webhook")
   })
 })

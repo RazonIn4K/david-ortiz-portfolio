@@ -12,7 +12,8 @@ The canonical portfolio decision and contract live in the RazonWorks repository 
 - A place for curated work, personal operating notes, direct personal contact, and trust signals.
 - The canonical identity layer for David as a builder/operator.
 - A first-person record of David's decisions, tradeoffs, role, and evidence.
-- WhatsApp-first for personal contact, with a screened redirect protecting the number.
+- Email-first for personal contact, with GitHub, LinkedIn, scheduling, and selected social profiles as secondary paths.
+- WhatsApp and its redirect/security mechanics are operational infrastructure, not public portfolio content.
 
 ## This site is not
 
@@ -100,9 +101,10 @@ DavidTiz may summarize material owned elsewhere only when the summary explains D
 ## Migration status
 
 - The Phase 0 governance commit changed documentation only; that statement is historical.
-- The proof-first checkpoint updates local source for `/`, `/contact`, and personal metadata. It removes the homepage assistant mount and commercial contact marketplace, while keeping the screened WhatsApp mechanics unchanged.
+- The 2026-08-10 proof-first checkpoint removed the homepage assistant mount and commercial contact marketplace; its public WhatsApp treatment is historical and was superseded on 2026-08-25.
+- The 2026-08-25 editorial checkpoint rebuilds `/` as a warm personal notebook, uses one portfolio record plus two published writeups as proof, and makes `/`, `/contact`, and `/privacy` email-first with no public WhatsApp language or links.
 - The portfolio-containment checkpoint rewrites `/portfolio` around problem, role, decision, tradeoff, and checked-in evidence. It removes the package grid and sibling-business links without adding a RazonWorks destination.
-- Unused service, case-study, resource, and sibling-brand exports were removed from `data/content.ts`; the module now holds only runtime personal contact constants.
+- Unused service, case-study, resource, and sibling-brand exports were removed from `data/content.ts`; the module now holds public email/GitHub details plus the number required by the unlinked operational route.
 - The standalone `/api/chat` route remains rate-limited and now returns a boundary response for commercial-intake markers before any model call. It is not mounted on the homepage.
 - No hosted behavior, analytics, deployment, or domain state was changed or verified by this checkpoint.
 - No business destination is rendered or configured in the current source. Add one only in a later authorized implementation slice after the intended RazonWorks destination exists and its hosted behavior is verified.

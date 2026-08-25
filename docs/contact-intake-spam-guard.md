@@ -1,20 +1,22 @@
 # Contact Intake Spam Guard
 
-This is the recommended path for protecting David's public WhatsApp number while keeping the site easy to contact.
+Status: retained operational reference; removed from the public portfolio surface on 2026-08-25.
+
+The guarded redirect remains available for private operational use, but public pages are email-first and must not link to this route or explain its security mechanics.
 
 ## What changed now
 
 - The homepage no longer shows a direct phone/text call button.
-- The homepage WhatsApp CTA now points to `/contact/whatsapp`, a local redirect route that adds the real `wa.me` number server-side.
+- The homepage and `/contact` no longer link to this route.
 - The redirect route sends `X-Robots-Tag: noindex,nofollow` so it is not treated as a page to index.
-- The contact section now explains the screened-contact approach instead of presenting the raw contact number as an open public target.
+- Public contact sections do not mention the redirect, challenge, or phone number.
 - The contact route now requires a strict challenge handshake (issued token + matching cookie), then applies scored abuse checks (user-agent checks, referrer presence, burst-rate window, and suspicious content patterns), sanitizes outbound message text, and returns a `403` blocked response with anti-bot headers when validation fails.
 - The challenge parser accepts both old-second and new-millisecond issued-at values so the route remains compatible with mixed client token formats.
 - Successful challenge validation is single-use: each generated challenge token is invalidated after one successful redirect to reduce replay by scrapers.
 
 ## Current behavior in code
 
-1. Public link is rendered through `ProtectedWhatsAppLink`.
+1. A private caller may render a link through `ProtectedWhatsAppLink`; public pages do not import it.
 2. On mount, it generates a random token and timestamp, then stores a browser cookie:
    - `dzt-contact-challenge=<token>.<issuedAt>` (10-minute TTL)
 3. The link receives the same value as `?challenge=...` and sends the user to `/contact/whatsapp`.
@@ -31,8 +33,8 @@ This does not make the number impossible to discover. It reduces passive scrapin
 
 Use a screened WhatsApp intake bot, not a fully autonomous sales bot.
 
-1. Keep WhatsApp as the first public contact path.
-2. Route public clicks through `/contact/whatsapp?intent=...` so the number is never exposed as a static `tel:`/`wa.me` URL.
+1. Keep WhatsApp off the public portfolio surface.
+2. Use `/contact/whatsapp?intent=...` only for a deliberately authorized private flow.
 3. Require a structured first message with project context.
 4. Receive incoming WhatsApp Business Platform webhooks through the existing signed route at `/api/whatsapp/webhook`.
 5. Forward verified events to n8n.

@@ -4,7 +4,7 @@ This file provides guidance to Codex when working with code in this repository.
 
 ## Project Overview
 
-Personal portfolio site for David Ortiz, built with Next.js 16 (App Router), React 19, and Tailwind CSS 4 for Vercel. It is a single-page site that presents David as a builder/operator: curated proof, how he works, his stack, personal operating notes, and a clear personal contact path.
+Personal portfolio site for David Ortiz, built with Next.js 16 (App Router), React 19, and Tailwind CSS 4 for Vercel. It is a single-page editorial portfolio that presents David as a builder, learner, and documentarian through curated work, a plain-language approach, field notes, and a clear email-first contact path.
 
 It is NOT an "ecosystem router" or an agency site. Do not reframe it around High Encode, RazonWorks, Razon Lab, CSBrainAI, Prompt Defenders, or a multi-site ecosystem. Outside projects may appear only as curated proof. A future RazonWorks business handoff may appear only as a contextual secondary route after its destination is implemented and verified. It must never replace David's personal identity, selected work, or personal contact as the organizing structure.
 
@@ -54,10 +54,10 @@ app/
   admin/whatsapp-coexistence/ # Admin-key-gated Meta signup launcher
   contact/whatsapp/ # Screened redirect (route.ts) + challenge issuance (challenge/route.ts)
 components/
-  personal-homepage.tsx # Client homepage implementation (dtz-* classes)
-  contact/          # ProtectedWhatsAppLink — screened WhatsApp redirect (used by homepage + /contact)
+  personal-homepage.tsx # Editorial client homepage implementation (dtz-* classes)
+  contact/          # Unlinked operational WhatsApp redirect component
   icons/            # brand-icons (used by homepage + /contact)
-data/content.ts     # Centralized personal contact (`contact`, `whatsappHref`)
+data/content.ts     # Public email/GitHub plus the operational redirect number
 data/home-content.ts # Typed homepage navigation, actions, and three proof records
 lib/                # site-config, contact-links, meta-embedded-signup, abuse-store, utils
 public/visuals/     # Hero/workbench images and SVGs
@@ -71,29 +71,29 @@ Tests live next to the code as `*.test.ts` (Vitest, node environment; `vitest.co
 
 Canonical boundary guidance lives in [`docs/ARCHITECTURE-BOUNDARIES.md`](docs/ARCHITECTURE-BOUNDARIES.md). Read it before refactoring route handlers, contact flows, chat behavior, or shared content/data modules.
 
-Short version: this app is intentionally small, so do not over-abstract; but do not let business/security rules drift further into framework files without characterization tests. For the WhatsApp redirect lane, preserve challenge validation, full challenge value integrity, replay blocking, sanitization, and redirect message behavior.
+Short version: this app is intentionally small, so do not over-abstract; but do not let business/security rules drift further into framework files without characterization tests. The unlinked WhatsApp redirect lane remains operational infrastructure; if it is touched, preserve challenge validation, full challenge value integrity, replay blocking, sanitization, and redirect message behavior.
 
 ## Homepage sections (`components/personal-homepage.tsx`)
-1. Header: personal mark, Work / How I work / Notes / Contact, light/dark toggle
-2. Hero: technical-systems positioning with local `#work` and `#notes` actions
-3. Selected Work: exactly three typed proof records with problem, David's role, decision, tradeoff, and evidence
-4. How I Work: four personal operating principles
-5. Working Vocabulary: the small tool groups David actually reaches for
-6. Operating Notes: current focus plus the published writeups path
-7. Personal Contact: screened WhatsApp, email, and GitHub
-8. Footer: personal contact and focused local routes
+1. Header: personal mark, Work / Approach / Notes / Contact, light/dark toggle
+2. Editorial hero: first-person introduction with local `#work` and `#notes` actions
+3. Selected Work: one portfolio record and two published security writeups
+4. Approach: three plain-language personal principles and a compact working-tool list
+5. Field Notes: current questions plus the complete published-writeups path
+6. Contact: concise email-first invitation with GitHub, LinkedIn, and `/contact`
+7. Footer: focused local routes
 
 ## Design / Styling
 - Uses custom `dtz-*` classes defined in `app/globals.css`. Keep this design language: accessible, personal, light/dark, grounded. Not cyberpunk/agency.
 - Theme is stored in `localStorage` under `davidtiz-theme` and also honors `?theme=` and `prefers-color-scheme`.
 
 ## Contact details
-- Centralized in `data/content.ts` → `contact` (whatsappNumber, email, github) and `whatsappHref`.
-- These are public contact details, NOT secrets. Never move them into `.env`.
+- Centralized in `data/content.ts` → `contact` (operational whatsappNumber, public email, public github).
+- Email and GitHub are public. The phone number supports an unlinked operational route; never render it or its mechanics on public pages and never move it into `.env`.
 
 ## Constraints for future edits
 - Brand boundary: this site never becomes an ecosystem router. Rules + allowed-link test live in `docs/BRAND-BOUNDARY.md`.
 - Personal contact remains the route for employment, collaboration, speaking, referrals, and peer contact. Do not replace it with a commercial intake flow.
+- Public contact surfaces are email-first. Do not surface WhatsApp, a phone number, challenge mechanics, replay controls, or anti-abuse implementation language on the homepage, `/contact`, or `/privacy`.
 - Commercial services and client intake belong to RazonWorks. Any future RazonWorks link here must stay secondary and contextual.
 - No business destination is rendered or configured by the current personal-proof source. Add one only after the exact RazonWorks destination and its hosted behavior are verified.
 - `/demo` remains reachable source and is not migrated or retired. It is excluded from the sitemap and receives a temporary `noindex, nofollow` response header.

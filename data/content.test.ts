@@ -4,8 +4,7 @@ import * as content from "./content"
 
 describe("runtime personal content boundary", () => {
   it("exports only the personal contact constants used by the application", () => {
-    expect(Object.keys(content).sort()).toEqual(["contact", "whatsappHref"])
-    expect(content.whatsappHref).toBe("/contact/whatsapp?intent=portfolio")
+    expect(Object.keys(content)).toEqual(["contact"])
     expect(content.contact.email).toBe("hello@davidtiz.com")
   })
 
