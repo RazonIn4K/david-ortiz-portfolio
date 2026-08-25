@@ -8,6 +8,15 @@ export type HomeEvidence = HomeLink & {
   note: string
 }
 
+export type HomeProofVisual = {
+  src: string
+  alt: string
+  label: string
+  browserPath: string
+  width: number
+  height: number
+}
+
 export type HomeProofRecord = {
   id: string
   sequence: string
@@ -20,6 +29,7 @@ export type HomeProofRecord = {
   decision: string
   tradeoff: string
   evidence: HomeEvidence
+  visual: HomeProofVisual
   tags: string[]
 }
 
@@ -58,6 +68,14 @@ export const homeProofRecords: HomeProofRecord[] = [
       status: "Checked-in record",
       note: "David's recorded account and three local assets are stored in this repository.",
     },
+    visual: {
+      src: "/portfolio/hernandez/site-screenshot.png",
+      alt: "Saved screenshot of the Hernandez Landscape bilingual website interface",
+      label: "Checked-in website capture",
+      browserPath: "hernandezlandscape / saved interface",
+      width: 1440,
+      height: 1000,
+    },
     tags: ["Bilingual web", "Quote flow", "Handoff"],
   },
   {
@@ -80,6 +98,14 @@ export const homeProofRecords: HomeProofRecord[] = [
       href: "/writeups/uplink-heap-overwrite-pwn",
       status: "Published",
       note: "Published from a locally validated, containerized replica.",
+    },
+    visual: {
+      src: "/portfolio/proof/uplink-writeup.webp",
+      alt: "Screenshot of David Ortiz's published Uplink binary exploitation writeup",
+      label: "Published page capture",
+      browserPath: "davidtiz.com / writeups / uplink",
+      width: 1440,
+      height: 1000,
     },
     tags: ["Heap", "Ghidra", "pwntools"],
   },
@@ -104,6 +130,14 @@ export const homeProofRecords: HomeProofRecord[] = [
       href: "/writeups/stolen-swipe-emv-forensics",
       status: "Published",
       note: "Published with all competition identities and payment-card data redacted.",
+    },
+    visual: {
+      src: "/portfolio/proof/stolen-swipe-writeup.webp",
+      alt: "Screenshot of David Ortiz's published Stolen Swipe log forensics writeup",
+      label: "Published page capture",
+      browserPath: "davidtiz.com / writeups / stolen swipe",
+      width: 1440,
+      height: 1000,
     },
     tags: ["EMV", "Luhn", "Log analysis"],
   },
