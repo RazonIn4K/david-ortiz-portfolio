@@ -39,7 +39,7 @@ the homepage does not have to import them. Reachable surfaces:
 | URL | File | Notes |
 |---|---|---|
 | `/` | `app/page.tsx` | Proof-first personal homepage with three typed records and `dtz-*` styles |
-| `/contact` | `app/contact/page.tsx` | Personal contact hub; renders `ProtectedWhatsAppLink`, no commercial intake marketplace |
+| `/contact` | `app/contact/page.tsx` | Email-first personal contact hub; no WhatsApp surface or commercial intake marketplace |
 | `/contact/whatsapp` | `app/contact/whatsapp/route.ts` | Screened WhatsApp redirect: HttpOnly cookie/token pairing, single-use (replay → 403), abuse scoring |
 | `/contact/whatsapp/challenge` | `.../challenge/route.ts` | Mints the challenge: returns the token + sets the HttpOnly cookie |
 | `/portfolio` | `app/portfolio/page.tsx` | Personal proof detail: problem, role, decision, tradeoff, and checked-in evidence; no business handoff |
@@ -64,9 +64,9 @@ No dynamic/lazy imports exist, so static analysis is complete.
 ```
 app/page.tsx
  ├─ components/icons/brand-icons.tsx        (GithubIcon)
- ├─ components/contact/protected-whatsapp-link.tsx
+ ├─ components/contact/protected-whatsapp-link.tsx (unlinked operational component)
  ├─ components/use-site-theme.ts            (light/dark preference)
- ├─ data/content.ts                         (contact, whatsappHref)
+ ├─ data/content.ts                         (public email/GitHub, operational number)
  └─ data/home-content.ts                    (navigation, actions, three proof records)
 ```
 
@@ -85,7 +85,7 @@ app/writeups/[slug]/page.tsx
 ### Live components / libs (and what keeps them alive)
 | Module | Reachable via |
 |---|---|
-| `components/contact/protected-whatsapp-link.tsx` | `/`, `/contact` — fetches one shared challenge per page load |
+| `components/contact/protected-whatsapp-link.tsx` | Unlinked operational component; not imported by public pages |
 | `components/icons/brand-icons.tsx` | `/`, `/contact` |
 | `data/content.ts` | `/`, `/contact`, `/portfolio`, `/writeups`, contact routes, and `/api/chat` (personal contact details only) |
 | `lib/site-config.ts` | `/contact` (personal site label only) |

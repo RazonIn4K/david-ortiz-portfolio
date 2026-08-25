@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 const siteUrl = "https://davidtiz.com";
 const siteTitle = "David Ortiz | Personal Portfolio";
 const siteDescription =
-  "Personal portfolio for David Ortiz: selected systems, security writeups, operating notes, and the decisions and tradeoffs behind the work.";
+  "The personal portfolio of David Ortiz: selected web work, security writeups, field notes, and the thinking behind each piece.";
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -26,11 +26,11 @@ export const metadata: Metadata = {
     "David Ortiz",
     "personal portfolio",
     "web systems",
-    "technical systems builder",
+    "technical builder",
     "security writeups",
-    "automation guardrails",
+    "automation",
     "Next.js",
-    "operating notes",
+    "field notes",
     "prompt injection defense",
   ],
   applicationName: "David Ortiz Portfolio",

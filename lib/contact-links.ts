@@ -15,22 +15,16 @@ export const socialProfileLinks = [
 
 export const quickReachLinks: ContactLink[] = [
   {
-    id: "whatsapp",
-    label: "WhatsApp",
-    href: "/contact/whatsapp?intent=portfolio",
-    description: "Start with a screened, context-first message that keeps the phone out of public pages.",
-  },
-  {
     id: "email",
     label: "Email",
     href: "mailto:hello@davidtiz.com",
-    description: "Best async path for introductions, professional follow-up, and thoughtful questions.",
+    description: "The simplest way to share an introduction, a thoughtful question, or a reason to connect.",
   },
   {
     id: "calendly",
     label: "Schedule a conversation",
     href: "https://calendly.com/davidinfosec07",
-    description: "Use this when a live conversation is more useful than another message.",
+    description: "Pick a time when a live conversation would be more useful than another message.",
   },
   {
     id: "facebook",

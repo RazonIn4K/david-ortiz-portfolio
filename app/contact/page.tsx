@@ -1,51 +1,31 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import {
-  ArrowRight,
-  CalendarDays,
-  ExternalLink,
-  Mail,
-  MessageCircle,
-} from "lucide-react"
+import { ArrowLeft, ArrowRight, CalendarDays, ExternalLink, Mail } from "lucide-react"
 
-import {
-  FacebookIcon,
-  GithubIcon,
-  InstagramIcon,
-  LinkedinIcon,
-} from "@/components/icons/brand-icons"
-import {
-  followWorkLinks,
-  quickReachLinks,
-  type ContactLink,
-} from "@/lib/contact-links"
-import { personalSitePublicLabel } from "@/lib/site-config"
-import { whatsappHref } from "@/data/content"
-import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
+import { FacebookIcon, GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/icons/brand-icons"
 import { ThemeShell } from "@/components/theme-shell"
+import { followWorkLinks, quickReachLinks, type ContactLink } from "@/lib/contact-links"
 
 export const metadata: Metadata = {
   title: "Contact | David Ortiz",
-  description:
-    "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+  description: "Email David Ortiz or connect through his professional and creative profiles.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact | David Ortiz",
-    description:
-      "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+    description: "Email David Ortiz or connect through his professional and creative profiles.",
     url: "/contact",
     type: "website",
   },
   twitter: {
     card: "summary",
     title: "Contact | David Ortiz",
-    description:
-      "Direct personal contact hub for David Ortiz: employment, collaboration, speaking, referrals, and peer conversations.",
+    description: "Email David Ortiz or connect through his professional and creative profiles.",
   },
 }
 
 function iconFor(link: ContactLink) {
   const props = { className: "h-4 w-4", "aria-hidden": true } as const
+
   switch (link.id) {
     case "email":
       return <Mail {...props} />
@@ -57,8 +37,6 @@ function iconFor(link: ContactLink) {
       return <InstagramIcon {...props} />
     case "linkedin":
       return <LinkedinIcon {...props} />
-    case "whatsapp":
-      return <MessageCircle {...props} />
     case "github":
       return <GithubIcon {...props} />
     default:
@@ -66,161 +44,99 @@ function iconFor(link: ContactLink) {
   }
 }
 
-function isExternal(href: string) {
-  return href.startsWith("http")
-}
-
-const tileClass =
-  "group flex items-start gap-3 rounded-2xl border px-4 py-4 transition-colors"
-const tileStyle = {
-  borderColor: "var(--dtz-border)",
-  background: "var(--dtz-panel-2)",
-} as const
-const iconChipStyle = {
-  background: "var(--dtz-accent-soft)",
-  color: "var(--dtz-accent)",
-} as const
-
 function ContactTile({ link }: { link: ContactLink }) {
-  const body = (
-    <>
+  const external = link.href.startsWith("http")
+
+  return (
+    <a
+      href={link.href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      className="group grid grid-cols-[auto_1fr_auto] items-start gap-4 border-t py-5"
+      style={{ borderColor: "var(--dtz-border)" }}
+    >
       <span
-        className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
-        style={iconChipStyle}
+        className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-full"
+        style={{ background: "var(--dtz-accent-soft)", color: "var(--dtz-accent)" }}
       >
         {iconFor(link)}
       </span>
-      <span className="min-w-0">
-        <span className="flex items-center gap-2 text-sm font-semibold" style={{ color: "var(--dtz-fg)" }}>
+      <span>
+        <strong className="block text-sm" style={{ color: "var(--dtz-fg)" }}>
           {link.label}
-          <ArrowRight
-            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-            style={{ color: "var(--dtz-subtle)" }}
-            aria-hidden="true"
-          />
-        </span>
-        <span className="mt-1 block text-xs leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
+        </strong>
+        <span className="mt-1 block text-sm leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
           {link.description}
         </span>
       </span>
-    </>
-  )
-
-  return link.id === "whatsapp" ? (
-    <ProtectedWhatsAppLink
-      href={link.href}
-      target={isExternal(link.href) ? "_blank" : undefined}
-      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-      className={tileClass}
-      style={tileStyle}
-    >
-      {body}
-    </ProtectedWhatsAppLink>
-  ) : (
-    <a
-      href={link.href}
-      target={isExternal(link.href) ? "_blank" : undefined}
-      rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-      className={tileClass}
-      style={tileStyle}
-    >
-      {body}
+      <ArrowRight
+        className="mt-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+        style={{ color: "var(--dtz-accent)" }}
+        aria-hidden="true"
+      />
     </a>
   )
 }
 
 export default function ContactPage() {
-  const groups = [
-    {
-      heading: "Quick reach",
-      intro: "Best if you want the shortest path to a real conversation.",
-      links: quickReachLinks,
-    },
-    {
-      heading: "Follow the work",
-      intro:
-        "Best if you want to inspect code, technical notes, and public build history before reaching out.",
-      links: followWorkLinks,
-    },
-  ]
-
   return (
     <ThemeShell>
-      <div className="min-h-screen px-6 py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-12 max-w-3xl">
-            <p className="dtz-section-label">Contact</p>
-            <h1 className="mt-4 text-4xl font-bold md:text-5xl">
-              A direct path to David, without making people guess
-            </h1>
-            <p className="mt-5 text-lg leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
-              {personalSitePublicLabel} stays personal and proof-focused. This page is the shareable contact hub for
-              employment, collaboration, speaking, referrals, or peer conversations.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <span
-                className="rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.18em]"
-                style={{
-                  borderColor: "var(--dtz-border)",
-                  background: "var(--dtz-accent-soft)",
-                  color: "var(--dtz-accent)",
-                }}
-              >
-                English + Español welcome
-              </span>
-              <Link
-                href="/"
-                className="rounded-full border px-4 py-2 text-sm transition-colors"
-                style={{ borderColor: "var(--dtz-border)", color: "var(--dtz-muted)" }}
-              >
-                Back to home
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-2">
-            {groups.map(group => (
-              <section
-                key={group.heading}
-                className="rounded-3xl border p-6"
-                style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
-              >
-                <p className="dtz-section-label">{group.heading}</p>
-                <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
-                  {group.intro}
-                </p>
-
-                <div className="mt-6 space-y-3">
-                  {group.links.map(link => (
-                    <ContactTile key={link.id} link={link} />
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-
-          <div
-            className="mt-8 rounded-3xl border px-6 py-5"
-            style={{ borderColor: "var(--dtz-border)", background: "var(--dtz-panel)" }}
-          >
-            <p className="text-sm font-semibold" style={{ color: "var(--dtz-fg)" }}>
-              Personal context is enough.
-            </p>
-            <p className="mt-2 text-sm" style={{ color: "var(--dtz-muted)" }}>
-              Share who you are, why you are reaching out, and what would make the conversation useful. This page is
-              for personal connection, not proposals or service scoping.
-            </p>
-            <ProtectedWhatsAppLink
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 rounded-2xl px-5 py-3 font-semibold transition-transform hover:scale-[1.01]"
-              style={{ background: "var(--dtz-accent)", color: "var(--dtz-on-accent)" }}
+      <div className="min-h-screen px-6 py-10 md:py-16">
+        <div className="mx-auto max-w-5xl">
+          <nav>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm"
+              style={{ color: "var(--dtz-muted)" }}
             >
-              Send a personal introduction
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </ProtectedWhatsAppLink>
-          </div>
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              Back to home
+            </Link>
+          </nav>
+
+          <header className="grid gap-8 border-b py-16 md:grid-cols-[1.35fr_0.65fr] md:items-end md:py-24" style={{ borderColor: "var(--dtz-border)" }}>
+            <div>
+              <p className="dtz-section-label">Contact</p>
+              <h1 className="mt-5 max-w-[10ch] font-serif text-5xl font-medium leading-[0.98] tracking-[-0.045em] md:text-7xl">
+                Let&apos;s start with a simple hello.
+              </h1>
+            </div>
+            <p className="text-base leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
+              If you have a role, collaboration, question, or idea that feels like a good fit, email is the best place
+              to begin. English and Spanish are both welcome.
+            </p>
+          </header>
+
+          <section className="grid gap-10 py-12 md:grid-cols-[0.65fr_1.35fr] md:py-16" aria-labelledby="reach-title">
+            <div>
+              <p className="dtz-section-label">Start here</p>
+              <h2 id="reach-title" className="mt-3 text-2xl font-semibold">
+                Direct ways to connect
+              </h2>
+            </div>
+            <div>
+              {quickReachLinks.map((link) => (
+                <ContactTile key={link.id} link={link} />
+              ))}
+            </div>
+          </section>
+
+          <section className="grid gap-10 border-t py-12 md:grid-cols-[0.65fr_1.35fr] md:py-16" style={{ borderColor: "var(--dtz-border)" }} aria-labelledby="follow-title">
+            <div>
+              <p className="dtz-section-label">Elsewhere</p>
+              <h2 id="follow-title" className="mt-3 text-2xl font-semibold">
+                Follow the work
+              </h2>
+              <p className="mt-3 max-w-xs text-sm leading-relaxed" style={{ color: "var(--dtz-muted)" }}>
+                Code, recordings, technical notes, and the public trail behind what I&apos;m learning.
+              </p>
+            </div>
+            <div>
+              {followWorkLinks.map((link) => (
+                <ContactTile key={link.id} link={link} />
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     </ThemeShell>

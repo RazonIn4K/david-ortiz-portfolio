@@ -12,7 +12,9 @@ export type HomeProofRecord = {
   id: string
   sequence: string
   eyebrow: string
+  year: string
   title: string
+  summary: string
   problem: string
   role: string
   decision: string
@@ -23,14 +25,14 @@ export type HomeProofRecord = {
 
 export const homeNavigation: HomeLink[] = [
   { label: "Work", href: "#work" },
-  { label: "How I work", href: "#process" },
+  { label: "Approach", href: "#approach" },
   { label: "Notes", href: "#notes" },
   { label: "Contact", href: "#contact" },
 ]
 
 export const homePrimaryActions: HomeLink[] = [
-  { label: "View selected work", href: "#work" },
-  { label: "Read operating notes", href: "#notes" },
+  { label: "Explore selected work", href: "#work" },
+  { label: "Read the field notes", href: "#notes" },
 ]
 
 export const homeProofRecords: HomeProofRecord[] = [
@@ -38,7 +40,10 @@ export const homeProofRecords: HomeProofRecord[] = [
     id: "hernandez-landscape",
     sequence: "01",
     eyebrow: "Web delivery",
+    year: "2026",
     title: "A bilingual quote path for Hernandez Landscape",
+    summary:
+      "A focused English-and-Spanish website flow that helps visitors understand the work, estimate a project, and carry that context into a quote request.",
     problem:
       "The public surface needed to explain landscaping services in English and Spanish, show real project work, and carry an estimate into the quote form.",
     role:
@@ -56,44 +61,50 @@ export const homeProofRecords: HomeProofRecord[] = [
     tags: ["Bilingual web", "Quote flow", "Handoff"],
   },
   {
-    id: "security-writeups",
+    id: "uplink-heap-overwrite",
     sequence: "02",
-    eyebrow: "Security practice",
-    title: "Seven technique-focused CTF writeups",
+    eyebrow: "Binary exploitation",
+    year: "2026",
+    title: "Uplink: a data-only path through a hardened binary",
+    summary:
+      "A step-by-step account of turning an unbounded scanf into a heap task overwrite when the usual control-flow shortcuts were unavailable.",
     problem:
-      "A solved challenge is hard to learn from when the method disappears behind a flag or a single screenshot.",
+      "The target enabled modern mitigations, so the useful path required understanding the program's data model instead of reaching for a familiar control-flow exploit.",
     role:
-      "I reconstructed the paths from binaries, logs, and challenge artifacts, then wrote the reasoning step by step with flags redacted.",
-    decision: "Publish the technique, boundary, and reasoning instead of secret values.",
+      "I reconstructed the binary, validated the exploit in a containerized replica, and documented the full reasoning with live details redacted.",
+    decision: "Follow the size-field corruption into the heap task the program was already preparing to execute.",
     tradeoff:
-      "Redaction limits exact replay of the final secret, but keeps the writeups useful and safer to share.",
+      "The writeup omits the live target and flag, but keeps the complete technique and validation path visible.",
     evidence: {
-      label: "Read the writeups",
-      href: "/writeups",
+      label: "Read the Uplink writeup",
+      href: "/writeups/uplink-heap-overwrite-pwn",
       status: "Published",
-      note: "Seven local writeups cover exploitation, escalation, cryptography, and forensics.",
+      note: "Published from a locally validated, containerized replica.",
     },
-    tags: ["Exploit analysis", "Forensics", "Redacted proof"],
+    tags: ["Heap", "Ghidra", "pwntools"],
   },
   {
-    id: "screened-contact",
+    id: "stolen-swipe",
     sequence: "03",
-    eyebrow: "Operational guardrail",
-    title: "A screened WhatsApp route for personal contact",
+    eyebrow: "Log forensics",
+    year: "2025",
+    title: "Stolen Swipe: finding fraud across ATM and EMV logs",
+    summary:
+      "A forensic walkthrough that combines fragmented payment-card records, reconstructs missing digits with Luhn checks, and separates legitimate chip use from magstripe fraud.",
     problem:
-      "A public personal contact path needs to stay usable without exposing a bare phone number to simple scraping, replay, and burst traffic.",
+      "No single artifact contained the full story, and the relevant payment-card evidence was split across customer, ATM, and EMV records.",
     role:
-      "I built the short-lived cookie and token challenge, replay blocking, light abuse scoring, and an optional shared-state path.",
+      "I correlated the records, reconstructed redacted identifiers with checksums, interpreted EMV tags, and documented the analysis without exposing competition data.",
     decision:
-      "Require a challenge before the redirect while keeping email and GitHub available as direct alternatives.",
+      "Treat the logs as one connected timeline and use transaction mode—not location alone—to distinguish the fraudulent withdrawal.",
     tradeoff:
-      "Without shared Redis, replay and burst state is per instance, so the route does not claim stronger enforcement than it has.",
+      "Sensitive names, account identifiers, and card numbers stay redacted, while the complete reasoning remains reproducible.",
     evidence: {
-      label: "Inspect the contact path",
-      href: "/contact",
-      status: "Implemented",
-      note: "The guarded route and its characterization tests live in this repository.",
+      label: "Read the Stolen Swipe writeup",
+      href: "/writeups/stolen-swipe-emv-forensics",
+      status: "Published",
+      note: "Published with all competition identities and payment-card data redacted.",
     },
-    tags: ["Abuse guard", "Replay control", "Direct contact"],
+    tags: ["EMV", "Luhn", "Log analysis"],
   },
 ]

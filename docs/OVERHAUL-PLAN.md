@@ -7,6 +7,8 @@ Portfolio governance addendum: 2026-08-09, Phase 0 documentation only.
 
 Proof-first personal-surface checkpoint: 2026-08-10, local source only. The homepage now uses exactly three typed proof records and local Work/Notes actions; the former setup catalog, generic work lanes, unverified Lab card, and floating assistant are removed from `/`. `/contact` now presents only personal conversation and profile paths while preserving the screened WhatsApp mechanics. The standalone chat API rejects commercial-intake markers before any model call. `/portfolio` now records problem, role, decision, tradeoff, and checked-in evidence without a commercial package or sibling-business handoff. `/demo` remains reachable source but is excluded from the sitemap and temporarily noindexed. Hosted behavior was not reverified.
 
+Editorial refresh checkpoint: 2026-08-25. This supersedes the public-contact and visual direction above: the homepage now uses a warm editorial layout, replaces contact infrastructure as “proof” with two published security writeups, and removes WhatsApp and implementation guardrail language from `/`, `/contact`, and `/privacy`. Public contact is email-first. The guarded redirect remains unlinked operational infrastructure.
+
 > Historical execution record: #70 merged and was recorded as verified in production (D1); `docs/BRAND-BOUNDARY.md`
 > added with CLAUDE.md/AGENTS.md pointers and a clean copy audit (#71, D2+D3);
 > ecosystem-era docs archived to `docs/archive/` (D4). CI was recorded as green. This
@@ -64,7 +66,7 @@ CI: lint → test → build on every push/PR, plus CodeQL.
 ```text
 davidtiz.com
   /            personal intro, selected work lanes, process, stack, notes, contact
-  /contact     all direct paths (screened WhatsApp, email, GitHub)
+  /contact     email-first personal contact and profile paths
   /portfolio   selected projects only — not a brand directory
   /privacy     legal / Meta requirement
   /demo        local-business demo hub (sub-brand)

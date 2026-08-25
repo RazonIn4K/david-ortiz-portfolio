@@ -1,6 +1,6 @@
 # David Ortiz — Personal Portfolio
 
-Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents three curated proof records, the decisions and tradeoffs behind them, personal operating notes, and direct contact. It is a single-page site with anchor navigation (`#start`, `#work`, `#process`, `#stack`, `#notes`, `#contact`), plus focused secondary pages (`/contact`, `/portfolio`, `/writeups`, `/privacy`). The legacy `/demo` files remain reachable but are excluded from the sitemap and temporarily noindexed.
+Personal portfolio site for David Ortiz, built with Next.js, React, Tailwind CSS, and Vercel. It presents an editorial introduction, three inspectable work records, a personal approach, current field notes, and email-first contact. It is a single-page site with anchor navigation (`#start`, `#work`, `#approach`, `#notes`, `#contact`), plus focused secondary pages (`/contact`, `/portfolio`, `/writeups`, `/privacy`). The legacy `/demo` files remain reachable but are excluded from the sitemap and temporarily noindexed.
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ doppler setup
 doppler run -- npm run dev
 ```
 
-Do not commit secrets. Public contact details (WhatsApp number and email) live in `data/content.ts`, not in env files.
+Do not commit secrets. Public email and GitHub details live in `data/content.ts`, not in env files. The phone number there supports an unlinked operational route and must not be rendered on public pages.
 
 ## Deployment
 
@@ -42,7 +42,7 @@ app/
   error.tsx         # Page-level error boundary
   global-error.tsx  # App-level error boundary
   not-found.tsx     # Custom 404
-  contact/          # Contact hub + screened WhatsApp redirect/challenge
+  contact/          # Email-first contact hub + unlinked operational redirect/challenge
   portfolio/        # Selected-work detail page
   api/chat/route.ts # Standalone, rate-limited personal-site guide API; not mounted on `/`
 components/         # Theme shell, protected contact link, icons
@@ -56,7 +56,7 @@ public/             # Images, visuals, and temporarily contained /demo static pa
 
 - The homepage is a personal portfolio, not a router to other sites.
 - Its job is to establish David's identity and judgment through a curated set of work, personal operating notes, and verifiable evidence.
-- Contact is WhatsApp-first (see `data/content.ts` -> `contact` / `whatsappHref`), with email as the fallback backup. Personal contact remains distinct from commercial client intake.
+- Public contact is email-first, with professional and creative profiles as secondary paths. Operational redirect mechanics stay off public pages. Personal contact remains distinct from commercial client intake.
 
 ## Portfolio brand governance
 
@@ -71,9 +71,9 @@ The proof-first homepage and `/portfolio` record are implemented in local source
 
 ## Contact protection
 
-This repo keeps the public WhatsApp path behind a one-step screened redirect:
+This repo retains an unlinked WhatsApp redirect as operational infrastructure:
 
-- Public buttons point to `/contact/whatsapp`.
+- Public pages do not link to `/contact/whatsapp` or describe its security mechanics.
 - `/contact/whatsapp` adds `wa.me/<number>?text=...` server-side.
 - A short-lived `dzt-contact-challenge` token/cookie handshake is enforced before redirect.
 - The route includes bot-detection scoring and returns `403` with anti-abuse headers when the handshake or risk checks fail.

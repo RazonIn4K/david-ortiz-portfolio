@@ -10,7 +10,7 @@ const homePageSource = fs.readFileSync(
 const globalStyles = fs.readFileSync(path.join(process.cwd(), "app", "globals.css"), "utf8")
 
 describe("personal homepage implementation contract", () => {
-  it("renders the typed three-record proof model and typed primary actions", () => {
+  it("renders the typed three-record proof model and editorial primary actions", () => {
     expect(homePageSource).toContain("homeProofRecords.map")
     expect(homePageSource).toContain("homePrimaryActions.map")
     expect(homePageSource).toContain('id="work"')
@@ -36,10 +36,21 @@ describe("personal homepage implementation contract", () => {
     }
   })
 
-  it("keeps the protected personal contact component in place", () => {
-    expect(homePageSource).toContain("ProtectedWhatsAppLink")
-    expect(homePageSource).toContain("whatsappHref")
-    expect(homePageSource).toContain('href="/contact/whatsapp?intent=callback"')
+  it("keeps operational contact mechanics out of the public homepage", () => {
+    for (const forbidden of [
+      "ProtectedWhatsAppLink",
+      "whatsappHref",
+      "WhatsApp",
+      "Contact guardrails",
+      "short-lived challenge",
+      "replay checks",
+      "bare phone number",
+    ]) {
+      expect(homePageSource).not.toContain(forbidden)
+    }
+
+    expect(homePageSource).toContain("mailto:${contact.email}")
+    expect(homePageSource).toContain("More ways to connect")
   })
 
   it("does not hide selected navigation items on small screens", () => {
@@ -56,8 +67,8 @@ describe("personal homepage implementation contract", () => {
     expect(homePageSource).not.toContain("initial={{ opacity: 0")
   })
 
-  it("dates the current-focus checkpoint instead of presenting it as timeless", () => {
-    expect(homePageSource).toContain("Aug 2026")
+  it("dates the editorial introduction instead of presenting it as timeless", () => {
+    expect(homePageSource).toContain("August 2026")
     expect(homePageSource).not.toContain("<strong>Now</strong>")
   })
 })

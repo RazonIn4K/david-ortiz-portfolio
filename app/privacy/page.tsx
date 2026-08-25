@@ -5,12 +5,12 @@ import { ThemeShell } from "@/components/theme-shell"
 export const metadata: Metadata = {
   title: "Privacy Policy | David Ortiz",
   description:
-    "Privacy policy for davidtiz.com and David Ortiz's WhatsApp contact messaging, including data deletion instructions.",
+    "Privacy policy for davidtiz.com, including analytics, direct contact, and data deletion instructions.",
   alternates: { canonical: "/privacy" },
   openGraph: {
     title: "Privacy Policy | David Ortiz",
     description:
-      "Privacy policy for davidtiz.com and David Ortiz's WhatsApp contact messaging, including data deletion instructions.",
+      "Privacy policy for davidtiz.com, including analytics, direct contact, and data deletion instructions.",
     url: "/privacy",
     type: "website",
   },
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Privacy Policy | David Ortiz",
     description:
-      "Privacy policy for davidtiz.com and David Ortiz's WhatsApp contact messaging, including data deletion instructions.",
+      "Privacy policy for davidtiz.com, including analytics, direct contact, and data deletion instructions.",
   },
 }
 
@@ -51,23 +51,15 @@ export default function PrivacyPage() {
         your own browser (localStorage) and is never transmitted to me.
       </p>
 
-      <h2>WhatsApp contact messaging</h2>
+      <h2>Direct contact</h2>
       <p>
-        If you contact me on WhatsApp (including through the buttons on this site), I receive your
-        phone number, your WhatsApp profile name, and the messages you send through WhatsApp. I use
-        this information to respond to your personal contact request, such as an introduction,
-        employment conversation, collaboration, speaking, referral, or peer discussion.
-        Conversation details may be stored as a contact record so I can follow up.
+        If you email me, schedule a conversation, or contact me through one of the external profiles
+        linked from this site, I receive the information you choose to share through that provider.
+        I use it only to respond and maintain ordinary correspondence.
       </p>
       <p>
-        Commercial service inquiries belong with RazonWorks. I may direct an inquiry there instead
-        of treating this personal portfolio as client intake.
-      </p>
-      <p>
-        The providers used by this public path are Meta Platforms for WhatsApp delivery and Vercel
-        for website hosting and aggregate analytics. Each processes data under its own terms. I do
-        not sell your information. Optional webhook and workflow integrations are not described as
-        active here unless they are enabled and this notice is updated.
+        Email, scheduling, and social platforms process messages under their own terms. I do not
+        sell your information or use personal correspondence for advertising.
       </p>
 
       <h2>Retention</h2>
@@ -78,19 +70,18 @@ export default function PrivacyPage() {
 
       <h2>Data deletion instructions</h2>
       <p>
-        You can request deletion of your data at any time, using either of these channels:
+        You can request deletion of your contact records at any time:
       </p>
       <ul>
         <li>
           Email <a href="mailto:hello@davidtiz.com">hello@davidtiz.com</a> with the subject
-          &quot;Delete my data&quot;, or
+          &quot;Delete my data&quot;.
         </li>
-        <li>Send &quot;Delete my data&quot; in a WhatsApp message to the same number you contacted.</li>
       </ul>
       <p>
-        I will delete your contact records and stored messages within 30 days and confirm when it is
-        done. Note that WhatsApp messages on Meta&apos;s own servers are governed by Meta&apos;s
-        retention rules and your own WhatsApp app.
+        I will delete the contact records I control within 30 days and confirm when it is done.
+        Copies held by an email, scheduling, or social provider follow that provider&apos;s retention
+        rules and account controls.
       </p>
 
       <h2>Changes</h2>

@@ -37,7 +37,7 @@ Logo: a clean geometric "DO" monogram in clay (flat, no texture), reused as favi
 /notes           Personal field notes (decisions, tradeoffs, current practice)
 /writing         Essays and breakdowns (the abstraction-stack series, security pieces)
 /about           Operating style (how I coordinate AIs/tools, principles, stack)
-/contact         Direct, screened (WhatsApp redirect, email, channels)
+/contact         Direct and email-first (email, scheduling, personal profiles)
 /uses (optional) The actual stack and why (tools, models, routing)
 ```
 
@@ -69,7 +69,7 @@ Services live on RazonWorks, not here. After the intended destination exists and
 ------------------------------------------------------------------
 [ Writing ]  (2-3 featured essays: the buffer-overflow piece, abstraction stack)
 ------------------------------------------------------------------
-[ Contact ]  one clear path (WhatsApp screened) + email + channels
+[ Contact ]  one clear email path + personal profiles
 [ Footer ]   David Ortiz · the person. Business services -> RazonWorks (secondary).
 ```
 
