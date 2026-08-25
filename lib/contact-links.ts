@@ -1,8 +1,31 @@
+import { contact } from "@/data/content"
+
 export type ContactLink = {
   id: string
   label: string
   href: string
   description: string
+}
+
+export const calendlyHref = "https://calendly.com/davidinfosec07"
+
+export function getContactEmailParts(): { user: string; domain: string } {
+  const at = contact.email.indexOf("@")
+  if (at <= 0) {
+    throw new Error("Invalid contact.email")
+  }
+  return {
+    user: contact.email.slice(0, at),
+    domain: contact.email.slice(at + 1),
+  }
+}
+
+export function buildContactMailto(
+  subject?: string,
+  parts: { user: string; domain: string } = getContactEmailParts(),
+): string {
+  const addr = `${parts.user}@${parts.domain}`
+  return subject ? `mailto:${addr}?subject=${encodeURIComponent(subject)}` : `mailto:${addr}`
 }
 
 export const socialProfileLinks = [

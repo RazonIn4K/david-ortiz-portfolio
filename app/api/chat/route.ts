@@ -20,6 +20,7 @@ const SYSTEM_PROMPT = `You are an AI assistant for David Ortiz's personal site (
 - Default to 2-4 short sentences
 - Do not invent pricing or sales promises
 - Avoid formal sales language
+- Do not mention WhatsApp for contact; public paths are email, Calendly, and /contact.
 - Avoid markdown unless the user asks for a list`
 
 interface ChatMessage {
@@ -205,12 +206,12 @@ function getFallbackResponse(userMessage: string): string {
   }
 
   if (lowerMessage.includes("contact") || lowerMessage.includes("email") || lowerMessage.includes("phone")) {
-    return `Use the contact section — email ${contact.email}, book a call via Calendly, or visit /contact for all paths.`
+    return `Email ${contact.email}, book a call via Calendly, or visit /contact for every public path.`
   }
 
   if (lowerMessage.includes("security") || lowerMessage.includes("audit")) {
     return "Prompt safety, AI system behavior, and reliability testing are active topics across current work. He keeps notes on what worked, what failed, and what needs tightening."
   }
 
-  return "Ask about what David is learning, what he is building, or how he approaches project handoffs. If you're ready to start a conversation, use the Contact section."
+  return `Ask about what David is learning, what he is building, or how he approaches project handoffs. To reach him, email ${contact.email}, book via Calendly, or use /contact.`
 }

@@ -163,7 +163,7 @@ export function ContactPageClient() {
   return (
     <ThemeShell>
       <ScrollProgress />
-      <main className="dtz-contact-page">
+      <div className="dtz-contact-page">
         <div className="dtz-contact-shell">
           <motion.div
             ref={heroRef}
@@ -328,7 +328,7 @@ export function ContactPageClient() {
             </motion.div>
           </Reveal>
         </div>
-      </main>
+      </div>
     </ThemeShell>
   )
 }

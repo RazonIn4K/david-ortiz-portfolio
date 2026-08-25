@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest"
 import { NextRequest } from "next/server"
+import { contact } from "@/data/content"
 
 const URL = "https://example.com/api/chat"
 const validBody = { messages: [{ role: "user", content: "hi" }] }
@@ -76,6 +77,16 @@ describe("POST /api/chat — behavior", () => {
     const data = await res.json()
     expect(data.fallback).toBe(true)
     expect(typeof data.message).toBe("string")
+  })
+
+  it("contact fallback points to email and Calendly, not WhatsApp", async () => {
+    vi.stubEnv("OPENROUTER_API_KEY", "")
+    const { POST } = await loadRoute()
+    const res = await POST(post({ messages: [{ role: "user", content: "how do I contact you?" }] }))
+    const data = await res.json()
+    expect(data.message.toLowerCase()).not.toContain("whatsapp")
+    expect(data.message).toContain(contact.email)
+    expect(data.message.toLowerCase()).toContain("calendly")
   })
 
   it("rate-limits after 15 requests from the same IP (429 + retryAfter)", async () => {

@@ -1,6 +1,8 @@
 "use client"
 
-import { useRef, type ComponentProps, type MouseEvent } from "react"
+import { useCallback, useEffect, useRef, type ComponentProps } from "react"
+
+import { buildContactMailto, getContactEmailParts } from "@/lib/contact-links"
 
 type ProtectedEmailLinkProps = Omit<ComponentProps<"a">, "href"> & {
   user?: string
@@ -9,39 +11,57 @@ type ProtectedEmailLinkProps = Omit<ComponentProps<"a">, "href"> & {
   children: React.ReactNode
 }
 
-function assembleMailto(user: string, domain: string, subject?: string): string {
-  const addr = `${user}@${domain}`
-  return subject ? `mailto:${addr}?subject=${encodeURIComponent(subject)}` : `mailto:${addr}`
-}
+const defaultEmailParts = getContactEmailParts()
 
 export function ProtectedEmailLink({
-  user = "hello",
-  domain = "davidtiz.com",
+  user = defaultEmailParts.user,
+  domain = defaultEmailParts.domain,
   subject,
   children,
   onClick,
+  onPointerEnter,
+  onFocus,
   ...rest
 }: ProtectedEmailLinkProps) {
   const linkRef = useRef<HTMLAnchorElement>(null)
+  const mailto = buildContactMailto(subject, { user, domain })
 
-  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    const mailto = assembleMailto(user, domain, subject)
-    if (linkRef.current) {
+  const applyMailto = useCallback(() => {
+    if (linkRef.current && linkRef.current.getAttribute("href") !== mailto) {
       linkRef.current.href = mailto
     }
-    onClick?.(e)
-  }
+  }, [mailto])
+
+  useEffect(() => {
+    applyMailto()
+  }, [applyMailto])
 
   return (
-    <a ref={linkRef} {...rest} href="#contact" onClick={handleClick}>
+    <a
+      ref={linkRef}
+      {...rest}
+      href="#contact"
+      onPointerEnter={(event) => {
+        applyMailto()
+        onPointerEnter?.(event)
+      }}
+      onFocus={(event) => {
+        applyMailto()
+        onFocus?.(event)
+      }}
+      onClick={(event) => {
+        applyMailto()
+        onClick?.(event)
+      }}
+    >
       {children}
     </a>
   )
 }
 
 export function RevealedEmail({
-  user = "hello",
-  domain = "davidtiz.com",
+  user = defaultEmailParts.user,
+  domain = defaultEmailParts.domain,
   className,
 }: {
   user?: string
