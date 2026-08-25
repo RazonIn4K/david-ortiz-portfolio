@@ -4,28 +4,28 @@ import { useEffect } from "react"
 
 const themeVariables = `
   :root {
-    --bg: #f4efe6;
-    --panel: #fbf7f0;
-    --border: #d8cbb8;
-    --accent-soft: #efe2d0;
-    --accent-2: #c2872f;
-    --fg: #1c1714;
-    --muted: #4a423b;
-    --accent: #9b352d;
-    --on-accent: #ffffff;
+    --bg: #f7f4ec;
+    --panel: #e8eef2;
+    --border: color-mix(in srgb, #0b1f2a 14%, #e8eef2);
+    --accent-soft: color-mix(in srgb, #bf4228 10%, #f7f4ec);
+    --fg: #0b1f2a;
+    --muted: color-mix(in srgb, #0b1f2a 68%, #f7f4ec);
+    --accent: #bf4228;
+    --on-accent: #f7f4ec;
+    --harbor: #2e6f8f;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #16110d;
-      --panel: #221a14;
-      --border: #4a3f34;
-      --accent-soft: #3a241d;
-      --accent-2: #e0a955;
-      --fg: #f4efe6;
-      --muted: #c9bdae;
-      --accent: #e0795f;
-      --on-accent: #1c1714;
+      --bg: #0b1f2a;
+      --panel: color-mix(in srgb, #0b1f2a 94%, #e8eef2);
+      --border: color-mix(in srgb, #f7f4ec 16%, #0b1f2a);
+      --accent-soft: color-mix(in srgb, #bf4228 16%, #0b1f2a);
+      --fg: #f7f4ec;
+      --muted: color-mix(in srgb, #f7f4ec 72%, #0b1f2a);
+      --accent: #bf4228;
+      --on-accent: #f7f4ec;
+      --harbor: #2e6f8f;
     }
   }
 `
@@ -38,7 +38,6 @@ export default function GlobalError({
   reset: () => void
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error("Global error:", error)
   }, [error])
 
@@ -55,7 +54,7 @@ export default function GlobalError({
             alignItems: "center",
             justifyContent: "center",
             padding: "1rem",
-            fontFamily: "system-ui, -apple-system, sans-serif",
+            fontFamily: '"Source Sans 3", system-ui, -apple-system, sans-serif',
           }}
         >
           <div
@@ -85,7 +84,7 @@ export default function GlobalError({
                 width="32"
                 height="32"
                 fill="none"
-                stroke="var(--accent-2)"
+                stroke="var(--harbor)"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >

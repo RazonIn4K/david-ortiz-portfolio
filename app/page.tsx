@@ -2,17 +2,27 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 import { GithubIcon } from "@/components/icons/brand-icons"
-import { ProtectedWhatsAppLink } from "@/components/contact/protected-whatsapp-link"
+import { ProtectedEmailLink, RevealedEmail } from "@/components/contact/protected-email-link"
 import { AIAssistant } from "@/components/ai-assistant"
+import {
+  CapabilityTrack,
+  Reveal,
+  ScrollProgress,
+  SectionHeader,
+  StaggerContainer,
+  staggerItem,
+} from "@/components/motion/site-motion"
 import { useSiteTheme } from "@/components/use-site-theme"
-import { contact, whatsappHref } from "@/data/content"
+import { contact } from "@/data/content"
 import {
   ArrowUpRight,
   AtSign,
   BadgeCheck,
   BookOpen,
+  CalendarDays,
   CheckCircle2,
   ClipboardCheck,
   Code2,
@@ -21,9 +31,9 @@ import {
   Globe,
   LockKeyhole,
   Mail,
-  MessageCircle,
   Moon,
   ShieldCheck,
+  Share2,
   Sparkles,
   Smartphone,
   Store,
@@ -39,11 +49,11 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ]
 
-const proofSignals = [
-  "Selected work people can inspect",
-  "Operating notes on real systems",
-  "Automation and AI-security checks",
-  "Clear handoff, not hidden complexity",
+const proofChips = [
+  "Inspectable proof",
+  "Operating notes",
+  "AI-security checks",
+  "Plain handoff",
 ]
 
 const proofSurfaces = [
@@ -58,7 +68,7 @@ const proofSurfaces = [
   {
     label: "Spanish-first demos",
     title: "Pedidos, citas, servicios",
-    body: "Small-business flows for owners and customers who live on mobile, WhatsApp, and social.",
+    body: "Small-business flows for owners and customers who live on mobile and social.",
     image: "/visuals/local-business-system.svg",
     href: "/demo",
     alt: "Illustrated local business system showing connected website, social, and contact paths.",
@@ -67,7 +77,7 @@ const proofSurfaces = [
     label: "Setup layer",
     title: "Domain, inbox, social, handoff",
     body: "The professional pieces around the site are part of the work, not an afterthought.",
-    image: "/visuals/generated-workbench.webp",
+    image: "/visuals/project-board.svg",
     href: "#setup",
     alt: "Desk scene representing website setup, account handoff, and project notes.",
   },
@@ -99,7 +109,7 @@ const launchFlow = [
   },
   {
     title: "Social",
-    detail: "Facebook, Instagram, WhatsApp paths",
+    detail: "Facebook, Instagram, and direct paths",
     icon: Smartphone,
   },
   {
@@ -123,10 +133,10 @@ const setupCards = [
     icon: AtSign,
   },
   {
-    title: "Social And WhatsApp Paths",
-    body: "Connecting the site to the places customers already use, with a guarded WhatsApp path so the phone number is not exposed to scrapers.",
-    points: ["WhatsApp guard route", "Social profile buttons", "Google/local links"],
-    icon: Smartphone,
+    title: "Social And Contact Paths",
+    body: "Connecting the site to the places customers already use, with clear paths from social profiles to contact forms.",
+    points: ["Social profile buttons", "Contact forms", "Google/local links"],
+    icon: Share2,
   },
   {
     title: "Security-Minded Handoff",
@@ -138,9 +148,19 @@ const setupCards = [
 
 const workAreas = [
   {
+    label: "Featured",
+    title: "Hernandez Landscape",
+    body: "Live bilingual landscaping site — service pages, instant estimator, quote handoff, and sourced trust signals you can inspect end to end.",
+    image: "/portfolio/hernandez/site-screenshot.png",
+    icon: Store,
+    tags: ["Bilingual", "Estimator", "Local SEO", "Handoff"],
+    cta: { label: "Open portfolio case", href: "/portfolio" },
+    featured: true,
+  },
+  {
     label: "Web",
     title: "Local Business Sites",
-    body: "Selected proof: customer-facing sites with clear services, forms, and bilingual-friendly copy. Used to show how I think about layout, contact paths, and owner handoff.",
+    body: "Customer-facing sites with clear services, forms, and bilingual-friendly copy — layout, contact paths, and owner handoff included.",
     image: "/visuals/local-business-system.svg",
     icon: Globe,
     tags: ["Next.js", "Forms", "Local SEO", "Handoff"],
@@ -192,7 +212,7 @@ const workAreas = [
     label: "Lab",
     title: "Razon Live Lab",
     body: "Learning AI security and systems in public: streams, writeups, and sanitized demos, in English and Spanish.",
-    image: "/visuals/generated-lanes.webp",
+    image: "/visuals/systems-routing.svg",
     icon: Sparkles,
     tags: ["Live builds", "AI security", "EN/ES"],
     cta: { label: "Visit lab", href: "https://razonlab.com" },
@@ -248,41 +268,54 @@ const currentFocus = [
   "Better notes that preserve what worked, what failed, and what should happen in the next session.",
 ]
 
-const contactGuardrails = [
-  "Public links start with project context instead of a bare phone number.",
-  "A future WhatsApp/n8n screener can label spam, ask one clarifying question, and keep human approval on replies.",
-  "Direct calls should happen after context, not as the first public CTA bots can scrape.",
-]
 
 export default function HomePage() {
   const { theme, updateTheme } = useSiteTheme()
   const shouldReduceMotion = useReducedMotion()
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  })
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
   return (
     <div className={`dtz-site dtz-${theme}`}>
+      <ScrollProgress />
       <header className="dtz-header">
         <nav className="dtz-nav" aria-label="Primary navigation">
           <Link className="dtz-brand" href="#start" aria-label="David Ortiz home">
-            <Image
-              className="dtz-logo-img"
-              src="/davidtiz-logo-transparent.png"
-              alt=""
-              width={44}
-              height={44}
-              priority
-              aria-hidden="true"
-            />
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05, rotate: -2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <Image
+                className="dtz-logo-img"
+                src="/davidtiz-logo-transparent.png"
+                alt=""
+                width={44}
+                height={44}
+                priority
+                aria-hidden="true"
+              />
+            </motion.div>
             <span>
               <strong>David Ortiz</strong>
-              <small>builder/operator portfolio</small>
+              <small>Websites and practical business systems.</small>
             </span>
           </Link>
 
           <ul className="dtz-nav-list">
-            {navItems.map((item) => (
-              <li key={item.href}>
+            {navItems.map((item, i) => (
+              <motion.li
+                key={item.href}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: -10 }}
+                animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
+              >
                 <a href={item.href}>{item.label}</a>
-              </li>
+              </motion.li>
             ))}
           </ul>
 
@@ -315,190 +348,247 @@ export default function HomePage() {
         </nav>
       </header>
 
-      <section id="start" className="dtz-hero dtz-overhaul-hero" aria-labelledby="hero-title">
+      <motion.section
+        ref={heroRef}
+        id="start"
+        className="dtz-hero dtz-overhaul-hero"
+        aria-labelledby="hero-title"
+        style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
+      >
         <motion.div
           className="dtz-hero-copy"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <p className="dtz-kicker">
-            <Sparkles aria-hidden="true" />
-            Selected work, operating notes, and systems thinking
-          </p>
-          <h1 id="hero-title">I build practical web, automation, and AI-security systems.</h1>
-          <p className="dtz-lede">
-            I&apos;m David Ortiz. This is my personal proof hub: selected work, operating notes, and the decisions behind
-            the systems I build, test, and hand off.
-          </p>
+          <motion.p
+            className="dtz-kicker dtz-float-badge"
+            initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.9 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Sparkles aria-hidden="true" className="dtz-icon-bounce" />
+            Selected work · operating notes · systems thinking
+          </motion.p>
+          <motion.h1
+            id="hero-title"
+            className="dtz-hero-display"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            I build practical web, automation,
+            <span className="dtz-hero-accent">and AI-security systems.</span>
+          </motion.h1>
+          <motion.p
+            className="dtz-lede"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+          >
+            I&apos;m David Ortiz — builder/operator. This site is my proof hub: work you can inspect, notes on how I ship, and the decisions behind each system.
+          </motion.p>
 
-          <ul className="dtz-hero-badges" aria-label="What David can set up">
-            {heroHighlights.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-
-          <div className="dtz-hero-actions" aria-label="Primary actions">
-            <a className="dtz-button primary" href="#work">
+          <motion.div
+            className="dtz-hero-actions"
+            aria-label="Primary actions"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+          >
+            <motion.a
+              className="dtz-button primary dtz-button-glow"
+              href="#work"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+            >
               View selected work
               <ArrowUpRight aria-hidden="true" />
-            </a>
-            <a className="dtz-button secondary" href="#notes">
+            </motion.a>
+            <motion.a
+              className="dtz-button secondary dtz-button-glow"
+              href="#notes"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+            >
               Read operating notes
               <BookOpen aria-hidden="true" />
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
+
+          <CapabilityTrack items={heroHighlights} />
         </motion.div>
 
         <motion.div
           className="dtz-hero-visual dtz-overhaul-visual dtz-showcase-stage"
           aria-label="Website design and setup proof"
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95, y: 30 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         >
           <div className="dtz-stage-topline">
             <span>Live screens, not just claims</span>
-            <Link href="/portfolio">
+            <Link href="/portfolio" className="dtz-link-arrow">
               View portfolio
               <ArrowUpRight aria-hidden="true" />
             </Link>
           </div>
 
           <div className="dtz-stage-grid">
-            <Link className="dtz-live-preview" href="/portfolio">
-              <span className="dtz-browser-bar" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <strong>davidtiz.com / portfolio</strong>
-              </span>
-              <Image
-                src="/portfolio/hernandez/site-screenshot.png"
-                alt="Screenshot of a local business website portfolio example."
-                width={1440}
-                height={1000}
-                priority
-                loading="eager"
-                sizes="(max-width: 560px) calc(100vw - 44px), (max-width: 1020px) calc(100vw - 64px), 368px"
-              />
-            </Link>
+            <motion.div
+              whileHover={shouldReduceMotion ? {} : { y: -4 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <Link className="dtz-live-preview dtz-img-hover" href="/portfolio">
+                <span className="dtz-browser-bar" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                  <strong>davidtiz.com / portfolio</strong>
+                </span>
+                <Image
+                  src="/portfolio/hernandez/site-screenshot.png"
+                  alt="Screenshot of a local business website portfolio example."
+                  width={1440}
+                  height={1000}
+                  priority
+                  loading="eager"
+                  sizes="(max-width: 560px) calc(100vw - 44px), (max-width: 1020px) calc(100vw - 64px), 368px"
+                />
+              </Link>
+            </motion.div>
 
             <div className="dtz-stage-column">
-              <Link className="dtz-mini-preview" href="/portfolio">
-                <Image
-                  src="/portfolio/hernandez/site-trust-screenshot.png"
-                  alt="Screenshot of services and trust sections from a local business website."
-                  width={1440}
-                  height={729}
-                />
-                <span>
-                  <strong>Trust section</strong>
-                  Services, photos, contact path
-                </span>
-              </Link>
+              <motion.div
+                whileHover={shouldReduceMotion ? {} : { y: -3 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Link className="dtz-mini-preview dtz-img-hover" href="/portfolio">
+                  <Image
+                    src="/portfolio/hernandez/site-trust-screenshot.png"
+                    alt="Screenshot of services and trust sections from a local business website."
+                    width={1440}
+                    height={729}
+                  />
+                  <span>
+                    <strong>Trust section</strong>
+                    Services, photos, contact path
+                  </span>
+                </Link>
+              </motion.div>
 
-              <div className="dtz-handoff-panel">
+              <motion.div
+                className="dtz-handoff-panel"
+                whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <span>Owner handoff</span>
                 <strong>Domain, inbox, social, recovery</strong>
                 <p>Set up around the tools the owner already uses.</p>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           <div className="dtz-stage-checks" aria-label="Setup path">
-            {launchFlow.map((item) => {
+            {launchFlow.map((item, i) => {
               const Icon = item.icon
 
               return (
-                <div className="dtz-stage-check" key={item.title}>
-                  <span aria-hidden="true">
+                <motion.div
+                  className="dtz-stage-check"
+                  key={item.title}
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                  animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.8 + i * 0.08 }}
+                  whileHover={shouldReduceMotion ? {} : { y: -3, scale: 1.02 }}
+                >
+                  <span aria-hidden="true" className="dtz-icon-bounce">
                     <Icon aria-hidden="true" />
                   </span>
                   <div>
                     <strong>{item.title}</strong>
                     <small>{item.detail}</small>
                   </div>
-                </div>
+                </motion.div>
               )
             })}
           </div>
         </motion.div>
-      </section>
+      </motion.section>
+
+      <div className="dtz-section-rule" aria-hidden="true" />
 
       <section className="dtz-section dtz-proof-section" aria-labelledby="proof-title">
-        <div className="dtz-section-heading dtz-proof-heading">
-          <div>
-            <p className="dtz-section-label">Proof of work</p>
-            <h2 id="proof-title">Make the work visible before someone has to ask.</h2>
-          </div>
-          <p>
-            I show the customer-facing surface and the practical setup behind it: domain, email, WhatsApp/social paths,
-            security basics, and a plain handoff. The proof is inspectable, not just claimed.
-          </p>
-          <ul className="dtz-signal-list" aria-label="Portfolio signals">
-            {proofSignals.map((signal) => (
-              <li key={signal}>
-                <CheckCircle2 aria-hidden="true" />
-                {signal}
-              </li>
+        <Reveal>
+          <SectionHeader
+            index="01"
+            label="Proof of work"
+            titleId="proof-title"
+            title="Show the work before anyone asks."
+            lead="Customer-facing surfaces plus the setup behind them — domain, inbox, social paths, and a handoff the owner can actually use."
+          />
+          <ul className="dtz-proof-chips" aria-label="Portfolio signals">
+            {proofChips.map((chip) => (
+              <li key={chip}>{chip}</li>
             ))}
           </ul>
-        </div>
+        </Reveal>
 
-        <div className="dtz-proof-surface-grid">
+        <StaggerContainer className="dtz-proof-surface-grid is-bento" staggerDelay={0.1}>
           {proofSurfaces.map((item, index) => (
             <motion.article
-              className={index === 0 ? "dtz-proof-surface is-featured" : "dtz-proof-surface"}
+              className={`${index === 0 ? "dtz-proof-surface is-featured" : "dtz-proof-surface"} dtz-card-interactive`}
               key={item.title}
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.06 }}
+              variants={staggerItem}
+              whileHover={shouldReduceMotion ? {} : { y: -6 }}
             >
-              <Link className="dtz-proof-surface-media" href={item.href}>
+              <Link className="dtz-proof-surface-media dtz-img-hover" href={item.href}>
                 <Image src={item.image} alt={item.alt} width={1440} height={index === 0 ? 1000 : 729} />
               </Link>
               <div className="dtz-proof-surface-copy">
                 <span>{item.label}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
-                <Link href={item.href}>
+                <Link href={item.href} className="dtz-link-arrow">
                   Inspect it
                   <ArrowUpRight aria-hidden="true" />
                 </Link>
               </div>
             </motion.article>
           ))}
-        </div>
+        </StaggerContainer>
       </section>
 
-      <section id="setup" className="dtz-section dtz-services-section" aria-labelledby="setup-title">
-        <div className="dtz-section-heading">
-          <p className="dtz-section-label">Selected proof</p>
-          <h2 id="setup-title">The practical layer behind the site.</h2>
-          <p>
-            A working local-business site needs more than a homepage. These are the pieces I connect and document so the
-            owner can keep the system running after handoff.
-          </p>
-        </div>
+      <div className="dtz-section-rule" aria-hidden="true" />
 
-        <div className="dtz-setup-grid">
-          {setupCards.map((item, index) => {
+      <section id="setup" className="dtz-section dtz-services-section" aria-labelledby="setup-title">
+        <Reveal>
+          <SectionHeader
+            index="02"
+            label="Selected proof"
+            titleId="setup-title"
+            title="The practical layer behind the site."
+            lead="Domain, inbox, social paths, and security basics — connected and documented so the owner can keep running after handoff."
+          />
+        </Reveal>
+
+        <StaggerContainer className="dtz-setup-grid" staggerDelay={0.08}>
+          {setupCards.map((item) => {
             const Icon = item.icon
 
             return (
               <motion.article
-                className="dtz-setup-card"
+                className="dtz-setup-card dtz-card-interactive"
                 key={item.title}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.05 }}
+                variants={staggerItem}
+                whileHover={shouldReduceMotion ? {} : { y: -8 }}
               >
-                <span className="dtz-setup-icon">
+                <motion.span
+                  className="dtz-setup-icon dtz-icon-bounce"
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.1, rotate: -5 }}
+                >
                   <Icon aria-hidden="true" />
-                </span>
+                </motion.span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
                 <ul>
@@ -512,49 +602,77 @@ export default function HomePage() {
               </motion.article>
             )
           })}
-        </div>
+        </StaggerContainer>
       </section>
 
-      <section id="work" className="dtz-section" aria-labelledby="work-title">
-        <div className="dtz-section-heading">
-          <p className="dtz-section-label">Selected work</p>
-          <h2 id="work-title">Working lanes and proof people can inspect.</h2>
-          <p>
-            These are categories and proof cards, not a brand directory. Each one points to a practical thing I can
-            design, connect, test, and explain clearly.
-          </p>
-        </div>
+      <div className="dtz-section-rule" aria-hidden="true" />
 
-        <div className="dtz-work-grid">
-          {workAreas.map((item, index) => {
+      <section id="work" className="dtz-section" aria-labelledby="work-title">
+        <Reveal>
+          <SectionHeader
+            index="03"
+            label="Selected work"
+            titleId="work-title"
+            title="Lanes and proof you can open."
+            lead="Categories and inspectable examples — not a brand directory. Each card points to something I can design, connect, test, and explain."
+          />
+        </Reveal>
+
+        <StaggerContainer className="dtz-work-grid is-bento" staggerDelay={0.06}>
+          {workAreas.map((item) => {
             const Icon = item.icon
+            const isFeatured = "featured" in item && item.featured
 
             return (
               <motion.article
-                className="dtz-work-card"
+                className={`dtz-work-card dtz-card-interactive${isFeatured ? " is-featured" : ""}`}
                 key={item.title}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-                whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.45, ease: "easeOut", delay: index * 0.04 }}
+                variants={staggerItem}
+                whileHover={shouldReduceMotion ? {} : { y: -6 }}
               >
-                <div className="dtz-work-media">
-                  <Image src={item.image} alt="" width={900} height={640} />
+                {isFeatured ? (
+                  <span className="dtz-work-featured-badge" aria-hidden="true">
+                    Featured build
+                  </span>
+                ) : null}
+                <div className="dtz-work-media dtz-img-hover">
+                  <Image
+                    src={item.image}
+                    alt={isFeatured ? "Screenshot of the Hernandez Landscape website." : ""}
+                    width={900}
+                    height={640}
+                  />
                 </div>
                 <div className="dtz-work-copy">
                   <div className="dtz-work-label">
-                    <span>{item.label}</span>
-                    <Icon aria-hidden="true" />
+                    <motion.span
+                      whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                      className="dtz-tag-pop"
+                    >
+                      {item.label}
+                    </motion.span>
+                    <motion.span
+                      className="dtz-icon-bounce"
+                      whileHover={shouldReduceMotion ? {} : { rotate: 10 }}
+                    >
+                      <Icon aria-hidden="true" />
+                    </motion.span>
                   </div>
                   <h3>{item.title}</h3>
                   <p>{item.body}</p>
                   <ul className="dtz-tag-list" aria-label={`${item.title} tools and themes`}>
                     {item.tags.map((tag) => (
-                      <li key={tag}>{tag}</li>
+                      <motion.li
+                        key={tag}
+                        className="dtz-tag-pop"
+                        whileHover={shouldReduceMotion ? {} : { scale: 1.08, y: -2 }}
+                      >
+                        {tag}
+                      </motion.li>
                     ))}
                   </ul>
                   {"cta" in item && item.cta ? (
-                    <a className="dtz-card-link" href={item.cta.href}>
+                    <a className="dtz-card-link dtz-link-arrow" href={item.cta.href}>
                       {item.cta.label}
                       <ArrowUpRight aria-hidden="true" />
                     </a>
@@ -563,158 +681,219 @@ export default function HomePage() {
               </motion.article>
             )
           })}
-        </div>
+        </StaggerContainer>
       </section>
 
-      <section id="process" className="dtz-section" aria-labelledby="process-title">
-        <div className="dtz-section-heading">
-          <p className="dtz-section-label">Process</p>
-          <h2 id="process-title">How I keep projects grounded.</h2>
-          <p>
-            The common thread is verification. I would rather inspect the actual surface and make a smaller honest
-            improvement than write a big plan that never reaches the browser.
-          </p>
-        </div>
+      <div className="dtz-section-rule" aria-hidden="true" />
 
-        <div className="dtz-process-grid">
+      <section id="process" className="dtz-section" aria-labelledby="process-title">
+        <Reveal>
+          <SectionHeader
+            index="04"
+            label="Process"
+            titleId="process-title"
+            title="Grounded delivery, verified in the browser."
+            lead="Inspect the real surface first. Ship a working pass, then tighten — smaller honest improvements beat big plans that never ship."
+          />
+        </Reveal>
+
+        <StaggerContainer className="dtz-process-grid is-timeline" staggerDelay={0.1}>
           {processSteps.map((step, index) => {
             const Icon = step.icon
 
             return (
-              <article className="dtz-process-card" key={step.title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <Icon aria-hidden="true" />
+              <motion.article
+                className="dtz-process-card dtz-card-interactive"
+                key={step.title}
+                variants={staggerItem}
+                whileHover={shouldReduceMotion ? {} : { y: -4 }}
+              >
+                <span className="dtz-step-number">{String(index + 1).padStart(2, "0")}</span>
+                <motion.span
+                  className="dtz-icon-bounce"
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.15 }}
+                >
+                  <Icon aria-hidden="true" />
+                </motion.span>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
-              </article>
+              </motion.article>
             )
           })}
-        </div>
+        </StaggerContainer>
       </section>
 
-      <section id="stack" className="dtz-section dtz-stack-section" aria-labelledby="stack-title">
-        <div className="dtz-section-heading">
-          <p className="dtz-section-label">Stack</p>
-          <h2 id="stack-title">Tools behind the calm handoff.</h2>
-          <p>
-            Visitors should not have to care about the stack. I use it to make the finished setup fast, reliable,
-            secure enough for the job, and easier to maintain.
-          </p>
-        </div>
+      <div className="dtz-section-rule" aria-hidden="true" />
 
-        <div className="dtz-stack-grid">
+      <section id="stack" className="dtz-section dtz-stack-section" aria-labelledby="stack-title">
+        <Reveal>
+          <SectionHeader
+            index="05"
+            label="Stack"
+            titleId="stack-title"
+            title="Tools behind the calm handoff."
+            lead="Visitors should not have to care about the stack. I use it to make the finished setup fast, reliable, secure enough for the job, and easier to maintain."
+          />
+        </Reveal>
+
+        <StaggerContainer className="dtz-stack-grid" staggerDelay={0.08}>
           {stackGroups.map((group) => (
-            <article className="dtz-stack-group" key={group.title}>
+            <motion.article
+              className="dtz-stack-group dtz-card-interactive"
+              key={group.title}
+              variants={staggerItem}
+              whileHover={shouldReduceMotion ? {} : { y: -4 }}
+            >
               <h3>{group.title}</h3>
               <ul>
                 {group.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <motion.li
+                    key={item}
+                    whileHover={shouldReduceMotion ? {} : { x: 4 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {item}
+                  </motion.li>
                 ))}
               </ul>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </StaggerContainer>
       </section>
 
+      <div className="dtz-section-rule" aria-hidden="true" />
+
       <section id="notes" className="dtz-section dtz-notes-section" aria-labelledby="notes-title">
-        <div className="dtz-notes-layout">
+        <Reveal className="dtz-notes-layout is-editorial" direction="up">
           <div>
-            <p className="dtz-section-label">Operating notes</p>
+            <p className="dtz-section-label">
+              <span className="dtz-index-badge" aria-hidden="true">
+                06
+              </span>
+              Operating notes
+            </p>
             <h2 id="notes-title">What I&apos;m paying attention to right now.</h2>
-            <p>
+            <p className="dtz-section-lead">
               This is the living part of the portfolio: systems thinking, practical security habits, useful automation,
               and proof that survives beyond a sales conversation.
             </p>
           </div>
 
           <div className="dtz-notes-panel">
-            <Image src="/visuals/generated-lanes.webp" alt="" width={1774} height={887} />
-            <ul className="dtz-check-list">
+            <motion.div
+              className="dtz-img-hover"
+              style={{ borderRadius: "var(--dtz-radius-md)", overflow: "hidden" }}
+              whileHover={shouldReduceMotion ? {} : { scale: 1.01 }}
+            >
+              <Image src="/visuals/notes-map.svg" alt="" width={900} height={640} />
+            </motion.div>
+            <StaggerContainer as="ul" className="dtz-check-list is-editorial" staggerDelay={0.08}>
               {currentFocus.map((line) => (
-                <li key={line}>
+                <motion.li
+                  key={line}
+                  variants={staggerItem}
+                  whileHover={shouldReduceMotion ? {} : { x: 4, scale: 1.01 }}
+                >
                   <CheckCircle2 aria-hidden="true" />
                   <span>{line}</span>
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </StaggerContainer>
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      <section id="contact" className="dtz-contact dtz-overhaul-contact" aria-labelledby="contact-title">
-        <div>
-          <p className="dtz-section-label">Contact</p>
-          <h2 id="contact-title">Start a conversation about the work.</h2>
-          <p>
-            You do not need a polished brief. Send the project, the problem, the current link or file if you have one,
-            and what would make the next step useful. I keep the public contact path screened so the phone number is not
-            treated like an open spam target.
-          </p>
-        </div>
+      <div className="dtz-section-rule" aria-hidden="true" />
 
-        <div className="dtz-contact-panel">
-          <div className="dtz-contact-card">
-            <span>Best first message</span>
-            <p>What are you trying to build or fix, and what is the current state?</p>
+      <Reveal direction="up">
+        <section id="contact" className="dtz-contact dtz-overhaul-contact dtz-cta-ring is-editorial" aria-labelledby="contact-title">
+          <div className="dtz-contact-intro">
+            <p className="dtz-section-label">
+              <span className="dtz-index-badge" aria-hidden="true">
+                07
+              </span>
+              Contact
+            </p>
+            <h2 id="contact-title" className="dtz-contact-display">
+              Start with the project, the problem, or the link.
+            </h2>
+            <p className="dtz-section-lead">
+              No polished brief required. Tell me what you&apos;re building, what&apos;s broken, and what a useful next step looks like.
+            </p>
           </div>
-          <div className="dtz-contact-card dtz-contact-guard">
-            <span>Phone spam guard</span>
-            <ul>
-              {contactGuardrails.map((item) => (
-                <li key={item}>
-                  <ShieldCheck aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+
+          <div className="dtz-contact-panel">
+            <div className="dtz-contact-quick">
+              <motion.div variants={staggerItem} className="dtz-contact-quick-primary">
+                <ProtectedEmailLink
+                  className="dtz-button primary dtz-button-glow dtz-contact-primary-btn"
+                  subject="Project inquiry from davidtiz.com"
+                >
+                  <Mail aria-hidden="true" />
+                  <span>
+                    <strong>Email David</strong>
+                    <small>Best async path · hello@davidtiz.com on reveal</small>
+                  </span>
+                  <RevealedEmail className="sr-only" />
+                </ProtectedEmailLink>
+              </motion.div>
+              <motion.a
+                className="dtz-button secondary dtz-button-glow dtz-contact-primary-btn"
+                href="https://calendly.com/davidinfosec07"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <CalendarDays aria-hidden="true" />
+                <span>
+                  <strong>Book a call</strong>
+                  <small>Live conversation when timing matters</small>
+                </span>
+              </motion.a>
+            </div>
+            <motion.div
+              className="dtz-contact-card dtz-glass-panel"
+              whileHover={shouldReduceMotion ? {} : { scale: 1.02, y: -2 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <span>What to send</span>
+              <p>What you&apos;re trying to build or fix, plus the current link, file, or constraint if you have one.</p>
+            </motion.div>
+            <StaggerContainer className="dtz-contact-actions is-compact" staggerDelay={0.08}>
+              <motion.div variants={staggerItem}>
+                <a className="dtz-button secondary dtz-button-glow" href={contact.github} target="_blank" rel="noreferrer">
+                  GitHub
+                  <GithubIcon aria-hidden="true" />
+                </a>
+              </motion.div>
+              <motion.div variants={staggerItem}>
+                <Link className="dtz-button secondary dtz-button-glow" href="/contact">
+                  All contact paths
+                  <ArrowUpRight aria-hidden="true" />
+                </Link>
+              </motion.div>
+            </StaggerContainer>
           </div>
-          <div className="dtz-contact-actions">
-            <ProtectedWhatsAppLink
-              className="dtz-button primary"
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Message me on WhatsApp
-              <MessageCircle aria-hidden="true" />
-            </ProtectedWhatsAppLink>
-            <ProtectedWhatsAppLink
-              className="dtz-button secondary"
-              href="/contact/whatsapp?intent=callback"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Request a call-back
-              <MessageCircle aria-hidden="true" />
-            </ProtectedWhatsAppLink>
-            <a className="dtz-button secondary" href={`mailto:${contact.email}`}>
-              {contact.email}
-              <Mail aria-hidden="true" />
-            </a>
-            <a className="dtz-button secondary" href={contact.github} target="_blank" rel="noreferrer">
+        </section>
+      </Reveal>
+
+      <Reveal direction="up" delay={0.1}>
+        <footer className="dtz-footer">
+          <span className="dtz-footer-brand">
+            <strong>David Ortiz</strong>
+            <small>Websites and practical business systems.</small>
+          </span>
+          <span className="dtz-footer-links">
+            <ProtectedEmailLink>Email</ProtectedEmailLink>
+            <a href={contact.github} target="_blank" rel="noreferrer">
               GitHub
-              <GithubIcon aria-hidden="true" />
             </a>
-          </div>
-        </div>
-      </section>
-
-      <footer className="dtz-footer">
-        <span>David Ortiz</span>
-        <span className="dtz-footer-links">
-          <ProtectedWhatsAppLink href={whatsappHref} target="_blank" rel="noreferrer">
-            WhatsApp
-          </ProtectedWhatsAppLink>
-          <a href={`mailto:${contact.email}`}>Email</a>
-          <a href={contact.github} target="_blank" rel="noreferrer">
-            GitHub
-          </a>
-          <Link href="/contact">All contact paths</Link>
-          <Link href="/portfolio">Portfolio</Link>
-          <Link href="/writeups">Writeups</Link>
-          <Link href="/privacy">Privacy</Link>
-        </span>
-      </footer>
+            <Link href="/contact">All contact paths</Link>
+            <Link href="/portfolio">Portfolio</Link>
+            <Link href="/writeups">Writeups</Link>
+            <Link href="/privacy">Privacy</Link>
+          </span>
+        </footer>
+      </Reveal>
 
       <AIAssistant />
     </div>

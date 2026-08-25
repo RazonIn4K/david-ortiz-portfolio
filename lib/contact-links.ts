@@ -1,8 +1,31 @@
+import { contact } from "@/data/content"
+
 export type ContactLink = {
   id: string
   label: string
   href: string
   description: string
+}
+
+export const calendlyHref = "https://calendly.com/davidinfosec07"
+
+export function getContactEmailParts(): { user: string; domain: string } {
+  const at = contact.email.indexOf("@")
+  if (at <= 0) {
+    throw new Error("Invalid contact.email")
+  }
+  return {
+    user: contact.email.slice(0, at),
+    domain: contact.email.slice(at + 1),
+  }
+}
+
+export function buildContactMailto(
+  subject?: string,
+  parts: { user: string; domain: string } = getContactEmailParts(),
+): string {
+  const addr = `${parts.user}@${parts.domain}`
+  return subject ? `mailto:${addr}?subject=${encodeURIComponent(subject)}` : `mailto:${addr}`
 }
 
 export const socialProfileLinks = [
@@ -17,15 +40,9 @@ export const socialProfileLinks = [
 
 export const quickReachLinks: ContactLink[] = [
   {
-    id: "whatsapp",
-    label: "WhatsApp",
-    href: "/contact/whatsapp?intent=portfolio",
-    description: "Start with a screened, context-first message that keeps the phone out of public pages.",
-  },
-  {
     id: "email",
     label: "Email",
-    href: "mailto:hello@davidtiz.com",
+    href: "#",
     description: "Best async path for introductions, follow-up, and project questions.",
   },
   {
