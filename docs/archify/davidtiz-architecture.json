@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "davidtiz.com Personal Proof Site",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1200,
+      860
+    ],
+    "views": [
+      {
+        "id": "public-pages",
+        "label": "Public proof pages",
+        "focus": [
+          "visitor",
+          "vercel-cdn",
+          "nextjs-pages"
+        ],
+        "note": "Visitor HTTPS hits Vercel CDN, then Next.js App Router public pages."
+      },
+      {
+        "id": "whatsapp-gate",
+        "label": "Gated WhatsApp lane",
+        "focus": [
+          "nextjs-pages",
+          "whatsapp-gate",
+          "abuse-store",
+          "meta",
+          "n8n"
+        ],
+        "note": "Challenge-validated WhatsApp redirect plus HMAC webhook forward to n8n."
+      },
+      {
+        "id": "chat-guide",
+        "label": "Standalone /api/chat",
+        "focus": [
+          "nextjs-pages",
+          "api-chat",
+          "abuse-store",
+          "openrouter"
+        ],
+        "note": "POST /api/chat is rate-limited and not mounted on the homepage."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "visitor",
+      "type": "frontend",
+      "label": "Visitor",
+      "sublabel": "Browser",
+      "pos": [
+        40,
+        372
+      ],
+      "size": [
+        128,
+        58
+      ]
+    },
+    {
+      "id": "vercel-cdn",
+      "type": "cloud",
+      "label": "Vercel CDN",
+      "sublabel": "Analytics + headers",
+      "brand": "vercel",
+      "pos": [
+        236,
+        366
+      ],
+      "size": [
+        160,
+        68
+      ]
+    },
+    {
+      "id": "nextjs-pages",
+      "type": "frontend",
+      "label": "Next.js App Router",
+      "sublabel": "public pages",
+      "brand": "next-js",
+      "pos": [
+        468,
+        358
+      ],
+      "size": [
+        220,
+        80
+      ]
+    },
+    {
+      "id": "whatsapp-gate",
+      "type": "security",
+      "label": "WhatsApp Challenge",
+      "sublabel": "/contact/whatsapp",
+      "brand": "whatsapp",
+      "tag": "gated",
+      "pos": [
+        468,
+        72
+      ],
+      "size": [
+        220,
+        72
+      ]
+    },
+    {
+      "id": "api-chat",
+      "type": "backend",
+      "label": "POST /api/chat",
+      "sublabel": "not on homepage",
+      "pos": [
+        468,
+        620
+      ],
+      "size": [
+        220,
+        68
+      ]
+    },
+    {
+      "id": "abuse-store",
+      "type": "database",
+      "label": "Upstash / memory",
+      "sublabel": "lib/abuse-store",
+      "pos": [
+        768,
+        366
+      ],
+      "size": [
+        176,
+        68
+      ]
+    },
+    {
+      "id": "openrouter",
+      "type": "external",
+      "label": "OpenRouter",
+      "sublabel": "model fallback",
+      "brand": "openrouter",
+      "pos": [
+        768,
+        620
+      ],
+      "size": [
+        176,
+        68
+      ]
+    },
+    {
+      "id": "n8n",
+      "type": "messagebus",
+      "label": "n8n",
+      "sublabel": "N8N_WEBHOOK_URL",
+      "pos": [
+        768,
+        80
+      ],
+      "size": [
+        176,
+        64
+      ]
+    },
+    {
+      "id": "meta",
+      "type": "external",
+      "label": "Meta",
+      "sublabel": "Graph + wa.me",
+      "brand": "meta",
+      "pos": [
+        1000,
+        80
+      ],
+      "size": [
+        140,
+        64
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Public Internet",
+      "wraps": [
+        "visitor"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Vercel Edge",
+      "wraps": [
+        "vercel-cdn"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Next.js App",
+      "wraps": [
+        "nextjs-pages",
+        "whatsapp-gate",
+        "api-chat"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "External APIs",
+      "wraps": [
+        "abuse-store",
+        "openrouter",
+        "n8n",
+        "meta"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "visitor-cdn",
+      "from": "visitor",
+      "to": "vercel-cdn",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cdn-pages",
+      "from": "vercel-cdn",
+      "to": "nextjs-pages",
+      "label": "App Router",
+      "variant": "emphasis"
+    },
+    {
+      "id": "pages-whatsapp",
+      "from": "nextjs-pages",
+      "to": "whatsapp-gate",
+      "label": "GET /contact/whatsapp",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "pages-chat",
+      "from": "nextjs-pages",
+      "to": "api-chat",
+      "label": "POST /api/chat",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "labelDy": 24
+    },
+    {
+      "id": "whatsapp-store",
+      "from": "whatsapp-gate",
+      "to": "abuse-store",
+      "label": "challenge + replay",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "chat-store",
+      "from": "api-chat",
+      "to": "abuse-store",
+      "label": "15/min/IP",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "chat-openrouter",
+      "from": "api-chat",
+      "to": "openrouter",
+      "label": "OpenRouter API",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "whatsapp-meta",
+      "from": "whatsapp-gate",
+      "to": "meta",
+      "label": "302 wa.me",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "top"
+    },
+    {
+      "id": "meta-whatsapp",
+      "from": "meta",
+      "to": "whatsapp-gate",
+      "label": "HMAC webhook",
+      "variant": "security",
+      "fromSide": "bottom",
+      "toSide": "right",
+      "labelDy": 46
+    },
+    {
+      "id": "whatsapp-n8n",
+      "from": "whatsapp-gate",
+      "to": "n8n",
+      "label": "forwardToN8n",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "top"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Public proof",
+      "items": [
+        "Indexed pages: /, /contact, /portfolio, /writeups, /privacy",
+        "POST /api/chat remains available but is not mounted on the homepage"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "WhatsApp is gated",
+      "items": [
+        "GET /contact/whatsapp/challenge issues a token + HttpOnly cookie",
+        "Redirect requires matching cookie, unused token, score < 6, then 302 to wa.me"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "External APIs",
+      "items": [
+        "OpenRouter serves /api/chat after 15/min/IP via Upstash or memory",
+        "Meta HMAC webhooks forward to n8n; Embedded Signup stays admin-gated"
+      ]
+    }
+  ]
+}
