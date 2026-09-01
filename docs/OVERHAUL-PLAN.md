@@ -14,7 +14,7 @@ Editorial refresh checkpoint: 2026-08-25. This supersedes the public-contact and
 > ecosystem-era docs archived to `docs/archive/` (D4). CI was recorded as green. This
 > Phase 0 review did not reverify either hosted state or those provider-era observations.
 Role in portfolio strategy: **personal home base — finish and protect the boundary; no major overhaul needed.**
-Cross-repo governance: the canonical portfolio decision and contract live in the `RazonIn4K/razonworks` repository at `docs/adr/0039-portfolio-brand-and-content-ownership.md`, `docs/brand/portfolio-charter.md`, and `docs/brand/content-ownership-ledger.md`. If this historical plan conflicts with those documents or `docs/BRAND-BOUNDARY.md`, pause public changes and reconcile the documents before implementation.
+Current cross-repo governance: the active RazonWorks source boundary is `/Users/davidortiz/Git-Projects/razonworks-studio/docs/repository-boundary.md`. The former broad-platform governance set referenced when this plan was written is archived historical evidence, not current product requirements. If this historical plan conflicts with that boundary or `docs/BRAND-BOUNDARY.md`, pause public changes and reconcile the documents before implementation.
 
 ---
 
