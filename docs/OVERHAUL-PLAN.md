@@ -190,8 +190,8 @@ brand-boundary decision (2026-06). Do not delete — they are useful history.
 
 - Do not add a sibling-brand directory, ecosystem nav, or High Encode service CTA.
 - Do not make RazonWorks primary navigation or reproduce its service catalog here. A future RazonWorks handoff must stay contextual and secondary.
-- Prompt Defenders and Razon Live Lab may appear only as individual proof cards
-  for David's own work.
+- Current public projects may appear only as individual proof cards for David's
+  own work; archived projects must not be featured.
 - Do not restyle `/pay`, `/pagar`, or `public/demo/*` into the dtz design system.
 - Do not move the public `contact` object out of `data/content.ts` into env vars
   (explicit existing constraint).

@@ -19,3 +19,12 @@ Archived 2026-06-10:
   it predates the June 2026 hardening/design stack (it still references the
   removed `/design-system` route). Current verification lives in CI plus the
   scheduled uptime check.
+
+Archived 2026-09-02:
+
+- `visuals/ecosystem-layer-map.svg`
+- `visuals/proof-asset-gallery.svg`
+
+These two CSBrainAI-era diagrams were moved out of `public/visuals/` so the
+historical files remain available without being deployed as current portfolio
+assets.

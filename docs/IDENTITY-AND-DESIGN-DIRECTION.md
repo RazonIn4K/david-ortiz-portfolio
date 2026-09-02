@@ -124,7 +124,9 @@ Services live on RazonWorks, not here. After the intended destination exists and
 - High Encode Learning = education, learning paths, tutorials, and learner support. It is not the business-services destination.
 - Razon Lab = the experimental research arm of RazonWorks. Full methods, environments, results, limitations, and artifacts belong there. A coordinated RazonWorks implementation branch now contains local source for `/lab` and `/es/lab`; hosted behavior and the standalone-domain redirect remain unverified and incomplete.
 - The bridge: after a verified RazonWorks destination exists, one restrained, secondary business handoff may link to it. Personal contact remains available for employment, collaboration, speaking, referrals, and peer contact.
-- Razon Lab, PromptDefenders, and csbrainai may appear here only as selected-work evidence, never as a brand directory.
+- Current public projects such as Prompt Defenders, Tomodachi, and Hernandez
+  Landscape may appear here only as selected-work evidence; archived projects
+  must not be featured.
 
 ## 11. Showing proof-of-work without overwhelming
 
